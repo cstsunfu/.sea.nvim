@@ -60,6 +60,12 @@ nnoremap <leader>fs :Startify<cr>
 
 
 "=====================================================================================================
+"h history
+nnoremap <leader>ht :UndotreeToggle<cr>
+
+
+
+"=====================================================================================================
 "l
 nnoremap <leader>ll :Limelight<cr>
 nnoremap <leader>LL :Limelight!<cr>
@@ -68,7 +74,7 @@ nnoremap <leader>p "+p
 
 "=====================================================================================================
 nnoremap <leader>qq :q<cr>
-nnoremap <leader>qa :qa<cr>
+nnoremap <leader>qa :qa!<cr>
 
 "=====================================================================================================
 "speeddate_con
@@ -146,7 +152,7 @@ vnoremap <leader>y "+y
 
 "F+num
 "刷新
-nnoremap <f5> <esc> :edit %<cr>
+nnoremap <f6> <esc> :edit %<cr>
 "将外部命令wmctrl控制窗口最大化命令行参数封装成一个vim函数
 fun! ToggleFullscreen()
     call system("vmctrl -ir" . v:windowid . " -b toggle,fullscreen")
