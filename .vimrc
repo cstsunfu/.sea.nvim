@@ -43,9 +43,9 @@ set background=dark
 "let g:gruvbox_vert_split='dark2'
 "colorscheme molokai
 "colorscheme violet
-colorscheme gruvbox
-"colorscheme space-vim-dark
-"let g:space_vim_dark_background = 234
+"colorscheme gruvbox
+colorscheme space-vim-dark
+"let g:space_vim_dark_background = 232
 "hi Comment cterm=italic
 "colorscheme spacemacs-theme
 "colorscheme NeoSolarized
@@ -65,8 +65,14 @@ set nocompatible "禁用vi兼容
 set shortmess+=c
 set relativenumber
 set number  "行号显示
-set cursorline
-set cursorcolumn
+
+augroup Smarter_cursorline
+    autocmd!
+    autocmd InsertLeave,WinEnter,VimEnter * set cursorline
+    autocmd InsertLeave,WinEnter,VimEnter * set cursorcolumn
+    autocmd InsertEnter,WinLeave * set nocursorline
+    autocmd InsertEnter,WinLeave * set nocursorcolumn
+augroup END
 syntax enable    "开启语法高亮
 syntax on        "允许制定语法高亮替换默认的        
 set autoindent "自动缩进
@@ -127,6 +133,12 @@ set guioptions-=L   "隐藏左侧滚动条
 
 call plug#begin('~/.vim/plugged')
 "git
+"Plug 'vim-scripts/VimIM'
+Plug 'tpope/vim-jdaddy'
+Plug 'goerz/ipynb_notedown.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'sheerun/vim-polyglot' "多语言语法支持
+let g:polyglot_disabled = ['latex']
 Plug 'airblade/vim-gitgutter', {'on' : 'GitGutterEnable'}
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-fugitive'
@@ -139,6 +151,7 @@ Plug 'junegunn/limelight.vim' " light the cursor
 Plug 'sk1418/HowMuch' "calculate <leader>?= , <leader>b?  for bc  <leader>p? for python <leader>v? for vim , <leader>?s  appedn the answer, <leader><leader>? for replace,<leader><leader>?s for replace and append,<leader>?=s for append twice
 Plug 'mhinz/vim-startify'  " my start page
 Plug 'idanarye/vim-vebugger'    "需要vimproc支持 支持很多的语言的debug  vim-debugger
+Plug 'joonty/vdebug'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'houtsnip/vim-emacscommandline' "commandline  map  emacs
 Plug 'metakirby5/codi.vim'          "caculate the code on the right side use neovim
@@ -146,16 +159,20 @@ Plug 'richq/vim-cmake-completion'
 Plug 'tpope/vim-abolish'    "enhance  the search by using command 'S' ex. :%S/P{erson,eople}/User{.s}/g
 "colorscheme
 Plug 'iCyMind/NeoSolarized' "color scheme
+Plug 'joshdick/onedark.vim'
 Plug 'altercation/vim-colors-solarized'    "solarized配色
 Plug 'ashfinal/vim-colors-violet'   "colorscheme violet
 Plug 'morhetz/gruvbox'          "spacevim colorscheme
 Plug 'colepeters/spacemacs-theme.vim'          "spacemacs colorscheme
+Plug 'ajmwagar/vim-deus'
 Plug 'liuchengxu/space-vim-dark'        "spacemacs colorscheme
 Plug 'tomasr/molokai' "molokai
 Plug 'vim-scripts/DrawIt' "画图插件
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular' "快捷对齐 tabular_con
 "vim-org
+Plug 'phb1/gtd.vim'
+Plug 'wakatime/vim-wakatime'
 Plug 'vim-scripts/SyntaxRange'  "suntax highlighting for code blocks
 Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
@@ -168,11 +185,11 @@ Plug 'tpope/vim-speeddating' "配合org-mode 快速日期操作，sd_con
 Plug 'itchyny/calendar.vim'  "calendar
 
 Plug 'Shougo/denite.nvim'
-Plug 'Shougo/unite.vim'   " unite  ,,,,have not learn
+Plug 'Shougo/unite.vim'   " unite  
 Plug 'ujihisa/unite-colorscheme'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'neoclide/todoapp.vim'
+"Plug 'neoclide/todoapp.vim'
 "Plug 'sgur/unite-everything'
 
 Plug 'terryma/vim-multiple-cursors' "multi_cur_con
@@ -205,15 +222,21 @@ Plug 'kshenoy/vim-signature'    "显示书签标记 m+字母标记 `+书签标�
 "书签跳转。mn，按行号前后顺序，跳转至下个独立书签；mp，按行号前后顺序，跳转至前个独立书签。书签跳转方式很多，除了这里说的行号前后顺序，还可以基于书签名字母顺序跳转、分类书签同类跳转、分类书签不同类间跳转等等。 
 Plug 'majutsushi/tagbar'    "基于标签的标识符列表插件 配置见tagbar_configure
 "Plug 'tenfyzhong/CompleteParameter.vim'         "配合ycm使用
+"inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+"smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+"imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+"smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+"imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
 function! BuildYCM(info)
    if a:info.status == 'installed' || a:info.force
        !./install.sh
    endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-Plug 'rkulla/pydiction' "补全特定python库
-Plug 'tenfyzhong/CompleteParameter.vim'
-Plug 'w0rp/ale'     "syntax check
+"Plug 'rkulla/pydiction' "补全特定python库
+"Plug 'tenfyzhong/CompleteParameter.vim'
+"Plug 'w0rp/ale'     "syntax check
 Plug 'vim-scripts/DfrankUtil'     "indexer depend on
 Plug 'vim-scripts/vimprj'            "indexer depend on
 Plug 'vim-scripts/indexer.tar.gz' "Plugin indexer  自动生成标签用的
@@ -226,7 +249,10 @@ Plug 'lilydjwg/fcitx.vim'   "中文输入加持，需要将ttimeoutlen设置为�
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'ryanoasis/vim-devicons'
+Plug 'dracula/vim' "theme
+Plug 'kristijanhusak/vim-hybrid-material' "theme
+Plug 'sonph/onehalf', {'rtp': 'vim/'} "theme
+Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 
@@ -462,6 +488,7 @@ let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
+let NERDTreeIgnore=['\.o$','\.hi', '\.docs$', '\.doc$', '\.pdf$', '\~$']
 
 
 "airline
@@ -472,7 +499,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-"let g:airline_theme='dark'
+let g:airline_theme='onedark'
 "let g:airline_theme='base16'
 let g:airline#extensions#ale#enabled = 1    "ale error or warning
 "airline set the window number
@@ -576,3 +603,37 @@ nnoremap <F3> i<esc>:w !python3 %<cr>
 let g:tex_flavor='latex'
 let g:Tex_CompileRule_pdf = 'latex $*'
 let g:Tex_ViewRule_pdf = 'evince'
+set mouse=a
+
+"gtd
+let g:gtd#dir = '~/.vim/notes'
+let g:gtd#default_context = 'work'
+let g:gtd#default_action = 'todo'
+let g:gtd#review = [
+    \ '(!inbox + !scheduled-'.strftime("%Y%m%d").') @work',
+    \ '!todo @work',
+    \ '!waiting @work',
+    \ ]
+nnoremap <Leader>oa :Gtd @work (!inbox + !scheduled-<C-R>=strftime("%Y%m%d")<CR>)<CR>
+nnoremap <Leader>on :GtdNew<CR>
+
+
+"easymotion
+
+" <Leader>f{char} to move to {char}
+map  <Leader>mf <Plug>(easymotion-bd-f)
+nmap <Leader>mf <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>ml <Plug>(easymotion-bd-jk)
+nmap <Leader>ml <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>mw <Plug>(easymotion-bd-w)
+nmap <Leader>mw <Plug>(easymotion-overwin-w)
+
+
+
