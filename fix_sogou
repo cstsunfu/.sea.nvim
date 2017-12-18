@@ -1,0 +1,1 @@
+pgrep 'fcitx|sogou'| xargs kill -9
