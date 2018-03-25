@@ -1,5 +1,6 @@
 "vimwiki
 let g:vimwiki_map_prefix='<leader>o'
+"let g:vimwiki_listsyms = '✗○◐●✓'
 let g:vimwiki_folding='list'
 let g:vimwiki_folding+='expr'
 let g:vimwiki_folding+='syntax'
@@ -7,6 +8,12 @@ let g:vimwiki_hl_headers=1
 let g:vimwiki_hl_cb_checked=2
 "let g:vimwiki_html_header_numbering_sym = ' '
 "let g:vimwiki_html_header_numbering = 2
+hi VimwikiHeader1 guifg=#FF0000
+hi VimwikiHeader2 guifg=#00FF00
+hi VimwikiHeader3 guifg=#0000FF
+hi VimwikiHeader4 guifg=#FF00FF
+hi VimwikiHeader5 guifg=#00FFFF
+hi VimwikiHeader6 guifg=#FFFF00
 
 
 
@@ -17,6 +24,7 @@ nnoremap <Leader>dy :VimwikiMakeYesterdayDiaryNote<cr>
 nnoremap <Leader>di :VimwikiDiaryIndex<cr>
 nnoremap <Leader>dg :VimwikiDiaryGenerateLinks<cr>
 
+map <leader>; <Plug>VimwikiToggleListItem
 "format convert
 nnoremap <Leader>ch :Vimwiki2HTML<cr>
 nnoremap <Leader>cH :Vimwiki2HTMLBrowse<cr>

@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/sun/.vim/plugged/vim-ipython_py3'
+let g:netrw_dirhist_2='/home/sun/.vim/plugged/vim-ipython_py3/ftplugin'
+let g:netrw_dirhist_3='/home/sun/.vim/plugged/vim-ipython_py3/ftplugin/python'
+let g:netrw_dirhist_4='/home/sun/.vim/plugged/vim-ipython_py3'
+let g:netrw_dirhist_5='/home/sun/.vim/plugged/vim-ipython_py3/ftplugin'
+let g:netrw_dirhist_6='/home/sun/.vim/plugged/vim-ipython_py3/ftplugin/python'
+let g:netrw_dirhist_7='/home/sun/Pictures'
