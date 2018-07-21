@@ -1,3 +1,8 @@
+" File              : vim_unite.vim
+" Author            : Sun Fu <cstsunfu@gmail.com>
+" Date              : 26.03.2018
+" Last Modified Date: 26.03.2018
+" Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 "Unite
 let mapleader=';'
 "nnoremap <leader>uu :<C-u>Unite -direction=below -start-insert line<CR>
@@ -64,6 +69,7 @@ unlet s:m s:insert_mode_mappings s:normal_mode_mappings
 "Denite
 nnoremap <leader>uu :<C-u>Denite  line<CR>
 nnoremap <leader>uf :<C-u>Denite  file buffer file_rec<CR>
+nnoremap <leader>ub :<C-u>Denite  buffer<CR>
 nnoremap <leader>um :<C-u>Denite  unite:mapping<cr>
 nnoremap <leader>uc :<C-u>Denite  colorscheme<cr>
 nnoremap <leader>ur :<C-u>Denite  file_mru buffer<cr>

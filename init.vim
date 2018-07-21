@@ -1,14 +1,15 @@
 " File              : init.vim
 " Author            : Sun Fu <cstsunfu@gmail.com>
-" Date              : 10.03.2018
-" Last Modified Date: 25.03.2018
+" Date              : 20.06.2018
+" Last Modified Date: 21.07.2018
 " Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 set runtimepath^=~/.vim/myplugin
 let &packpath = &runtimepath
 let &rtp  = '~/.vim/plugged/vimtex,' . &rtp
 let &rtp .= ',~/.vim/plugged/vimtex/after'
-let g:python3_host_prog = '/home/sun/anaconda3/bin/python3'
+let g:python3_host_prog = '/Users/sun/anaconda3/bin/python3'
+let g:python2_host_prog = '/usr/bin/python2.7'
 source ~/.vim/myplugin/configure/default.vim
 "=============================================================================================================
 "normal configure
@@ -19,7 +20,7 @@ source ~/.vim/myplugin/configure/default.vim
     augroup Smarter_cursorline
         autocmd!
         autocmd InsertLeave,WinEnter,VimEnter * set cursorline
-        autocmd InsertLeave,WinEnter,VimEnter * set cursorcolumn
+        "autocmd InsertLeave,WinEnter,VimEnter * set cursorcolumn
         autocmd InsertEnter,WinLeave * set nocursorline
         autocmd InsertEnter,WinLeave * set nocursorcolumn
     augroup END
@@ -36,10 +37,11 @@ source ~/.vim/myplugin/configure/default.vim
         "autocmd FILETYPE vimwiki,markdown source ~/.vim/myplugin/configure/vimwiki.vim
         "需要安装pip3 install yapf 格式化代码工具
         autocmd FileType python nnoremap <Leader>= :0,$!yapf<CR>
+        autocmd VimEnter * exe "NERDTreeToggle|wincmd h|TagbarToggle"
         autocmd FileType calendar nmap <buffer> <CR>
                     \ :<C-u>call vimwiki#diary#calendar_action(b:calendar.day().get_day(), b:calendar.day().get_month(), b:calendar.day().get_year(), b:calendar.day().week(), "V")<CR>
         "autocmd VimEnter,BufRead * silent exec "hi nontext ctermfg=bg guifg=bg cterm=NONE gui=NONE"
-        autocmd VimEnter,BufRead * silent exec "hi Normal guibg=NONE ctermbg=NONE"
+        "autocmd VimEnter,BufRead * silent exec "hi Normal guibg=NONE ctermbg=NONE"
     augroup END
 "=============================================================================================================
 
@@ -51,15 +53,15 @@ source ~/.vim/myplugin/configure/default.vim
     noremap <C-right>       :colorscheme violet<cr>
 
     let python_highlight_all = 1
-    set background=light
+    set background=dark
     let themes = ['gruvbox', 'space-vim-dark']
-    execute 'colorscheme '.themes[localtime() % len(themes)]
-    unlet themes
+    "execute 'colorscheme '.themes[localtime() % len(themes)]
+    "unlet themes
     "let g:gruvbox_vert_split='dark2'
     "colorscheme molokai
     "colorscheme violet
-    "colorscheme gruvbox
-    colorscheme space-vim-dark
+    colorscheme gruvbox
+    "colorscheme space-vim-dark
     "let g:space_vim_dark_background = 232
     "hi Comment cterm=italic
     "colorscheme spacemacs-theme
@@ -68,12 +70,10 @@ source ~/.vim/myplugin/configure/default.vim
     "colorscheme monokai
 "================================================================================================================
 call plug#begin('~/.vim/plugged')
+    Plug 'scrooloose/nerdcommenter'    "快速注释插件 配置见 ner_con
+
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
     Plug 'sophAi/vim-ipython_py3',{'for': 'python'}
-    Plug 'xuhdev/vim-latex-live-preview',{'for': 'tex'}
-        let g:livepreview_previewer = 'evince'
-        let g:livepreview_engine = 'xelatex'
-        set updatetime=1000
     Plug 'AndrewRadev/linediff.vim' , { 'on': [ 'Linediff', 'LinediffReset' ] }
     Plug 'easymotion/vim-easymotion'
     Plug 'sheerun/vim-polyglot' "多语言语法支持
@@ -92,6 +92,29 @@ call plug#begin('~/.vim/plugged')
       endif
     endfunction
     Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+    Plug 'xuhdev/vim-latex-live-preview',{'for': 'tex'}
+        let g:livepreview_previewer = 'open'
+        let g:livepreview_engine = 'xelatex'
+        set updatetime=1000
+    Plug 'plasticboy/vim-markdown'
+    Plug 'mzlogin/vim-markdown-toc'
+    Plug 'lervag/vimtex'
+        ""vimtex
+        "let g:vimtex_quickfix_ignored_warnings   = []
+        ""      \ 'Underfull',
+        ""      \ 'Overfull',
+        ""      \ 'specifier changed to',
+        ""      \ 'Package mpgraphics Warning',
+        ""       \]
+        let g:tex_flavor                          = 'latex'
+        let g:vimtex_quickfix_mode             = 2
+        let g:vimtex_latexmk_options              = '-xelatex -verbose -file-line-error -synctex=1 -shell-escape -interaction=nonstopmode' 
+        let g:vimtex_view_general_viewer          = 'open'
+        "let g:vimtex_view_general_options         = '-reuse-instance -inverse-search "\"' . $VIMRUNTIME . '\gvim.exe\" -n --remote-silent +\%l \"\%f\"" -forward-search @tex @line @pdf'
+        let g:vimtex_compiler_method = 'latexmk'
+        "let g:vimtex_view_general_options_latexmk = '-reuse-instance'
+        let g:vimtex_compiler_progname = 'nvr'
+
     Plug 'mbbill/undotree',{'on':'UndotreeToggle'}  "undo tree
     Plug 'dyng/ctrlsf.vim'  "ctrlsf from sublime text
     Plug 'junegunn/limelight.vim' " light the cursor
@@ -124,27 +147,25 @@ call plug#begin('~/.vim/plugged')
                     \ ]
     Plug 'wakatime/vim-wakatime'
     Plug 'vim-scripts/SyntaxRange'  "suntax highlighting for code blocks
-    Plug 'plasticboy/vim-markdown'
-    Plug 'mzlogin/vim-markdown-toc'
     Plug 'vimwiki/vimwiki'  "vimwiki
     Plug 'powerman/vim-plugin-AnsiEsc'
-    Plug 'blindFS/vim-taskwarrior'
-    Plug 'tbabej/taskwiki'
-        "vimwiki
-        "let g:vimwiki_list = [{'path': '~/vimwiki/',
-        "\ 'syntax': 'markdown', 'ext': '.wiki'}]
-        let wiki_1 = {}
-        let wiki_1.path = '~/vimwiki/'
-        let wiki_1.auto_tags = 1
-        let wiki_1.syntax='markdown'
-        let wiki_1.ext='.md'
-        let wiki_1.html_template = '~/public_html/template.tpl'
-        let wiki_1.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+    "Plug 'blindFS/vim-taskwarrior'
+    "Plug 'tbabej/taskwiki'
+        ""vimwiki
+        ""let g:vimwiki_list = [{'path': '~/vimwiki/',
+        ""\ 'syntax': 'markdown', 'ext': '.wiki'}]
+        "let wiki_1 = {}
+        "let wiki_1.path = '~/vimwiki/'
+        "let wiki_1.auto_tags = 1
+        "let wiki_1.syntax='markdown'
+        "let wiki_1.ext='.md'
+        "let wiki_1.html_template = '~/public_html/template.tpl'
+        "let wiki_1.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
 
-        let wiki_2 = {}
-        let wiki_2.path = '~/project_docs/'
-        let wiki_2.index = 'main'
-        let g:vimwiki_list = [wiki_1, wiki_2]
+        "let wiki_2 = {}
+        "let wiki_2.path = '~/project_docs/'
+        "let wiki_2.index = 'main'
+        "let g:vimwiki_list = [wiki_1, wiki_2]
 
     Plug 'vim-scripts/utl.vim'  "universal text link
     Plug 'tpope/vim-repeat'     "repeat some action which is not suported as standard vim
@@ -164,28 +185,19 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-scripts/Auto-Pairs'
 
     Plug 'Yggdroot/indentLine'
-    "Plug 'nathanaelkane/vim-indent-guides'  "代码缩进关联插件，即同一级的代码关联  indent_con
-        ""indent_con配置
-        ""随vim自启动
-        "let g:indent_guides_enable_on_vim_startup=1
-        ""从第二层开始可视化显示缩进
-        "let g:indent_guides_start_level=2
-        ""色块宽度
-        "let g:indent_guides_guide_size=1
-        ""快捷键i 开/关缩进可视化
-        "nnoremap <silent> <leader>ii :IndentGuidesToggle<cr>
-        "let g:indent_guides_exclude_filetypes = ['help', 'calendar', 'startify', 'none', 'nerdtree']
+        " 与latex有冲突，该插件会使tex文件的数学符号直接显示出来
+        let g:indentLine_fileTypeExclude = ['tex']
     Plug 'ianva/vim-youdao-translater',{'on':'Yde'}    "trans_con  youdao dictionary
     Plug 'SirVer/ultisnips'    "usnip_con
-            "ultisnips
-            " UltiSnips 的 tab 键与 YCM 冲突，重新设定
-            let g:UltiSnipsExpandTrigger="<leader><tab>"
-            let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
-            let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
-            let g:snips_author= 'Sun Fu'
-            let g:snips_email= 'cstsunfu@gmail.com'
-            let g:snips_github= 'https://github.com/cstsunfu'
-            let g:snips_wechat= 'cstsunfu'
+        "ultisnips
+        " UltiSnips 的 tab 键与 YCM 冲突，重新设定
+        let g:UltiSnipsExpandTrigger="<leader><tab>"
+        let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+        let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+        let g:snips_author= 'Sun Fu'
+        let g:snips_email= 'cstsunfu@gmail.com'
+        let g:snips_github= 'https://github.com/cstsunfu'
+        let g:snips_wechat= 'cstsunfu'
     Plug 'cstsunfu/vim-snippets'
     Plug 'ervandew/supertab'    "supertab 
     Plug 'octol/vim-cpp-enhanced-highlight',{'for':'cpp'} "cpp高亮加强查件
@@ -199,27 +211,10 @@ call plug#begin('~/.vim/plugged')
     " 书签设定。mx，设定/取消当前行名为 x 的标签；m,，自动设定下一个可用书签名，前面提说，独立书签名是不能重复的，在你已经有了多个独立书签，当想再设置书签时，需要记住已经设定的所有书签名，否则很可能会将已有的书签冲掉，这可不好，所以，vim-signature 为你提供了 m, 快捷键，自动帮你选定下一个可用独立书签名；mda，删除当前文件中所有独立书签。
     "书签罗列。m?，罗列出当前文件中所有书签，选中后回车可直接跳转；
     "书签跳转。mn，按行号前后顺序，跳转至下个独立书签；mp，按行号前后顺序，跳转至前个独立书签。书签跳转方式很多，除了这里说的行号前后顺序，还可以基于书签名字母顺序跳转、分类书签同类跳转、分类书签不同类间跳转等等。 
-    Plug 'lervag/vimtex'
-        ""vimtex
-        "let g:vimtex_quickfix_ignored_warnings   = []
-        ""      \ 'Underfull',
-        ""      \ 'Overfull',
-        ""      \ 'specifier changed to',
-        ""      \ 'Package mpgraphics Warning',
-        ""       \]
-        let g:tex_flavor                          = 'latex'
-        let g:vimtex_quickfix_mode             = 2
-        let g:vimtex_latexmk_options              = '-xelatex -verbose -file-line-error -synctex=1 -shell-escape -interaction=nonstopmode' 
-        let g:vimtex_view_general_viewer          = 'evince'
-        "let g:vimtex_view_general_options         = '-reuse-instance -inverse-search "\"' . $VIMRUNTIME . '\gvim.exe\" -n --remote-silent +\%l \"\%f\"" -forward-search @tex @line @pdf'
-        let g:vimtex_compiler_method = 'latexmk'
-        "let g:vimtex_view_general_options_latexmk = '-reuse-instance'
-        let g:vimtex_compiler_progname = 'nvr'
     Plug 'vim-scripts/DfrankUtil'     "indexer depend on
     Plug 'vim-scripts/vimprj'            "indexer depend on
     Plug 'vim-scripts/indexer.tar.gz' "Plugin indexer  自动生成标签用的
     "indexer 插件配置 位于 indexer_con
-    Plug 'scrooloose/nerdcommenter'    "快速注释插件 配置见 ner_con
     Plug 'vim-scripts/winmanager'     "文件浏览器WinManager_con
     Plug 'moll/vim-bbye'        "when you close the buffer the window could be reserve
     Plug 'scrooloose/nerdtree',{'on':'NERDTreeToggle'}       "nt_con list the files in the same dirrectory
@@ -367,7 +362,6 @@ call plug#begin('~/.vim/plugged')
                         \ 'union'     : 'u'
                         \ }
                         \ }
-    Plug 'rdnetto/YCM-Generator' "generator the ycm_extra_conf.py
     Plug 'tenfyzhong/CompleteParameter.vim'         "配合ycm使用
         "inoremap <silent><expr> ( complete_parameter#pre_complete("()")
         "smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
@@ -375,12 +369,21 @@ call plug#begin('~/.vim/plugged')
         "smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
         "imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
     Plug 'rdnetto/YCM-Generator' "generator the ycm_extra_conf.py
-    function! BuildYCM(info)
-        if a:info.status == 'installed' || a:info.force
-            !./install.sh
-        endif
-    endfunction
-    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    "function! BuildYCM(info)
+        "if a:info.status == 'installed' || a:info.force
+            "!./install.sh
+        "endif
+    "endfunction
+    "Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    Plug 'tpope/vim-jdaddy'
+    "Plug 'tenfyzhong/CompleteParameter.vim'
+        "inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+        "let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+        "smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+        "imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+        "smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+        "imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+    Plug 'Valloric/YouCompleteMe'
         "===================================================================================================================
         "complete
             "vim命令行模式智能补全
@@ -389,13 +392,14 @@ call plug#begin('~/.vim/plugged')
             "开启智能补全
             set completeopt=longest,menu
             "ycm_con
-            "let g:ycm_filetype_whitelist = { 'cpp': 1, 'c': 1,'python': 1,'tex': 1}    "why?
+            let g:ycm_filetype_whitelist = { 'cpp': 1, 'c': 1,'python': 1,'tex': 1}    "why?
+            "let g:ycm_filetype_blacklist = { 'cpp': 1, 'c': 1,'python': 1,'tex': 1}    "why?
             "let g:ycm_error_symbol = '>>'
             "latex
             if !exists('g:ycm_semantic_triggers')
                 let g:ycm_semantic_triggers = {}
             endif
-            let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
+            "let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 
             "自动开启语义补全
             let g:ycm_seed_identifiers_with_syntax = 1
@@ -414,7 +418,7 @@ call plug#begin('~/.vim/plugged')
             ""禁止缓存匹配项,每次都重新生成匹配项
             let g:ycm_cache_omnifunc=0"
             let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-            let g:ycm_python_binary_path = '/home/sun/anaconda3/bin/python3.6'
+            let g:ycm_python_binary_path = '/Users/sun/anaconda3/bin/python3'
             "ycm插件 用于声明/定义跳转
             "let g:pydiction_location = '/home/sun/.vim/dict/engspchk.dict'
             nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>

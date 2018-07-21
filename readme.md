@@ -1,25 +1,18 @@
-这是一份比较稳定的vim配置文件
-===========================
-* 主要支持的语言
-    - python
-    - c/c++
-    - viml
-    - scheme
-    - vimwiki
-    - markdown
-    - haskell
+# MacOS上的vim
+## Dependent
+* neovim
+* python3, python2
+* 最好用oh-my-zsh
 
-* 主要特性
-    - 语法高亮
-    - 支持语言的快速补全
-    - snip补全
-    - 一键编译
-    - vim内调试
-    - 快捷键优化
-    - 通过denite整合包括colorscheme，grep，buffer，file edit等功能
-    - 快捷切换buffer，buffer可视化
-    - vimwiki，calendar
+## Install
 
-* TODO
-    - 整合git
-    - 优化针对各种语言的layer
+    ./install.sh
+    打开nvim执行:
+    :PlugInstall
+
+![完成之后](./ss.png)
+更多展示在 [展示](https://cstsunfu.github.io/2017/11/myvim/)
+
+## Shortcut
+
+(几乎)所有快捷键定义在myplugin/configure/myshortcut.vim 中

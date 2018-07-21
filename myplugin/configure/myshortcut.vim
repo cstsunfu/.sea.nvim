@@ -1,3 +1,8 @@
+" File              : myshortcut.vim
+" Author            : Sun Fu <cstsunfu@gmail.com>
+" Date              : 27.03.2018
+" Last Modified Date: 11.07.2018
+" Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 "=====================================================================================================
 "buf_con  B
     " buffer 切换快捷键
@@ -142,12 +147,11 @@
 
 "=====================================================================================================
 "t
-    nnoremap <leader>tr :terminal ranger<cr>
     "Table Mode
     "<leader>tm
     "Tabular_con
     nnoremap <leader>te :Tabularize /=<cr>
-    nnoremap <leader>tv :Tabularize /\|<CR>
+    "nnoremap <leader>tv :Tabularize /\|<CR>
     "nnoremap <leader>t: :Tabularize /:<cr>
     "nnoremap <leader>t\ :Tabularize /\,<cr>
     vnoremap <leader>te :Tabularize /=<cr>
@@ -173,6 +177,12 @@
     nnoremap tp :tprevious<cr>
     "在这之前需要先执行 ctrl+] 将同名标签压入栈  分析完之后可以按 ctrl+t 返回
     "ctrl+o 也可返回上次光标停留处 或上一个标签页    ctrl+i可以再回去
+    "
+    "
+    "terminal
+    nnoremap <leader>ts :split<cr> :wincmd j<cr> :resize 16<cr> :terminal<cr>a
+    nnoremap <leader>tv :vsplit<cr>:wincmd l<cr>:terminal<cr>a
+    nnoremap <leader>tr :terminal ranger<cr>
 "=====================================================================================================
 
 "=====================================================================================================
@@ -209,7 +219,15 @@
 "=====================================================================================================
 "F+num
     nnoremap <F2> i<esc>:w !python %<cr>
-    nnoremap <F3> i<esc>:w !python3 %<cr>
+    "nnoremap <F3> i<esc>:w !python3 %<cr>
+    nnoremap <F3> :call Run_python()<cr>
+    fun! Run_python()
+        exec "split"
+        exec "wincmd j"
+        exec "resize 16"
+        exec "terminal python %"
+    endf
+
     nnoremap <f6> <esc> :edit %<cr>
     "将外部命令wmctrl控制窗口最大化命令行参数封装成一个vim函数
     fun! ToggleFullscreen()
@@ -222,9 +240,12 @@
             exec "w"
             silent exec "!rm %<.pdf"
             exec "!xelatex %<"
+            exec "!bibtex %<"
+            exec "!xelatex %<"
+            exec "!xelatex %<"
             "exec "!dvipdfm %<"
             silent exec "!rm %<.aux %<.dvi %<.toc %<.log %<.snm %<.nav %<.out"
-            silent exec "!evince %<.pdf"
+            silent exec "!open %<.pdf"
             silent exec "!rm %<.aux %<.dvi %<.toc %<.log %<.snm %<.nav %<.out"
         endif
         if &filetype=="python"
@@ -249,7 +270,7 @@
         if &filetype=="cpp"
             exec "w"
             exec "AsyncRun g++ -Wall -g % -o %<"
-            "exec "cw"
+            exec "cw"
             exec "AsyncRun ./%<"
         endif
         if &filetype=="dot"
@@ -266,6 +287,12 @@
     noremap <A-left>    :wincmd h<cr>
     noremap <A-down>    :wincmd j<cr>
     noremap <A-up>      :wincmd k<cr>
+    noremap <A-l>   :wincmd l<cr>
+    noremap <A-h>    :wincmd h<cr>
+    noremap <A-j>    :wincmd j<cr>
+    noremap <A-k>      :wincmd k<cr>
+    noremap <A-f>    :bnext<cr>
+    noremap <A-b>      :bprevious<cr>
 
 "=====================================================================================================
 "airline_con

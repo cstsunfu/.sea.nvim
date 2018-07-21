@@ -605,7 +605,7 @@ function! plug#helptags()
     return s:err('plug#begin was not called')
   endif
   for spec in values(g:plugs)
-    let docd = join([spec.dir, 'doc'], '/')
+    let docd = join([s:rtp(spec), 'doc'], '/')
     if isdirectory(docd)
       silent! execute 'helptags' s:esc(docd)
     endif
@@ -799,7 +799,7 @@ function! s:bang(cmd, ...)
     let cmd = a:0 ? s:with_cd(a:cmd, a:1) : a:cmd
     if s:is_win
       let batchfile = tempname().'.bat'
-      call writefile(['@echo off', cmd], batchfile)
+      call writefile(["@echo off\r", cmd . "\r"], batchfile)
       let cmd = batchfile
     endif
     let g:_plug_bang = (s:is_win && has('gui_running') ? 'silent ' : '').'!'.escape(cmd, '#!%')
@@ -908,7 +908,7 @@ function! s:finish(pull)
     call add(msgs, "Press 'R' to retry.")
   endif
   if a:pull && len(s:update.new) < len(filter(getline(5, '$'),
-                \ "v:val =~ '^- ' && stridx(v:val, 'Already up-to-date') < 0"))
+                \ "v:val =~ '^- ' && v:val !~# 'Already up.to.date'"))
     call add(msgs, "Press 'D' to see the updated changes.")
   endif
   echo join(msgs, ' ')
@@ -1196,7 +1196,7 @@ function! s:spawn(name, cmd, opts)
   let s:jobs[a:name] = job
   let cmd = has_key(a:opts, 'dir') ? s:with_cd(a:cmd, a:opts.dir) : a:cmd
   if !empty(job.batchfile)
-    call writefile(['@echo off', cmd], job.batchfile)
+    call writefile(["@echo off\r", cmd . "\r"], job.batchfile)
     let cmd = job.batchfile
   endif
   let argv = add(s:is_win ? ['cmd', '/c'] : ['sh', '-c'], cmd)
@@ -2023,7 +2023,7 @@ function! s:system(cmd, ...)
     let cmd = a:0 > 0 ? s:with_cd(a:cmd, a:1) : a:cmd
     if s:is_win
       let batchfile = tempname().'.bat'
-      call writefile(['@echo off', cmd], batchfile)
+      call writefile(["@echo off\r", cmd . "\r"], batchfile)
       let cmd = batchfile
     endif
     return system(s:is_win ? '('.cmd.')' : cmd)
@@ -2246,15 +2246,16 @@ function! s:status()
   let unloaded = 0
   let [cnt, total] = [0, len(g:plugs)]
   for [name, spec] in items(g:plugs)
+    let is_dir = isdirectory(spec.dir)
     if has_key(spec, 'uri')
-      if isdirectory(spec.dir)
+      if is_dir
         let [err, _] = s:git_validate(spec, 1)
         let [valid, msg] = [empty(err), empty(err) ? 'OK' : err]
       else
         let [valid, msg] = [0, 'Not found. Try PlugInstall.']
       endif
     else
-      if isdirectory(spec.dir)
+      if is_dir
         let [valid, msg] = [1, 'OK']
       else
         let [valid, msg] = [0, 'Not found.']
@@ -2263,7 +2264,7 @@ function! s:status()
     let cnt += 1
     let ecnt += !valid
     " `s:loaded` entry can be missing if PlugUpgraded
-    if valid && get(s:loaded, name, -1) == 0
+    if is_dir && get(s:loaded, name, -1) == 0
       let unloaded = 1
       let msg .= ' (not loaded)'
     endif
@@ -2356,7 +2357,7 @@ function! s:preview_commit()
     let cmd = 'cd '.s:shellesc(g:plugs[name].dir).' && git show --no-color --pretty=medium '.sha
     if s:is_win
       let batchfile = tempname().'.bat'
-      call writefile(['@echo off', cmd], batchfile)
+      call writefile(["@echo off\r", cmd . "\r"], batchfile)
       let cmd = batchfile
     endif
     execute 'silent %!' cmd
