@@ -1,3 +1,13 @@
+" File              : default.vim
+" Author            : Sun Fu <cstsunfu@gmail.com>
+" Date              : 28.03.2018
+" Last Modified Date: 28.03.2018
+" Last Modified By  : Sun Fu <cstsunfu@gmail.com>
+" File              : default.vim
+" Author            : Sun Fu <cstsunfu@gmail.com>
+" Date              : 28.03.2018
+" Last Modified Date: 28.03.2018
+" Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 " Select blocks after indenting
 xnoremap < <gv
 xnoremap > >gv|
@@ -54,6 +64,7 @@ set suffixesadd+=.cpp "搜索文件时自动添加.cpp后缀 即搜索./a ./a.cp
 "set backup  "生成备份"
 "set backupext=.bak
 inoremap jk <esc>
+tnoremap jk <C-\><C-n>
 
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
