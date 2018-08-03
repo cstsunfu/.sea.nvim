@@ -2,7 +2,7 @@
 # File              : install.sh
 # Author            : Sun Fu <cstsunfu@gmail.com>
 # Date              : 21.07.2018
-# Last Modified Date: 21.07.2018
+# Last Modified Date: 03.08.2018
 # Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 msg() {
   printf '%b\n' "$1" >&2
@@ -81,6 +81,7 @@ install_config() {
           mkdir "$HOME/.vim"
     fi 
     cp init.vim $HOME/.vimrc
+    cp .flake8 $HOME/.flake8
     cp init.vim $HOME/.config/nvim/init.vim
     rm -rf $HOME/.vim/autoload
     rm -rf $HOME/.vim/colors
@@ -90,6 +91,8 @@ install_config() {
     mv myplugin $HOME/.vim/
 }
 install_depend(){
+    python -m pip install flake8
+    brew install ctags
     brew install neovim
 }
 install_fonts
