@@ -1,7 +1,7 @@
 " File              : after.vim
 " Author            : Sun Fu <cstsunfu@gmail.com>
 " Date              : 20.03.2018
-" Last Modified Date: 20.03.2018
+" Last Modified Date: 26.03.2019
 " Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 "================================================================================================================
 "UI
@@ -13,6 +13,9 @@
     set fillchars+=vert:│
     "set fillchars+=eob:\ 
     "set fillchars+=stl:-
+    "不显示~
+    hi NonText guifg=bg
+
 "================================================================================================================
 " indentLine
 "
@@ -25,6 +28,6 @@
     let g:indentLine_bgcolor_term = 180
     let g:indentLine_bgcolor_gui = '0'
     let g:indentLine_char='│'
+    hi CursorLine term=bold cterm=bold guibg=Grey30
 
 "================================================================================================================
-"

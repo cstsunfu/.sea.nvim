@@ -1,7 +1,7 @@
 " File              : vim_unite.vim
 " Author            : Sun Fu <cstsunfu@gmail.com>
 " Date              : 26.03.2018
-" Last Modified Date: 26.03.2018
+" Last Modified Date: 04.12.2018
 " Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 "Unite
 let mapleader=';'
@@ -10,12 +10,13 @@ let mapleader=';'
 "nnoremap <leader>um :<C-u>Unite -direction=below -start-insert mapping<cr>
 "nnoremap <leader>uc :<C-u>Unite -direction=below -start-insert colorscheme<cr>
 
+"\ 'mode' : 'insert',
+      "\ 'quit' : 'true',
 
 let s:denite_options = {
       \ 'default' : {
       \ 'winheight' : 15,
       \ 'mode' : 'insert',
-      \ 'quit' : 'true',
       \ 'highlight_matched_char' : 'MoreMsg',
       \ 'highlight_matched_range' : 'MoreMsg',
       \ 'direction': 'rightbelow',

@@ -2,7 +2,7 @@
 # File              : install.sh
 # Author            : Sun Fu <cstsunfu@gmail.com>
 # Date              : 21.07.2018
-# Last Modified Date: 03.08.2018
+# Last Modified Date: 01.07.2019
 # Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 msg() {
   printf '%b\n' "$1" >&2
@@ -95,6 +95,6 @@ install_depend(){
     brew install ctags
     brew install neovim
 }
+install_depend
 install_fonts
 install_config
-install_depend

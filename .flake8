@@ -4,7 +4,13 @@
 # E501 line too long (217 > 79 characters)
 # E251 unexpected spaces around keyword / parameter equals
 # E266 too many leading '#' for block comment
-ignore = D203, E251, E266, E501, E203
+# E231 missing whitespace after ','
+# E114 indentation is not a multiple of four (comment)
+# E116 unexpected indentation (comment)
+# E225 missing whitespace around operator
+# E226 missing whitespace around arithmetic operator
+# C901 function is too complex (12)
+ignore = D203, E251, E266, E501, E203, E231, E114, E116, E225, E226, C901
 exclude =
     # No need to traverse our git directory
     .git,
