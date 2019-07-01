@@ -1,6 +1,28 @@
+" File              : vimwiki.vim
+" Author            : Sun Fu <cstsunfu@gmail.com>
+" Date              : 05.12.2018
+" Last Modified Date: 11.04.2019
+" Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 "vimwiki
 let g:vimwiki_map_prefix='<leader>o'
 "let g:vimwiki_listsyms = '✗○◐●✓'
+
+"agenda & todo capture
+"
+"<Leader>ow -- Open default wiki index file.
+"<Leader>ot -- Open default wiki index file in a new tab.
+"<Leader>os -- Select and open wiki index file.
+"<Leader>od -- Delete wiki file you are in.
+"<Leader>or -- Rename wiki file you are in.
+"<Enter> -- Follow/Create wiki link
+"<Shift-Enter> -- Split and follow/create wiki link
+"<Ctrl-Enter> -- Vertical split and follow/create wiki link
+"<Backspace> -- Go back to parent(previous) wiki link
+"<Tab> -- Find next wiki link
+"<Shift-Tab> -- Find previous wiki link
+
+
+
 let g:vimwiki_folding='list'
 let g:vimwiki_folding+='expr'
 let g:vimwiki_folding+='syntax'
@@ -14,7 +36,6 @@ hi VimwikiHeader3 guifg=#0000FF
 hi VimwikiHeader4 guifg=#FF00FF
 hi VimwikiHeader5 guifg=#00FFFF
 hi VimwikiHeader6 guifg=#FFFF00
-
 
 
 "diary

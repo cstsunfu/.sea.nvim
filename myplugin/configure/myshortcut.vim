@@ -1,16 +1,16 @@
 " File              : myshortcut.vim
 " Author            : Sun Fu <cstsunfu@gmail.com>
 " Date              : 27.03.2018
-" Last Modified Date: 11.07.2018
+" Last Modified Date: 01.07.2019
 " Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 "=====================================================================================================
 "buf_con  B
     " buffer 切换快捷键
     nnoremap <leader>bn :bnext<cr>
-    nnoremap <leader>bN :blast<cr>
+    nnoremap <leader>bl :blast<cr>
     nnoremap <leader>bd :Bdelete<cr>
     nnoremap <leader>bp :bprevious<cr>
-    nnoremap <leader>bP :bfirst<cr>
+    nnoremap <leader>bf :bfirst<cr>
 "=====================================================================================================
 
 "=====================================================================================================
@@ -24,12 +24,30 @@
 "=====================================================================================================
 
 "=====================================================================================================
-"vim-debugger D
-    nnoremap <leader>dp  :VBGstartPDB3 % 
-    nnoremap <leader>db  :VBGstartGDB %<
-    let g:vebugger_leader=','
-    nnoremap <localleader>s :VBGexecute 
-    nnoremap <localleader>p :VBGeval 
+"vim-debugger D     codi
+"
+"ds di draw used
+    nmap <M-S-b> <Plug>LLBreakSwitch
+    vmap <F2> <Plug>LLStdInSelected
+    nnoremap <F4> :LLstdin<CR>
+    nnoremap <F5> :LLmode debug<CR>
+    nnoremap <S-F5> :LLmode code<CR>
+    nnoremap <F8> :LL continue<CR>
+    nnoremap <S-F8> :LL process interrupt<CR>
+    nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
+    vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
+    "nnoremap <leader>dp  :VBGstartPDB3 % 
+    "nnoremap <leader>db  :VBGstartGDB %<
+    "let g:vebugger_leader=','
+    "nnoremap <localleader>s :VBGexecute 
+    "nnoremap <localleader>p :VBGeval 
+    "codi
+    "codi deactive
+    nnoremap <leader>dcd  :Codi!<CR>
+    "python
+    nnoremap <leader>dcp  :Codi python<CR>
+    "cpp
+    nnoremap <leader>dcc  :Codi cpp<CR> 
     "i      |:VBGstepIn|
     "o      |:VBGstepOver|
     "O      |:VBGstepOut|
@@ -52,7 +70,7 @@
 "=====================================================================================================
 
 "=====================================================================================================
-"equal
+"equal E
     vmap <leader>er <Plug>AutoCalcReplace 
     vmap <leader>et <Plug>AutoCalcReplaceWithSum
     vmap <leader>ea <Plug>AutoCalcAppend 
@@ -66,13 +84,57 @@
     nnoremap <leader>ft :NERDTreeToggle<CR>
     nnoremap <leader>fm :set ft=markdown<CR>
     nnoremap <leader>fs :Startify<cr>
-    nnoremap <leader>fed :edit ~/.config/nvim/init.vim<cr>
+    nnoremap <leader>fd :edit ~/.config/nvim/init.vim<cr>
+"=====================================================================================================
+
+"=====================================================================================================
+"GoTO/ Git G dotoo
+
+    nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
+    " 只能是 #include 或已打开的文件
+    nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
+    nnoremap <leader>gD :YcmCompleter GetDoc<CR>
+    nnoremap <leader>gg :GrepperGrep 
+
+    nnoremap <leader>gb :Gblame<CR>
+    nnoremap <leader>gC :Gcommit<CR>
+    nnoremap <leader>ge :Gedit 
+    nnoremap <leader>gf :Gdiff<CR>
+    nnoremap <leader>gG :Ggrep 
+    nnoremap <leader>gl :Glog<cr> 
+    nnoremap <leader>gm :Gmove 
+    nnoremap <leader>gr :Gread<CR>
+    "nnoremap <leader>gr :Gremove<CR>
+    nnoremap <leader>gs :Gstatus<CR>
+    nnoremap <leader>gv :Gitv<CR>
+    nnoremap <leader>gw :Gwrite<CR>
 "=====================================================================================================
 
 "=====================================================================================================
 "h history
     "
     nnoremap <leader>ht :UndotreeToggle<cr>
+    "history list
+    nnoremap <leader>hl q:
+"=====================================================================================================
+
+"=====================================================================================================
+"i identifier
+
+    "设置显示／隐藏标签列表子窗口的快捷键。速记：identifier list by tag
+    nnoremap <leader>ilt :TagbarToggle<CR> 
+
+    fun! Indent()
+        %s/^              /\t\t\t\t\t\t\t/g
+        %s/^            /\t\t\t\t\t\t/g
+        %s/^          /\t\t\t\t\t/g
+        %s/^        /\t\t\t\t/g
+        %s/^      /\t\t\t/g
+        %s/^    /\t\t/g
+        %s/^  /\t/g
+        %s/\t/    /g
+    endf
+    nnoremap <silent><leader>id :call Indent()<cr>
 "=====================================================================================================
 
 "=====================================================================================================
@@ -102,9 +164,25 @@
 "=====================================================================================================
 
 "=====================================================================================================
-"o org-mode
-    nnoremap <Leader>oa :Gtd @work (!inbox + !scheduled-<C-R>=strftime("%Y%m%d")<CR>)<CR>
-    nnoremap <Leader>on :GtdNew<CR>
+"o org-mode vim-dotoo vimwiki configure at myplugion/vimwiki.vim
+    "nnoremap <Leader>oa :Gtd @work (!inbox + !scheduled-<C-R>=strftime("%Y%m%d")<CR>)<CR>
+    "nnoremap <Leader>on :GtdNew<CR>
+    "nnoremap <Leader>ta gAa
+    "nnoremap <Leader>to gAt
+    nnoremap <leader>oa :<C-U>call dotoo#agenda#agenda()<CR>
+    nnoremap <leader>oc :<C-U>call dotoo#capture#capture()<CR>
+    "<Leader>ow -- Open default wiki index file.
+    "<Leader>ot -- Open default wiki index file in a new tab.
+    "<Leader>os -- Select and open wiki index file.
+    "<Leader>od -- Delete wiki file you are in.
+    "<Leader>or -- Rename wiki file you are in.
+    "<Enter> -- Follow/Create wiki link
+    "<Shift-Enter> -- Split and follow/create wiki link
+    "<Ctrl-Enter> -- Vertical split and follow/create wiki link
+    "<Backspace> -- Go back to parent(previous) wiki link
+    "<Tab> -- Find next wiki link
+    "<Shift-Tab> -- Find previous wiki link
+
 "=====================================================================================================
 "=====================================================================================================
 "p
@@ -115,8 +193,8 @@
 
 "=====================================================================================================
 "q
-    nnoremap <leader>qq :q<cr>
-    nnoremap <leader>qa :qa!<cr>
+    nnoremap <leader>qq :qa!<cr>
+    nnoremap <leader>qw :qaw<cr>
 "=====================================================================================================
 
 "=====================================================================================================
@@ -128,7 +206,8 @@
     "d<C-X>                  Change the time under the cursor to the current local time.
     
 "=====================================================================================================
-"s ale save ctrlsf
+"s ale save ctrlsf, snippet
+    nnoremap <leader>se :UltiSnipsEdit<cr>
     "普通模式下，sp前往上一个错误或警告，sn前往下一个错误或警告
     nnoremap <leader>sn :ALENext<cr>
     nnoremap <leader>sp :ALEPrevious<cr>
@@ -146,7 +225,7 @@
 "=====================================================================================================
 
 "=====================================================================================================
-"t
+"t table tab
     "Table Mode
     "<leader>tm
     "Tabular_con
@@ -155,6 +234,7 @@
     "nnoremap <leader>t: :Tabularize /:<cr>
     "nnoremap <leader>t\ :Tabularize /\,<cr>
     vnoremap <leader>te :Tabularize /=<cr>
+    vnoremap <leader>ta :Tabularize /&<cr>
     vnoremap <leader>tv :Tabularize /\|<cr>
     "vnoremap <leader>t: :Tabularize /:\zs<cr>
     "vnoremap <leader>t\ :Tabularize /\,\zs<cr>
@@ -180,8 +260,9 @@
     "
     "
     "terminal
-    nnoremap <leader>ts :split<cr> :wincmd j<cr> :resize 16<cr> :terminal<cr>a
-    nnoremap <leader>tv :vsplit<cr>:wincmd l<cr>:terminal<cr>a
+    "nnoremap <leader>ts :botright split<cr> :wincmd j<cr> :resize 16<cr> :terminal<cr>a
+    nnoremap <leader>ts :botright split<cr> :wincmd j<cr> :terminal<cr>a
+    nnoremap <leader>tv :botright vsplit<cr>:wincmd l<cr>:terminal<cr>a
     nnoremap <leader>tr :terminal ranger<cr>
 "=====================================================================================================
 
@@ -192,6 +273,7 @@
 "=====================================================================================================
 
 "=====================================================================================================
+"w
     nnoremap <leader>wm :WMToggle<cr>
     nnoremap <leader>ws :split<cr>
     nnoremap <leader>wv :vsplit<cr>
@@ -208,6 +290,10 @@
 "=====================================================================================================
 
 "=====================================================================================================
+"x 
+    nnoremap <leader>x :q<cr>
+"=====================================================================================================
+"=====================================================================================================
 "y tran_con
     "vnoremap <M-c> :<C-u>Ydv<CR>
     nnoremap <leader>yc :<C-u>Ydc<CR>
@@ -218,6 +304,8 @@
 
 "=====================================================================================================
 "F+num
+"
+
     nnoremap <F2> i<esc>:w !python %<cr>
     "nnoremap <F3> i<esc>:w !python3 %<cr>
     nnoremap <F3> :call Run_python()<cr>
@@ -225,8 +313,38 @@
         exec "split"
         exec "wincmd j"
         exec "resize 16"
-        exec "terminal python %"
+        exec "terminal python % <in"
     endf
+    "nnoremap <F4> :call Run_python()<cr>
+    "fun! Run_python()
+        "exec "split"
+        "exec "wincmd j"
+        "exec "resize 16"
+        "exec "terminal python %"
+    "endf
+    noremap <F4> :call CompileRun()<CR>
+    func! CompileRun()
+        if &filetype=="python"
+            exec "split"
+            exec "wincmd j"
+            exec "resize 16"
+            exec "terminal python %"
+        elseif &filetype=="c"
+            exec "w"
+            exec "AsyncRun gcc -Wall -g % -o %<"
+            exec "AsyncRun ./%<"
+        elseif &filetype=="cpp"
+            exec "w"
+            exec "AsyncRun g++ -Wall -std=c++11 -g \"%\" -o \"%<\""
+            "exec "AsyncRun g++ -Wall -std=c++11 -g \"%\" -o \"%<\""
+            "exec "AsyncRun gcc -Wall -std=c11 -g \"%\" -o \"%<\""
+            "exec "cw"
+            exec "!./%<
+        elseif &filetype=="dot"
+            exec "w"
+            exec "!dot -Tpng -o %<.png % && start %<.png"
+        endif
+    endfunction
 
     nnoremap <f6> <esc> :edit %<cr>
     "将外部命令wmctrl控制窗口最大化命令行参数封装成一个vim函数
@@ -239,18 +357,19 @@
         if &filetype=="tex"
             exec "w"
             silent exec "!rm %<.pdf"
-            exec "!xelatex %<"
+            exec "!xelatex --shell-escape %<"
             exec "!bibtex %<"
-            exec "!xelatex %<"
-            exec "!xelatex %<"
+            exec "!xelatex --shell-escape %<"
+            exec "!xelatex --shell-escape %<"
             "exec "!dvipdfm %<"
             silent exec "!rm %<.aux %<.dvi %<.toc %<.log %<.snm %<.nav %<.out"
             silent exec "!open %<.pdf"
             silent exec "!rm %<.aux %<.dvi %<.toc %<.log %<.snm %<.nav %<.out"
-        endif
-        if &filetype=="python"
+        elseif &filetype=="python"
 
-            exec "AsyncRun python3 %"
+            exec "AsyncRun -raw python3 %"
+            "exec "AsyncRun set makeprg=python3\ %"
+            "exec "set makeprg=python3\%|make"
 
             "redir => message
             "let filename = expand("%")
@@ -261,19 +380,18 @@
             ""silent exec 
             ""silent put=message
             ""set nomodified
-        endif
-        if &filetype=="c"
+        elseif &filetype=="c"
             exec "w"
             exec "AsyncRun gcc -Wall -g % -o %<"
             exec "AsyncRun ./%<"
-        endif
-        if &filetype=="cpp"
+        elseif &filetype=="cpp"
             exec "w"
-            exec "AsyncRun g++ -Wall -g % -o %<"
-            exec "cw"
-            exec "AsyncRun ./%<"
-        endif
-        if &filetype=="dot"
+            exec "AsyncRun g++ -Wall -std=c++11 -g \"%\" -o \"%<\""
+            "exec "AsyncRun g++ -Wall -std=c++11 -g \"%\" -o \"%<\""
+            "exec "AsyncRun gcc -Wall -std=c11 -g \"%\" -o \"%<\""
+            "exec "cw"
+            exec "!./%< <in >out"
+        elseif &filetype=="dot"
             exec "w"
             exec "!dot -Tpng -o %<.png % && start %<.png"
         endif
@@ -283,16 +401,22 @@
 
 "=====================================================================================================
 "alt win_con
-    noremap <A-right>   :wincmd l<cr>
-    noremap <A-left>    :wincmd h<cr>
-    noremap <A-down>    :wincmd j<cr>
-    noremap <A-up>      :wincmd k<cr>
+    "noremap <A-right>   :wincmd l<cr>
+    "noremap <A-left>    :wincmd h<cr>
+    "noremap <A-down>    :wincmd j<cr>
+    "noremap <A-up>      :wincmd k<cr>
     noremap <A-l>   :wincmd l<cr>
     noremap <A-h>    :wincmd h<cr>
     noremap <A-j>    :wincmd j<cr>
     noremap <A-k>      :wincmd k<cr>
+
     noremap <A-f>    :bnext<cr>
     noremap <A-b>      :bprevious<cr>
+
+    noremap <A-u>          :resize +1<cr>
+    noremap <A-d>        :resize -1<cr>
+    noremap <A-.>        :vertical resize -1<cr>
+    noremap <A-,>       :vertical resize +1<cr>
 
 "=====================================================================================================
 "airline_con
@@ -349,3 +473,11 @@
         let @s = temp
     endfunction
 "===================================================================================================================
+ 
+"============================================================================================================================================
+" Others
+    let g:UltiSnipsExpandTrigger="<leader><tab>"
+    let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+    inoremap <leader>; <C-x><C-o>
+"============================================================================================================================================
