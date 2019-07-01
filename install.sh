@@ -94,6 +94,7 @@ install_depend(){
     python -m pip install flake8
     brew install ctags
     brew install neovim
+    brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 }
 install_depend
 install_fonts
