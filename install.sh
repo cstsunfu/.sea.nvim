@@ -59,6 +59,7 @@ install_fonts () {
   download_font "symbol.ttf"
   download_font "wingding.ttf"
   info "Updating font cache, please wait ..."
+  System="$(uname -s)"
   if [ $System == "Darwin" ];then
     if [ ! -e "$HOME/Library/Fonts" ];then
       mkdir "$HOME/Library/Fonts"
@@ -75,7 +76,7 @@ install_fonts () {
 install_config() {
     
     if [ ! -e "$HOME/.config/nvim" ];then
-          mkdir "$HOME/.config/nvim"
+          mkdir -p "$HOME/.config/nvim"
     fi 
     if [ ! -e "$HOME/.vim" ];then
           mkdir "$HOME/.vim"
@@ -91,10 +92,12 @@ install_config() {
     mv myplugin $HOME/.vim/
 }
 install_depend(){
-    python -m pip install flake8
-    brew install ctags
+    pip install flake8
+    #brew install ctags
+    brew install fontconfig
     brew install neovim
     brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+    brew install tmux
 }
 install_depend
 install_fonts
