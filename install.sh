@@ -78,18 +78,10 @@ install_config() {
     if [ ! -e "$HOME/.config/nvim" ];then
           mkdir -p "$HOME/.config/nvim"
     fi 
-    if [ ! -e "$HOME/.vim" ];then
-          mkdir "$HOME/.vim"
-    fi 
     cp init.vim $HOME/.vimrc
     cp .flake8 $HOME/.flake8
     cp init.vim $HOME/.config/nvim/init.vim
-    rm -rf $HOME/.vim/autoload
-    rm -rf $HOME/.vim/colors
-    rm -rf $HOME/.vim/myplugin
-    mv autoload $HOME/.vim/
-    mv colors $HOME/.vim/
-    mv myplugin $HOME/.vim/
+    cp -r .sunfu.vim $HOME/.sunfu.vim/
 }
 install_depend(){
     pip install flake8
