@@ -95,12 +95,6 @@ set foldtext      =mhi#foldy()
 "{{{ UI
 "
     set fillchars+=vert:\        "修改分割线为空格 
-    "hi VertSplit ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))
-    "hi VertSplit ctermbg=NONE guibg=dark
-    hi VertSplit ctermfg=black guifg=black
-    "hi StatusLine ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))
-    "hi StatusLine ctermbg=NONE guibg=dark
-    hi StatusLine ctermfg=black guifg=black
     set fillchars+=vert:│
     "set fillchars+=eob:\ 
     "set fillchars+=stl:-
@@ -108,5 +102,21 @@ set foldtext      =mhi#foldy()
     hi NonText guifg=bg
 
     hi FZFBorder ctermfg=Black guifg=#7B68EE
-    "hi FZFBorder ctermfg=Black guifg=Black
+    ""hi FZFBorder ctermfg=Black guifg=Black
 "}}}
+
+
+fu s:set_split_bg_fg() abort
+    "hi VertSplit ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))
+    "hi VertSplit ctermbg=NONE guibg=dark
+    hi VertSplit ctermfg=black guifg=black
+    "hi StatusLine ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))
+    "hi StatusLine ctermbg=NONE guibg=dark
+    hi StatusLine ctermfg=black guifg=black
+endfu
+
+if g:colors_name == 'OceanicNext'
+    exec 'hi VertSplit ctermbg=Black guibg=Black'
+else
+    exec 'call s:set_split_bg_fg()'
+endif

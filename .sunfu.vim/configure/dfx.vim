@@ -4,15 +4,15 @@ endif
 let g:loaded_defx_configure = 1
 
 augroup defx
-    autocmd FileType defx call dfx#defx_my_settings()
-    autocmd VimEnter * call dfx#setup_defx()
+    autocmd FileType defx call configure#dfx#defx_my_settings()
+    autocmd VimEnter * call configure#dfx#setup_defx()
 augroup END
 
 "nnoremap <silent><leader>fo :call <sid>defx_open({ 'split': v:true, 'find_current_file': v:true })<CR>
 
 let s:default_columns = 'indent:git:icons:filename'
 
-function! dfx#setup_defx() abort
+function! configure#dfx#setup_defx() abort
     call defx#custom#option('_', {
                 \ 'columns': s:default_columns,
                 \ })
@@ -22,7 +22,7 @@ function! dfx#setup_defx() abort
                 \ 'max_width': 80,
                 \ })
 
-    call dfx#defx_open({ 'dir': expand('<afile>') })
+    call configure#dfx#defx_open({ 'dir': expand('<afile>') })
 endfunction
 
 function! s:get_project_root() abort
@@ -42,7 +42,7 @@ function! s:get_project_root() abort
     "}}}
 endfunction
 
-function! dfx#defx_open(...) abort
+function! configure#dfx#defx_open(...) abort
     "{{{
     let l:opts = get(a:, 1, {})
     let l:path = get(l:opts, 'dir', s:get_project_root())

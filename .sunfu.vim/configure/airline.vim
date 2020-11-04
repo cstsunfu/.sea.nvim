@@ -18,7 +18,7 @@ if exists('g:load_airline') && g:load_airline
     elseif g:colors_name == 'gruvbox'
         let g:airline_theme='gruvbox'
     elseif g:colors_name == 'NeoSolarized'
-        let g:airline_theme='violet'
+        let g:airline_theme='angr'
     elseif g:colors_name == 'oceanicnext'
         let g:airline_theme='oceanicnext'
     elseif g:colors_name == 'challenger_deep'

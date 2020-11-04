@@ -51,7 +51,6 @@ let themes = ['gruvbox', 'NeoSolarized', 'nord', 'one', 'space-vim-dark', 'Ocean
 execute 'colorscheme '.themes[str2nr(strftime('%d')) % len(themes)]
 
 exec 'source '.g:root_path.'configure/default.vim'
-exec 'source '.g:root_path.'configure/shortcut.vim'
 exec 'source '.g:root_path.'configure/setting.vim'
 
 if exists('g:load_defx') && g:load_defx
@@ -61,6 +60,7 @@ if exists('g:load_airline') && g:load_airline
     exec 'source '.g:root_path.'configure/airline.vim'
 endif
 exec 'source '.g:root_path.'configure/after.vim'
+exec 'source '.g:root_path.'configure/shortcut.vim'
 
 "nnoremap zpr :setlocal foldexpr=(getline(v:lnum)=~@/)?0:(getline(v:lnum-1)=~@/)\\|\\|(getline(v:lnum+1)=~@/)?1:2 foldmethod=expr foldlevel=0 foldcolumn=2<CR>:set foldmethod=manual<CR><CR>
 "================================================================================================================
