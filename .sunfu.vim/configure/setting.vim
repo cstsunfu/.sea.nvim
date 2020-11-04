@@ -23,12 +23,14 @@ if exists('g:load_fzf') && g:load_fzf
     " border [string default 'rounded']: Border style ('rounded' | 'sharp' | 'horizontal')
     "
     hi FZFBorder ctermfg=Black guifg=Black
+    "exec 'hi FZFNone ctermfg='.synIDattr(hlID('Normal'),'bg').' guifg'.synIDattr(hlID('Normal'),'bg')
     "let g:fzf_layout = { 'window': { 'width': 0.96, 'height': 0.76, 'yoffset': 1, 'border': 'rounded' , 'highlight':'FZFBorder'} }
     "
     fu s:snr() abort
         return matchstr(expand('<sfile>'), '.*\zs<SNR>\d\+_')
     endfu
     let s:snr = get(s:, 'snr', s:snr())
+    "let g:fzf_layout = {'window': 'call '..s:snr..'fzf_window(0.96, 0.76, "Comment")'}
     let g:fzf_layout = {'window': 'call '..s:snr..'fzf_window(0.96, 0.76, "Comment")'}
     fu s:create_float(hl, opts) abort
         let buf = nvim_create_buf(v:false, v:true)
@@ -42,7 +44,7 @@ if exists('g:load_fzf') && g:load_fzf
         let height = float2nr(&lines * a:height)
         let row = float2nr((&lines - height) / 2)
         let col = float2nr((&columns - width) / 2)
-        let top = '┌' . repeat('─', width - 2) . '┐'
+        let top = '┌' . 'sunfu.vim'.repeat('─', width - 11) . '┐'
         let mid = '│' . repeat(' ', width - 2) . '│'
         let bot = '└' . repeat('─', width - 2) . '┘'
         let border = [top] + repeat([mid], height - 2) + [bot]
@@ -54,7 +56,8 @@ if exists('g:load_fzf') && g:load_fzf
                 \ 'height': height,
                 \ })
             call nvim_buf_set_lines(frame, 0, -1, v:true, border)
-            call s:create_float('Normal', {
+            "call s:create_float('Normal', {
+            call s:create_float('Ignore', {
                 \ 'row': row + 1,
                 \ 'col': col + 2,
                 \ 'width': width - 4,
@@ -434,12 +437,8 @@ if exists('g:load_beauty_vim') && g:load_beauty_vim
     endfunction
 
 
-    let g:startify_padding_left = float2nr((&columns / 2) - (56 / 2) - 1)
+    let g:startify_padding_left = float2nr((&columns / 2) - (66 / 2) - 1)
     let s:startify_custom_header_origin = [
-                \ '                                                              ',
-                \ '                                                              ',
-                \ '                                                              ',
-                \ '                                                              ',
                 \ '  ____                _____      _      __     _____ __  __   ',
                 \ ' / ___| _   _ ____   |  ___|   _( )___  \ \   / /_ _|  \/  |  ',
                 \ ' \___ \| | | |  _ \  | |_ | | | |// __|  \ \ / / | || |\/| |  ',
@@ -448,13 +447,9 @@ if exists('g:load_beauty_vim') && g:load_beauty_vim
                 \ '                                                              ',
                 \ '                                                              ',
                 \ '                                                              ',
-                \ '                                                              ',
-                \ '                                                              ',
-                \ '                            Email    : cstsunfu@gmail.com     ',
-                \ '                            Bilibili : 无用的技术             ',
-                \ '                            Youtube  : 无用的技术             ',
-                \ '                                                              ',
-                \ '                                                              ',
+                \ '                               Email    : cstsunfu@gmail.com  ',
+                \ '                               Bilibili : 无用的技术          ',
+                \ '                               Youtube  : 无用的技术          ',
                 \ '                                                              ',
                 \ ]
     function s:center(lines) abort

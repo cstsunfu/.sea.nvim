@@ -24,7 +24,7 @@ fun! s:DeleteAllBuffersInWindow()
         let s:nextBufNr = bufnr("%")
     endw
 endf
-nnoremap <silent><leader>fo :call after#defx_open({ 'split': v:true, 'find_current_file': v:true })<CR>
+nnoremap <silent><leader>fo :call configure#dfx#defx_open({ 'split': v:true, 'find_current_file': v:true })<CR>
 
 "nnoremap <leader>bD 
 nnoremap <leader>bD :call <SID>DeleteAllBuffersInWindow()<cr>
@@ -334,7 +334,7 @@ vmap <silent> <Leader>tw <Plug>TranslateWV
 "nmap <silent> <Leader>tt <Plug>Translate
 "vmap <silent> <Leader>tt <Plug>TranslateV
 " 定义于 vista defx配置
-"nnoremap <leader>tl :Vista!!<CR>
+nnoremap <leader>tl :Vista!!<CR>
 "nnoremap <leader>ta :call <sid>defx_open({ 'split': v:true })<cr> :Vista!!<CR>
 "}}}
 "=====================================================================================================
