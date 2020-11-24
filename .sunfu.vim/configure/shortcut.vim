@@ -97,6 +97,29 @@ vmap <leader>et <Plug>AutoCalcReplaceWithSum
 vmap <leader>ea <Plug>AutoCalcAppend 
 vmap <leader>es <Plug>AutoCalcAppendWithSum 
 vmap <leader>ee <Plug>AutoCalcAppendWithEq
+function! InlineEval()
+python3 << EOF
+import math
+log = math.log
+exp = math.exp
+pi = math.pi
+cos = math.cos
+sin = math.sin
+tan = math.tan
+asin = math.asin
+acos = math.acos
+atan = math.atan
+pi = math.pi
+sqrt = math.sqrt
+start_row, start_col = list(vim.current.buffer.mark('<'))
+end_row, end_col = list(vim.current.buffer.mark('>'))
+cur_line = list(vim.current.buffer[start_row-1])
+will_eval = ''.join(cur_line[start_col:end_col+1])
+cur_line[start_col:end_col+1] = str(eval(will_eval))
+vim.current.buffer[start_row-1] = ''.join(cur_line)
+EOF
+endfunction
+vmap <leader>el :call InlineEval()<cr>
 "}}}
 "=====================================================================================================
 "nt_con F fzf, preview
@@ -205,7 +228,6 @@ vnoremap <leader>ld :Linediff<cr>
     map  <Leader>mf <Plug>(easymotion-bd-f)
     nmap <Leader>mf <Plug>(easymotion-overwin-f)
     " s{char}{char} to move to {char}{char}
-    nmap s <Plug>(easymotion-overwin-f2)
     " Move to line
     map <Leader>ml <Plug>(easymotion-bd-jk)
     nmap <Leader>ml <Plug>(easymotion-overwin-line)
@@ -224,6 +246,11 @@ vnoremap <leader>ld :Linediff<cr>
 "nnoremap <Leader>on :GtdNew<CR>
 nnoremap <leader>oa :<C-U>call dotoo#agenda#agenda()<CR>
 nnoremap <leader>oc :<C-U>call dotoo#capture#capture()<CR>
+
+"nnoremap <buffer> <leader>ox <Plug>VimwikiToggleListItem
+
+nmap <Leader>ol <Plug>VimwikiToggleListItem
+vmap <Leader>ol <Plug>VimwikiToggleListItem
 "<Leader>ow -- Open default wiki index file.
 "<Leader>ot -- Open default wiki index file in a new tab.
 "<Leader>os -- Select and open wiki index file.
@@ -334,7 +361,8 @@ vmap <silent> <Leader>tw <Plug>TranslateWV
 "nmap <silent> <Leader>tt <Plug>Translate
 "vmap <silent> <Leader>tt <Plug>TranslateV
 " 定义于 vista defx配置
-nnoremap <leader>tl :Vista!!<CR>
+nnoremap <leader>tl :TagbarToggle<CR>
+autocmd FileType markdown,vimwiki nnoremap <buffer> <leader>tl :Vista!!<CR>
 "nnoremap <leader>ta :call <sid>defx_open({ 'split': v:true })<cr> :Vista!!<CR>
 "}}}
 "=====================================================================================================
