@@ -91,9 +91,10 @@ set maxmempattern=2000
 set completeopt=longest,menu
 "lazyredraw
 set lazyredraw
+set ttyfast
 hi CursorLine term=bold cterm=bold guibg=Grey40
-"颜色渲染长度
-set synmaxcol=300
+""颜色渲染长度
+"set synmaxcol=500
 
 filetype plugin on    "自适应不同文件插件不同
 set mouse=a

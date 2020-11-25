@@ -115,7 +115,7 @@ fu s:set_split_bg_fg() abort
     hi StatusLine ctermfg=black guifg=black
 endfu
 
-if g:colors_name == 'OceanicNext'
+if exists('g:load_colorschemes') && g:load_colorschemes && g:colors_name == 'OceanicNext'
     exec 'hi VertSplit ctermbg=Black guibg=Black'
 else
     exec 'call s:set_split_bg_fg()'
