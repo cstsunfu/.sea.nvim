@@ -22,7 +22,7 @@ if exists('g:load_fzf') && g:load_fzf
     " popup&&float window
     " border [string default 'rounded']: Border style ('rounded' | 'sharp' | 'horizontal')
     "
-    hi FZFBorder ctermfg=Black guifg=Black
+    hi FZFBorder guifg=black
     "exec 'hi FZFNone ctermfg='.synIDattr(hlID('Normal'),'bg').' guifg'.synIDattr(hlID('Normal'),'bg')
     "let g:fzf_layout = { 'window': { 'width': 0.96, 'height': 0.76, 'yoffset': 1, 'border': 'rounded' , 'highlight':'FZFBorder'} }
     "
@@ -30,8 +30,8 @@ if exists('g:load_fzf') && g:load_fzf
         return matchstr(expand('<sfile>'), '.*\zs<SNR>\d\+_')
     endfu
     let s:snr = get(s:, 'snr', s:snr())
-    "let g:fzf_layout = {'window': 'call '..s:snr..'fzf_window(0.96, 0.76, "Comment")'}
     let g:fzf_layout = {'window': 'call '..s:snr..'fzf_window(0.96, 0.76, "Comment")'}
+    "let g:fzf_layout = {'window': 'call '..s:snr..'fzf_window(0.96, 0.76, "Keyword")'}
     fu s:create_float(hl, opts) abort
         let buf = nvim_create_buf(v:false, v:true)
         let opts = extend({'relative': 'editor', 'style': 'minimal'}, a:opts)
@@ -44,9 +44,12 @@ if exists('g:load_fzf') && g:load_fzf
         let height = float2nr(&lines * a:height)
         let row = float2nr((&lines - height) / 2)
         let col = float2nr((&columns - width) / 2)
-        let top = '┌' . 'sunfu.vim'.repeat('─', width - 11) . '┐'
+        "let top = '┌' . 'sunfu.vim'.repeat('─', width - 11) . '┐'
+        "let mid = '│' . repeat(' ', width - 2) . '│'
+        "let bot = '└' . repeat('─', width - 2) . '┘'
+        let top = '╭─' . 'sunfu.vim'.repeat('─', width - 12) . '╮'
         let mid = '│' . repeat(' ', width - 2) . '│'
-        let bot = '└' . repeat('─', width - 2) . '┘'
+        let bot = '╰' . repeat('─', width - 2) . '╯'
         let border = [top] + repeat([mid], height - 2) + [bot]
         if has('nvim')
             let frame = s:create_float(a:border_highlight, {
@@ -132,6 +135,7 @@ if exists('g:load_ycm') && g:load_ycm
         \ 'pandoc': 1,
         \ 'infolog': 1,
         \ 'mail': 1,
+        \ 'java': 1,
         \}
     let g:ycm_error_symbol = '*'
     "latex
@@ -188,7 +192,7 @@ if exists('g:load_vista') && g:load_vista
     let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
     " Executive used when opening vista sidebar without specifying it.
     " See all the avaliable executives via `:echo g:vista#executives`.
-    let g:vista_default_executive = 'ctags'
+    "let g:vista_default_executive = 'ctags'
     
     " Set the executive for some filetypes explicitly. Use the explicit executive
     " instead of the default one for these filetypes when using `:Vista` without
@@ -199,6 +203,9 @@ if exists('g:load_vista') && g:load_vista
       \ 'markdown': 'toc',
       \ 'vimwiki': 'markdown',
       \ }
+    let g:vista#executives = ['ale', 'coc', 'ctags', 'lcn', 'nvim_lsp', 'vim_lsc', 'vim_lsp']
+    let g:vista#extensions = ['markdown', 'rst']
+    let g:vista#finders = ['fzf', 'skim']
     " Declare the command including the executable and options used to generate ctags output
     " for some certain filetypes.The file path will be appened to your custom command.
     " For example:
@@ -215,7 +222,7 @@ if exists('g:load_vista') && g:load_vista
     let g:vista#renderer#enable_icon = 1
     let g:vista_stay_on_open=0
     
-    " The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+    "" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
     let g:vista#renderer#icons = {
     \   "function": "\uf794",
     \   "functions": "\uf794",

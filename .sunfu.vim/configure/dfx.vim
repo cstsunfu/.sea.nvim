@@ -92,7 +92,7 @@ function! s:defx_toggle_tree() abort
     return defx#do_action('drop')
 endfunction
 
-function! dfx#defx_my_settings() abort
+function! configure#dfx#defx_my_settings() abort
     " Define mappings
     "{{{
     nnoremap <silent><buffer><expr> <CR>
