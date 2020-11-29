@@ -2,32 +2,36 @@ if exists('g:loaded_airline_configure')
   finish
 endif
 let g:loaded_airline_configure = 1
+
 if exists('g:load_airline') && g:load_airline
     "{{{ airline
-    let g:airline#extensions#tabline#ignore_bufadd_pat = 'gundo|undotree|vimfiler|tagbar|nerd_tree|!'
     "这个是安装字体后 必须设置此项" 
     let g:airline_powerline_fonts = 1   
     "let g:airline#extensions#tabline#fnamemod = ':t'
     "打开tabline功能, 方便查看Buffer和切换, 省去了minibufexpl插件
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#buffer_idx_mode = 1
-    if g:colors_name == 'space-vim-dark'
-        let g:airline_theme='violet'
-    elseif g:colors_name == 'one'
-        let g:airline_theme='violet'
-    elseif g:colors_name == 'gruvbox'
-        let g:airline_theme='gruvbox'
-    elseif g:colors_name == 'NeoSolarized'
-        let g:airline_theme='angr'
-    elseif g:colors_name == 'oceanicnext'
-        let g:airline_theme='oceanicnext'
-    elseif g:colors_name == 'challenger_deep'
-        let g:airline_theme='oceanicnext'
-    elseif g:colors_name == 'atom-dark'
-        let g:airline_theme='challenger_deep'
-    elseif g:colors_name == 'palenight'
-        let g:airline_theme='palenight'
+    if exists('g:load_colorschemes') && g:load_colorschemes
+        if g:colors_name == 'space-vim-dark'
+            let g:airline_theme='violet'
+        elseif g:colors_name == 'one'
+            let g:airline_theme='violet'
+        elseif g:colors_name == 'gruvbox'
+            let g:airline_theme='gruvbox'
+        elseif g:colors_name == 'NeoSolarized'
+            let g:airline_theme='angr'
+        elseif g:colors_name == 'oceanicnext'
+            let g:airline_theme='oceanicnext'
+        elseif g:colors_name == 'challenger_deep'
+            let g:airline_theme='oceanicnext'
+        elseif g:colors_name == 'atom-dark'
+            let g:airline_theme='challenger_deep'
+        elseif g:colors_name == 'palenight'
+            let g:airline_theme='palenight'
+        endif
+
     endif
+
     "let g:airline_theme='base16'
     "let g:airline#extensions#ale#enabled = 1    "ale error or warning
     "airline set the window number
@@ -46,7 +50,8 @@ if exists('g:load_airline') && g:load_airline
     let g:airline#extensions#tabline#buffer_idx_mode = 1
     let g:airline#extensions#tabline#fnamemod = ':p:t'
     "let g:airline_section_z = '%3p%% %3l/%L:%3v'
-    let g:airline_section_z = '%3l/%L'
+    let g:airline_section_z = '%3p%% %3l/%L:%3v'
+    "let g:airline_section_z = '%3l/%L'
     "let g:airline#extensions#hunks#enabled = 0
     let g:airline_section_error = '%{airline#util#wrap( airline#extensions#coc#get_error(), 0)}'
     let g:airline_section_warning = '%{airline#util#wrap( airline#extensions#coc#get_warning(), 0)}'
@@ -83,7 +88,6 @@ if exists('g:load_airline') && g:load_airline
         "\ 'startify': [ ' ﭾ ', '无用之用 方为大用 《庄子·人间世》' , '投币三连'],
         "\ 'startify': [ '  ', '无用之用 方为大用 《庄子·人间世》' , '投币三连'],
         "\ 'startify': [ '晴 﫥  ', '无用之用 方为大用 《庄子·人间世》' , '投币三连'],
-    "let g:airline#extensions#tabline#ignore_bufadd_pat = 'gundo|undotree|vimfiler|tagbar|nerd_tree|!'
     let g:airline#extensions#tabline#ignore_bufadd_pat='!|defx|gundo|nerd_tree|tagbar|undotree|vimfiler'
     "}}}
 endif
