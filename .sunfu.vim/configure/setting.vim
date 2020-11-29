@@ -509,13 +509,13 @@ if exists('g:load_asyncrun') && g:load_asyncrun
     let g:asyncrun_bell = 1
     let $PYTHONUNBUFFERED=1
     
-    " 设置 F10 打开/关闭 Quickfix 窗口
-    nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
-    "}}}
+    "" 设置 F10 打开/关闭 Quickfix 窗口
+    "nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+    ""}}}
 endif
 
 if exists('g:load_enhance_markdown') && g:load_enhance_markdown
-    "{{{table-mode
+    "table-mode---------{{{
     let g:table_mode_corner='|'
     "}}}
     "{{{markdown_preview
@@ -554,6 +554,14 @@ if exists('g:load_default_plugin') && g:load_default_plugin
     "}}}
     "{{{vim-polyglot 多语言预发支持
     let g:polyglot_disabled = ['latex']
+    "}}}
+    "{{{tagbar
+    let g:tagbar_position='left'
+    let g:tagbar_width = max([25, winwidth(0)/9*2])
+    "}}}
+    "{{{Quick-scope
+    " Trigger a highlight in the appropriate direction when pressing these keys:
+    let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
     "}}}
 endif
 

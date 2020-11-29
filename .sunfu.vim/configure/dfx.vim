@@ -3,10 +3,6 @@ if exists('g:loaded_defx_configure')
 endif
 let g:loaded_defx_configure = 1
 
-augroup defx
-    autocmd FileType defx call configure#dfx#defx_my_settings()
-    autocmd VimEnter * call configure#dfx#setup_defx()
-augroup END
 
 "nnoremap <silent><leader>fo :call <sid>defx_open({ 'split': v:true, 'find_current_file': v:true })<CR>
 
@@ -92,11 +88,16 @@ function! s:defx_toggle_tree() abort
     return defx#do_action('drop')
 endfunction
 
-function! dfx#defx_my_settings() abort
+function! configure#dfx#defx_my_settings() abort
     " Define mappings
     "{{{
+    "nnoremap <silent><buffer><expr> <CR>
+                "\ defx#do_action('open')
+
     nnoremap <silent><buffer><expr> <CR>
-                \ defx#do_action('open')
+                \ defx#is_directory() ?
+                \ defx#do_action('open_directory') :
+                \ defx#do_action('multi', ['drop', 'quit'])
     nnoremap <silent><buffer><expr> c
                 \ defx#do_action('copy')
     nnoremap <silent><buffer><expr> m
@@ -150,3 +151,6 @@ function! dfx#defx_my_settings() abort
     nnoremap <silent><buffer><expr> o <sid>defx_toggle_tree()
     nnoremap <silent><buffer><expr> O defx#do_action('open_tree_recursive')
 endfunction
+
+autocmd VimEnter * call configure#dfx#setup_defx()
+autocmd FileType defx call configure#dfx#defx_my_settings()

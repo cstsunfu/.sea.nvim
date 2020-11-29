@@ -94,7 +94,7 @@ set foldtext      =mhi#foldy()
 "}}}
 "{{{ UI
 "
-    set fillchars+=vert:\        "修改分割线为空格 
+    "set fillchars+=vert:\        "修改分割线为空格 
     set fillchars+=vert:│
     "set fillchars+=eob:\ 
     "set fillchars+=stl:-
@@ -115,8 +115,11 @@ fu s:set_split_bg_fg() abort
     hi StatusLine ctermfg=black guifg=black
 endfu
 
-if g:colors_name == 'OceanicNext'
+if g:colors_name == 'OceanicNext' 
     exec 'hi VertSplit ctermbg=Black guibg=Black'
+elseif g:colors_name == 'dracula'
+    hi VertSplit guifg=#282a36 guibg=black
+    "hi StatusLine ctermfg=black guifg=black
 else
     exec 'call s:set_split_bg_fg()'
 endif
