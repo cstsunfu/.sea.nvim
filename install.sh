@@ -66,6 +66,10 @@ install_fonts () {
     fi 
     cp $HOME/.local/share/fonts/* $HOME/Library/Fonts/
   else
+    # 使mkfontscale和mkfontdir命令正常运行
+    sudo apt-get install ttf-mscorefonts-installer
+    # 使fc-cache命令正常运行
+    sudo apt-get install fontconfig
     fc-cache -fv > /dev/null
     mkfontdir "$HOME/.local/share/fonts" > /dev/null
     mkfontscale "$HOME/.local/share/fonts" > /dev/null
@@ -81,15 +85,19 @@ install_config() {
     cp init.vim $HOME/.vimrc
     cp .flake8 $HOME/.flake8
     cp init.vim $HOME/.config/nvim/init.vim
-    cp -r .sunfu.vim $HOME/.sunfu.vim/
+    cp -r .sunfu.vim $HOME/
 }
 install_depend(){
     pip install flake8
     #brew install ctags
-    brew install fontconfig
-    brew install neovim
-    brew install --HEAD universal-ctags/universal-ctags/universal-ctags
-    brew install tmux
+    if [ $System == "Darwin" ];then
+        brew install fontconfig
+        brew install neovim
+        brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+        brew install tmux
+    else
+        sudo apt-get install neovim
+    fi
 }
 install_depend
 install_fonts
