@@ -1,12 +1,12 @@
 vim.g.HOME_PATH = ""
 if vim.fn.has('mac') == 1 then
-    vim.g.HOME_PATH = "/Users/"..vim.fn.expand('$USER').."/"
+    vim.g.HOME_PATH = "/Users/"..vim.fn.expand('$USER')
 elseif vim.fn.has('unix') == 1 then
-    vim.g.HOME_PATH = "/home/"..vim.fn.expand("$USER").."/"
+    vim.g.HOME_PATH = "/home/"..vim.fn.expand("$USER")
 else
     print("configure is only for mac or linux !")
 end
-vim.g.CONFIGURE = vim.g.HOME_PATH..".test.vim/"
+vim.g.CONFIGURE = vim.g.HOME_PATH.."/.test.vim"
 vim.o.runtimepath = vim.o.runtimepath..","..vim.g.CONFIGURE
 
 local execute = vim.api.nvim_command
