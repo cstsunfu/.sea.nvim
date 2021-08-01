@@ -10,7 +10,7 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        --vim.g.UltiSnipsExpandTrigger="<leader><tab>"
+        vim.g.UltiSnipsExpandTrigger="<leader><tab>"
         --vim.g:UltiSnipsJumpForwardTrigger="<c-j>"
         --vim.g:UltiSnipsJumpBackwardTrigger="<c-k>"
     end,

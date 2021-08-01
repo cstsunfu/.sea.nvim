@@ -16,7 +16,7 @@ plugin.core = {
 
         -- Executive used when opening vista sidebar without specifying it.
         -- See all the avaliable executives via `:echo g:vista#executives`.
-        vim.g.vista_default_executive = 'nvim_lsp'
+        vim.g.vista_default_executive = 'coc'
 
         -- Set the executive for some filetypes explicitly. Use the explicit executive
         -- instead of the default one for these filetypes when using `:Vista` without
@@ -25,7 +25,9 @@ plugin.core = {
         -- To enable fzf's preview window set g:vista_fzf_preview.
         -- The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
         -- For example:
-        vim.g.vista_fzf_preview = {'left:30%'}
+        --vim.g.vista_fzf_preview = {'right:30%'}
+        vim.g.vista_sidebar_position = "vertical topleft"
+        vim.g.vista_sidebar_width = 30
 
     end,
 }

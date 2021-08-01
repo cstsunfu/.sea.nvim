@@ -2,7 +2,10 @@ local plugin = {}
 
 plugin.core = {
     'hoob3rt/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true},
+    requires = {
+        {'kyazdani42/nvim-web-devicons', opt = true},
+        {'nvim-lua/plenary.nvim', opt=true},
+    },
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -12,7 +15,15 @@ plugin.core = {
         -- Eviline config for lualine
         -- Author: shadmansaleh
         -- Credit: glepnir
+        -- modified: cstsunfu
+        if not packer_plugins['plenary.nvim'].loaded then
+            vim.cmd [[packadd plenary.nvim]]
+        end
         local lualine = require 'lualine'
+        local Path = require'plenary.path'
+        local root = Path:new("/")
+        local root_patterns = {".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt"}
+        local home_path = Path:new(vim.g.HOME_PATH)
 
         -- Color table for highlights
         local colors = {
@@ -53,7 +64,7 @@ plugin.core = {
                     normal = {c = {fg = colors.fg, bg = colors.bg}},
                     inactive = {c = {fg = colors.fg, bg = colors.bg}}
                 },
-                disabled_filetypes = {'WhichKey', 'nofile', 'NvimTree'}
+                disabled_filetypes = {'WhichKey', 'nofile', 'NvimTree', 'vista'}
             },
             sections = {
                 -- these are to remove the defaults
@@ -164,37 +175,72 @@ plugin.core = {
 
         ins_left_active {'progress', color = {fg = colors.fg, gui = 'bold'}}
 
-        ins_left_active {
-            'diagnostics',
-            sources = {'nvim_lsp'},
-            symbols = {error = ' ', warn = ' ', info = ' '},
-            color_error = colors.red,
-            color_warn = colors.yellow,
-            color_info = colors.cyan
-        }
-
+        if USE_COC then
+            ins_left_active {
+                'diagnostics',
+                sources = {'coc'},
+                symbols = {error = ' ', warn = ' ', info = ' '},
+                color_error = colors.red,
+                color_warn = colors.yellow,
+                color_info = colors.cyan
+            }
+            ins_left_active {
+                'g:coc_status',
+            }
+        else
+            ins_left_active {
+                'diagnostics',
+                sources = {'nvim_lsp'},
+                symbols = {error = ' ', warn = ' ', info = ' '},
+                color_error = colors.red,
+                color_warn = colors.yellow,
+                color_info = colors.cyan
+            }
+        end
         -- Insert mid section. You can make any number of sections in neovim :)
         -- for lualine it's any number greater then 2
         ins_left_active {function() return '%=' end}
 
-        ins_left_active {
-            -- Lsp server name .
-            function()
-                local msg = 'No Active Lsp'
-                local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-                local clients = vim.lsp.get_active_clients()
-                if next(clients) == nil then return msg end
-                for _, client in ipairs(clients) do
-                    local filetypes = client.config.filetypes
-                    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                        return client.name
+        if USE_COC == true then
+            ins_left_active {
+                -- Lsp server name .
+                function()
+                    local fname = vim.fn.getcwd()
+                    local path = Path:new(fname)
+                    while (path.filename ~= home_path.filename) and (path.filename ~= root.filename) do
+                        for _,pattern in ipairs(root_patterns) do
+                            if path:joinpath(pattern):exists() then
+                                local split_path = path:_split()
+                                return split_path[#split_path]
+                            end
+                        end
+                        path = path:parent()
                     end
-                end
-                return msg
-            end,
-            icon = ' LSP:',
-            color = {fg = '#ffffff', gui = 'bold'}
-        }
+                    return "*WARNING* THIS IS NOT A NORMAL PROJECT"
+                end,
+                icon = ' Project:',
+                color = {fg = '#ffffff', gui = 'bold'}
+            }
+        else
+            ins_left_active {
+                -- Lsp server name .
+                function()
+                    local msg = 'No Active Lsp'
+                    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+                    local clients = vim.lsp.get_active_clients()
+                    if next(clients) == nil then return msg end
+                    for _, client in ipairs(clients) do
+                        local filetypes = client.config.filetypes
+                        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                            return client.name
+                        end
+                    end
+                    return msg
+                end,
+                icon = ' LSP:',
+                color = {fg = '#ffffff', gui = 'bold'}
+            }
+        end
 
         -- Add components to right sections
         ins_right_active {

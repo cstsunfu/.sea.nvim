@@ -20,9 +20,14 @@ else
         silent = true
     })
 end
-vim.cmd("hi NonText guifg=bg")        -- set no display ~
-vim.cmd("hi! link SignColumn LineNr") -- set sign column color as the line number color 
+    vim.cmd([[
+    inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<tab>"
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    ]])
 
+
+vim.cmd("hi! link SignColumn LineNr")   --set VertSplit color to black
+vim.cmd("autocmd ColorScheme, VimEnter * highlight! link SignColumn LineNr")
 vim.cmd("hi VertSplit ctermfg=black guifg=black")   --set VertSplit color to black
 vim.cmd("hi StatusLine ctermfg=black guifg=black")  --set HSplit color to black
 --hi VertSplit ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))   -- TODO if the above setting not work as espect, maybe these setting will work
@@ -30,7 +35,6 @@ vim.cmd("hi StatusLine ctermfg=black guifg=black")  --set HSplit color to black
 --hi StatusLine ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))
 --hi StatusLine ctermbg=NONE guibg=dark
 
-vim.cmd("autocmd ColorScheme * highlight! link SignColumn LineNr")
 vim.cmd("highlight LspDiagnosticsDefaultError guifg='BrightRed'")
 vim.fn.sign_define("LspDiagnosticsSignError", {text = "", texthl = "LspDiagnosticsSignError"})
 vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", texthl = "LspDiagnosticsSignWarning"})

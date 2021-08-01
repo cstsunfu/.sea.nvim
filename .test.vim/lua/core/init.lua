@@ -1,42 +1,47 @@
 vim.g.python3_host_prog = '/home/sun/anaconda3/bin/python3'
 
-
 -- invoke default setting
 require('core.default')
 
 -- plugin configure, using packer.nvim to install plugins
-feature_groups = {}
-feature_groups.default = true
-feature_groups.complete = true
-feature_groups.colorschemes = true
-feature_groups.beauty_vim = true
-feature_groups.file = true
-feature_groups.move_behavior = true
+USE_COC = true
+FEATURE_GROUPS = {}
+FEATURE_GROUPS.default = true
+if USE_COC then
+    FEATURE_GROUPS.coc_complete = true
+else
+    FEATURE_GROUPS.buildin_complete = true
+end
+FEATURE_GROUPS.colorschemes = true
+FEATURE_GROUPS.beauty_vim = true
+FEATURE_GROUPS.file_and_view = true
+FEATURE_GROUPS.move_behavior = true
+FEATURE_GROUPS.debug_adapter = true
 
-feature_groups.fzf = true
-feature_groups.default_plugin = true
-feature_groups.airline = true
-feature_groups.goyo = true
-feature_groups.jupyter_vim = true
-feature_groups.linediff = true
-feature_groups.ale = true
-feature_groups.vista = true
-feature_groups.lang_python = true
-feature_groups.lang_java = true
-feature_groups.lang_cpp = true
-feature_groups.lang_latex = true
-feature_groups.easy_change = true
-feature_groups.wakatime = false
-feature_groups.format = true
-feature_groups.asyncrun = true
-feature_groups.mirror = true
-feature_groups.indentline = true
-feature_groups.smooth_scroll = true
-feature_groups.org_my_life = true
-feature_groups.enhance_markdown = true
-feature_groups.vimspector = true
-feature_groups.translate_me = true
-feature_groups.nerd_tree = true
+FEATURE_GROUPS.fzf = true
+FEATURE_GROUPS.default_plugin = true
+FEATURE_GROUPS.airline = true
+FEATURE_GROUPS.goyo = true
+FEATURE_GROUPS.jupyter_vim = true
+FEATURE_GROUPS.linediff = true
+FEATURE_GROUPS.ale = true
+FEATURE_GROUPS.vista = true
+FEATURE_GROUPS.lang_python = true
+FEATURE_GROUPS.lang_java = true
+FEATURE_GROUPS.lang_cpp = true
+FEATURE_GROUPS.lang_latex = true
+FEATURE_GROUPS.easy_change = true
+FEATURE_GROUPS.wakatime = false
+FEATURE_GROUPS.format = true
+FEATURE_GROUPS.asyncrun = true
+FEATURE_GROUPS.mirror = true
+FEATURE_GROUPS.indentline = true
+FEATURE_GROUPS.smooth_scroll = true
+FEATURE_GROUPS.org_my_life = true
+FEATURE_GROUPS.enhance_markdown = true
+FEATURE_GROUPS.vimspector = true
+FEATURE_GROUPS.translate_me = true
+FEATURE_GROUPS.nerd_tree = true
 
 require('core.plugins').setup()
 require('core.mapping')

@@ -33,7 +33,7 @@ mapping_prefix = {
         ["<leader>p"] = {name = "+ Paste"},
         ["<leader>q"] = {name = "+ Quick"},
         ["<leader>r"] = {name = "+ Read"},
-        ["<leader>s"] = {name = "+ Snip/Save/CtrlSF/Space"},
+        ["<leader>s"] = {name = "+ Snip/Save/CtrlSF/Space/Sign"},
         ["<leader>t"] = {name = "+ Table/Terminal/Translate"},
         ["<leader>v"] = {name = "+ Visual"},
         ["<leader>w"] = {name = "+ Window"},
@@ -54,7 +54,7 @@ mapping_prefix = {
 global_mapping.register = function(new_map)
     --  mode = "n",                   default : n
     --  key = {"<leader>", "ff"},     required
-    --  noremap = true,               default : true
+    --  noremap = nil,               default : nil
     --  action = "",                  required
     --  short_desc = "",              default : No DESC
     --  desc = "",                    default = short_desc
@@ -62,9 +62,6 @@ global_mapping.register = function(new_map)
     --  silent = nil,                 default = nil
 
     -- default
-    if new_map['noremap'] == nil then
-        new_map['noremap'] = true
-    end
     if new_map['mode'] == nil then
         new_map['mode'] = 'n'
     end
@@ -75,7 +72,10 @@ global_mapping.register = function(new_map)
         new_map['desc'] = "NO DESC"
     end
 
-    local option = {noremap = new_map.noremap}
+    local option = {}
+    if new_map['noremap'] ~= nil then
+        option['noremap'] = new_map.noremap
+    end
     if new_map['expr'] ~= nil then
         option['expr'] = new_map['expr']
     end

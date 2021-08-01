@@ -65,7 +65,7 @@ plugin.core = {
                     end
                 end,
                 --offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left" | "center" | "right"}},
-                offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center", highlight = 'DiffAdd'}},
+                offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center", highlight = 'Comments'}, {filetype = "vista", text = "Code Navigator", text_align = "center", highlight = 'Comments'}},
                 --show_buffer_icons = true | false, -- disable filetype icons for buffers
                 show_buffer_icons = true, -- disable filetype icons for buffers
                 --show_buffer_close_icons = true | false,

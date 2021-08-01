@@ -48,17 +48,16 @@ global_func.augroup('smarter_cursorline', {
 
 default_setting['opt'] = {
     number = true,
-    --relativenumber = true,                    -- has moved to smarter_cursorline autocmd 
+    --relativenumber = true,                    -- has moved to smarter_cursorline autocmd
     history = 10000,                            -- undo file history
     undofile = true,                            -- use undo file
-    swapfile = false,                            -- use swap file 
+    swapfile = false,                            -- use swap file
     maxmempattern = 2000,                       -- max match pattern
     autochdir = true,                           -- auto change directory to current file
     lazyredraw = true,                          -- will speed up in macro repeat
     ttyfast = true,                             -- maybe as lazyredraw ? TODO
-    mouse = 'a', 
+    mouse = 'a',
     hidden = true,                              -- permit of change buffer when the buffer is not been written
-    syntax = 'enable',  
     syntax = 'on',                              -- permit change default syntax
     fileencodings = "utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,latin1",
     encoding = "utf-8",
