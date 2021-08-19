@@ -1,3 +1,5 @@
+![Dashboard](./pic/dashboard.png)
+
 # Neovim Configure
 ## Dependent
 
@@ -12,11 +14,17 @@
 
 
 # Main features
-![Dashboard](./pic/dashboard.png)
+## Fuzzy Search
 ![Fuzzy Search](./pic/fuzzy_search.png)
+## Complete by Coc
 ![Complete by Coc](./pic/complete.png)
+
+## Agenda
 ![Agenda](./pic/orgmode.png)
+
+## Markdown & Vimwiki
 ![Markdown & Vimwiki](./pic/markdown.png)
+## Project TODO
 ![Project TODO](./pic/project_todo.png)
 
 
