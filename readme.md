@@ -1,18 +1,23 @@
-# MacOS上的vim
+# Neovim Configure
 ## Dependent
-* neovim
-* python3, python2
-* 最好用oh-my-zsh
+
+    * neovim > 0.5
 
 ## Install
 
+
+    ```bash
     ./install.sh
-    打开nvim执行:
-    :PlugInstall
+    ```
 
-![完成之后](./ss.png)
 
-## Shortcut
+# Main features
+[Dashboard]('./pic/dashboard.png')
+[Fuzzy Search]('./pic/fuzzy_search.png')
+[Complete by Coc]('./pic/complete.png')
+[Agenda]('./pic/orgmode.png')
+[Markdown & Vimwiki]('./pic/markdown.png')
+[Project TODO]('./pic/project_todo.png')
 
-(几乎)所有快捷键定义在
-    .sunfu.vim/configure/shortcut.vim 
+
+TODO: detail
