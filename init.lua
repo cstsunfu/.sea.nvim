@@ -5,6 +5,7 @@ elseif vim.fn.has('unix') == 1 then
     vim.g.HOME_PATH = "/home/"..vim.fn.expand("$USER")
 else
     print("configure is only for mac or linux !")
+    return
 end
 vim.g.CONFIGURE = vim.g.HOME_PATH.."/.sea.nvim"
 vim.o.runtimepath = vim.o.runtimepath..","..vim.g.CONFIGURE
@@ -30,4 +31,3 @@ packer.init {
 }
 
 require("core")
-
