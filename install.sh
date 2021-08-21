@@ -5,6 +5,9 @@
 # Last Modified Date: 2021-08-20
 # Last Modified By  : Sun Fu <cstsunfu@gmail.com>
 
+#printf "\033[32m SUCCESS \033[0m\n";
+#printf "\033[33m WARNING \033[0m\n";
+#printf "\033[31m ERROR \033[0m\n"
 
 install_config() {
     
@@ -12,15 +15,16 @@ install_config() {
           mkdir -p "$HOME/.config/nvim"
     fi 
     ln -s -f $PWD/init.lua $HOME/.config/nvim/init.lua
+    echo $System
 }
 install_depend(){
     pip install flake8
-    if [[ $System == "Darwin" ]];then
+    if [[ "$(uname)"=="Darwin" ]];then
         brew install neovim
-    elif [[ $System == "Ubuntu" ]]; then
+    elif [[ -n "$(uname -a | grep Linux | grep Microsoft )" ]]; then
         sudo apt-get install neovim
     else
-        echo "Don't support install depend for your system, please install manually. "
+        printf "\033[31m ERROR: Don't support install depend for your system(only configure for WSL & MacOS), please install manually.\033[0m\n"
     fi
 }
 install_depend
