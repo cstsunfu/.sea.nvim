@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    'hoob3rt/lualine.nvim',
+    "shadmansaleh/lualine.nvim", -- TODO: if this branch is merged, I should change to the master 'hoob3rt/lualine.nvim',
     requires = {
         {'kyazdani42/nvim-web-devicons', opt = true},
         {'nvim-lua/plenary.nvim', opt=true},
@@ -108,6 +108,7 @@ plugin.core = {
             left_padding = 0 -- We don't need space before this
         }
 
+
         ins_left_active {
             -- mode component
             function()
@@ -181,9 +182,9 @@ plugin.core = {
                 'diagnostics',
                 sources = {'coc'},
                 symbols = {error = ' ', warn = ' ', info = ' '},
-                color_error = colors.red,
-                color_warn = colors.yellow,
-                color_info = colors.cyan
+                color_error = { fg = colors.red },
+                color_warn = { fg = colors.yellow },
+                color_info = { fg = colors.cyan }
             }
             ins_left_active {
                 'g:coc_status',
@@ -296,9 +297,9 @@ plugin.core = {
             'diff',
             -- Is it me or the symbol for modified us really weird
             symbols = {added = ' ', modified = '柳 ', removed = ' '},
-            color_added = colors.green,
-            color_modified = colors.orange,
-            color_removed = colors.red,
+            color_added = { fg = colors.green },
+            color_modified = { fg = colors.orange },
+            color_removed = { fg = colors.red },
             condition = conditions.hide_in_width
         }
         ins_right_active {
@@ -353,12 +354,27 @@ plugin.core = {
             color = {fg = colors.gray}, -- Sets highlighting of component
         }
 
+
         ins_left_inactive {
             'filename',
             condition = conditions.buffer_not_empty,
             --color = {fg = colors.gray, gui = 'bold'},
             file_status = true, -- displays file status (readonly status, modified status)
             path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
+        }
+        ins_left_inactive {function() return '%=' end}
+
+        ins_left_inactive {
+            function()
+                local cur_winnr = vim.fn.winnr()
+                local win_display_list = {"❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾"}
+                if cur_winnr > #win_display_list then
+                    return " "
+                end
+                return win_display_list[cur_winnr]
+            end,
+            color = {fg = colors.gray, gui = 'bold'}, -- Sets highlighting of component
+            left_padding = 0 -- We don't need space before this
         }
         -- Add components to right sections
         ins_right_inactive {
@@ -386,9 +402,9 @@ plugin.core = {
             'diff',
             -- Is it me or the symbol for modified us really weird
             symbols = {added = ' ', modified = '柳 ', removed = ' '},
-            color_added = colors.green,
-            color_modified = colors.orange,
-            color_removed = colors.red,
+            color_added = { fg = colors.green },
+            color_modified = { fg = colors.orange },
+            color_removed = { fg = colors.red },
             condition = conditions.hide_in_width
         }
 
@@ -410,6 +426,15 @@ plugin.core = {
 
 plugin.mapping = function()
 
+    local mappings = require('core.mapping')
+    for i=1,9,1 do
+        mappings.register({
+            mode = "n",
+            key = {"<localleader>", tostring(i)},
+            action = tostring(i)..'<c-w><c-w>',
+            short_desc = "Goto "..tostring(i).." Window"
+        })
+    end
 end
 
 return plugin
