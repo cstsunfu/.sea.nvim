@@ -373,7 +373,7 @@ plugin.core = {
                 end
                 return win_display_list[cur_winnr]
             end,
-            color = {fg = colors.gray, gui = 'bold'}, -- Sets highlighting of component
+            color = {fg = colors.blue, gui = 'bold'}, -- Sets highlighting of component
             left_padding = 0 -- We don't need space before this
         }
         -- Add components to right sections

@@ -31,6 +31,7 @@ require('user').setup({pomodoro={dir_path=vim.g.HOME_PATH..'/wiki/pomodoro/'}})
 
 require('core.mapping')
 require('core.plugins').create_mapping()
+require('user').create_mapping()
 require("configure."..vim.g.colorscheme).setup(vim.g.theme)
 
 require('core.after')

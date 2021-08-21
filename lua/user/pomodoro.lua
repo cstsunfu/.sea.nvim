@@ -82,16 +82,26 @@ local menu = function(tab)
 end
 
 local reset = function()
-    M.date = os.date("%Y_%m_%d")
     M.finished_pomo = 0
-    M.file_path = M.dir_path.."/"..M.date..".json"
-    M.data = json.decode(util.sync_read_file(M.file_path) or "{}")
-    for _,val in pairs(M.data) do
-        M.finished_pomo = M.finished_pomo + val
+    M.data_file_path = M.dir_path.."/"..M.today..".json"
+    M.data = json.decode(util.sync_read_file(M.data_file_path) or "{}")
+
+    for _, records in pairs(M.data) do
+        M.finished_pomo = M.finished_pomo + #(records['finished'] or {})
     end
 end
 
 M.start_pomodoro = function()
+
+    if M.reserve ~= nil then
+        vim.notify('There is Already a Pomodoro Clock Running on Project "'..(M.cur_proj or "NO NAME")..'".\nYou Should Stop/Cancel it.', vim.lsp.log_levels.ERROR, {
+			title = "ERROR",
+            icon = "",
+            timeout = 3000,
+		})
+        return
+    end
+
     local date = os.date("%Y_%m_%d")
     if date ~= M.today then
         M.today = date
@@ -116,13 +126,16 @@ M.start_pomodoro = function()
     end
     table.insert(M.mru, 1, M.cur_proj)
     timer = vim.loop.new_timer()
+    M.start_time = os.date("%H:%M", os.time())
     M.reserve = M.pomo_minites
+
     timer:start(100, 15000, vim.schedule_wrap(function()
         M.reserve = M.reserve - 0.25
         if M.reserve <= 0 then
             M.stop_pomodoro()
         end
     end))
+
     vim.notify("You Start a Pomodoro Clock on Project '"..M.cur_proj.."'!", vim.lsp.log_levels.INFO, {
         title = "Start a pomodoro clock.",
         icon = "",
@@ -140,30 +153,64 @@ M.stop_pomodoro = function()
         return
     end
     timer:stop()
+    local finished = true
     if M.reserve > 0 then
         vim.notify("Unfinished Pomodoro Clock on Project '"..M.cur_proj.."'!", vim.lsp.log_levels.WARN, {
 			title = "WARNING",
             icon = "",
             timeout = 3000,
 		})
-        M.reserve = nil
+        finished = false
+    end
+
+    M.reserve = nil
+    if not M.data[M.cur_proj] then
+        M.data[M.cur_proj] = {
+            finished = {},
+            un_finished = {}
+        }
+    end
+
+    local cur_time = os.date("%H:%M", os.time())
+    if finished then
+        M.finished_pomo  = M.finished_pomo + 1
+        M.data[M.cur_proj]['finished'][#M.data[M.cur_proj]['finished'] + 1] = {
+            start_time = M.start_time,
+            end_time = cur_time
+        }
+        vim.notify("You Finished One Pomodoro Clock on Project '"..M.cur_proj.."'!", vim.lsp.log_levels.INFO, {
+            title = "You Finished One Pomodoro Clock!",
+            icon = "",
+            timeout = 3000,
+        })
+    else
+        M.data[M.cur_proj]['un_finished'][#M.data[M.cur_proj]['un_finished'] + 1] = {
+            start_time = M.start_time,
+            end_time = cur_time
+        }
+    end
+    util.async_write_file(M.mru_path, table.concat(M.mru, '\n'))
+    util.async_write_file(M.data_file_path, json.encode(M.data))
+
+end
+
+M.cancel_pomodoro = function()
+    if M.reserve == nil then
+        vim.notify("There is Not a Pomodoro Run.", vim.lsp.log_levels.ERROR, {
+			title = "ERROR",
+            icon = "",
+            timeout = 3000,
+		})
         return
     end
-    M.reserve = nil
-    M.finished_pomo  = M.finished_pomo + 1
-    local cur_proj_pomo = M.data[M.cur_proj]
-    if not cur_proj_pomo then
-        cur_proj_pomo = 0
-    end
-    M.data[M.cur_proj] = cur_proj_pomo + 1
-    util.async_write_file(M.mru_path, table.concat(M.mru, '\n'))
-    util.async_write_file(M.dir_path.."/"..M.date..".json", json.encode(M.data))
-
-    vim.notify("You Finished One Pomodoro Clock on Project '"..M.cur_proj.."'!", vim.lsp.log_levels.INFO, {
-        title = "You Finished One Pomodoro Clock!",
+    timer:stop()
+    vim.notify("Canceled Pomodoro Clock on Project '"..M.cur_proj.."'!", vim.lsp.log_levels.WARN, {
+        title = "WARNING",
         icon = "",
         timeout = 3000,
     })
+
+    M.reserve = nil
 end
 
 
@@ -176,6 +223,31 @@ M.setup = function (config)
     M.mru_path = M.dir_path.."/".."mru.txt"
     M.mru = util.split(util.sync_read_file(M.mru_path) or "", '\n')
     reset()
+end
+
+M.create_mapping = function()
+
+    local mappings = require('core.mapping')
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", 'o', 'p', 's'},
+        action = ":lua require'user.pomodoro'.start_pomodoro()<cr>",
+        short_desc = "Start Pomodoro Clock"
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", 'o', 'p', 'q'},
+        action = ":lua require'user.pomodoro'.stop_pomodoro()<cr>",
+        short_desc = "Quit Pomodoro Clock"
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", 'o', 'p', 'c'},
+        action = ":lua require'user.pomodoro'.cancel_pomodoro()<cr>",
+        short_desc = "Cancel Pomodoro Clock"
+    })
 end
 
 
