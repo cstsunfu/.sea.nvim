@@ -11,13 +11,13 @@ install_config() {
     if [ ! -e "$HOME/.config/nvim" ];then
           mkdir -p "$HOME/.config/nvim"
     fi 
-    ln -s ./init.lua $HOME/.config/nvim/init.lua
+    ln -s -f $PWD/init.lua $HOME/.config/nvim/init.lua
 }
 install_depend(){
     pip install flake8
-    if [ $System == "Darwin" ];then
+    if [[ $System == "Darwin" ]];then
         brew install neovim
-    elif [ $System == "Ubuntu" ]; then
+    elif [[ $System == "Ubuntu" ]]; then
         sudo apt-get install neovim
     else
         echo "Don't support install depend for your system, please install manually. "
