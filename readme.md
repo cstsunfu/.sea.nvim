@@ -38,9 +38,6 @@
 ## Pomodoro Clock 
 ![Pomodoro Clock](./pic/pomodoro.png)
 
-## Pomodoro Clock 
-![Pomodoro Clock](./pic/pomodoro.png)
-
 ## Window Number 
 ![Window Number](./pic/split_window.png)
 
