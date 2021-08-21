@@ -64,7 +64,7 @@ plugins_configure.plugins_groups['special_for_language'] = {
 }
 
 plugins_configure.plugins_groups['debug_adapter'] = {
-    ['dap'] = {disable=false},
+    --['dap'] = {disable=false},
     ['dap_python'] = {disable=false},
     ['dap_ui'] = {disable=false}
 }

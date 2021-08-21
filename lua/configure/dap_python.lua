@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     'mfussenegger/nvim-dap-python',
+    requires = {"mfussenegger/nvim-dap"},
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
