@@ -12,22 +12,23 @@ func.delete_all_buffers_in_window = function ()
     end
 end
 
+
 func.augroup = function(name, commands)
-  vim.cmd('augroup ' .. name)
-  vim.cmd 'autocmd!'
-  for _, c in ipairs(commands) do
-    local command = c.command
-    vim.cmd(
-      string.format(
-        'autocmd %s %s %s %s',
-        table.concat(c.events, ','),
-        table.concat(c.targets or {}, ','),
-        table.concat(c.modifiers or {}, ' '),
-        command
-      )
-    )
-  end
-  vim.cmd 'augroup END'
+    vim.cmd('augroup ' .. name)
+    vim.cmd 'autocmd!'
+    for _, c in ipairs(commands) do
+        local command = c.command
+        vim.cmd(
+            string.format(
+                'autocmd %s %s %s %s',
+                table.concat(c.events, ','),
+                table.concat(c.targets or {}, ','),
+                table.concat(c.modifiers or {}, ' '),
+                command
+            )
+        )
+    end
+    vim.cmd 'augroup END'
 end
 
 func.index = function(tab, key)

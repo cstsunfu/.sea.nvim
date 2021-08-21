@@ -7,7 +7,8 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require("which-key").setup 
+        vim.cmd("hi! default link WhichKeyFloat Pmenu")
+        require("which-key").setup
         {
             plugins = {
                 marks = true, -- shows a list of your marks on ' and `

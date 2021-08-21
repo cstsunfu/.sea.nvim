@@ -172,20 +172,20 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "b", "n"},
         action = ":bnext<cr>",
-        short_desc = "goto next buffer"
+        short_desc = "Goto Next Buffer"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "b", "l"},
         action = ":blast<cr>",
-        short_desc = "goto last buffer"
+        short_desc = "Goto Last Buffer"
     })
 
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "b", "d"},
         action = ":bdelete<cr>",
-        short_desc = "delete current buffer"
+        short_desc = "Delete Current Buffer"
     })
 
 
@@ -193,20 +193,20 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "b", "D"},
         action = ":lua require('util.global').delete_all_buffers_in_window()<cr>",
-        short_desc = "delete all buffer except current"
+        short_desc = "Delete All Buffer Except Current"
     })
 
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "b", "p"},
         action = ":bprevious<cr>",
-        short_desc = "goto previous buffer"
+        short_desc = "Goto Previous Buffer"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "b", "f"},
         action = ":bfirst<cr>",
-        short_desc = "goto first buffer"
+        short_desc = "Goto First Buffer"
     })
 
 -- paste
@@ -215,13 +215,13 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "p"},
         action = '"+p',
-        short_desc = "paste from clipboard"
+        short_desc = "Paste From Clipboard"
     })
 global_mapping.register({
         mode = "i",
         key = {"<leader>", "p"},
         action = '<esc>"+p',
-        short_desc = "paste from clipboard"
+        short_desc = "Paste From Clipboard"
     })
 
 -- quit
@@ -229,14 +229,14 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "q", "q"},
         action = ':qa<cr>',
-        short_desc = "directly quit"
+        short_desc = "Directly Quit"
     })
 
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "q", "w"},
         action = ':qaw<cr>',
-        short_desc = "directly quit after write"
+        short_desc = "Directly Quit After Write"
     })
 
 -- read
@@ -244,7 +244,7 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "r", "d"},
         action = ':read !date <cr>',
-        short_desc = "read date from system"
+        short_desc = "Read Date From System"
     })
 
 --save/space
@@ -253,21 +253,21 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "s", "<space>"},
         action = ':%s/\\s\\+$//<cr>',
-        short_desc = "remove tail space"
+        short_desc = "Remove Tail Space"
     })
 
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "s", "s"},
         action = ':w<cr>',
-        short_desc = "save current buffer"
+        short_desc = "Save Current Buffer"
     })
 
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "s", "a"},
         action = ':wa<cr>',
-        short_desc = "save all buffers"
+        short_desc = "Save All Buffers"
     })
 
 
@@ -277,74 +277,80 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "s"},
         action = ':split<cr>',
-        short_desc = "split window"
+        short_desc = "Split Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "v"},
         action = ':vsplit<cr>',
-        short_desc = "vertical split window"
+        short_desc = "Vertical Split Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "d"},
         action = ':q<cr>',
-        short_desc = "close current window"
+        short_desc = "Close Current Window"
+    })
+global_mapping.register({
+        mode = "n",
+        key = {"<leader>", "w", "o"},
+        action = ':only<cr>',
+        short_desc = "Only Reserve Current Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "w"},
         action = '<c-w><c-w>',
-        short_desc = "goto next window"
+        short_desc = "Goto Next Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "j"},
         action = '<c-w><c-j>',
-        short_desc = "goto the down window"
+        short_desc = "Goto The Down Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "k"},
         action = '<c-w><c-k>',
-        short_desc = "goto the above window"
+        short_desc = "Goto The Above Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "h"},
         action = '<c-w><c-h>',
-        short_desc = "goto the left window"
+        short_desc = "Goto The Left Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "l"},
         action = '<c-w><c-l>',
-        short_desc = "goto the right window"
+        short_desc = "Goto The Right Window"
     })
 
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "J"},
         action = '<c-w><c-J>',
-        short_desc = "goto the bottom window"
+        short_desc = "Goto The Bottom Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "K"},
         action = '<c-w><c-K>',
-        short_desc = "goto the top window"
+        short_desc = "Goto The Top Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "H"},
         action = '<c-w><c-H>',
-        short_desc = "goto the leftest window"
+        short_desc = "Goto The Leftest Window"
     })
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "w", "L"},
         action = '<c-w><c-L>',
-        short_desc = "goto the rightest window"
+        short_desc = "Goto The Rightest Window"
     })
 
 -- x exit, exec
@@ -353,7 +359,7 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "x"},
         action = ':q<cr>',
-        short_desc = "close current window"
+        short_desc = "Close Current Window"
     })
 
 -- y yank
@@ -361,7 +367,7 @@ global_mapping.register({
         mode = "n",
         key = {"<leader>", "y"},
         action = '"+y',
-        short_desc = "yank to clipboard"
+        short_desc = "Yank to Clipboard"
     })
 
 -- Alt
@@ -370,122 +376,122 @@ if vim.fn.has('mac') == 1 then
             mode = "n",
             key = {"¬"},
             action = ':wincmd l<cr>',
-            short_desc = "<alt-l>goto right window"
+            short_desc = "<alt-l>Goto Right Window"
         })
     global_mapping.register({
             mode = "n",
             key = {"˚"},
             action = ':wincmd k<cr>',
-            short_desc = "<alt-k>goto above window"
+            short_desc = "<alt-k>Goto Above Window"
         })
     global_mapping.register({
             mode = "n",
             key = {"˙"},
             action = ':wincmd h<cr>',
-            short_desc = "<alt-h>goto left window"
+            short_desc = "<alt-h>Goto Left Window"
         })
     global_mapping.register({
             mode = "n",
             key = {"∆"},
             action = ':wincmd j<cr>',
-            short_desc = "<alt-j>goto below window"
+            short_desc = "<alt-j>Goto Below Window"
         })
     global_mapping.register({
             mode = "n",
             key = {"ƒ"},
             action = ':bnext<cr>',
-            short_desc = "<alt-f>go to next buffer"
+            short_desc = "<alt-f>Go to Next Buffer"
         })
     global_mapping.register({
             mode = "n",
             key = {"∫"},
             action = ':bprevious<cr>',
-            short_desc = "<alt-b>go to previous buffer"
+            short_desc = "<alt-b>Go to Previous Buffer"
         })
     global_mapping.register({
             mode = "n",
             key = {"∑"},
             action = ':resize +1<cr>',
-            short_desc = "<alt-w>size +1"
+            short_desc = "<alt-w>Size +1"
         })
     global_mapping.register({
             mode = "n",
             key = {"ß"},
             action = ':resize -1<cr>',
-            short_desc = "<alt-s>size -1"
+            short_desc = "<alt-s>Size -1"
         })
     global_mapping.register({
             mode = "n",
             key = {"å"},
             action = ':vertical resize -1<cr>',
-            short_desc = "<alt-a>vertical size -1"
+            short_desc = "<alt-a>Vertical Size -1"
         })
     global_mapping.register({
             mode = "n",
             key = {"∂"},
             action = ':vertical resize +1<cr>',
-            short_desc = "<alt-d>vertical size +1"
+            short_desc = "<alt-d>Vertical Size +1"
         })
 else
     global_mapping.register({
             mode = "n",
             key = {"<alt-l>"},
             action = ':wincmd l<cr>',
-            short_desc = "<alt-l>goto right window"
+            short_desc = "<alt-l>Goto Right Window"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-k>"},
             action = ':wincmd k<cr>',
-            short_desc = "<alt-k>goto above window"
+            short_desc = "<alt-k>Goto Above Window"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-h>"},
             action = ':wincmd h<cr>',
-            short_desc = "<alt-h>goto left window"
+            short_desc = "<alt-h>Goto Left Window"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-j>"},
             action = ':wincmd j<cr>',
-            short_desc = "<alt-j>goto below window"
+            short_desc = "<alt-j>Goto Below Window"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-f>"},
             action = ':bnext<cr>',
-            short_desc = "<alt-f>go to next buffer"
+            short_desc = "<alt-f>Go to Next Buffer"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-b>"},
             action = ':bprevious<cr>',
-            short_desc = "<alt-b>go to previous buffer"
+            short_desc = "<alt-b>Go to Previous Buffer"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-w>"},
             action = ':resize +1<cr>',
-            short_desc = "<alt-w>size +1"
+            short_desc = "<alt-w>Size +1"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-s>"},
             action = ':resize -1<cr>',
-            short_desc = "<alt-s>size -1"
+            short_desc = "<alt-s>Size -1"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-a>"},
             action = ':vertical resize -1<cr>',
-            short_desc = "<alt-a>vertical size -1"
+            short_desc = "<alt-a>Vertical Size -1"
         })
     global_mapping.register({
             mode = "n",
             key = {"<alt-d>"},
             action = ':vertical resize +1<cr>',
-            short_desc = "<alt-d>vertical size +1"
+            short_desc = "<alt-d>Vertical Size +1"
         })
 end
 
@@ -520,7 +526,7 @@ global_mapping.register({
         mode = "n",
         key = {"<space>", "<enter>"},
         action = ':nohlsearch<cr>',
-        short_desc = "no search highlight"
+        short_desc = "No Search Highlight"
     })
 
 -- emacs key binding for insert mode
@@ -528,67 +534,67 @@ global_mapping.register({
         mode = "i",
         key = {"<C-w>"},
         action = '<C-[>diwa',
-        short_desc = "delete prior word"
+        short_desc = "Delete Prior Word"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-h>"},
         action = '<BS>',
-        short_desc = "delete prior char"
+        short_desc = "Delete Prior Char"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-d>"},
         action = '<Del>',
-        short_desc = "delete next char"
+        short_desc = "Delete Next Char"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-k>"},
         action = '<ESC>d$a',
-        short_desc = "delete to the end"
+        short_desc = "Delete To The End"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-u>"},
         action = '<C-G>u<C-U>',
-        short_desc = "delete to the begin"
+        short_desc = "Delete To The Begin"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-b>"},
         action = '<Left>',
-        short_desc = "go left"
+        short_desc = "Go Left"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-f>"},
         action = '<Right>',
-        short_desc = "go right"
+        short_desc = "Go Right"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-a>"},
         action = '<ESC>^i',
-        short_desc = "go to the begin and insert"
+        short_desc = "Go To The Begin and Insert"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-O>"},
         action = '<Esc>o',
-        short_desc = "new line and insert"
+        short_desc = "New Line and Insert"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-S>"},
         action = '<esc>:w<CR>',
-        short_desc = "save"
+        short_desc = "Save"
     })
 global_mapping.register({
         mode = "i",
         key = {"<C-Q>"},
         action = '<esc>:wq<CR>',
-        short_desc = "save & quit"
+        short_desc = "Save & Quit"
     })
 
 return global_mapping

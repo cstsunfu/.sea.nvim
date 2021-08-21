@@ -55,6 +55,7 @@ plugins_configure.plugins_groups['enhance'] = {
     ['notify'] = {disable=false},
     --['high_str'] = {disable=true},
     ['colorizer'] = {disable=false},
+    ['pretty_print_json'] = {disable=false},
 }
 
 -- main language
