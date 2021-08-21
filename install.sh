@@ -11,8 +11,7 @@ install_config() {
     if [ ! -e "$HOME/.config/nvim" ];then
           mkdir -p "$HOME/.config/nvim"
     fi 
-    cp init.lua $HOME/.config/nvim/init.lua
-    cp -r .sea.nvim $HOME/
+    ln -s ./init.lua $HOME/.config/nvim/init.lua
 }
 install_depend(){
     pip install flake8
