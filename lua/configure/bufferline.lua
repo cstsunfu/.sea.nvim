@@ -24,7 +24,6 @@ plugin.core = {
                 --number_style = "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
                 number_style = "", -- buffer_id at index 1, ordinal at index 2
                 --mappings = true | false,
-                mappings = true,
                 close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
                 right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
                 left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
@@ -93,27 +92,75 @@ plugin.core = {
                 enforce_regular_tabs = false,
                 --always_show_bufferline = true | false,
                 always_show_bufferline = true,
-                --sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
-                --sort_by = function(buffer_a, buffer_b)
-                    ---- add custom logic
-                    --function bool_to_number(value)
-                        --if value then
-                            --return 1
-                        --else
-                            --return 0
-                        --end
-                    --end
-
-                    --return bool_to_number(buffer_a.modified) > bool_to_number(buffer_b.modified)
-                --end
+                --sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
             }
         }
+
 
     end,
 }
 
 plugin.mapping = function()
+    local mappings = require('core.mapping')
+    for i=1,9,1 do
+        mappings.register({
+            mode = "n",
+            key = {"<leader>", tostring(i)},
+            action = "<Cmd>BufferLineGoToBuffer ".. tostring(i)..'<cr>',
+            short_desc = "Goto "..tostring(i).." Buffer",
+            noremap = true,
+            silent = true,
+        })
+    end
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "b", "n"},
+        action = "<Cmd>BufferLineCycleNext<cr>",
+        short_desc = "Goto Next Buffer",
+        noremap = true,
+        silent = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "b", "p"},
+        action = "<Cmd>BufferLineCyclePrev<cr>",
+        short_desc = "Goto Prev Buffer",
+        noremap = true,
+        silent = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "b", "d"},
+        action = ":bdelete<cr>",
+        short_desc = "Delete Current Buffer"
+    })
 
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "b", "D"},
+        action = ":lua require('util.global').delete_all_buffers_in_window()<cr>",
+        short_desc = "Delete All Buffer Except Current"
+    })
+    _G.buffer_sort_by_whether_modified = function(buffer_a, buffer_b)
+        -- add custom logic
+        local function bool_to_number(value, id)
+            if value then
+                return 100000 - id
+            else
+                return 0 - id
+            end
+        end
+
+        return bool_to_number(buffer_a.modified, buffer_a.ordinal) > bool_to_number(buffer_b.modified, buffer_b.ordinal)
+    end
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "b", "s"},
+        action = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)<cr>",
+        short_desc = "Buffer Sorted By Whether Modified"
+    })
 end
 
 return plugin

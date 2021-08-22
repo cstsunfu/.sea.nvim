@@ -28,7 +28,6 @@ plugin.core = {
 
         -- Color table for highlights
         local colors = {
-            bg = '#202328',
             fg = '#bbc2cf',
             yellow = '#ECBE7B',
             cyan = '#008080',
@@ -41,6 +40,12 @@ plugin.core = {
             red = '#ec5f67',
             gray = '#808080'
         }
+
+        if vim.g.colorscheme == "gruvbox_material" then
+            colors.bg = '#7c6f6c'
+        else
+            colors.bg = '#202328'
+        end
 
         local conditions = {
             buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
@@ -432,7 +437,9 @@ plugin.mapping = function()
             mode = "n",
             key = {"<localleader>", tostring(i)},
             action = tostring(i)..'<c-w><c-w>',
-            short_desc = "Goto "..tostring(i).." Window"
+            short_desc = "Goto "..tostring(i).." Window",
+            noremap = true,
+            silent = true,
         })
     end
 end

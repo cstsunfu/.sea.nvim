@@ -1,11 +1,8 @@
--- invoke default setting
-require('core.default')
-
--- plugin configure, using packer.nvim to install plugins
---vim.g.colorscheme = "gruvbox_material"
---vim.g.colorscheme = "rose_pine"
-vim.g.colorscheme = "nord"
-vim.g.theme = "dark"
+--vim.g.colorscheme = "nord"
+vim.g.colorscheme = "rose_pine"
+vim.g.colorscheme = "gruvbox_material"
+vim.g.colorscheme = "material"
+vim.g.theme = "light"
 
 USE_COC = true
 FEATURE_GROUPS = {}
@@ -26,13 +23,13 @@ FEATURE_GROUPS.enhance = true
 FEATURE_GROUPS.git = true
 
 
+require('core.default')
 require('core.plugins').setup()
 require('user').setup({pomodoro={dir_path=vim.g.HOME_PATH..'/wiki/pomodoro/'}})
 
-require('core.mapping')
 require('core.plugins').create_mapping()
 require('user').create_mapping()
+require('core.mapping').setup()
 require("configure."..vim.g.colorscheme).setup(vim.g.theme)
 
 require('core.after')
---vim.cmd("source ~/.cache/calendar.vim/credentials.vim")

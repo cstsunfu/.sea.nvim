@@ -85,7 +85,8 @@ if FEATURE_GROUPS['colorschemes'] == true then
         ["nord"] = {disable=false, opt=true},
         ["github_nvim_theme"] = {disable=false, opt=true},
         ['gruvbox_material'] = {disable=false, opt=true},
-        ['rose_pine'] = {disable=false, opt=true}
+        ['rose_pine'] = {disable=false, opt=true},
+        ['material'] = {disable=false, opt=true}
     }
 end
 

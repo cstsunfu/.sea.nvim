@@ -1,4 +1,5 @@
-global_mapping = {}
+local global_mapping = {}
+
 local used = {
     n = {},
     v = {},
@@ -9,7 +10,6 @@ local used = {
     l = {},
     x = {},
     ["!"] = {},
-    c = {},
     t = {}
 }
 
@@ -18,7 +18,7 @@ local used = {
 --end
 local plugins_groups = require('core.plugins').plugins_groups
                        --require('core.plugins')
-mapping_prefix = {
+local mapping_prefix = {
         ["<leader><TAB>"] = {name = "+ Toggle fold"},
         ["<leader>b"] = {name = "+ Buffer"},
         ["<leader>c"] = {name = "+ Comment/Change"},
@@ -167,47 +167,8 @@ global_mapping.register({
     })
 
 
--- buffer 
-global_mapping.register({
-        mode = "n",
-        key = {"<leader>", "b", "n"},
-        action = ":bnext<cr>",
-        short_desc = "Goto Next Buffer"
-    })
-global_mapping.register({
-        mode = "n",
-        key = {"<leader>", "b", "l"},
-        action = ":blast<cr>",
-        short_desc = "Goto Last Buffer"
-    })
+-- buffer configure at bufferline plugin
 
-global_mapping.register({
-        mode = "n",
-        key = {"<leader>", "b", "d"},
-        action = ":bdelete<cr>",
-        short_desc = "Delete Current Buffer"
-    })
-
-
-global_mapping.register({
-        mode = "n",
-        key = {"<leader>", "b", "D"},
-        action = ":lua require('util.global').delete_all_buffers_in_window()<cr>",
-        short_desc = "Delete All Buffer Except Current"
-    })
-
-global_mapping.register({
-        mode = "n",
-        key = {"<leader>", "b", "p"},
-        action = ":bprevious<cr>",
-        short_desc = "Goto Previous Buffer"
-    })
-global_mapping.register({
-        mode = "n",
-        key = {"<leader>", "b", "f"},
-        action = ":bfirst<cr>",
-        short_desc = "Goto First Buffer"
-    })
 
 -- paste
 
@@ -597,4 +558,35 @@ global_mapping.register({
         short_desc = "Save & Quit"
     })
 
+global_mapping.setup = function()
+    local plugins_config = require('core.plugins')
+    if plugins_config.all_loaded_module['indent_line'] ~= nil then
+        global_mapping.register({
+            mode = "n",
+            key = {"<leader>", "<TAB>"},
+            action = "za:IndentBlanklineRefresh<CR>",
+            short_desc = "Smart toggle fold",
+            silent = true
+        })
+    else
+        global_mapping.register({
+            mode = "n",
+            key = {"<leader>", "<TAB>"},
+            action = "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>",
+            short_desc = "Smart toggle fold",
+            silent = true
+        })
+    end
+
+    vim.cmd([[
+        inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<tab>"
+        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    ]])
+    if plugins_config.plugins_groups['default']['which_key'] and plugins_config.plugins_groups['default']['which_key']['disable'] == false then
+        vim.cmd("packadd which-key.nvim")
+        local wk = require("which-key")
+        wk.register(mapping_prefix)
+    end
+
+end
 return global_mapping

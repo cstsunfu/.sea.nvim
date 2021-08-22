@@ -8,7 +8,6 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        vim.cmd("hi! link CocFloating Pmenu")
         --require('lspconfig').pyright.setup{}
         --require'lspconfig'.tailwindcss.setup{}
         --require'lspconfig'.zeta_note.setup{

@@ -30,5 +30,6 @@ plugin.setup = function (theme)
     else
         require('nord').set()
     end
+    vim.cmd("hi! default link NormalFloat Pmenu")
 end
 return plugin
