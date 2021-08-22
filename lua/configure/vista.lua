@@ -28,6 +28,18 @@ plugin.core = {
         --vim.g.vista_fzf_preview = {'right:30%'}
         vim.g.vista_sidebar_position = "vertical topleft"
         vim.g.vista_sidebar_width = 30
+        --vim.g["vista#renderer#icons"] = {}
+        vim.cmd([[
+            let g:vista#renderer#icons = { "function": "\uf794", "functions": "\uf794", "variable": "\uf005", "variables": "\uf005", "maps": "\uf279", "members": "\ufa85", "classes": "\ue61e", "autocommand groups": "\uf7c2",}
+        ]])
+        --vim.g["vista#renderer#icons"]['function'] = "a"
+        --vim.g["vista#renderer#icons"]["functions"] = "a"
+        --vim.g["vista#renderer#icons"]["variable"] = "v"
+        --vim.g["vista#renderer#icons"]["variables"] = "V"
+        --vim.g["vista#renderer#icons"]["maps"] = "a"
+        --vim.g["vista#renderer#icons"]["members"] = "a"
+        --vim.g["vista#renderer#icons"]["classes"] = "a"
+        --vim.g["vista#renderer#icons"]["autocommand groups"] = "a"
 
     end,
 }
