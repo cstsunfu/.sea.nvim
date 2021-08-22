@@ -1,8 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    'shaunsingh/nord.nvim',
-
+    "marko-cerovac/material.nvim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -24,12 +23,14 @@ plugin.dark = {
 
 }
 plugin.setup = function (theme)
-    vim.cmd("packadd nord.nvim")
-    if theme == "light" then
-        require('nord').set()
+    vim.cmd("packadd material.nvim")
+    if vim.g.theme == "light" then
+        vim.g.material_style = 'ocean'
+    elseif vim.g.theme == 'midium' then
+        vim.g.material_style = 'palenight'
     else
-        require('nord').set()
+        vim.g.material_style = 'darker'
     end
-    vim.cmd("hi! default link NormalFloat Pmenu")
+    require('material').set()
 end
 return plugin

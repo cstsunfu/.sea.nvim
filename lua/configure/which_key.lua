@@ -7,7 +7,6 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        vim.cmd("hi! default link WhichKeyFloat Pmenu")
         require("which-key").setup
         {
             plugins = {
