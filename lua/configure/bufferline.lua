@@ -93,6 +93,18 @@ plugin.core = {
                 --always_show_bufferline = true | false,
                 always_show_bufferline = true,
                 --sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
+                sort_by = function(buffer_a, buffer_b)
+                    -- add custom logic
+                    local function bool_to_number(value)
+                        if value then
+                            return 1
+                        else
+                            return 0
+                        end
+                    end
+
+                    return bool_to_number(buffer_a.modified) > bool_to_number(buffer_b.modified)
+                end
             }
         }
 
