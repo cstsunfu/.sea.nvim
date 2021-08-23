@@ -301,7 +301,7 @@ plugin.core = {
         ins_right_active {
             'diff',
             -- Is it me or the symbol for modified us really weird
-            symbols = {added = ' ', modified = '柳 ', removed = ' '},
+            symbols = {added = ' ', modified = ' ', removed = ' '},
             color_added = { fg = colors.green },
             color_modified = { fg = colors.orange },
             color_removed = { fg = colors.red },
@@ -406,7 +406,7 @@ plugin.core = {
         ins_right_inactive {
             'diff',
             -- Is it me or the symbol for modified us really weird
-            symbols = {added = ' ', modified = '柳 ', removed = ' '},
+            symbols = {added = ' ', modified = ' ', removed = ' '},
             color_added = { fg = colors.green },
             color_modified = { fg = colors.orange },
             color_removed = { fg = colors.red },
