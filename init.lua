@@ -8,8 +8,8 @@ else
     print("configure is only for mac or linux !")
     return
 end
-vim.g.CONFIGURE = vim.g.HOME_PATH.."/.sea.nvim"
-vim.o.runtimepath = vim.o.runtimepath..","..vim.g.CONFIGURE
+vim.g.CONFIG = vim.g.HOME_PATH.."/.sea.nvim"
+vim.o.runtimepath = vim.o.runtimepath..","..vim.g.CONFIG
 vim.g.python3_host_prog = vim.g.HOME_PATH..'/anaconda3/bin/python3'
 
 local execute = vim.api.nvim_command

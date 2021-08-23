@@ -16,7 +16,7 @@ plugin.core = {
         if not packer_plugins['asyncrun.vim'].loaded then
             vim.cmd [[packadd asyncrun.vim]]
         end
-        vim.g.asynctasks_extra_config = {vim.g.CONFIGURE..'tasks.ini'}
+        vim.g.asynctasks_extra_config = {vim.g.CONFIG..'tasks.ini'}
         vim.g.asyncrun_open = 8
         vim.g.asyncrun_bell = 1
 
