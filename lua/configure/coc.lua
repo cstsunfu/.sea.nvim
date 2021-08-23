@@ -8,7 +8,7 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        vim.g.coc_config_home = vim.g.CONFIG
+        --vim.g.coc_config_home = vim.g.CONFIG
         --require('lspconfig').pyright.setup{}
         --require'lspconfig'.tailwindcss.setup{}
         --require'lspconfig'.zeta_note.setup{

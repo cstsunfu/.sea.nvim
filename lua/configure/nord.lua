@@ -30,6 +30,9 @@ plugin.setup = function (theme)
     else
         require('nord').set()
     end
-    vim.cmd("hi! default link NormalFloat Pmenu")
+    local timer = vim.loop.new_timer()
+    timer:start(500, 0, vim.schedule_wrap(function()
+        vim.cmd("hi! default link NormalFloat Pmenu")
+    end))
 end
 return plugin
