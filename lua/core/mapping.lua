@@ -13,11 +13,8 @@ local used = {
     t = {}
 }
 
---if plugins_groups['default']['which-key'] and plugins_groups['default']['which-key']['disable'] == false then
-    --local wk = require("which-key")
---end
 local plugins_groups = require('core.plugins').plugins_groups
-                       --require('core.plugins')
+
 local mapping_prefix = {
         ["<leader><TAB>"] = {name = "+ Toggle fold"},
         ["<leader>b"] = {name = "+ Buffer"},

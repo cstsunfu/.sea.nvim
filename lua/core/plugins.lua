@@ -1,7 +1,6 @@
 local plugins_configure = {}
 
 plugins_configure.plugins_groups = {}
---let g:vimwiki_map_prefix='<leader>o'
 plugins_configure.plugin_configure_root = 'configure.'
 plugins_configure["all_loaded_module"] = {}
 
@@ -135,7 +134,11 @@ plugins_configure.setup = function()
     packer.startup(function()
         for group_name, plugins_group in pairs(plugins_configure.plugins_groups) do
             if FEATURE_GROUPS[group_name] == nil then
-                print(group_name.." is not in FEATURE_GROUPS")
+                vim.notify(group_name.." is not in FEATURE_GROUPS", vim.lsp.log_levels.ERROR, {
+                    title = "ERROR",
+                    icon = "",
+                    timeout = 3000,
+                })
             elseif FEATURE_GROUPS[group_name] == true then
                 for plugin_name, is_active in pairs(plugins_group) do
                     core = require(plugins_configure.plugin_configure_root..plugin_name).core
@@ -146,7 +149,6 @@ plugins_configure.setup = function()
                         plugins_configure.all_loaded_module[plugin_name] = true-- added to all_loaded_module
                     end
                     use(core)
-                    --print(core[1]..' is loaded')
                 end
             end
         end
@@ -156,11 +158,9 @@ end
 
 plugins_configure.create_mapping = function()
     for group_name, plugins_group in pairs(plugins_configure.plugins_groups) do
-        --print(group_name)
         if FEATURE_GROUPS[group_name] == true then
             for plugin_name, is_active in pairs(plugins_group) do
                 if is_active['disable'] == false then
-                    --print(plugin_name)
                     require(plugins_configure.plugin_configure_root..plugin_name).mapping()
                 end
             end
