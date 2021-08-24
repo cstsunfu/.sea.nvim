@@ -322,7 +322,7 @@ global_mapping.register({
 
 -- y yank
 global_mapping.register({
-        mode = "n",
+        mode = "v",
         key = {"<leader>", "y"},
         action = '"+y',
         short_desc = "Yank to Clipboard"

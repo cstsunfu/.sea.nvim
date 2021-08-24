@@ -9,11 +9,7 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         --vim.g.coc_config_home = vim.g.CONFIG
-        --require('lspconfig').pyright.setup{}
-        --require'lspconfig'.tailwindcss.setup{}
-        --require'lspconfig'.zeta_note.setup{
-            --cmd = {'/home/sun/zeta-note-linux'}
-        --}
+        vim.cmd("autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']")
     end,
 }
 
