@@ -93,18 +93,18 @@ plugin.core = {
                 --always_show_bufferline = true | false,
                 always_show_bufferline = true,
                 --sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
-                --sort_by = function(buffer_a, buffer_b) -- TODO: https://github.com/akinsho/bufferline.nvim/issues/167#issuecomment-903287153
-                    ---- add custom logic
-                    --local function bool_to_number(value)
-                        --if value then
-                            --return 1
-                        --else
-                            --return 0
-                        --end
-                    --end
+                sort_by = function(buffer_a, buffer_b)
+                    -- add custom logic
+                    local function bool_to_number(value, id)
+                        if value then
+                            return 100000 - id
+                        else
+                            return 0 - id
+                        end
+                    end
 
-                    --return bool_to_number(buffer_a.modified) > bool_to_number(buffer_b.modified)
-                --end
+                    return bool_to_number(buffer_a.modified, buffer_a.ordinal) > bool_to_number(buffer_b.modified, buffer_b.ordinal)
+                end
             }
         }
 
