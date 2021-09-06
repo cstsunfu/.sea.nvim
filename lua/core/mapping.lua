@@ -22,9 +22,10 @@ local mapping_prefix = {
         ["<leader>d"] = {name = "+ Debug"},
         ["<leader>e"] = {name = "+ Eval"},
         ["<leader>f"] = {name = "+ File"},
-        ["<leader>g"] = {name = "+ Goto"},
+        ["<leader>g"] = {name = "+ Goto/Generator"},
         ["<leader>G"] = {name = "+ Git"},
         ["<leader>h"] = {name = "+ History"},
+        ["<leader>j"] = {name = "+ Json"},
         ["<leader>l"] = {name = "+ Line"},
         ["<leader>m"] = {name = "+ Move"},
         ["<leader>o"] = {name = "+ Org"},
@@ -535,6 +536,12 @@ global_mapping.register({
         key = {"<C-a>"},
         action = '<ESC>^i',
         short_desc = "Go To The Begin and Insert"
+    })
+global_mapping.register({
+        mode = "i",
+        key = {"<C-e>"},
+        action = '<ESC>$a',
+        short_desc = "Go To The End and Append"
     })
 global_mapping.register({
         mode = "i",

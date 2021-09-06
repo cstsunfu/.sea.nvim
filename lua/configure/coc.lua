@@ -4,7 +4,7 @@ plugin.core = {
     'neoclide/coc.nvim',
     branch = 'release',
     setup = function()  -- Specifies code to run before this plugin is loaded.
-        vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-ultisnips", "coc-lua"}
+        vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-ultisnips", "coc-lua", 'coc-format-json'}
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -79,6 +79,21 @@ plugin.mapping = function()
         key = {"<leader>", "s", "n"},
         action = "<Plug>(coc-diagnostic-next)",
         short_desc = "goto next diagnostic",
+        silent = true,
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "j", "f"},
+        action = ":CocCommand formatJson --indent=4 --quote-as-needed=true<cr>",
+        short_desc = "Json Format",
+        silent = true,
+    })
+    mappings.register({
+        mode = "v",
+        key = {"<leader>", "j", "f"},
+        action = ":'<,'>CocCommand formatJson --indent=4 --quote-as-needed=true<cr>",
+        short_desc = "Json Format",
         silent = true,
     })
 end

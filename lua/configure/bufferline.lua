@@ -20,9 +20,10 @@ plugin.core = {
             },
             options = {
                 --numbers = "none" | "ordinal" | "buffer_id" | "both",
-                numbers = "ordinal",
+                numbers = function(opts)
+                  return string.format('%s.', opts.ordinal)
+                end,
                 --number_style = "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
-                number_style = "", -- buffer_id at index 1, ordinal at index 2
                 --mappings = true | false,
                 close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
                 right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -93,18 +94,18 @@ plugin.core = {
                 --always_show_bufferline = true | false,
                 always_show_bufferline = true,
                 --sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
-                sort_by = function(buffer_a, buffer_b)
-                    -- add custom logic
-                    local function bool_to_number(value, id)
-                        if value then
-                            return 100000 - id
-                        else
-                            return 0 - id
-                        end
-                    end
+                --sort_by = function(buffer_a, buffer_b)
+                    ---- add custom logic
+                    --local function bool_to_number(value, id)
+                        --if value then
+                            --return 100000 - id
+                        --else
+                            --return 0 - id
+                        --end
+                    --end
 
-                    return bool_to_number(buffer_a.modified, buffer_a.ordinal) > bool_to_number(buffer_b.modified, buffer_b.ordinal)
-                end
+                    --return bool_to_number(buffer_a.modified, buffer_a.ordinal) > bool_to_number(buffer_b.modified, buffer_b.ordinal)
+                --end
             }
         }
 

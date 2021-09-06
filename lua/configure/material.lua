@@ -31,6 +31,6 @@ plugin.setup = function (theme)
     else
         vim.g.material_style = 'darker'
     end
-    require('material').set()
+    vim.cmd("colorscheme material")
 end
 return plugin

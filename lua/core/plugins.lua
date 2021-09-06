@@ -52,9 +52,12 @@ plugins_configure.plugins_groups['enhance'] = {
     ['speed_date'] = {disable=false},
     ['translate'] = {disable=false},
     ['notify'] = {disable=false},
+    ['neogen'] = {disable=false},
     --['high_str'] = {disable=true},
     ['colorizer'] = {disable=false},
     ['pretty_print_json'] = {disable=false},
+    ['hjson'] = {disable=false},
+    ['json5'] = {disable=false},
 }
 
 -- main language
