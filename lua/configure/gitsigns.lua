@@ -1,10 +1,12 @@
 local plugin = {}
 
 plugin.core = {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-        'nvim-lua/plenary.nvim'
-    },
+    "git@github.com:lewis6991/gitsigns.nvim.git",
+    as = "gitsigns",
+    requires = {{
+        "git@github.com:nvim-lua/plenary.nvim.git",
+        as = "plenary.nvim",
+    }},
     setup = function()  -- Specifies code to run before this plugin is loaded.
     end,
 
@@ -51,7 +53,7 @@ plugin.core = {
             numhl = false,
             linehl = false,
             watch_index = { interval = 1000 },
-            sign_priority = 6,
+            sign_priority = 99,
             update_debounce = 200,
             status_formatter = nil, -- Use default
         }

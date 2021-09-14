@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'karb94/neoscroll.nvim',
+    "git@github.com:karb94/neoscroll.nvim.git",
+    as = "neoscroll",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'eddiebergman/nvim-treesitter-pyfold',
+    "git@github.com:eddiebergman/nvim-treesitter-pyfold.git",
+    as = "nvim-treesitter-pyfold",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "kristijanhusak/orgmode.nvim",
+    "git@github.com:kristijanhusak/orgmode.nvim.git",
+    as = "orgmode",
     setup = function()  -- Specifies code to run before this plugin is loaded.
     end,
 

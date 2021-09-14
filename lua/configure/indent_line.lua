@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'lukas-reineke/indent-blankline.nvim',
+    "git@github.com:lukas-reineke/indent-blankline.nvim.git",
+    as = "indent-blankline",
     setup = function()  -- Specifies code to run before this plugin is loaded.
         --let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
         --vim.g.indent_blankline_char_list = {'│'}

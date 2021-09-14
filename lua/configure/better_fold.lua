@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'scr1pt0r/crease.vim',
+    'git@github.com:scr1pt0r/crease.vim.git',
+    as = "crease",
     --requires = {{'airblade/vim-gitgutter'}},
     setup = function()  -- Specifies code to run before this plugin is loaded.
         --vim.o.foldcolumn = 0

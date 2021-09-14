@@ -1,15 +1,18 @@
 local plugin = {}
 
 plugin.core = {
-    'nvim-telescope/telescope.nvim',
-    --requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    "git@github.com:nvim-telescope/telescope.nvim.git",
+    as = "telescope",
+    --requires = {{"git@github.com:nvim-lua/popup.nvim.git"}, {"git@github.com:nvim-lua/plenary.nvim.git"}},
+    --as = "popup",
     requires = {
-        'nvim-lua/popup.nvim',
-        {'nvim-lua/plenary.nvim', opt=true},
+        {"git@github.com:nvim-lua/popup.nvim.git", as="popup"},
+        {"git@github.com:nvim-lua/plenary.nvim.git", as="plenary.nvim", opt=true},
         {
-            'nvim-telescope/telescope-frecency.nvim',
+            "git@github.com:nvim-telescope/telescope-frecency.nvim.git",
+            as = "telescope-frecency.nvim",
             opt = true,
-            requires = {'tami5/sql.nvim', opt=true},
+            requires = {"git@github.com:tami5/sql.nvim.git", as="sql.nvim", opt=true},
             after = 'telescope.nvim',
         },
     },

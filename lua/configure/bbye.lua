@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'moll/vim-bbye',
+    'git@github.com:moll/vim-bbye.git',
+    as = "vim-bbye",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

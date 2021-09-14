@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'terryma/vim-multiple-cursors',
+    "git@github.com:terryma/vim-multiple-cursors.git",
+    as = "vim-multiple-cursors",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

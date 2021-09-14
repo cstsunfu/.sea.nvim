@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "folke/zen-mode.nvim",
+    "git@github.com:folke/zen-mode.nvim.git",
+    as = "zen-mode",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

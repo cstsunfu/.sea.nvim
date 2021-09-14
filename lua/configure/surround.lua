@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'tpope/vim-surround',
+    "git@github.com:tpope/vim-surround.git",
+    as = "vim-surround",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

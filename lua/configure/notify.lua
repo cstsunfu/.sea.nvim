@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "rcarriga/nvim-notify",
+    "git@github.com:rcarriga/nvim-notify.git",
+    as = "nvim-notify",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

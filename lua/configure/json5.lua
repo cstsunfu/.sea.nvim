@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'GutenYe/json5.vim',
+    "git@github.com:GutenYe/json5.vim.git",
+    as = "json5",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

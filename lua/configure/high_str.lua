@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-     "Pocco81/HighStr.nvim",
+     "git@github.com:Pocco81/HighStr.nvim.git",
+     as = "HighStr",
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

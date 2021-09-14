@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "cstsunfu/md-bullets.nvim",
+    "git@github.com:cstsunfu/md-bullets.nvim.git",
+    as = "md-bullets",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

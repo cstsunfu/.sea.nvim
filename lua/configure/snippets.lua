@@ -1,6 +1,7 @@
 local plugin = {}
 plugin.core = {
-    'cstsunfu/vim-snippets',
+    "git@github.com:cstsunfu/vim-snippets.git",
+    as = "vim-snippets",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'houtsnip/vim-emacscommandline',
+    'git@github.com:houtsnip/vim-emacscommandline.git',
+    as = "vim-emacscommandline",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

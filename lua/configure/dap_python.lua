@@ -1,14 +1,16 @@
 local plugin = {}
 
 plugin.core = {
-    'mfussenegger/nvim-dap-python',
-    requires = {"mfussenegger/nvim-dap"},
+    'git@github.com:mfussenegger/nvim-dap-python.git',
+    as = "nvim-dap-python",
+    requires = {{"git@github.com:mfussenegger/nvim-dap.git", as = "nvim-dap"}},
+    
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-         require('dap-python').setup('~/anaconda3/bin/python')
+         require('dap-python').setup('~/anaconda3/envs/dlkit/bin/python')
     end,
 
 }

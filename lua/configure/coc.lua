@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'neoclide/coc.nvim',
+    'git@github.com:neoclide/coc.nvim.git',
+    as = "coc",
     branch = 'release',
     setup = function()  -- Specifies code to run before this plugin is loaded.
         vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-ultisnips", "coc-lua", 'coc-format-json'}

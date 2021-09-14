@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'onsails/lspkind-nvim',
+    "git@github.com:onsails/lspkind-nvim.git",
+    as = "lspkind-nvim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

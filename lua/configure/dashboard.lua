@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "glepnir/dashboard-nvim",
+    "git@github.com:glepnir/dashboard-nvim.git",
+    as = "dashboard-nvim",
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
         vim.g.dashboard_default_executive = 'telescope'

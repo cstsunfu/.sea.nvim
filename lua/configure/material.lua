@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "marko-cerovac/material.nvim",
+    "git@github.com:marko-cerovac/material.nvim.git",
+    as = "material",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -23,7 +24,7 @@ plugin.dark = {
 
 }
 plugin.setup = function (theme)
-    vim.cmd("packadd material.nvim")
+    vim.cmd("packadd material")
     if vim.g.theme == "light" then
         vim.g.material_style = 'ocean'
     elseif vim.g.theme == 'midium' then
@@ -33,4 +34,5 @@ plugin.setup = function (theme)
     end
     vim.cmd("colorscheme material")
 end
+
 return plugin
