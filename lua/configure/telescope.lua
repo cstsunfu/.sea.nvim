@@ -15,6 +15,11 @@ plugin.core = {
             requires = {"git@github.com:tami5/sql.nvim.git", as="sql.nvim", opt=true},
             after = 'telescope.nvim',
         },
+        {
+            'nvim-telescope/telescope-project.nvim',
+            opt = true,
+            after = 'telescope.nvim',
+        },
     },
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
@@ -31,10 +36,14 @@ plugin.core = {
         if not packer_plugins['telescope-frecency.nvim'].loaded then
             vim.cmd [[packadd telescope-frecency.nvim]]
         end
+        if not packer_plugins['telescope-project.nvim'].loaded then
+            vim.cmd [[packadd telescope-project.nvim]]
+        end
         if not packer_plugins['sql.nvim'].loaded then
             vim.cmd [[packadd sql.nvim]]
         end
         local actions = require('telescope.actions')
+        require'telescope'.load_extension('project')
 
         require('telescope').setup{
             defaults = {
@@ -103,6 +112,16 @@ plugin.core = {
                         ["nvim"] = vim.g.HOME_PATH.. ".config/nvim",
                         ["work"] = vim.g.HOME_PATH.. "workspaces",
                     }
+                },
+                project = {
+                    base_dirs = {
+                        '~/dev/src',
+                        {'~/dev/src2'},
+                        {'~/dev/src3', max_depth = 4},
+                        {path = '~/dev/src4'},
+                        {path = '~/dev/src5', max_depth = 2},
+                    },
+                    hidden_files = true -- default: false
                 }
             }
         }
@@ -152,6 +171,14 @@ plugin.mapping = function()
         mode = "n",
         key = {"<leader>", "f", "h"},
         action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
+        short_desc = "Find Recent/History",
+        silent = true,
+        noremap = true
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", "p"},
+        action = "<Cmd>lua require'telescope'.extensions.project.project{}<CR>",
         short_desc = "Find Recent/History",
         silent = true,
         noremap = true
