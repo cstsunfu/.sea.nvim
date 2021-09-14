@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "tpope/vim-jdaddy",
+    "git@github.com:tpope/vim-jdaddy.git",
+    as = "vim-jdaddy",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

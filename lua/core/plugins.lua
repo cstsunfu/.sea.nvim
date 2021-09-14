@@ -21,6 +21,7 @@ if FEATURE_GROUPS['default'] == true then
         ['better_fold'] = {disable=false},          -- display better fold
         ['which_key'] = {disable=false, opt=false},             -- key binding suggestion
         ['asynctasks'] = {disable=false},             -- key binding suggestion
+        ['plenary'] = {disable=false},             -- key binding suggestion
     }
 end
 
@@ -128,7 +129,7 @@ end
 
 if FEATURE_GROUPS['move_behavior'] == true then
     plugins_configure.plugins_groups['move_behavior'] = {
-        ["accelerate_jk"] = {disable=false},
+        ["accelerate_jk"] = {disable=true},
         ["scroll"] = {disable=false},
     }
 end

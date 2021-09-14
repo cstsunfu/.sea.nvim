@@ -1,20 +1,18 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:kristijanhusak/orgmode.nvim.git",
-    as = "orgmode",
+    "git@github.com:nvim-lua/plenary.nvim.git",
+    opt=true,
+    as = "plenary.nvim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
+
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require('orgmode').setup{
-            org_agenda_files = {'~/org/agenda/*'},
-            org_default_notes_file = '~/org/refile.org',
-        }
     end,
 }
 
 plugin.mapping = function()
-end
 
+end
 return plugin

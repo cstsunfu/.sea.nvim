@@ -1,8 +1,10 @@
 local plugin = {}
 
 plugin.core = {
-    "rcarriga/nvim-dap-ui",
-    requires = {"mfussenegger/nvim-dap"},
+    "git@github.com:rcarriga/nvim-dap-ui.git",
+    as = "nvim-dap-ui",
+    requires = {{"git@github.com:mfussenegger/nvim-dap.git", as = "nvim-dap"}},
+    
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -38,18 +40,21 @@ plugin.core = {
                     { id = "stacks", size = 0.25 },
                     { id = "watches", size = 00.25 },
                 },
-                width = 40,
-                position = "left", -- Can be "left" or "right"
+                size = 40,
+                position = "left", -- Can be "left", "right", "top", "bottom"
             },
             tray = {
                 open_on_start = true,
                 elements = { "repl" },
-                height = 10,
-                position = "bottom", -- Can be "bottom" or "top"
+                size = 10,
+                position = "bottom", -- Can be "left", "right", "top", "bottom"
             },
             floating = {
                 max_height = nil, -- These can be integers or a float between 0 and 1.
                 max_width = nil, -- Floats will be treated as percentage of your screen.
+                mappings = {
+                    close = { "q", "<Esc>" },
+                },
             },
             windows = { indent = 1 },
         })

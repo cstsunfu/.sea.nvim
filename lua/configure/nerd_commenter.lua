@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'preservim/nerdcommenter',
+    "git@github.com:preservim/nerdcommenter.git",
+    as = "nerdcommenter",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

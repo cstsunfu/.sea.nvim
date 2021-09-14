@@ -1,10 +1,12 @@
 local plugin = {}
 
 plugin.core = {
-    'windwp/nvim-spectre',
+    "git@github.com:windwp/nvim-spectre.git",
+    as = "nvim-spectre",
     requires = {
-        'nvim-lua/popup.nvim',
-        {'nvim-lua/plenary.nvim', opt=true},
+        {"git@github.com:nvim-lua/popup.nvim.git", as="popup", opt=true},
+        {"git@github.com:nvim-lua/plenary.nvim.git", as="plenary.nvim", opt=true},
+        
     },
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

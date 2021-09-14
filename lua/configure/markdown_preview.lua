@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'iamcco/markdown-preview.nvim',
+    "git@github.com:iamcco/markdown-preview.nvim.git",
+    as = "markdown-preview",
     run = 'cd app && yarn install',
     cmd = 'MarkdownPreview',
 

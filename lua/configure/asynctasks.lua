@@ -2,10 +2,13 @@ local plugin = {}
 
 plugin.core = {
 
-    "skywind3000/asynctasks.vim",
+    "git@github.com:skywind3000/asynctasks.vim.git",
+    as = "asynctasks",
 
-    requires = {
-        "skywind3000/asyncrun.vim",
+    requires = {{
+        "git@github.com:skywind3000/asyncrun.vim.git",
+        as = "asyncrun",
+    }
     },
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
@@ -13,8 +16,8 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        if not packer_plugins['asyncrun.vim'].loaded then
-            vim.cmd [[packadd asyncrun.vim]]
+        if not packer_plugins['asyncrun'].loaded then
+            vim.cmd [[packadd asyncrun]]
         end
         vim.g.asynctasks_extra_config = {vim.g.CONFIG..'tasks.ini'}
         vim.g.asyncrun_open = 8

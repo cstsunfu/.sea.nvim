@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'nvim-treesitter/nvim-treesitter',
+    "git@github.com:nvim-treesitter/nvim-treesitter.git",
+    as = "nvim-treesitter",
     run = ':TSUpdate',
 
     setup = function()  -- Specifies code to run before this plugin is loaded.

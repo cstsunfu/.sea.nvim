@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'simrat39/symbols-outline.nvim',
+    'git@github.com:simrat39/symbols-outline.nvim.git',
+    as = "symbols-outline",
     setup = function()  -- Specifies code to run before this plugin is loaded.
         vim.g.symbols_outline = {
             highlight_hovered_item = true,

@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'folke/which-key.nvim',
+    "git@github.com:folke/which-key.nvim.git",
+    as = "which-key",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

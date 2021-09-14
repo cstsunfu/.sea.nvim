@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "itchyny/calendar.vim",
+    "git@github.com:itchyny/calendar.vim.git",
+    as = "calendar",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

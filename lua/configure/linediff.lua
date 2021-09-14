@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'AndrewRadev/linediff.vim',
-    cmd = 'Linediff',
+    "git@github.com:AndrewRadev/linediff.vim.git",
+    as = "linediff",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

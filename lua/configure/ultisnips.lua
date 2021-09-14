@@ -1,6 +1,7 @@
 local plugin = {}
 plugin.core = {
-    'SirVer/ultisnips',
+    "git@github.com:SirVer/ultisnips.git",
+    as = "ultisnips",
     setup = function()  -- Specifies code to run before this plugin is loaded.
         vim.g.UltiSnipsEditSplit = 'vertical'
         vim.g.snips_author = 'Sun Fu'

@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'vim-scripts/Auto-Pairs',
+    'git@github.com:vim-scripts/Auto-Pairs.git',
+    as = "Auto-Pairs",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

@@ -1,7 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    'pierreglaser/folding-nvim',
+    'git@github.com:pierreglaser/folding-nvim.git',
+    as = "folding-nvim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
