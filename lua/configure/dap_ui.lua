@@ -15,8 +15,8 @@ plugin.core = {
         --end
 
         require("dap")
-        vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
-
+        vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
+        
         require("dapui").setup({
             icons = { expanded = "▾", collapsed = "▸" },
             mappings = {
