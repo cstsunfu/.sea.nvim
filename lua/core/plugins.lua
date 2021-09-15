@@ -129,7 +129,7 @@ end
 
 if FEATURE_GROUPS['move_behavior'] == true then
     plugins_configure.plugins_groups['move_behavior'] = {
-        ["accelerate_jk"] = {disable=true},
+        ["accelerate_jk"] = {disable=false},
         ["scroll"] = {disable=false},
     }
 end

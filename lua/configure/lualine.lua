@@ -113,7 +113,7 @@ plugin.core = {
         ins_left_active {
             function() return '▊' end,
             color = {fg = colors.blue}, -- Sets highlighting of component
-            left_padding = 0 -- We don't need space before this
+            padding = { left = 0 },
         }
 
 
@@ -149,7 +149,7 @@ plugin.core = {
                 return ''
             end,
             color = "LualineMode",
-            left_padding = 0
+            padding = { left = 0 },
         }
 
         ins_left_active {
@@ -170,12 +170,17 @@ plugin.core = {
                 if string.len(file) == 0 then return '' end
                 return format_file_size(file)
             end,
-            condition = conditions.buffer_not_empty
+            cond = conditions.buffer_not_empty
         }
 
         ins_left_active {
-            'filename',
-            condition = conditions.buffer_not_empty,
+            function()
+                local fname = vim.fn.getcwd()
+                local path = Path:new(fname)
+                local split_path = path:_split()
+                return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
+            end,
+            cond = conditions.buffer_not_empty,
             color = {fg = colors.magenta, gui = 'bold'},
             file_status = true, -- displays file status (readonly status, modified status)
             path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
@@ -190,9 +195,12 @@ plugin.core = {
                 'diagnostics',
                 sources = {'coc'},
                 symbols = {error = ' ', warn = ' ', info = ' '},
-                color_error = { fg = colors.red },
-                color_warn = { fg = colors.yellow },
-                color_info = { fg = colors.cyan }
+                diagnostics_color = {
+                    error = { fg = colors.red },
+                    warning = { fg = colors.yellow },
+                    info = { fg = colors.cyan },
+                    hint = { fg = colors.cyan },
+                }
             }
             ins_left_active {
                 'g:coc_status',
@@ -228,7 +236,7 @@ plugin.core = {
                     end
                     return "*WARNING* THIS IS NOT A NORMAL PROJECT"
                 end,
-                icon = ' Project:',
+                icon = '  Project:',
                 color = {fg = '#ffffff', gui = 'bold'}
             }
         else
@@ -282,14 +290,14 @@ plugin.core = {
         -- Add components to right sections
         ins_right_active {
             'o:encoding', -- option component same as &encoding in viml
-            upper = true, -- I'm not sure why it's upper case either ;)
-            condition = conditions.hide_in_width,
+            fmt = string.upper, -- I'm not sure why it's upper case either ;)
+            cond = conditions.hide_in_width,
             color = {fg = colors.green, gui = 'bold'}
         }
 
         ins_right_active {
             'fileformat',
-            upper = true,
+            fmt = string.upper,
             icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
             color = {fg = colors.green, gui = 'bold'}
         }
@@ -297,7 +305,7 @@ plugin.core = {
         ins_right_active {
             'branch',
             icon = '',
-            condition = conditions.check_git_workspace,
+            cond = conditions.check_git_workspace,
             color = {fg = colors.violet, gui = 'bold'}
         }
 
@@ -305,10 +313,12 @@ plugin.core = {
             'diff',
             -- Is it me or the symbol for modified us really weird
             symbols = {added = ' ', modified = ' ', removed = ' '},
-            color_added = { fg = colors.green },
-            color_modified = { fg = colors.orange },
-            color_removed = { fg = colors.red },
-            condition = conditions.hide_in_width
+            diff_color = {
+                added = { fg = colors.green },
+                modified = { fg = colors.orange },
+                removed = { fg = colors.red },
+            },
+            cond = conditions.hide_in_width
         }
         ins_right_active {
             function()
@@ -324,7 +334,7 @@ plugin.core = {
         ins_right_active {
             function() return '▊' end,
             color = {fg = colors.blue},
-            right_padding = 0
+            padding = { right = 0 },
         }
         -- Inserts a component in lualine_c at left section
         local function ins_left_inactive(component)
@@ -338,7 +348,7 @@ plugin.core = {
         ins_left_inactive {
             function() return '▊' end,
             color = {fg = colors.gray}, -- Sets highlighting of component
-            left_padding = 0 -- We don't need space before this
+            padding = { left = 0 },
         }
         ins_left_inactive {
             -- filesize component
@@ -358,14 +368,14 @@ plugin.core = {
                 if string.len(file) == 0 then return '' end
                 return format_file_size(file)
             end,
-            condition = conditions.buffer_not_empty,
+            cond = conditions.buffer_not_empty,
             color = {fg = colors.gray}, -- Sets highlighting of component
         }
 
 
         ins_left_inactive {
             'filename',
-            condition = conditions.buffer_not_empty,
+            cond = conditions.buffer_not_empty,
             --color = {fg = colors.gray, gui = 'bold'},
             file_status = true, -- displays file status (readonly status, modified status)
             path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
@@ -382,19 +392,19 @@ plugin.core = {
                 return win_display_list[cur_winnr]
             end,
             color = {fg = colors.blue, gui = 'bold'}, -- Sets highlighting of component
-            left_padding = 0 -- We don't need space before this
+            padding = { left = 0 },
         }
         -- Add components to right sections
         ins_right_inactive {
             'o:encoding', -- option component same as &encoding in viml
-            upper = true, -- I'm not sure why it's upper case either ;)
-            condition = conditions.hide_in_width,
+            fmt = string.upper, -- I'm not sure why it's upper case either ;)
+            cond = conditions.hide_in_width,
             color = {fg = colors.gray, gui = 'bold'}
         }
 
         ins_right_inactive {
             'fileformat',
-            upper = true,
+            fmt = string.upper,
             icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
             --color = {fg = colors.gray, gui = 'bold'}
         }
@@ -402,7 +412,7 @@ plugin.core = {
         ins_right_inactive {
             'branch',
             icon = '',
-            condition = conditions.check_git_workspace,
+            cond = conditions.check_git_workspace,
             --color = {fg = colors.gray, gui = 'bold'}
         }
 
@@ -410,16 +420,18 @@ plugin.core = {
             'diff',
             -- Is it me or the symbol for modified us really weird
             symbols = {added = ' ', modified = ' ', removed = ' '},
-            color_added = { fg = colors.green },
-            color_modified = { fg = colors.orange },
-            color_removed = { fg = colors.red },
-            condition = conditions.hide_in_width
+            diff_color = {
+                added = { fg = colors.green },
+                modified = { fg = colors.orange },
+                removed = { fg = colors.red },
+            },
+            cond = conditions.hide_in_width
         }
 
         ins_right_inactive {
             function() return '▊' end,
             color = {fg = colors.gray},
-            right_padding = 0
+            padding = { right = 0 },
         }
 
         -- Now don't forget to initialize lualine

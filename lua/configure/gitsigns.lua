@@ -21,31 +21,31 @@ plugin.core = {
             signs = {
                 add = {
                     hl = "GitSignsAdd",
-                    text = "▎",
+                    text = "┃",
                     numhl = "GitSignsAddNr",
                     linehl = "GitSignsAddLn",
                 },
                 change = {
                     hl = "GitSignsChange",
-                    text = "▎",
+                    text = "┃",
                     numhl = "GitSignsChangeNr",
                     linehl = "GitSignsChangeLn",
                 },
                 delete = {
                     hl = "GitSignsDelete",
-                    text = "▎",
+                    text = "┃",
                     numhl = "GitSignsDeleteNr",
                     linehl = "GitSignsDeleteLn",
                 },
                 topdelete = {
                     hl = "GitSignsDelete",
-                    text = "▎",
+                    text = "┃",
                     numhl = "GitSignsDeleteNr",
                     linehl = "GitSignsDeleteLn",
                 },
                 changedelete = {
                     hl = "GitSignsChange",
-                    text = "▎",
+                    text = "┃",
                     numhl = "GitSignsChangeNr",
                     linehl = "GitSignsChangeLn",
                 },
@@ -53,7 +53,7 @@ plugin.core = {
             numhl = false,
             linehl = false,
             watch_index = { interval = 1000 },
-            sign_priority = 99,
+            sign_priority = 1,
             update_debounce = 200,
             status_formatter = nil, -- Use default
         }
