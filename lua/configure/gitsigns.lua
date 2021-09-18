@@ -21,31 +21,32 @@ plugin.core = {
             signs = {
                 add = {
                     hl = "GitSignsAdd",
-                    text = "┃",
+                    text = "▎",
                     numhl = "GitSignsAddNr",
                     linehl = "GitSignsAddLn",
                 },
                 change = {
                     hl = "GitSignsChange",
-                    text = "┃",
+                    text = "▎",
                     numhl = "GitSignsChangeNr",
                     linehl = "GitSignsChangeLn",
                 },
                 delete = {
                     hl = "GitSignsDelete",
-                    text = "┃",
+                    text = "▎",
+
                     numhl = "GitSignsDeleteNr",
                     linehl = "GitSignsDeleteLn",
                 },
                 topdelete = {
                     hl = "GitSignsDelete",
-                    text = "┃",
+                    text = "▎",
                     numhl = "GitSignsDeleteNr",
                     linehl = "GitSignsDeleteLn",
                 },
                 changedelete = {
                     hl = "GitSignsChange",
-                    text = "┃",
+                    text = "▎",
                     numhl = "GitSignsChangeNr",
                     linehl = "GitSignsChangeLn",
                 },

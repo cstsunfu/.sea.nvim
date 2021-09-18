@@ -53,8 +53,12 @@ plugins_configure.plugins_groups['enhance'] = {
     ['speed_date'] = {disable=false},
     ['translate'] = {disable=false},
     ['notify'] = {disable=false},
+    ['ipython'] = {disable=false},
     ['neogen'] = {disable=false},
+    ['terminal'] = {disable=false},
+    --['remote'] = {disable=false},
     --['high_str'] = {disable=true},
+    --
     ['colorizer'] = {disable=false},
     ['pretty_print_json'] = {disable=false},
     ['hjson'] = {disable=false},

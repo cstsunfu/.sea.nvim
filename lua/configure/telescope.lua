@@ -156,7 +156,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "f", "w"},
-        action = "<cmd>lua require 'telescope.builtin'.find_files{ cwd = vim.g.HOME_PATH .. 'wiki'}<cr>",
+        action = "<cmd>lua require 'telescope.builtin'.find_files{ cwd = vim.g.HOME_PATH .. '/org/wiki'}<cr>",
         short_desc = "Find Wiki",
         silent = true
     })
@@ -164,7 +164,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "f", "j"},
-        action = "<cmd>lua require 'telescope.builtin'.find_files{ cwd = vim.g.HOME_PATH .. 'job'}<cr>",
+        action = "<cmd>lua require 'telescope.builtin'.find_files{ cwd = vim.g.HOME_PATH .. '/org/work'}<cr>",
         short_desc = "Find Wiki",
         silent = true
     })
