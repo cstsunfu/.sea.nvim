@@ -9,7 +9,7 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         require('orgmode').setup{
             org_agenda_files = {'~/org/agenda/*'},
-            org_default_notes_file = '~/org/refile.org',
+            org_default_notes_file = '~/org/agenda/refile.org',
         }
     end,
 }

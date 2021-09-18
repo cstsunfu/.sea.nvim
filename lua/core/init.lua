@@ -25,7 +25,7 @@ FEATURE_GROUPS.git = true
 
 require('core.default')
 require('core.plugins').setup()
-require('user').setup({pomodoro={dir_path=vim.g.HOME_PATH..'/wiki/pomodoro/'}})
+require('user').setup({pomodoro={dir_path=vim.g.HOME_PATH..'/org/pomodoro/'}})
 
 require('core.plugins').create_mapping()
 require('user').create_mapping()
