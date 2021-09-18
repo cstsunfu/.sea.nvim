@@ -111,7 +111,7 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: Source Code Pro
-    family: DroidSansMono Nerd Font
+    family: DejaVuSansMono Nerd Font
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
@@ -130,7 +130,7 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: DroidSansMono Nerd Font
+    family: DejaVuSansMono Nerd Font
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
@@ -141,7 +141,7 @@ font:
     # family: Mononoki Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Book
+    style: Bold
 
   # Italic font face
   italic:
@@ -150,7 +150,7 @@ font:
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
 
-    family: DroidSansMono Nerd Font
+    family: DejaVuSansMono Nerd Font
     #family: Source Code Pro
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
@@ -162,7 +162,7 @@ font:
     # family: Mononoki Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Book
+    style: Oblique
 
   # Bold italic font face
   bold_italic:
@@ -171,7 +171,7 @@ font:
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
     #family: Source Code Pro
-    family: DroidSansMono Nerd Font
+    family: DejaVuSansMono Nerd Font
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
     # family: Hack
@@ -182,7 +182,7 @@ font:
     # family: Mononoki Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Book
+    style: Bold Oblique
 
   # Point size
   size: 12.0
@@ -584,6 +584,7 @@ background_opacity: 1.0
 key_bindings:
     # (Windows, Linux, and BSD only)
   - { key: V,         mods: Control|Shift, action: Paste                       }
+  - { key: Back, action:  ReceiveChar}
   - { key: C,         mods: Control|Shift, action: Copy                        }
   - { key: Insert,    mods: Shift,         action: PasteSelection              }
   - { key: Key0,      mods: Control,       action: ResetFontSize               }
