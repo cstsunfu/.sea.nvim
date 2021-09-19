@@ -45,7 +45,7 @@ alias  ipy="jupyter console"
 alias nb="jupyter notebook"
 alias  pdf='evince&'
 alias  timeout='gtimeout'
-#alias aria2c='aria2c --conf-path=/Users/sun/aria2.conf'
+#alias aria2c='aria2c --conf-path=$HOME/aria2.conf'
 # alias  vim='nvim'
 export TERM=xterm-256color
 alias vi='function __vi() { if [[ $# == 0 ]]; then nvim; else {touch $*; nvim $*} fi}; __vi' 
@@ -165,14 +165,14 @@ export LANG=en_US.UTF-8
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/sun/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('$HOME/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/sun/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/sun/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/sun/anaconda3/bin:$PATH"
+        export PATH="$HOME/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -180,7 +180,7 @@ unset __conda_setup
 if [ -n "$CONDA_DEFAULT_ENV" ]; then                                                                                                                                         
     __conda_reactivate                                                                                                                                                       
 fi
-export PATH="/Users/sun/.local/odps_clt/bin:$PATH"
+export PATH="$HOME/.local/odps_clt/bin:$PATH"
 export PATH="/usr/local/Celler/vim/8.2.1250/bin:$PATH"
 JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home'
 JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk-11.0.9.jdk/Contents/Home'
