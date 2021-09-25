@@ -1,9 +1,9 @@
 local plugin = {}
 
 plugin.core = {
-    'git@github.com:akinsho/nvim-bufferline.lua.git', 
+    'git@github.com:akinsho/nvim-bufferline.lua.git',
     as = "nvim-bufferline",
-    requires = {{'git@github.com:kyazdani42/nvim-web-devicons.git', as = "nvim-web-devicons"}},
+    requires = {{'git@github.com:kyazdani42/nvim-web-devicons.git'}},
     
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

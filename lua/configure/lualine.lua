@@ -4,10 +4,8 @@ plugin.core = {
     "git@github.com:shadmansaleh/lualine.nvim.git", -- TODO: if this branch is merged, I should change to the master 'hoob3rt/lualine.nvim',
     as = "lualine",
     requires = {
-        {"git@github.com:kyazdani42/nvim-web-devicons.git", opt = true, as = "nvim-web-devicons",},
-
-        {"git@github.com:nvim-lua/plenary.nvim.git", opt=true, as = "plenary.nvim",},
-        
+        {"git@github.com:kyazdani42/nvim-web-devicons.git", opt = true},
+        --{"git@github.com:nvim-lua/plenary.nvim.git", opt=true, as = "plenary.nvim",},
     },
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

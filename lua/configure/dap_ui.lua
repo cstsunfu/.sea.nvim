@@ -3,18 +3,19 @@ local plugin = {}
 plugin.core = {
     "git@github.com:rcarriga/nvim-dap-ui.git",
     as = "nvim-dap-ui",
-    requires = {{"git@github.com:mfussenegger/nvim-dap.git", as = "nvim-dap"}},
+    requires = {{"git@github.com:mfussenegger/nvim-dap.git", as = "nvim-dap", opt=true}},
+    after = {'nvim-dap'},
     
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        --if not packer_plugins['dap'].loaded then
-            --vim.cmd [[packadd nvim-dap]]
-        --end
+        if not packer_plugins['nvim-dap'].loaded then
+            vim.cmd [[packadd nvim-dap]]
+        end
 
-        require("dap")
+        require("nvim-dap")
         vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
         
         require("dapui").setup({

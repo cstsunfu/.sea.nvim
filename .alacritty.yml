@@ -584,7 +584,6 @@ background_opacity: 1.0
 key_bindings:
     # (Windows, Linux, and BSD only)
   - { key: V,         mods: Control|Shift, action: Paste                       }
-  - { key: Back, action:  ReceiveChar}
   - { key: C,         mods: Control|Shift, action: Copy                        }
   - { key: Insert,    mods: Shift,         action: PasteSelection              }
   - { key: Key0,      mods: Control,       action: ResetFontSize               }
@@ -600,3 +599,4 @@ key_bindings:
   - { key: PageDown,  mods: None,          action: ScrollPageDown, mode: ~Alt  }
   - { key: Home,      mods: Shift,         action: ScrollToTop,    mode: ~Alt  }
   - { key: End,       mods: Shift,         action: ScrollToBottom, mode: ~Alt  }
+  #- { key: Back, action:  ReceiveChar}
