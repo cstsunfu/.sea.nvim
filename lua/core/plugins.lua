@@ -22,6 +22,8 @@ if FEATURE_GROUPS['default'] == true then
         ['which_key'] = {disable=false, opt=false},             -- key binding suggestion
         ['asynctasks'] = {disable=false},             -- key binding suggestion
         ['plenary'] = {disable=false},             -- key binding suggestion
+        ['tree_sitter'] = {disable=false},
+        ['popup'] = {disable=false},
     }
 end
 
@@ -31,54 +33,63 @@ if FEATURE_GROUPS['coc_complete'] == true then
     }
 end
 
-plugins_configure.plugins_groups['org_my_life'] = {
-    ['calendar'] = {disable=false},
-    ['vimwiki'] = {disable=false},
-    ['table_mode'] = {disable=false},
-    ['md_bullets'] = {disable=false},
-    ['org_bullets'] = {disable=false},
-    ['orgmode'] = {disable=false},
-}
+if FEATURE_GROUPS['org_my_life'] == true then
+    plugins_configure.plugins_groups['org_my_life'] = {
+        ['calendar'] = {disable=false},
+        ['vimwiki'] = {disable=false},
+        ['table_mode'] = {disable=false},
+        ['md_bullets'] = {disable=false},
+        ['org_bullets'] = {disable=false},
+        ['orgmode'] = {disable=false},
+    }
+end
 
-plugins_configure.plugins_groups['git'] = {
-    ['gitsigns'] = {disable=false},
-    ['fugitive'] = {disable=false},
-}
+if FEATURE_GROUPS['git'] == true then
+    plugins_configure.plugins_groups['git'] = {
+        ['gitsigns'] = {disable=false},
+        ['fugitive'] = {disable=false},
+    }
+end
 
-plugins_configure.plugins_groups['enhance'] = {
-    --['hlslens'] = {disable=false}, -- TODO: neovim 0.6 +
-    ['todo_comments'] = {disable=false},
-    ['zen_mode'] = {disable=false},
-    ['ts_text_object'] = {disable=false},
-    ['speed_date'] = {disable=false},
-    ['translate'] = {disable=false},
-    ['notify'] = {disable=false},
-    ['ipython'] = {disable=false},
-    ['neogen'] = {disable=false},
-    ['terminal'] = {disable=false},
-    --['remote'] = {disable=false},
-    --['high_str'] = {disable=true},
-    --
-    ['colorizer'] = {disable=false},
-    ['pretty_print_json'] = {disable=false},
-    ['hjson'] = {disable=false},
-    ['json5'] = {disable=false},
-}
+if FEATURE_GROUPS['enhance'] == true then
+    plugins_configure.plugins_groups['enhance'] = {
+        --['hlslens'] = {disable=false}, -- TODO: neovim 0.6 +
+        ['todo_comments'] = {disable=false},
+        ['zen_mode'] = {disable=false},
+        ['ts_text_object'] = {disable=false},
+        ['speed_date'] = {disable=false},
+        ['translate'] = {disable=false},
+        ['notify'] = {disable=false},
+        ['ipython'] = {disable=false},
+        ['neogen'] = {disable=false},
+        ['terminal'] = {disable=false},
+        ['remote'] = {disable=false},
+        --['high_str'] = {disable=true},
+        --
+        ['colorizer'] = {disable=false},
+        ['pretty_print_json'] = {disable=false},
+        ['hjson'] = {disable=false},
+        ['json5'] = {disable=false},
+    }
+end
 
 -- main language
-plugins_configure.plugins_groups['special_for_language'] = {
-    ['python_fold'] = {disable=true},
-    ['markdown_preview'] = {disable=false},
-}
+if FEATURE_GROUPS['special_for_language'] == true then
+    plugins_configure.plugins_groups['special_for_language'] = {
+        ['python_fold'] = {disable=true},
+        ['markdown_preview'] = {disable=false},
+    }
+end
 
-plugins_configure.plugins_groups['debug_adapter'] = {
-    --['dap'] = {disable=false},
-    ['dap_python'] = {disable=false},
-    ['dap_ui'] = {disable=false}
-}
+if FEATURE_GROUPS['debug_adapter'] == true then
+    plugins_configure.plugins_groups['debug_adapter'] = {
+        ['dap_python'] = {disable=false},
+        ['dap_ui'] = {disable=false}
+    }
+end
 
 if FEATURE_GROUPS['buildin_complete'] == true then
-    plugins_configure.plugins_groups['coc_complete'] = {
+    plugins_configure.plugins_groups['buildin_complete'] = {
         ["lsp_config"] = {disable=false},
         ["nvim_comp"] = {disable=false},
         ['lsp_icon'] = {disable=false},
@@ -109,7 +120,6 @@ end
 if FEATURE_GROUPS['file_and_view'] == true then
     if FEATURE_GROUPS['coc_complete'] == true then
         plugins_configure.plugins_groups['file_and_view'] = {
-            ['tree_sitter'] = {disable=false},
             ["telescope"] = {disable=false},
             ["files_tree"] = {disable=false},
             ["vista"] = {disable=false},
@@ -120,7 +130,6 @@ if FEATURE_GROUPS['file_and_view'] == true then
     end
     if FEATURE_GROUPS['buildin_complete'] == true then
         plugins_configure.plugins_groups['file_and_view'] = {
-            ['tree_sitter'] = {disable=false},
             ["telescope"] = {disable=false},
             ["files_tree"] = {disable=false},
             ["file_symbols"] = {disable=false},

@@ -5,7 +5,7 @@ plugin.core = {
     as = "nvim-spectre",
     requires = {
         {"git@github.com:nvim-lua/popup.nvim.git", as="popup", opt=true},
-        {"git@github.com:nvim-lua/plenary.nvim.git", as="plenary.nvim", opt=true},
+        --{"git@github.com:nvim-lua/plenary.nvim.git", as="plenary.nvim", opt=true},
         
     },
     setup = function()  -- Specifies code to run before this plugin is loaded.

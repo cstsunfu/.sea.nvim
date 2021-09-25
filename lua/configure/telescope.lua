@@ -4,10 +4,9 @@ plugin.core = {
     "git@github.com:nvim-telescope/telescope.nvim.git",
     as = "telescope.nvim",
     --requires = {{"git@github.com:nvim-lua/popup.nvim.git"}, {"git@github.com:nvim-lua/plenary.nvim.git"}},
-    --as = "popup",
     requires = {
-        {"git@github.com:nvim-lua/popup.nvim.git", as="popup.nvim"},
-        {"git@github.com:nvim-lua/plenary.nvim.git", as="plenary.nvim", opt=true},
+        --{"git@github.com:nvim-lua/popup.nvim.git", as="popup.nvim"},
+        --{"git@github.com:nvim-lua/plenary.nvim.git", as="plenary.nvim", opt=true},
         {"git@github.com:tami5/sql.nvim.git", as="sql.nvim", opt=true},
         {
             "git@github.com:nvim-telescope/telescope-frecency.nvim.git",
