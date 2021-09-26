@@ -53,7 +53,7 @@ plugin.core = {
             },
             numhl = false,
             linehl = false,
-            watch_index = { interval = 1000 },
+            watch_gitdir = { interval = 1000 },
             sign_priority = 1,
             update_debounce = 200,
             status_formatter = nil, -- Use default
