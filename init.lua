@@ -29,6 +29,12 @@ if not packer_ok then
 end
 
 packer.init {
+    git = {
+        depth = 1, -- Git clone depth
+        clone_timeout = 600, -- Timeout, in seconds, for git clones
+        --default_url_format = 'https://github.com/%s' -- Lua format string used for "aaa/bbb" style plugins
+        --
+    }
 }
 
 require("core")
