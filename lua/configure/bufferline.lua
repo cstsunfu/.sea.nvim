@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     'git@github.com:akinsho/nvim-bufferline.lua.git',
+    --"git@github.com:ihasdapie/nvim-bufferline.lua.git",
     as = "nvim-bufferline",
     requires = {{'git@github.com:kyazdani42/nvim-web-devicons.git'}},
     
@@ -86,7 +87,7 @@ plugin.core = {
                 show_close_icon = false,
                 --show_tab_indicators = true | false,
                 show_tab_indicators = true,
-                persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+                persist_buffer_sort = false, -- whether or not custom sorted buffers should persist
                 -- can also be a table containing 2 custom separators
                 -- [focused and unfocused]. eg: { '|', '|' }
                 --separator_style = "slant" | "thick" | "thin" | { 'any', 'any' },
@@ -110,8 +111,15 @@ plugin.core = {
                 --end
             }
         }
+        local global_func = require('util.global')
+        global_func.augroup('Update Buffer Num', {
+            {
+                events = {'BufWritePre' },
+                targets = {'*'},
+                command = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)"
+            },
 
-
+        })
     end,
 }
 
