@@ -10,7 +10,8 @@ local used = {
     l = {},
     x = {},
     ["!"] = {},
-    t = {}
+    t = {},
+    [""] = {}
 }
 
 local plugins_groups = require('core.plugins').plugins_groups
@@ -64,6 +65,18 @@ global_mapping.register = function(new_map)
     if new_map['mode'] == nil then
         new_map['mode'] = 'n'
     end
+
+    if type(new_map['mode']) == "table" then
+        local map_list = new_map['mode']
+        for i, val in ipairs(new_map['mode']) do
+            new_map['mode'] = val
+            if val == nil then
+                print("The mode list is not support nil.")
+            end
+            global_mapping.register(new_map)
+        end
+        return
+    end
     if new_map['short_desc'] == nil then
         new_map['short_desc'] = "NO DESC"
     end
@@ -103,7 +116,7 @@ global_mapping.register = function(new_map)
     end
 
     if used[new_map['mode']][uni_key_string] then
-        print(uni_key_string.." has been used for "..used[new_map['mode']][uni_key_string]..", you should change to another one.")
+        print("Mode "..new_map['mode'].." "..uni_key_string.." has been used for "..used[new_map['mode']][uni_key_string]..", you should change "..new_map["short_desc"].." to another one.")
         return
     else
         used[new_map['mode']][uni_key_string] = new_map['short_desc']
@@ -332,125 +345,125 @@ global_mapping.register({
 -- Alt
 if vim.fn.has('mac') == 1 then
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"¬"},
-            action = ':wincmd l<cr>',
+            action = '<esc>:wincmd l<cr>',
             short_desc = "<alt-l>Goto Right Window"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"˚"},
-            action = ':wincmd k<cr>',
+            action = '<esc>:wincmd k<cr>',
             short_desc = "<alt-k>Goto Above Window"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"˙"},
-            action = ':wincmd h<cr>',
+            action = '<esc>:wincmd h<cr>',
             short_desc = "<alt-h>Goto Left Window"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"∆"},
-            action = ':wincmd j<cr>',
+            action = '<esc>:wincmd j<cr>',
             short_desc = "<alt-j>Goto Below Window"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"ƒ"},
-            action = ':bnext<cr>',
+            action = '<esc>:bnext<cr>',
             short_desc = "<alt-f>Go to Next Buffer"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"∫"},
-            action = ':bprevious<cr>',
+            action = '<esc>:bprevious<cr>',
             short_desc = "<alt-b>Go to Previous Buffer"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"∑"},
-            action = ':resize +1<cr>',
-            short_desc = "<alt-w>Size +1"
+            action = '<esc>:resize +5<cr>',
+            short_desc = "<alt-w>Size +5"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"ß"},
-            action = ':resize -1<cr>',
-            short_desc = "<alt-s>Size -1"
+            action = '<esc>:resize -5<cr>',
+            short_desc = "<alt-s>Size -5"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"å"},
-            action = ':vertical resize -1<cr>',
-            short_desc = "<alt-a>Vertical Size -1"
+            action = '<esc>:vertical resize -5<cr>',
+            short_desc = "<alt-a>Vertical Size -5"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"∂"},
-            action = ':vertical resize +1<cr>',
-            short_desc = "<alt-d>Vertical Size +1"
+            action = '<esc>:vertical resize +5<cr>',
+            short_desc = "<alt-d>Vertical Size +5"
         })
 else
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-l>"},
-            action = ':wincmd l<cr>',
+            action = '<esc>:wincmd l<cr>',
             short_desc = "<alt-l>Goto Right Window"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-k>"},
-            action = ':wincmd k<cr>',
+            action = '<esc>:wincmd k<cr>',
             short_desc = "<alt-k>Goto Above Window"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-h>"},
-            action = ':wincmd h<cr>',
+            action = '<esc>:wincmd h<cr>',
             short_desc = "<alt-h>Goto Left Window"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-j>"},
-            action = ':wincmd j<cr>',
+            action = '<esc>:wincmd j<cr>',
             short_desc = "<alt-j>Goto Below Window"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-f>"},
-            action = ':bnext<cr>',
+            action = '<esc>:bnext<cr>',
             short_desc = "<alt-f>Go to Next Buffer"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-b>"},
-            action = ':bprevious<cr>',
+            action = '<esc>:bprevious<cr>',
             short_desc = "<alt-b>Go to Previous Buffer"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-w>"},
-            action = ':resize +1<cr>',
-            short_desc = "<alt-w>Size +1"
+            action = '<esc>:resize +5<cr>',
+            short_desc = "<alt-w>Size +5"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-s>"},
-            action = ':resize -1<cr>',
-            short_desc = "<alt-s>Size -1"
+            action = '<esc>:resize -5<cr>',
+            short_desc = "<alt-s>Size -5"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-a>"},
-            action = ':vertical resize -1<cr>',
-            short_desc = "<alt-a>Vertical Size -1"
+            action = '<esc>:vertical resize -5<cr>',
+            short_desc = "<alt-a>Vertical Size -5"
         })
     global_mapping.register({
-            mode = "n",
+            mode = {"n", "v", "i", "t"},
             key = {"<alt-d>"},
-            action = ':vertical resize +1<cr>',
-            short_desc = "<alt-d>Vertical Size +1"
+            action = '<esc>:vertical resize +5<cr>',
+            short_desc = "<alt-d>Vertical Size +5"
         })
 end
 
