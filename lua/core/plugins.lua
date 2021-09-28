@@ -61,7 +61,7 @@ if FEATURE_GROUPS['enhance'] == true then
         ['translate'] = {disable=false},
         ['notify'] = {disable=false},
         ['ipython'] = {disable=false},
-        ['neogen'] = {disable=false},
+        --['neogen'] = {disable=true}, -- generate annotations
         ['terminal'] = {disable=false},
         ['remote'] = {disable=false},
         --['high_str'] = {disable=true},
