@@ -110,7 +110,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "g", "u"},
-        action = ':Git Pull<cr>',
+        action = ':Git pull<cr>',
         short_desc = "Git Pull",
         silent = true,
         noremap = true,
@@ -118,7 +118,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "g", "p"},
-        action = ':Git Push<cr>',
+        action = ':Git push<cr>',
         short_desc = "Git Push",
         silent = true,
         noremap = true,
