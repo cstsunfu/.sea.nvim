@@ -15,14 +15,14 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "a"},
+        key = {"<leader>", "g", "a"},
         action = ':Git add .<cr>',
         short_desc = "Git Add",
         noremap = true,
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "b"},
+        key = {"<leader>", "g", "b"},
         action = ':Git blame<cr>',
         short_desc = "Git Blame",
         silent = true,
@@ -31,7 +31,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "c"},
+        key = {"<leader>", "g", "c"},
         action = ':Git commit<cr>',
         short_desc = "Git Commits",
         silent = true,
@@ -40,7 +40,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "e"},
+        key = {"<leader>", "g", "e"},
         action = ':Gedit ',
         short_desc = "Git Edit Something",
         silent = true,
@@ -49,7 +49,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "d"},
+        key = {"<leader>", "g", "d"},
         action = ':Gdiff<cr>',
         short_desc = "Git Diff",
         silent = true,
@@ -58,7 +58,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "g"},
+        key = {"<leader>", "g", "g"},
         action = ':Ggrep ',
         short_desc = "Git Grep",
         silent = true,
@@ -67,7 +67,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "l"},
+        key = {"<leader>", "g", "l"},
         action = ':Gclog<cr>',
         short_desc = "Git Log",
         silent = true,
@@ -75,7 +75,7 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "m"},
+        key = {"<leader>", "g", "m"},
         action = ':GMove ',
         short_desc = "Git Move",
         silent = true,
@@ -84,7 +84,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "r"},
+        key = {"<leader>", "g", "r"},
         action = ':Gread<cr>',
         short_desc = "Git Read",
         silent = true,
@@ -92,7 +92,7 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "s"},
+        key = {"<leader>", "g", "s"},
         action = ':Git<cr>',
         short_desc = "Git Status",
         silent = true,
@@ -100,7 +100,7 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "G", "w"},
+        key = {"<leader>", "g", "w"},
         action = ':Gwrite<cr>',
         short_desc = "Git Write",
         silent = true,

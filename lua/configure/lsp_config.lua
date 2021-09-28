@@ -39,28 +39,28 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "d"},
+        key = {"g", "d"},
         action = '<cmd>lua vim.lsp.buf.definition()<cr>',
         short_desc = "goto definition",
         silent = false
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "D"},
+        key = {"g", "D"},
         action = '<cmd>lua vim.lsp.buf.declaration()<cr>',
         short_desc = "goto declaration",
         silent = false
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "r"},
+        key = {"g", "r"},
         action = '<cmd>lua vim.lsp.buf.references()<cr>',
         short_desc = "goto references",
         silent = false
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "i"},
+        key = {"g", "i"},
         action = '<cmd>lua vim.lsp.buf.implementation()<cr>',
         short_desc = "goto implementation",
         silent = false
