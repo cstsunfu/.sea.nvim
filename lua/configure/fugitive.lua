@@ -15,8 +15,15 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
+        key = {"<leader>", "G", "a"},
+        action = ':Git add .<cr>',
+        short_desc = "Git Add",
+        noremap = true,
+    })
+    mappings.register({
+        mode = "n",
         key = {"<leader>", "G", "b"},
-        action = ':Gblame<cr>',
+        action = ':Git blame<cr>',
         short_desc = "Git Blame",
         silent = true,
         noremap = true,
@@ -25,7 +32,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "G", "c"},
-        action = ':Gcommit<cr>',
+        action = ':Git commit<cr>',
         short_desc = "Git Commits",
         silent = true,
         noremap = true,
@@ -61,7 +68,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "G", "l"},
-        action = ':Glog<cr>',
+        action = ':Gclog<cr>',
         short_desc = "Git Log",
         silent = true,
         noremap = true,
@@ -69,7 +76,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "G", "m"},
-        action = ':Gmove ',
+        action = ':GMove ',
         short_desc = "Git Move",
         silent = true,
         noremap = true,
@@ -86,7 +93,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "G", "s"},
-        action = ':Gstatus<cr>',
+        action = ':Git<cr>',
         short_desc = "Git Status",
         silent = true,
         noremap = true,

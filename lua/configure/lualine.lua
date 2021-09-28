@@ -30,6 +30,7 @@ plugin.core = {
         -- Color table for highlights
         local colors = {
             fg = '#bbc2cf',
+            bg = '#202328',
             yellow = '#ECBE7B',
             cyan = '#008080',
             darkblue = '#081633',
@@ -42,10 +43,16 @@ plugin.core = {
             gray = '#808080'
         }
 
-        if vim.g.colorscheme == "gruvbox_material" then
-            colors.bg = '#7c6f6c'
-        else
-            colors.bg = '#202328'
+        if vim.g.colorscheme == "gruvbox_material"  or vim.g.colorscheme == "gruvbox" then
+            colors.bg = '#928374'
+            colors.fg = '#505358'
+            colors.yellow = "#ffd18e"
+            colors.blue = '#61bff7'
+            colors.red = '#fc6f77'
+            colors.gray = '#7c6f64'
+            colors.magenta = '#e698fd'
+            colors.green = '#b8de85'
+            colors.violet = '#d9bfff'
         end
 
         local conditions = {
