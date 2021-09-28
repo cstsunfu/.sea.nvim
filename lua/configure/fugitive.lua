@@ -98,6 +98,7 @@ plugin.mapping = function()
         silent = true,
         noremap = true,
     })
+
     mappings.register({
         mode = "n",
         key = {"<leader>", "g", "w"},
