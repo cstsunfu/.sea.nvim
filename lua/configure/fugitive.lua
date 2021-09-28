@@ -106,6 +106,23 @@ plugin.mapping = function()
         silent = true,
         noremap = true,
     })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "g", "u"},
+        action = ':Git Pull<cr>',
+        short_desc = "Git Pull",
+        silent = true,
+        noremap = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "g", "p"},
+        action = ':Git Push<cr>',
+        short_desc = "Git Push",
+        silent = true,
+        noremap = true,
+    })
 end
 
 return plugin
