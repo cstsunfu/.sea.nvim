@@ -26,28 +26,28 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "d"},
+        key = {"g", "d"},
         action = '<Plug>(coc-definition)',
         short_desc = "goto definition",
         silent = false
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "D"},
+        key = {"g", "D"},
         action = '<Plug>(coc-declaration)',
         short_desc = "goto declaration",
         silent = false
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "r"},
+        key = {"g", "r"},
         action = '<Plug>(coc-references)',
         short_desc = "goto references",
         silent = false
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "i"},
+        key = {"g", "i"},
         action = '<Plug>(coc-implementation)',
         short_desc = "goto implementation",
         silent = false
