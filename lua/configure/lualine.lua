@@ -40,19 +40,23 @@ plugin.core = {
             magenta = '#c678dd',
             blue = '#51afef',
             red = '#ec5f67',
+            inactive = '#808080',
             gray = '#808080'
         }
 
         if vim.g.colorscheme == "gruvbox_material"  or vim.g.colorscheme == "gruvbox" then
             colors.bg = '#928374'
-            colors.fg = '#505358'
-            colors.yellow = "#ffd18e"
-            colors.blue = '#61bff7'
+            colors.fg = '#505338'
+            colors.yellow = "#ffe19e"
+            colors.blue = '#51afff'
             colors.red = '#fc6f77'
             colors.gray = '#7c6f64'
-            colors.magenta = '#e698fd'
-            colors.green = '#b8de85'
+            colors.magenta = '#f6a8fd'
+            colors.green = '#c8fe95'
             colors.violet = '#d9bfff'
+            colors.inactive = '#afafaf'
+            colors.orange = '#FFa840'
+            colors.red = '#fc6f77'
         end
 
         local conditions = {
@@ -242,7 +246,7 @@ plugin.core = {
                     return "*WARNING* THIS IS NOT A NORMAL PROJECT"
                 end,
                 icon = '  Project:',
-                color = {fg = '#ffffff', gui = 'bold'}
+                color = {fg = '#dfffff', gui = 'bold'}
             }
         else
             ins_left_active {
@@ -261,7 +265,7 @@ plugin.core = {
                     return msg
                 end,
                 icon = ' LSP:',
-                color = {fg = '#ffffff', gui = 'bold'}
+                color = {fg = '#dfffff', gui = 'bold'}
             }
         end
 
@@ -374,16 +378,20 @@ plugin.core = {
                 return format_file_size(file)
             end,
             cond = conditions.buffer_not_empty,
-            color = {fg = colors.gray}, -- Sets highlighting of component
+            color = {fg = colors.inactive}, -- Sets highlighting of component
         }
 
 
         ins_left_inactive {
-            'filename',
+            function()
+                local fname = vim.fn.getcwd()
+                local path = Path:new(fname)
+                local split_path = path:_split()
+                return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
+            end,
             cond = conditions.buffer_not_empty,
-            --color = {fg = colors.gray, gui = 'bold'},
+            color = {fg = colors.inactive, gui = 'bold'},
             file_status = true, -- displays file status (readonly status, modified status)
-            path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
         }
         ins_left_inactive {function() return '%=' end}
 
@@ -404,21 +412,21 @@ plugin.core = {
             'o:encoding', -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
             cond = conditions.hide_in_width,
-            color = {fg = colors.gray, gui = 'bold'}
+            color = {fg = colors.inactive, gui = 'bold'}
         }
 
         ins_right_inactive {
             'fileformat',
             fmt = string.upper,
             icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-            --color = {fg = colors.gray, gui = 'bold'}
+            color = {fg = colors.inactive, gui = 'bold'}
         }
 
         ins_right_inactive {
             'branch',
             icon = '',
             cond = conditions.check_git_workspace,
-            --color = {fg = colors.gray, gui = 'bold'}
+            color = {fg = colors.inactive, gui = 'bold'}
         }
 
         ins_right_inactive {
@@ -426,9 +434,9 @@ plugin.core = {
             -- Is it me or the symbol for modified us really weird
             symbols = {added = ' ', modified = ' ', removed = ' '},
             diff_color = {
-                added = { fg = colors.green },
-                modified = { fg = colors.orange },
-                removed = { fg = colors.red },
+                added = { fg = colors.inactive },
+                modified = { fg = colors.inactive },
+                removed = { fg = colors.inactive },
             },
             cond = conditions.hide_in_width
         }
