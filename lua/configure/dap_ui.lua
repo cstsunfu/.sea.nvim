@@ -7,6 +7,7 @@ plugin.core = {
     after = {'nvim-dap'},
     
     setup = function()  -- Specifies code to run before this plugin is loaded.
+        vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
 
     vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
     end,
@@ -16,8 +17,6 @@ plugin.core = {
             vim.cmd [[packadd nvim-dap]]
         end
 
-        require("nvim-dap")
-        vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
         
         require("dapui").setup({
             icons = { expanded = "▾", collapsed = "▸" },
