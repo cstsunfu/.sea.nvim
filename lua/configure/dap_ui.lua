@@ -8,6 +8,7 @@ plugin.core = {
     
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
+    vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded

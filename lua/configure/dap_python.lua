@@ -13,7 +13,11 @@ plugin.core = {
         if not packer_plugins['nvim-dap'].loaded then
             vim.cmd [[packadd nvim-dap]]
         end
-        require('dap-python').setup('~/anaconda3/envs/dlkit/bin/python')
+        local python_path = io.popen('which python')
+
+        python_path = python_path:read("*all")
+        python_path = string.gsub(python_path, "^(.-)%s*\n*$", "%1")
+        require('dap-python').setup(python_path)
     end,
 
 }
