@@ -61,7 +61,7 @@ if FEATURE_GROUPS['enhance'] == true then
         ['translate'] = {disable=false},
         ['notify'] = {disable=false},
         ['ipython'] = {disable=false},
-        ['neogen'] = {disable=false},
+        --['neogen'] = {disable=true}, -- generate annotations
         ['terminal'] = {disable=false},
         ['remote'] = {disable=false},
         --['high_str'] = {disable=true},
@@ -70,6 +70,7 @@ if FEATURE_GROUPS['enhance'] == true then
         ['pretty_print_json'] = {disable=false},
         ['hjson'] = {disable=false},
         ['json5'] = {disable=false},
+        ["files_tree"] = {disable=false},
     }
 end
 
@@ -104,7 +105,8 @@ if FEATURE_GROUPS['colorschemes'] == true then
         ["github_nvim_theme"] = {disable=false, opt=true},
         ['gruvbox_material'] = {disable=false, opt=true},
         ['rose_pine'] = {disable=false, opt=true},
-        ['material'] = {disable=false, opt=true}
+        ['material'] = {disable=false, opt=true},
+        ['gruvbox'] = {disable=false, opt=true}
     }
 end
 
@@ -121,7 +123,6 @@ if FEATURE_GROUPS['file_and_view'] == true then
     if FEATURE_GROUPS['coc_complete'] == true then
         plugins_configure.plugins_groups['file_and_view'] = {
             ["telescope"] = {disable=false},
-            ["files_tree"] = {disable=false},
             ["vista"] = {disable=false},
             ["navigator"] = {disable=true},     -- TODO: this plugin will be useful, but too beta
             ['ctrlsf'] = {disable=false},               -- search the same token under cursor
@@ -131,7 +132,6 @@ if FEATURE_GROUPS['file_and_view'] == true then
     if FEATURE_GROUPS['buildin_complete'] == true then
         plugins_configure.plugins_groups['file_and_view'] = {
             ["telescope"] = {disable=false},
-            ["files_tree"] = {disable=false},
             ["file_symbols"] = {disable=false},
             ["navigator"] = {disable=true},     -- TODO: this plugin will be useful, but too beta
             ['ctrlsf'] = {disable=false},               -- search the same token under cursor
