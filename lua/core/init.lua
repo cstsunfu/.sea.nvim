@@ -1,8 +1,8 @@
 vim.g.colorscheme = "rose_pine"
 vim.g.colorscheme = "gruvbox_material"
-vim.g.colorscheme = "nord"
 vim.g.colorscheme = "material"
 vim.g.colorscheme = "gruvbox"
+vim.g.colorscheme = "nord"
 vim.g.theme = "light"
 
 USE_COC = true
