@@ -68,11 +68,21 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "g", "l"},
+        action = ':0Gclog<cr>',
+        short_desc = "Git Log For Current File",
+        silent = true,
+        noremap = true,
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "g", "L"},
         action = ':Gclog<cr>',
         short_desc = "Git Log",
         silent = true,
         noremap = true,
     })
+
     mappings.register({
         mode = "n",
         key = {"<leader>", "g", "m"},
