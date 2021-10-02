@@ -15,6 +15,14 @@ plugin.core = {
 
 
 plugin.mapping = function()
+    local mappings = require('core.mapping')
+    mappings.register({
+        mode = "v",
+        key = {"<leader>", "l", "d"},
+        action = ":'<,'>Linediff<cr>",
+        short_desc = "Line Diff",
+        noremap = true,
+    })
 
 end
 return plugin
