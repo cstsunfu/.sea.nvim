@@ -22,8 +22,12 @@ install_depend(){
     pip install flake8
     if [[ "$(uname)"=="Darwin" ]];then
         brew install neovim
+        brew install ag
+        brew install rg
     elif [[ -n "$(uname -a | grep Linux | grep Microsoft )" ]]; then
         sudo apt-get install neovim
+        sudo apt-get install ag
+        sudo apt-get install rg
     else
         printf "\033[31m ERROR: Don't support install depend for your system(only configure for WSL & MacOS), please install manually.\033[0m\n"
     fi
