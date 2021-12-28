@@ -1,21 +1,24 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:rcarriga/nvim-dap-ui.git",
-    as = "nvim-dap-ui",
-    requires = {{"git@github.com:mfussenegger/nvim-dap.git", as = "nvim-dap", opt=true}},
-    after = {'nvim-dap'},
+    "rcarriga/nvim-dap-ui",
+    requires = {"mfussenegger/nvim-dap"},
+    --after = {'nvim-dap'},
     
     setup = function()  -- Specifies code to run before this plugin is loaded.
         vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
-
-    vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
+        vim.fn.sign_define('DapBreakpoint', {text='', texthl='Debug', linehl='', numhl=''})
+        
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        if not packer_plugins['nvim-dap'].loaded then
-            vim.cmd [[packadd nvim-dap]]
-        end
+        --if not packer_plugins['nvim-dap'].loaded then
+            --vim.cmd [[packadd nvim-dap]]
+        --end
+        local dap, dapui = require('dap'), require('dapui')
+        dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
+        dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
+        dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end
 
         
         require("dapui").setup({
@@ -29,7 +32,7 @@ plugin.core = {
                 repl = "r",
             },
             sidebar = {
-                open_on_start = true,
+                --open_on_start = true,
                 -- You can change the order of elements in the sidebar
                 elements = {
                     -- Provide as ID strings or tables with "id" and "size" keys
@@ -45,7 +48,7 @@ plugin.core = {
                 position = "left", -- Can be "left", "right", "top", "bottom"
             },
             tray = {
-                open_on_start = true,
+                --open_on_start = true,
                 elements = { "repl" },
                 size = 10,
                 position = "bottom", -- Can be "left", "right", "top", "bottom"
@@ -114,6 +117,8 @@ plugin.mapping = function()
     })
 
 
-
 end
 return plugin
+
+
+

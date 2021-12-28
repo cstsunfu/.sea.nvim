@@ -1,8 +1,12 @@
-vim.g.colorscheme = "rose_pine"
 vim.g.colorscheme = "gruvbox_material"
+vim.g.colorscheme = "rose_pine"
 vim.g.colorscheme = "material"
 vim.g.colorscheme = "gruvbox"
+vim.g.colorscheme = "vscode_theme"
+vim.g.colorscheme = "onedarkpro"
 vim.g.colorscheme = "nord"
+vim.g.colorscheme = "onedark"
+vim.g.theme = "dark"
 vim.g.theme = "light"
 
 USE_COC = true

@@ -251,64 +251,91 @@ schemes:
       cyan:    '#46d9ff'
       white:   '#dfdfdf'
 
+  # atom one light
+  one-light: &one-light
+    primary:
+      background: '#f8f8f8'
+      foreground: '#2a2b33'
+
+    normal:
+      black:   '#000000'
+      red:     '#de3d35'
+      green:   '#3e953a'
+      yellow:  '#d2b67b'
+      blue:    '#2f5af3'
+      magenta: '#a00095'
+      cyan:    '#3e953a'
+      white:   '#bbbbbb'
+
+    bright:
+      black:   '#000000'
+      red:     '#de3d35'
+      green:   '#3e953a'
+      yellow:  '#d2b67b'
+      blue:    '#2f5af3'
+      magenta: '#a00095'
+      cyan:    '#3e953a'
+      white:   '#ffffff'
+
   # Dracula
   dracula: &dracula
-    colors:
-      primary:
+    primary:
+      background: '#282a36'
+      foreground: '#f8f8f2'
+    cursor:
+      text: CellBackground
+      cursor: CellForeground
+    vi_mode_cursor:
+      text: CellBackground
+      cursor: CellForeground
+    search:
+      matches:
+        foreground: '#44475a'
+        background: '#50fa7b'
+      focused_match:
+        foreground: '#44475a'
+        background: '#ffb86c'
+      bar:
         background: '#282a36'
         foreground: '#f8f8f2'
-      cursor:
-        text: CellBackground
-        cursor: CellForeground
-      vi_mode_cursor:
-        text: CellBackground
-        cursor: CellForeground
-      search:
-        matches:
-          foreground: '#44475a'
-          background: '#50fa7b'
-        focused_match:
-          foreground: '#44475a'
-          background: '#ffb86c'
-        bar:
-          background: '#282a36'
-          foreground: '#f8f8f2'
-      line_indicator:
-        foreground: None
-        background: None
-      selection:
-        text: CellForeground
-        background: '#44475a'
-      normal:
-        black:   '#000000'
-        red:     '#ff5555'
-        green:   '#50fa7b'
-        yellow:  '#f1fa8c'
-        blue:    '#bd93f9'
-        magenta: '#ff79c6'
-        cyan:    '#8be9fd'
-        white:   '#bfbfbf'
-      bright:
-        black:   '#4d4d4d'
-        red:     '#ff6e67'
-        green:   '#5af78e'
-        yellow:  '#f4f99d'
-        blue:    '#caa9fa'
-        magenta: '#ff92d0'
-        cyan:    '#9aedfe'
-        white:   '#e6e6e6'
-      dim:
-        black:   '#14151b'
-        red:     '#ff2222'
-        green:   '#1ef956'
-        yellow:  '#ebf85b'
-        blue:    '#4d5b86'
-        magenta: '#ff46b0'
-        cyan:    '#59dffc'
-        white:   '#e6e6d1'
+    line_indicator:
+      foreground: None
+      background: None
+    selection:
+      text: CellForeground
+      background: '#44475a'
+    normal:
+      black:   '#000000'
+      red:     '#ff5555'
+      green:   '#50fa7b'
+      yellow:  '#f1fa8c'
+      blue:    '#bd93f9'
+      magenta: '#ff79c6'
+      cyan:    '#8be9fd'
+      white:   '#bfbfbf'
+    bright:
+      black:   '#4d4d4d'
+      red:     '#ff6e67'
+      green:   '#5af78e'
+      yellow:  '#f4f99d'
+      blue:    '#caa9fa'
+      magenta: '#ff92d0'
+      cyan:    '#9aedfe'
+      white:   '#e6e6e6'
+    dim:
+      black:   '#14151b'
+      red:     '#ff2222'
+      green:   '#1ef956'
+      yellow:  '#ebf85b'
+      blue:    '#4d5b86'
+      magenta: '#ff46b0'
+      cyan:    '#59dffc'
+      white:   '#e6e6d1'
 
 # Choose ONE color scheme from those available in the above list.
 colors: *doom-one
+colors: *one-light
+#colors: *dracula
 
 # Visual Bell
 #
@@ -599,4 +626,4 @@ key_bindings:
   - { key: PageDown,  mods: None,          action: ScrollPageDown, mode: ~Alt  }
   - { key: Home,      mods: Shift,         action: ScrollToTop,    mode: ~Alt  }
   - { key: End,       mods: Shift,         action: ScrollToBottom, mode: ~Alt  }
-  #- { key: Back, action:  ReceiveChar}
+  - { key: Back, action:  ReceiveChar}

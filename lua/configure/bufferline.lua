@@ -53,9 +53,9 @@ plugin.core = {
                     end
                 end,
 
-                max_name_length = 18,
+                max_name_length = 15,
                 max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-                tab_size = 18,
+                tab_size = 12,
                 --diagnostics = false | "nvim_lsp",
                 diagnostics = false,
                 diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -164,6 +164,20 @@ plugin.mapping = function()
         key = {"<leader>", "b", "D"},
         action = ":lua require('util.global').delete_all_buffers_in_window()<cr>",
         short_desc = "Delete All Buffer Except Current"
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "b", "R"},
+        action = "<Cmd>BufferLineCloseRight<cr>",
+        short_desc = "Delete All Right Buffers"
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "b", "L"},
+        action = "<Cmd>BufferLineCloseLeft<cr>",
+        short_desc = "Delete All Left Buffers"
     })
     _G.buffer_sort_by_whether_modified = function(buffer_a, buffer_b)
         -- add custom logic
