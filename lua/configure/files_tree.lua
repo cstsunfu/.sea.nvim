@@ -1,9 +1,9 @@
 local plugin = {}
 
 plugin.core = {
-    'git@github.com:kyazdani42/nvim-tree.lua.git',
+    "kyazdani42/nvim-tree.lua",
     as = "nvim-tree",
-    requires = {{'git@github.com:kyazdani42/nvim-web-devicons.git', as = "nvim-web-devicons"}},
+    requires = {"kyazdani42/nvim-web-devicons"},
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

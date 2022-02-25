@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:vimwiki/vimwiki.git",
-    as = "vimwiki",
+    "vimwiki/vimwiki",
+    --as = "vimwiki",
     setup = function()  -- Specifies code to run before this plugin is loaded.
         vim.g.vimwiki_map_prefix = '<leader>o'
     end,

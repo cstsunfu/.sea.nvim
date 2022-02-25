@@ -1,8 +1,7 @@
 local plugin = {}
-
 plugin.core = {
-    "git@github.com:mfussenegger/nvim-ts-hint-textobject.git",
-    as = "nvim-ts-hint-textobject",
+    "mfussenegger/nvim-ts-hint-textobject",
+    --as = "nvim-ts-hint-textobject",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

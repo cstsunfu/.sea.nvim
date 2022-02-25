@@ -40,6 +40,7 @@ if FEATURE_GROUPS['org_my_life'] == true then
         ['table_mode'] = {disable=false},
         ['md_bullets'] = {disable=false},
         ['org_bullets'] = {disable=false},
+        ['headlines'] = {disable=true},
         ['orgmode'] = {disable=false},
     }
 end

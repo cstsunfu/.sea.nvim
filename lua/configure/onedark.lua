@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:olimorris/onedark.nvim.git",
-    as = "onedark.nvim",
+    "navarasu/onedark.nvim",
+    as = 'onedark',
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -24,15 +24,15 @@ plugin.dark = {
 
 }
 plugin.setup = function (theme)
-    vim.cmd("packadd onedark.nvim")
+    vim.cmd("packadd onedark")
     local onedark = require('onedark')
     if vim.g.theme == "light" then
         onedark.setup({
-          theme = 'onelight'
+          style = 'light'
         })
     else
         onedark.setup({
-          theme = 'onedark', -- Or
+          style = 'light', -- Or
         })
     end
     onedark.load()

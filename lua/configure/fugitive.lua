@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:tpope/vim-fugitive.git",
-    as = "vim-fugitive",
+    "tpope/vim-fugitive",
+    --as = "vim-fugitive",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
