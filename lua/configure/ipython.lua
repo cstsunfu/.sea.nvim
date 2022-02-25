@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:jupyter-vim/jupyter-vim.git",
-    as = "jupyter-vim",
+    "jupyter-vim/jupyter-vim",
+    --as = "jupyter-vim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

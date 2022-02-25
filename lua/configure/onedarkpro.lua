@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:olimorris/onedarkpro.nvim.git",
-    as = "onedarkpro.nvim",
+    "olimorris/onedarkpro.nvim",
+    as = "onedarkpro",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -28,12 +28,16 @@ plugin.dark = function ()
 end
 
 plugin.setup = function (theme)
-    vim.cmd("packadd onedarkpro.nvim")
+    vim.cmd("packadd onedarkpro")
     if theme == "light" then
         plugin.light()
     else
         plugin.dark()
     end
+    local timer = vim.loop.new_timer()
+    timer:start(500, 0, vim.schedule_wrap(function()
+        vim.cmd("hi! default link NormalFloat Pmenu")
+    end))
 end
 
 return plugin

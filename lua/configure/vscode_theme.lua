@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:Mofiqul/vscode.nvim.git",
-    as = "vscode.nvim",
+    "Mofiqul/vscode.nvim",
+    --as = "vscode.nvim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

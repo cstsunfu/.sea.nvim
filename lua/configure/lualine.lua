@@ -1,12 +1,10 @@
 local plugin = {}
 
 plugin.core = {
-    --"git@github.com:shadmansaleh/lualine.nvim.git", -- TODO: if this branch is merged, I should change to the master 'hoob3rt/lualine.nvim',
-    "git@github.com:hoob3rt/lualine.nvim", -- TODO: if this branch is merged, I should change to the master 'hoob3rt/lualine.nvim',
+    "nvim-lualine/lualine.nvim", -- TODO: if this branch is merged, I should change to the master 'hoob3rt/lualine.nvim',
     as = "lualine",
     requires = {
-        {"git@github.com:kyazdani42/nvim-web-devicons.git", opt = true},
-        --{"git@github.com:nvim-lua/plenary.nvim.git", opt=true, as = "plenary.nvim",},
+        "kyazdani42/nvim-web-devicons",
     },
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
@@ -45,7 +43,7 @@ plugin.core = {
             gray = '#808080'
         }
 
-        if vim.g.theme == 'light' and (vim.g.colorscheme == "gruvbox_material"  or vim.g.colorscheme == "gruvbox" or vim.g.colorscheme=='onedark') then
+        if vim.g.theme == 'light' and (vim.g.colorscheme == "gruvbox_material"  or vim.g.colorscheme == "gruvbox" or vim.g.colorscheme=='onedarkpro') then
             colors.bg = '#928374'
             colors.bg = '#868686'
             colors.fg = '#505338'

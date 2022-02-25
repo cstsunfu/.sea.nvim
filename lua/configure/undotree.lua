@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:mbbill/undotree.git",
-    as = "undotree",
+    "mbbill/undotree",
+    --as = "undotree",
     cmd='UndotreeToggle',
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

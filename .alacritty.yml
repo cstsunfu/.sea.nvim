@@ -224,7 +224,7 @@ schemes:
   # Doom One
   doom-one: &doom-one
     primary:
-      background: '#282c34'
+      background: '#253339'
       foreground: '#bbc2cf'
     cursor:
       text: CellBackground
@@ -333,8 +333,8 @@ schemes:
       white:   '#e6e6d1'
 
 # Choose ONE color scheme from those available in the above list.
-colors: *doom-one
 colors: *one-light
+colors: *doom-one
 #colors: *dracula
 
 # Visual Bell

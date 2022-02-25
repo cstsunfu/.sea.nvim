@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:neovim/nvim-lspconfig.git",
-    as = "nvim-lspconfig",
+    "neovim/nvim-lspconfig",
+    --as = "nvim-lspconfig",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

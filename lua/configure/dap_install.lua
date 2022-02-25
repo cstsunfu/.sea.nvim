@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:Pocco81/DAPInstall.nvim.git",
+    "Pocco81/DAPInstall.nvim",
     as = "DAPInstall",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

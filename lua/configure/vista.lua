@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:liuchengxu/vista.vim.git",
+    "liuchengxu/vista.vim",
     as = "vista",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

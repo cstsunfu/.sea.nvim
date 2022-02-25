@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    'git@github.com:simrat39/symbols-outline.nvim.git',
+    "simrat39/symbols-outline.nvim",
     as = "symbols-outline",
     setup = function()  -- Specifies code to run before this plugin is loaded.
         vim.g.symbols_outline = {

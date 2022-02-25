@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:shaunsingh/nord.nvim.git",
+    "shaunsingh/nord.nvim",
     as = "nord",
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
