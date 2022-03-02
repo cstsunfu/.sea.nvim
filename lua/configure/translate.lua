@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:voldikss/vim-translator.git",
-    as = "vim-translator",
+    "voldikss/vim-translator",
+    --as = "vim-translator",
     --cmd = {'<Plug>TranslateW', '<Plug>TranslateWV'},
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

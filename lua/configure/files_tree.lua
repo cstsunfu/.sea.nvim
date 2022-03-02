@@ -1,9 +1,9 @@
 local plugin = {}
 
 plugin.core = {
-    'git@github.com:kyazdani42/nvim-tree.lua.git',
+    "kyazdani42/nvim-tree.lua",
     as = "nvim-tree",
-    requires = {{'git@github.com:kyazdani42/nvim-web-devicons.git', as = "nvim-web-devicons"}},
+    requires = {"kyazdani42/nvim-web-devicons"},
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -88,7 +88,7 @@ plugin.core = {
             -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
             update_cwd          = false,
             -- show lsp diagnostics in the signcolumn
-            --lsp_diagnostics     = false,
+            -- lsp_diagnostics     = false,
             -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
             update_focused_file = {
                 -- enables the feature
@@ -121,6 +121,15 @@ plugin.core = {
                     custom_only = false,
                     -- list of mappings to set on the tree manually
                     list = {}
+                }
+            },
+            diagnostics = {
+                enable = false,
+                icons = {
+                    hint = "",
+                    info = "",
+                    warning = "",
+                    error = "",
                 }
             }
         }

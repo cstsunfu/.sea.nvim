@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:dhruvasagar/vim-table-mode.git",
-    as = "vim-table-mode",
+    "dhruvasagar/vim-table-mode",
+    --as = "vim-table-mode",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

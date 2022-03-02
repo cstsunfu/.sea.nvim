@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:lukas-reineke/indent-blankline.nvim.git",
+    "lukas-reineke/indent-blankline.nvim",
     as = "indent-blankline",
     setup = function()  -- Specifies code to run before this plugin is loaded.
         --let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
@@ -15,7 +15,7 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         vim.g.indent_blankline_char_list = {'│'}
 
-        vim.g.indent_blankline_filetype_exclude = {"translator", "dapui_breakpoints", "dapui_watches", "dapui_stacks", "dapui_scopes", "", 'help', 'packer', 'startify', 'dashboard', 'vimwiki', 'markdown'}
+        vim.g.indent_blankline_filetype_exclude = {"translator", "dapui_breakpoints", "dapui_watches", "dapui_stacks", "dapui_scopes", "", 'help', 'packer', 'startify', 'dashboard', 'vimwiki', 'markdown', 'calendar'}
         vim.g.indent_blankline_use_treesitter = 'v:true'
         --vim.g.indent_blankline_context_highlight_list = {'Error'}
         vim.cmd('highlight IndentBlanklineChar guifg=#5090c0 gui=nocombine')

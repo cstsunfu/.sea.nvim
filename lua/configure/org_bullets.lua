@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:akinsho/org-bullets.nvim.git",
+    "akinsho/org-bullets.nvim",
     as = "org-bullets",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

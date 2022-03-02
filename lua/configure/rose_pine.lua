@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:rose-pine/neovim.git",
+    "rose-pine/neovim",
     as = 'rose-pine',
 
     setup = function()  -- Specifies code to run before this plugin is loaded.

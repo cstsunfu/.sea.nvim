@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:PHSix/faster.nvim.git",
+    "PHSix/faster.nvim",
     as = "faster",
     setup = function()  -- Specifies code to run before this plugin is loaded.
     end,

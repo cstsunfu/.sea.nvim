@@ -2,9 +2,9 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:ray-x/navigator.lua.git",
-    as = "navigator",
-    requires = {{"git@github.com:ray-x/guihua.lua.git", as = "guihua", run = 'cd lua/fzy && make'}},
+    "ray-x/navigator.lua",
+    --as = "navigator",
+    requires = {{"ray-x/guihua.lua", run = 'cd lua/fzy && make'}},
 
 
     setup = function()  -- Specifies code to run before this plugin is loaded.

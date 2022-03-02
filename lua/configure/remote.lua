@@ -1,9 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    --"git@github.com:chipsenkbeil/distant.nvim.git",
-    "git@github.com:zenbro/mirror.vim.git",
-    as = "mirror.vim",
+    "zenbro/mirror.vim",
+    --as = "mirror.vim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

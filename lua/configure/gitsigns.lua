@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:lewis6991/gitsigns.nvim.git",
+    "lewis6991/gitsigns.nvim",
     as = "gitsigns",
     --requires = {{
         --"git@github.com:nvim-lua/plenary.nvim.git",

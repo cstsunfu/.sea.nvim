@@ -1,7 +1,7 @@
 local plugin = {}
 plugin.core = {
-    "git@github.com:tpope/vim-repeat.git",
-    as = "vim-repeat",
+    "tpope/vim-repeat",
+    --as = "vim-repeat",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

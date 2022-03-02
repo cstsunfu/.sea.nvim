@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:kevinhwang91/nvim-hlslens.git",
-    as = "nvim-hlslens",
+    "kevinhwang91/nvim-hlslens",
+    --as = "nvim-hlslens",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
