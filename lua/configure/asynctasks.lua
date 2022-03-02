@@ -2,11 +2,11 @@ local plugin = {}
 
 plugin.core = {
 
-    "git@github.com:skywind3000/asynctasks.vim.git",
+    "skywind3000/asynctasks.vim",
     as = "asynctasks",
 
     requires = {{
-        "git@github.com:skywind3000/asyncrun.vim.git",
+        "skywind3000/asyncrun.vim",
         as = "asyncrun",
     }
     },

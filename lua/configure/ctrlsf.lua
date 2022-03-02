@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    'git@github.com:dyng/ctrlsf.vim.git',
+    "dyng/ctrlsf.vim",
     as = "ctrlsf",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

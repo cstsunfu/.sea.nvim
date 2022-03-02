@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    'git@github.com:scr1pt0r/crease.vim.git',
+    "scr1pt0r/crease.vim",
     as = "crease",
     --requires = {{'airblade/vim-gitgutter'}},
     setup = function()  -- Specifies code to run before this plugin is loaded.

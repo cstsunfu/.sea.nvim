@@ -1,10 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:folke/todo-comments.nvim.git",
-    as = "todo-comments",
-    --requires = {{"git@github.com:nvim-lua/plenary.nvim.git", as = "plenary.nvim"}, {"git@github.com:nvim-telescope/telescope.nvim.git", as="telescope"}, {"git@github.com:nvim-lua/popup.nvim.git", as="popup"}},
-    --after = {"plenary.nvim", "telescope.nvim", "popup.nvim"},
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

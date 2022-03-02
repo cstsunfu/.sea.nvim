@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:hrsh7th/nvim-compe.git",
-    as = "nvim-compe",
+    "hrsh7th/nvim-compe",
+    --as = "nvim-compe",
     setup = function()  -- Specifies code to run before this plugin is loaded.
     end,
 

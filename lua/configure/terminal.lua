@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:akinsho/toggleterm.nvim.git",
-    as = "toggleterm.nvim",
+    "akinsho/toggleterm.nvim",
+    --as = "toggleterm.nvim",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -20,8 +20,8 @@ plugin.core = {
             open_mapping = [[<c-\>]],
             hide_numbers = true, -- hide the number column in toggleterm buffers
             shade_filetypes = {},
-            shade_terminals = true,
-            shading_factor = 3, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+            shade_terminals = false,
+            shading_factor = 2, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
             start_in_insert = true,
             insert_mappings = false, -- whether or not the open mapping applies in insert mode
             persist_size = true,

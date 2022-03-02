@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    'git@github.com:neoclide/coc.nvim.git',
+    "neoclide/coc.nvim",
     as = "coc",
     branch = 'release',
     setup = function()  -- Specifies code to run before this plugin is loaded.

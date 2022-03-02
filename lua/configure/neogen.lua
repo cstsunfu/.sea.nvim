@@ -1,8 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:danymat/neogen.git",
-    as = "neogen",
+    "danymat/neogen",
+    --as = "neogen",
 
     --requires = {{"git@github.com:nvim-treesitter/nvim-treesitter.git", as = "nvim-treesitter"}},
 
