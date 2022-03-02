@@ -111,15 +111,15 @@ plugin.core = {
                 --end
             }
         }
-        local global_func = require('util.global')
-        global_func.augroup('Update Buffer Num', {
-            {
-                events = {'BufWritePre' },
-                targets = {'*'},
-                command = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)"
-            },
+        --local global_func = require('util.global')
+        --global_func.augroup('Update Buffer Num', {
+            --{
+                --events = {'BufWritePre' },
+                --targets = {'*'},
+                --command = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)"
+            --},
 
-        })
+        --})
     end,
 }
 
