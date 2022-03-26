@@ -6,7 +6,7 @@ plugin.core = {
     run = [[sh -c 'cd app && yarn install']],
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
-
+        vim.g.mkdp_markdown_css = vim.g.CONFIG..'/lua/util/markdown.css'
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded

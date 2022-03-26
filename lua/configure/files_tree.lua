@@ -10,25 +10,16 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         --vim.g.nvim_tree_side = 'right'
-        vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache' }
-        vim.g.nvim_tree_gitignore = 1
         vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' }
-        vim.g.nvim_tree_quit_on_open = 1
         vim.g.nvim_tree_indent_markers = 1
-        vim.g.nvim_tree_hide_dotfiles = 1
         vim.g.nvim_tree_git_hl = 0
         vim.g.nvim_tree_highlight_opened_files = 1
         vim.g.nvim_tree_root_folder_modifier = ':~'
         --vim.g.nvim_tree_auto_resize = 1
         vim.g.nvim_tree_add_trailing = 1
         vim.g.nvim_tree_group_empty = 1
-        vim.g.nvim_tree_disable_window_picker = 1
         vim.g.nvim_tree_icon_padding = ' '
         --vim.g.nvim_tree_update_cwd = 1
-        vim.g.nvim_tree_window_picker_exclude = {
-            filetype = {'packer', 'qf'},
-            buftype = {'terminal'}
-        }
         vim.g.nvim_tree_special_files = { ['README.md'] = 1, ['Makefile'] = 1, ['MAKEFILE'] = 1 }
         vim.g.nvim_tree_show_icons = { git = 1, folders = 1, files = 1, folder_arrows = 1}
 
@@ -71,6 +62,15 @@ plugin.core = {
         vim.cmd("highlight NvimTreeFolderIcon guibg=blue")
         -- following options are the default
         require'nvim-tree'.setup {
+            nvim_tree_hide_dotfiles = 1,
+            nvim_tree_ignore = { '.git', 'node_modules', '.cache' },
+            nvim_tree_gitignore = 1,
+            nvim_tree_window_picker_exclude = {
+                filetype = {'packer', 'qf'},
+                buftype = {'terminal'}
+            },
+            nvim_tree_disable_window_picker = 1,
+            nvim_tree_quit_on_open = 1,
             -- disables netrw completely
             disable_netrw       = true,
             -- hijack netrw window on startup
