@@ -2,11 +2,6 @@ local plugin = {}
 
 plugin.core = {
     "lewis6991/gitsigns.nvim",
-    as = "gitsigns",
-    --requires = {{
-        --"git@github.com:nvim-lua/plenary.nvim.git",
-        --as = "plenary.nvim",
-    --}},
     setup = function()  -- Specifies code to run before this plugin is loaded.
     end,
 

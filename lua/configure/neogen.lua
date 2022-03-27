@@ -2,9 +2,6 @@ local plugin = {}
 
 plugin.core = {
     "danymat/neogen",
-    --as = "neogen",
-
-    --requires = {{"git@github.com:nvim-treesitter/nvim-treesitter.git", as = "nvim-treesitter"}},
 
     after = {'nvim-treesitter'},
     setup = function()  -- Specifies code to run before this plugin is loaded.
