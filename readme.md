@@ -45,3 +45,36 @@
 ![WhichKey](./pic/which_key.png)
 
 TODO: detail
+
+
+
+
+
+```
+
+.
+├── coc-settings.json         -- coc lsp 设置，也可选内置LSP
+├── ftplugin                  -- 和原来的vim script一样，根据文件类型加载模块                  
+│   ├── python.vim            --                         
+│   └── vimwiki.vim           --                          
+├── init.lua                  -- neovim配置文件入口                  
+├── lua                       -- lua 相关                 
+│   ├── configure             -- 每个插件一个配置文件                       
+│   │   ├── coc.lua           --                          
+│   │   ├── ....              --                       
+│   ├── core                  -- 核心模块                 
+│   │   ├── after.lua         -- 后处理模块                    
+│   │   ├── default.lua       -- 默认设置模块                             
+│   │   ├── init.lua          -- 核心加载逻辑模块                         
+│   │   ├── mapping.lua       -- 快捷键注册模块                             
+│   │   └── plugins.lua       -- 插件加载模块                             
+│   ├── user                  -- 用户自定义模块                 
+│   │   ├── init.lua          --                           
+│   │   └── pomodoro.lua      --                              
+│   └── util                  -- 其他工具                  
+│       ├── global.lua        -- 全局函数                            
+│       ├── json.lua          -- json读写相关                          
+│       └── path.lua          -- 路径读写相关                          
+└── tasks.ini                 -- 任务定义                   
+                              
+```

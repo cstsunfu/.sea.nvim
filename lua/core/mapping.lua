@@ -335,12 +335,26 @@ global_mapping.register({
     })
 
 -- y yank
-global_mapping.register({
-        mode = "v",
-        key = {"<leader>", "y"},
-        action = '"+y',
-        short_desc = "Yank to Clipboard"
-    })
+local system_info = io.popen('uname -a')
+local system_info = system_info:read("*all")
+local has_wsl = string.find(system_info, 'Microsoft')
+
+if has_wsl ~= nil then
+    global_mapping.register({
+            mode = "v",
+            key = {"<leader>", "y"},
+            action = ':w !clip.exe<cr><cr>',
+            silent = true,
+            short_desc = "Yank to Clipboard"
+        })
+else
+    global_mapping.register({
+            mode = "v",
+            key = {"<leader>", "y"},
+            action = '"+y',
+            short_desc = "Yank to Clipboard"
+        })
+end
 
 -- Alt
 if vim.fn.has('mac') == 1 then
