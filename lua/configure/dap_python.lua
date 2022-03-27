@@ -2,8 +2,6 @@ local plugin = {}
 
 plugin.core = {
     "mfussenegger/nvim-dap-python",
-    --as = "nvim-dap-python",
-    --requires = {{"git@github.com:mfussenegger/nvim-dap.git", as = "dap"}},
     
     setup = function()  -- Specifies code to run before this plugin is loaded.
 

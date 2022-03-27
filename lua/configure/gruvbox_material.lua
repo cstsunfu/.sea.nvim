@@ -1,8 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "git@github.com:sainnhe/gruvbox-material.git",
-    as = "gruvbox-material",
+    "sainnhe/gruvbox-material",
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
