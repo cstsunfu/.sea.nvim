@@ -5,7 +5,7 @@ plugin.core = {
     as = "coc",
     branch = 'release',
     setup = function()  -- Specifies code to run before this plugin is loaded.
-        vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-ultisnips", "coc-lua", 'coc-format-json'}
+        vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-lua", 'coc-format-json', 'coc-dictionary', 'coc-word', 'coc-spell-checker'}
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
