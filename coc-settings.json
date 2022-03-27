@@ -7,6 +7,8 @@
 	"coc.source.around.firstMatch": false,
 	"coc.source.buffer.firstMatch": false,
 	"coc.source.syntax.firstMatch": false,
+    "cSpellExt.enableDictionaries": [],
+    "cSpell.language": "en,",
     "list.signOffset": 900,
 	"suggest.detailMaxLength": 60,
 	"suggest.noselect": false,
