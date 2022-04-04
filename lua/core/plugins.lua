@@ -120,6 +120,7 @@ if FEATURE_GROUPS['beauty_vim'] == true then
     plugins_configure.plugins_groups['beauty_vim'] = {
         ["lualine"] = {disable=false},
         ["bufferline"] = {disable=false},
+        ["web_devicons"] = {disable=false},
         ["dashboard"] = {disable=false},
     }
 end

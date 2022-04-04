@@ -3,9 +3,9 @@ local plugin = {}
 plugin.core = {
     "nvim-lualine/lualine.nvim", -- TODO: if this branch is merged, I should change to the master 'hoob3rt/lualine.nvim',
     as = "lualine",
-    requires = {
-        "kyazdani42/nvim-web-devicons",
-    },
+    --requires = {
+        --"kyazdani42/nvim-web-devicons",
+    --},
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
