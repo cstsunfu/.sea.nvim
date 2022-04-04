@@ -20,6 +20,9 @@ install_config() {
 }
 install_depend(){
     pip install flake8
+    # install fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
     if [[ "$(uname)" == "Darwin" ]];then
         brew install neovim
         brew install ag
