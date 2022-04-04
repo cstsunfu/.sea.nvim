@@ -10,6 +10,7 @@
     "cSpellExt.enableDictionaries": [],
     "cSpell.language": "en,",
     "list.signOffset": 900,
+    "docker.enable": true,
 	"suggest.detailMaxLength": 60,
 	"suggest.noselect": false,
 	"suggest.enablePreselect": true,
