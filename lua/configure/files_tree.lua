@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "kyazdani42/nvim-tree.lua",
     as = "nvim-tree",
-    requires = {"kyazdani42/nvim-web-devicons"},
+    --requires = {"kyazdani42/nvim-web-devicons"},
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -20,7 +20,7 @@ plugin.core = {
         vim.g.nvim_tree_group_empty = 1
         vim.g.nvim_tree_icon_padding = ' '
         --vim.g.nvim_tree_update_cwd = 1
-        vim.g.nvim_tree_special_files = { ['README.md'] = 1, ['Makefile'] = 1, ['MAKEFILE'] = 1 }
+        vim.g.nvim_tree_special_files = { ['Makefile'] = 1, ['MAKEFILE'] = 1 }
         vim.g.nvim_tree_show_icons = { git = 1, folders = 1, files = 1, folder_arrows = 1}
 
         vim.g.nvim_tree_show_icons = {
@@ -32,6 +32,7 @@ plugin.core = {
         vim.g.nvim_tree_icons = {
             default = '',
             symlink = '',
+            hjson = '!',
             --git = {
                 --unstaged = "",
                 --staged = "",
