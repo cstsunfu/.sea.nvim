@@ -20,11 +20,11 @@ install_config() {
 }
 install_depend(){
     pip install flake8
-    if [[ "$(uname)"=="Darwin" ]];then
+    if [[ "$(uname)" == "Darwin" ]];then
         brew install neovim
         brew install ag
         brew install rg
-    elif [[ -n "$(uname -a | grep Linux | grep Microsoft )" ]]; then
+    elif [[ -n "$(uname -a | grep Linux )" ]]; then
         sudo apt-get install neovim
         sudo apt-get install ag
         sudo apt-get install rg
