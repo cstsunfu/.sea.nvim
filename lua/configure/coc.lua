@@ -56,7 +56,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"K"},
-        action = ':call <SID>show_documentation()<CR>',
+        action = ':call <Plug>show_documentation()<CR>',
         short_desc = "Displays hover information about the symbol.",
         silent = true
     })

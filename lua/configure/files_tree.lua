@@ -59,7 +59,7 @@ plugin.core = {
             --}
         }
 
-        vim.cmd("highlight NvimTreeFolderIcon guibg=blue")
+        vim.cmd("highlight NvimTreeFolderIcon guifg=#0077aa")
         -- following options are the default
         require'nvim-tree'.setup {
             nvim_tree_hide_dotfiles = 1,
