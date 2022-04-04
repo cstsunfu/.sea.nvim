@@ -1,0 +1,19 @@
+[user]
+    name = cstsunfu
+    email = cstsunfu@gmail.com
+
+[push]
+    default = current
+
+[core]
+    editor = nvim
+
+[color]
+    ui = true
+
+[alias]  
+    st = status  
+    cm = commit  
+    br = branch  
+    co = checkout  
+    df = diff  
