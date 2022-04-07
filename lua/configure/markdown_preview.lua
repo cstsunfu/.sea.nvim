@@ -3,11 +3,13 @@ local plugin = {}
 plugin.core = {
     "iamcco/markdown-preview.nvim",
     --as = "markdown-preview.nvim",
-    run = [[sh -c 'cd app && yarn install']],
+    run = "cd app && yarn install",
+    ft = { "markdown", 'vimwiki'},
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
         vim.g.mkdp_markdown_css = vim.g.CONFIG..'/lua/util/markdown.css'
     end,
+    
 
     config = function() -- Specifies code to run after this plugin is loaded
     end,
