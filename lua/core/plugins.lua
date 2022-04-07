@@ -7,6 +7,7 @@ plugins_configure["all_loaded_module"] = {}
 if FEATURE_GROUPS['default'] == true then
     plugins_configure.plugins_groups['default'] = {
         ["nerd_commenter"] = {disable=false},       -- for quick comment
+        ["better_escape"] = {disable=false},        -- for quick map jk to <esc>
         ["ultisnips"] = {disable=false},            -- for snippets
         ["snippets"] = {disable=false},             -- predefined snippets templete
         ['linediff'] = {disable=false},             -- diff view for two lines
