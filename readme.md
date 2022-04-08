@@ -5,28 +5,33 @@
 ## Install
 
 1. Install Neovim >0.6
+
+2. Install pynvim
 ```
   pip install pynvim
 ```
-2. Install node.js, npm, and yarn
+
+3. Install node.js, npm, and yarn
 ```
 curl -sL install-node.vercel.app/lts | bash
 npm install --global yarn
 ```
-3. Install ag or rg
+
+4. Install ag or rg
 ```
 like:
     brew install rg
     sudo apt-get install ripgrep
 ```
-4. Install Nerd Font
+
+5. Install Nerd Font
 ```
 Install Nerd Font Family: `DejaVuSansMono Nerd Font` or  what you want
 Download from https://www.nerdfonts.com/
 Install method depend on you os.
 ```
 
-5. Make some link
+6. Make some link
 ```bash
 ./install.sh
 ```
