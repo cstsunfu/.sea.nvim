@@ -86,7 +86,7 @@ plugin.core = {
                 show_close_icon = false,
                 --show_tab_indicators = true | false,
                 show_tab_indicators = true,
-                persist_buffer_sort = false, -- whether or not custom sorted buffers should persist
+                persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
                 -- can also be a table containing 2 custom separators
                 -- [focused and unfocused]. eg: { '|', '|' }
                 --separator_style = "slant" | "thick" | "thin" | { 'any', 'any' },

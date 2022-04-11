@@ -11,7 +11,6 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         --vim.g.nvim_tree_side = 'right'
         vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' }
-        vim.g.nvim_tree_indent_markers = 1
         vim.g.nvim_tree_git_hl = 0
         vim.g.nvim_tree_highlight_opened_files = 1
         vim.g.nvim_tree_root_folder_modifier = ':~'
