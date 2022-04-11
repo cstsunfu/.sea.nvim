@@ -4,7 +4,7 @@
 
 ## Install
 
-1. Install Neovim >0.6
+1. Install Neovim >=0.6
 
 2. Install pynvim
 ```
