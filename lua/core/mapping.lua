@@ -13,7 +13,6 @@ local used = {
     t = {},
     [""] = {}
 }
-
 local plugins_groups = require('core.plugins').plugins_groups
 
 local mapping_prefix = {
@@ -26,7 +25,7 @@ local mapping_prefix = {
         ["<leader>g"] = {name = "+ Git/Generator"},
         --["<leader>G"] = {name = "+ Git"},
         ["<leader>h"] = {name = "+ History"},
-        ["<leader>j"] = {name = "+ Json"},
+        ["<leader>j"] = {name = "+ Json/Jupyter"},
         ["<leader>l"] = {name = "+ Line"},
         ["<leader>m"] = {name = "+ Move"},
         ["<leader>o"] = {name = "+ Org"},
@@ -122,24 +121,44 @@ global_mapping.register = function(new_map)
         used[new_map['mode']][uni_key_string] = new_map['short_desc']
     end
     --local prefix = key_list[1]
-    if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['disable'] == false and key_list[1] == "<leader>" and new_map.mode == 'n' then
-        local prefix = key_list[1]..key_list[2]
+    --if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['disable'] == false and key_list[1] == "<leader>" and new_map.mode == 'n' then
+    if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['disable'] == false and #key_list > 1 and new_map.mode == 'n' then
+        local prefix = key_list[1]
+        if #key_list > 1 then
+            prefix = prefix..key_list[2]
+        end
         local tail = ""
         for i=3, #key_list, 1 do
             tail = tail..key_list[i]
         end
         if mapping_prefix[prefix] == nil then
-            print(prefix)
+            --print(prefix, new_map['short_desc'])
+            mapping_prefix[prefix] = {}
+            mapping_prefix[prefix]['name'] = new_map['short_desc']
         end
-        mapping_prefix[prefix][tail] = {new_map.action, new_map.short_desc}
+        if tail ~= "" then
+            mapping_prefix[prefix][tail] = {new_map.action, new_map.short_desc}
+        else
+            mapping_prefix[prefix] = {new_map.action, new_map.short_desc}
+        end
         if new_map['silent'] ~= nil then
-            mapping_prefix[prefix][tail]['silent'] = new_map['silent']
+            if tail ~= "" then
+                mapping_prefix[prefix][tail]['silent'] = new_map['silent']
+            else
+                mapping_prefix[prefix]['silent'] = new_map['silent']
+            end
         end
         if new_map['noremap'] ~= nil then
-            mapping_prefix[prefix][tail]['noremap'] = new_map['noremap']
+            if tail ~= "" then
+                mapping_prefix[prefix][tail]['noremap'] = new_map['noremap']
+            else
+                mapping_prefix[prefix]['noremap'] = new_map['noremap']
+            end
         end
     else
-        vim.api.nvim_set_keymap(new_map.mode, uni_key_string, new_map.action, option)
+        if new_map.action ~= nil then
+            vim.api.nvim_set_keymap(new_map.mode, uni_key_string, new_map.action, option)
+        end
     end
 
 

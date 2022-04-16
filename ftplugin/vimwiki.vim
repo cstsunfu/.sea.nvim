@@ -4,7 +4,8 @@ endif
 let g:filetype_vimwiki_user = 1
 highlight VimwikiDelText gui=strikethrough guifg=#5c6370 guibg=background
 highlight link VimwikiCheckBoxDone VimwikiDelText
-
+"-------------------------------------------------------------------------------------------------------------
+"Create Wiki Dir
 function! VVimwiki_create_dir() abort
 python3 << EOF
 import math
@@ -20,7 +21,7 @@ if os.path.isdir(dir_name):
 else:
     os.mkdir(dir_name)
 
-cur_line[start_col:end_col+1] = "[{}]({})".format(name, os.path.join(dir_name, file_name))
+cur_line[start_col:end_col+1] = f"[{name}]({os.path.join(dir_name, file_name)})"
 vim.current.buffer[start_row-1] = ''.join(cur_line)
 EOF
 endfunction
@@ -35,38 +36,13 @@ if os.path.isdir(dir_name):
     pass
 else:
     os.mkdir(dir_name)
-cword = "[{}]({})".format(cword, os.path.join(dir_name, dir_name))
+cword = f"[{cword}]({os.path.join(dir_name, dir_name)})"
 vim.command("normal viwc%s" % cword)
 EOF
 endfunction
-
-"command! -buffer VimwikiCreateDir call Vimwiki_create_dir()
-vnoremap <unique><silent> <leader><cr> :call VVimwiki_create_dir()<cr>
-nnoremap <unique><silent> <leader><cr> :call NVimwiki_create_dir()<cr>
-"let g:vimwiki_listsyms = '✗○◐●✓'
-
-"agenda & todo capture
+"--------------------------------------------------------------------------------------------------------------------
+"Vimwiki Header Color Scheme
 "
-"<Leader>ow -- Open default wiki index file.
-"<Leader>ot -- Open default wiki index file in a new tab.
-"<Leader>os -- Select and open wiki index file.
-"<Leader>od -- Delete wiki file you are in.
-"<Leader>or -- Rename wiki file you are in.
-"<Enter> -- Follow/Create wiki link
-"<Shift-Enter> -- Split and follow/create wiki link
-"<Ctrl-Enter> -- Vertical split and follow/create wiki link
-"<Backspace> -- Go back to parent(previous) wiki link
-"<Tab> -- Find next wiki link
-"<Shift-Tab> -- Find previous wiki link
-
-
-"let g:vimwiki_hl_headers=1
-"let g:vimwiki_hl_cb_checked=2
-"hi VimwikiHeader1 guifg=#F4B6DB gui=bold
-"hi VimwikiHeader2 guifg=#FFE46B gui=bold
-"hi VimwikiHeader3 guifg=#78FF81 gui=bold
-"hi VimwikiHeader4 guifg=#A7E8E2 gui=bold
-"hi VimwikiHeader5 guifg=#9F79EE gui=bold
 if g:colorscheme == 'gruvbox' || g:colorscheme == 'gruvbox_material'
     hi VimwikiHeader1 guifg=#dF7785 guibg=NONE ctermbg=NONE gui=bold cterm=bold
     hi VimwikiHeader2 guifg=#6BbCb6 guibg=NONE ctermbg=NONE gui=bold cterm=bold
@@ -95,49 +71,4 @@ else
 endif
  
  
-
-
-""diary
-"nnoremap <Leader>dt :VimwikiMakeDiaryNote<cr>
-"nnoremap <Leader>dT :VimwikiTabMakeDiaryNote<cr>
-"nnoremap <Leader>dy :VimwikiMakeYesterdayDiaryNote<cr>
-"nnoremap <Leader>di :VimwikiDiaryIndex<cr>
-"nnoremap <Leader>dg :VimwikiDiaryGenerateLinks<cr>
-
-"map <leader>; <Plug>VimwikiToggleListItem
-""format convert
-"nnoremap <Leader>ch :Vimwiki2HTML<cr>
-"nnoremap <Leader>cH :Vimwiki2HTMLBrowse<cr>
-
-
-"nnoremap <leader>c* :VimwikiChangeSymbolTo *<CR>
-"nnoremap <leader>c# :VimwikiChangeSymbolTo #<CR>
-"nnoremap <leader>c- :VimwikiChangeSymbolTo -<CR>
-"nnoremap <leader>c1 :VimwikiChangeSymbolTo 1.<CR>
-"nnoremap <leader>cA :VimwikiChangeSymbolTo A)<CR>
-"nnoremap <leader>ca :VimwikiChangeSymbolTo a)<CR>
-"nnoremap <leader>ci :VimwikiChangeSymbolTo i)<CR>
-        
-"nnoremap <leader>cl* :VimwikiChangeSymbolInListTo *<CR>
-"nnoremap <leader>cl# :VimwikiChangeSymbolInListTo #<CR>
-"nnoremap <leader>cl- :VimwikiChangeSymbolInListTo -<CR>
-"nnoremap <leader>cl1 :VimwikiChangeSymbolInListTo 1.<CR>
-"nnoremap <leader>clA :VimwikiChangeSymbolInListTo A)<CR>
-"nnoremap <leader>cla :VimwikiChangeSymbolInListTo a)<CR>
-"nnoremap <leader>cli :VimwikiChangeSymbolInListTo i)<CR>
-        
-""delete 
-"nnoremap <Leader>dd :VimwikiDeleteLink<cr>
-        
-""toggle !checkbox
-nnoremap <localleader>tt :VimwikiToggleListItem<cr>
-"nnoremap <Leader>td :VimwikiRemoveSingleCB<cr>
-"nnoremap <Leader>tD :VimwikiRemoveCBInList<cr>
-       
-       
-""table  
-"nnoremap <leader>tc :VimwikiTable 
-
-""link
-"vnoremap <Leader>lc :VimwikiFollowLink<cr>
-"vmap ++ @<Plug>VimwikiNormalizeLinkVisual
+"nnoremap <localleader>tt :VimwikiToggleListItem<cr>
