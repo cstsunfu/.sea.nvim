@@ -18,9 +18,9 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "o", "k"},
+        key = {"<leader>", "o", "C"},
         action = ':Calendar -view=week -first_day=monday -split=vertical -position=right <cr>',
-        short_desc = "Kalendar",
+        short_desc = "Calendar",
         silent = true
     })
 

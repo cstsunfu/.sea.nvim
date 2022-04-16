@@ -19,6 +19,14 @@ plugin.core = {
 }
 
 plugin.mapping = function()
+    local mappings = require('core.mapping')
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "s", "e"},
+        action = ":UltiSnipsEdit<cr>",
+        short_desc = "Test ot",
+        silent = true
+    })
 
 end
 return plugin

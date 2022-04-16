@@ -28,12 +28,19 @@ like:
 ```
 Install Nerd Font Family: `DejaVuSansMono Nerd Font` or  what you want
 Download from https://www.nerdfonts.com/
-Install method depend on you os.
+Install method depend on your os.
 ```
+6. Install xclip (X11), wl-clipboard (Wayland), pngpaste (MacOS), for Clipboard Image
 
-6. Make some link
+7. Make some link
 ```bash
 ./install.sh
+```
+
+8. Optional - Screen Shot
+
+```bash
+sudo snap install flameshot
 ```
 
 

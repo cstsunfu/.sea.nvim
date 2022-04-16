@@ -230,6 +230,12 @@ M.create_mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
+        key = {"<leader>", 'o', 'p'},
+        action = nil,
+        short_desc = "Pomodoro Clock"
+    })
+    mappings.register({
+        mode = "n",
         key = {"<leader>", 'o', 'p', 's'},
         action = ":lua require'user.pomodoro'.start_pomodoro()<cr>",
         short_desc = "Start Pomodoro Clock"

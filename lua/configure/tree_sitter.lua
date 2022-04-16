@@ -34,6 +34,7 @@ plugin.core = {
                 "lua",
                 "make",
                 "norg",
+                "org",
                 "perl",
                 "python",
                 "regex",
