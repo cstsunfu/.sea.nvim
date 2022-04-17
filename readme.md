@@ -4,43 +4,45 @@
 
 ## Install
 
-1. Install Neovim >=0.6
+1. Install `Neovim` >=0.6
 
-2. Install pynvim
+2. Install `pynvim`
 ```
   pip install pynvim
 ```
 
-3. Install node.js, npm, and yarn
+3. Install `node.js`, `npm`, and `yarn`
 ```
 curl -sL install-node.vercel.app/lts | bash
 npm install --global yarn
 ```
 
-4. Install ag or rg
+4. Install `lolcat` for display the NEOVIM logo
+```
+Ubuntu:
+    sudo apt install lolcat
+OSX:
+    brew install lolcat
+```
+
+5. Install `ag` or `rg`
 ```
 like:
     brew install rg
     sudo apt-get install ripgrep
 ```
 
-5. Install Nerd Font
+6. Install Nerd Font
 ```
 Install Nerd Font Family: `DejaVuSansMono Nerd Font` or  what you want
 Download from https://www.nerdfonts.com/
 Install method depend on your os.
 ```
-6. Install xclip (X11), wl-clipboard (Wayland), pngpaste (MacOS), for Clipboard Image
+7. Install xclip (X11), wl-clipboard (Wayland), pngpaste (MacOS), for Clipboard Image
 
-7. Make some link
+8. Make some link
 ```bash
 ./install.sh
-```
-
-8. Optional - Screen Shot
-
-```bash
-sudo snap install flameshot
 ```
 
 
