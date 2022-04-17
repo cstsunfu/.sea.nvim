@@ -26,13 +26,13 @@ plugin.core = {
             org_agenda_start_day = nil, -- start from today + this modifier
             org_capture_templates = {
                 t = {
-                    description = 'TODO',
-                    template = '* TODO %?\n\n    SCHEDULED: %T\n    [[file:~/org/wiki/note/;.md]]',
+                    description = 'Default TODO',
+                    template = '** TODO %?\n   SCHEDULED: %T\n   [[file:~/org/wiki/note/;.md]]',
                     target = '~/org/agenda/todo.org',
                 },
                 w = {
                     description = 'Work Weekly Plan',
-                    template = '* TODO %?\n\n    SCHEDULED: %T\n    [[file:~/org/work/weekly/%<%Y>_%<%W>.md]]',
+                    template = '** TODO %?\n   SCHEDULED: %T\n   [[file:~/org/work/weekly/%<%Y>_%<%W>.md]]',
                     target = '~/org/work/weekly/todo.org',
                 },
             },

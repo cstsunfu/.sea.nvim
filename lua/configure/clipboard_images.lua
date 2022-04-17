@@ -9,7 +9,7 @@ plugin.core = {
         require'clipboard-image'.setup {
             -- Default configuration for all filetype
             default = {
-                img_dir = "images",
+                img_dir = "img",
                 img_name = function() 
                     --return os.date('%Y-%m-%d-%H-%M-%S') 
                     
