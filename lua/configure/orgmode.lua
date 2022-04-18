@@ -32,7 +32,7 @@ plugin.core = {
                 },
                 w = {
                     description = 'Work Weekly Plan',
-                    template = '** TODO %?\n   SCHEDULED: %T\n   [[file:~/org/work/weekly/%<%Y>_%<%W>.md]]',
+                    template = '** TODO %?\n   SCHEDULED: %T\n   [[file:~/org/work/weekly/%<%Y>/%<%Y>_%<%W>.md][%<%Y>_%<%W>]]',
                     target = '~/org/work/weekly/todo.org',
                 },
             },
