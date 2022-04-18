@@ -31,7 +31,7 @@ plugin.core = {
         vim.g.vista_sidebar_width = 36
         --vim.g["vista#renderer#icons"] = {}
         vim.cmd([[
-            let g:vista#renderer#icons = { "function": "\uf794", "functions": "\uf794", "variable": "\uf005", "variables": "\uf005", "maps": "\uf279", "members": "\ufa85", "classes": "\ue61e", "autocommand groups": "\uf7c2",}
+            let g:vista#renderer#icons = { "function": "\uf794 ", "functions": "\uf794 ", "variable": "硫", "variables": "硫", "maps": "\uf279 ", "members ": "\ufa85 ", "classes": "\ue61e ", "autocommand groups": "\uf7c2 ",}
         ]])
         --vim.g["vista#renderer#icons"]['function'] = "a"
         --vim.g["vista#renderer#icons"]["functions"] = "a"

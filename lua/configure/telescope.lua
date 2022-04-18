@@ -44,6 +44,7 @@ plugin.core = {
             vim.cmd [[packadd sql.nvim]]
         end
         local actions = require('telescope.actions')
+        require'telescope'.load_extension('project')
         local action_state = require("telescope.actions.state")
 
         local custom_actions = {}
@@ -110,13 +111,13 @@ plugin.core = {
                 mappings = {
                     i = {
                         ["<esc>"] = actions.close,
-                        ["<cr>"] = custom_actions.fzf_multi_select,
+                        ["<C-o>"] = custom_actions.fzf_multi_select,
                         ["<C-j>"] = actions.cycle_history_next,
                         ["<C-k>"] = actions.cycle_history_prev,
                     },
                     n = {
                         ["<esc>"] = actions.close,
-                        ["<cr>"] = custom_actions.fzf_multi_select,
+                        ["<C-o>"] = custom_actions.fzf_multi_select,
                     },
                 },
             },
@@ -154,7 +155,6 @@ plugin.core = {
                 }
             }
         }
-        require'telescope'.load_extension('project')
         require'telescope'.load_extension('fzf')
     end,
 }
@@ -210,7 +210,7 @@ plugin.mapping = function()
         mode = "n",
         key = {"<leader>", "f", "p"},
         action = "<Cmd>lua require'telescope'.extensions.project.project{}<CR>",
-        short_desc = "Find Recent/History",
+        short_desc = "Find Project",
         silent = true,
         noremap = true
     })
