@@ -9,16 +9,18 @@ plugin.core = {
         {"tami5/sql.nvim", opt=true},
         {
             "nvim-telescope/telescope-frecency.nvim",
-            as = "telescope-frecency.nvim",
             opt = true,
             after = 'telescope.nvim',
         },
         {
             'nvim-telescope/telescope-project.nvim',
-            as='telescope-project.nvim',
             opt = true,
             after = 'telescope.nvim',
         },
+        {
+            'nvim-telescope/telescope-fzf-native.nvim',
+            run = 'make'
+        }
     },
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
@@ -42,7 +44,23 @@ plugin.core = {
             vim.cmd [[packadd sql.nvim]]
         end
         local actions = require('telescope.actions')
-        require'telescope'.load_extension('project')
+        local action_state = require("telescope.actions.state")
+
+        local custom_actions = {}
+
+        function custom_actions.fzf_multi_select(prompt_bufnr)
+            local picker = action_state.get_current_picker(prompt_bufnr)
+            local num_selections = table.getn(picker:get_multi_selection())
+
+            if num_selections > 1 then
+                -- actions.file_edit throws - context of picker seems to change
+                --actions.file_edit(prompt_bufnr)
+                actions.send_selected_to_qflist(prompt_bufnr)
+                actions.open_qflist()
+            else
+                actions.file_edit(prompt_bufnr)
+            end
+        end
 
         require('telescope').setup{
             defaults = {
@@ -92,12 +110,14 @@ plugin.core = {
                 mappings = {
                     i = {
                         ["<esc>"] = actions.close,
+                        ["<cr>"] = custom_actions.fzf_multi_select,
                         ["<C-j>"] = actions.cycle_history_next,
                         ["<C-k>"] = actions.cycle_history_prev,
                     },
-                    --n = {
-                        --["<esc>"] = actions.close,
-                    --},
+                    n = {
+                        ["<esc>"] = actions.close,
+                        ["<cr>"] = custom_actions.fzf_multi_select,
+                    },
                 },
             },
             extensions = {
@@ -122,9 +142,20 @@ plugin.core = {
                         '~/workspace',
                     },
                     hidden_files = true -- default: false
+                },
+                -- TODO: switch fuzzy and exact, currently use the telescope-fzf-native
+                -- https://github.com/nvim-telescope/telescope.nvim/issues/930
+                fzf = {
+                    fuzzy = true,                    -- false will only do exact matching
+                    override_generic_sorter = true,  -- override the generic sorter
+                    override_file_sorter = true,     -- override the file sorter
+                    case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                    -- the default case_mode is "smart_case"
                 }
             }
         }
+        require'telescope'.load_extension('project')
+        require'telescope'.load_extension('fzf')
     end,
 }
 
@@ -180,6 +211,98 @@ plugin.mapping = function()
         key = {"<leader>", "f", "p"},
         action = "<Cmd>lua require'telescope'.extensions.project.project{}<CR>",
         short_desc = "Find Recent/History",
+        silent = true,
+        noremap = true
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", "m"},
+        action = "<cmd>lua require('telescope.builtin').keymaps()<cr>",
+        short_desc = "Find All Mappings",
+        silent = true,
+        noremap = true
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";"},
+        action = nil,
+        short_desc = "Find More",
+        silent = true,
+        noremap = true
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "r"},
+        action = "<cmd>lua require('telescope.builtin').registers()<cr>",
+        short_desc = "Find Registers",
+        silent = true,
+        noremap = true
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "h"},
+        action = "<cmd>lua require('telescope.builtin').highlights()<cr>",
+        short_desc = "Find Highlights",
+        silent = true,
+        noremap = true
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "t"},
+        action = "<cmd>lua require('telescope.builtin').colorscheme()<cr>",
+        short_desc = "Find Themes",
+        silent = true,
+        noremap = true
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "c"},
+        action = "<cmd>lua require('telescope.builtin').command_history()<cr>",
+        short_desc = "Find Command History",
+        silent = true,
+        noremap = true
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "p"},
+        action = "<cmd>lua require('telescope.builtin').planets()<cr>",
+        short_desc = "Find Planets",
+        silent = true,
+        noremap = true
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "g"},
+        action = "<cmd>lua require('telescope.builtin').git_commits()<cr>",
+        short_desc = "Find Git Commits",
+        silent = true,
+        noremap = true
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "G"},
+        action = "<cmd>lua require('telescope.builtin').git_bcommits()<cr>",
+        short_desc = "Find Git Commits(buffer)",
+        silent = true,
+        noremap = true
+    })
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "j"},
+        action = "<cmd>lua require('telescope.builtin').jumplist()<cr>",
+        short_desc = "Find Jump List",
+        silent = true,
+        noremap = true
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", ";", "m"},
+        action = "<cmd>lua require('telescope.builtin').marks()<cr>",
+        short_desc = "Find Marks",
         silent = true,
         noremap = true
     })
