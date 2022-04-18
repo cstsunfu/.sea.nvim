@@ -9,17 +9,7 @@ default_setting = {}
 
 -- special setting
 
-vim.cmd("set fillchars=fold:\\-,eob:\\ ,vert:│") -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
-vim.cmd("set backupdir -=.") -- no backup inplace
 vim.cmd("hi CursorLine term=bold cterm=bold guibg=Grey40") -- cursorline color
-vim.cmd("set guioptions-=m")    --隐藏菜单栏    
-vim.cmd("set guioptions-=r")    --隐藏右侧滚动条
-vim.cmd("set guioptions-=T")    --隐藏工具栏
-vim.cmd("set guioptions-=L")    --隐藏左侧滚动条
-vim.cmd("set viewoptions-=options")
-vim.cmd("set nobackup")
-vim.cmd("set nowritebackup")
-vim.cmd("set omnifunc='v:lua.vim.lsp.omnifunc'")
 
 global_func.augroup('smarter_cursorline', {
     {
@@ -58,6 +48,10 @@ global_func.augroup('empty_message', {
 default_setting['opt'] = {
     number = true,
     --relativenumber = true,                    -- has moved to smarter_cursorline autocmd
+    --
+    backupdir = "$XDG_DATA_HOME/nvim/backup/",  -- no backup inplace
+    fillchars = "fold:-,eob: ,vert:│",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+    --vim.cmd("set fillchars=fold:\\-,eob:\\ ,vert:│") -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     history = 10000,                            -- undo file history
     undofile = true,                            -- use undo file
     swapfile = false,                            -- use swap file
@@ -71,7 +65,7 @@ default_setting['opt'] = {
     fileencodings = "utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,latin1",
     encoding = "utf-8",
     path = vim.o.path .. ",./**",
-
+    omnifunc='v:lua.vim.lsp.omnifunc',          -- TODO: just donot remamble what this mean
     tabstop = 4,                                -- replace tab as white space
     expandtab = true,
     shiftwidth = 4,
@@ -84,12 +78,10 @@ default_setting['opt'] = {
     foldmethod = 'expr',                        -- for most filetype, fold by syntax
     foldnestmax = 5,                            -- max fold nest
     foldexpr = "nvim_treesitter#foldexpr()",
-
     completeopt = "menuone,noselect",
-
     --t_ut = " ",                               -- disable Backgroud color Erase（BCE）
     termguicolors = true,                       -- TODO
-    colorcolumn = "99999"                       -- fix for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+    colorcolumn = "99999"                       -- FIXED: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
 }
 
 default_setting['global'] = {
