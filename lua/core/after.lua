@@ -12,9 +12,9 @@ timer:start(500, 0, vim.schedule_wrap(function()
     --hi StatusLine ctermbg=NONE guibg=dark
 
     vim.cmd("highlight LspDiagnosticsDefaultError guifg='BrightRed'")
-    vim.fn.sign_define("LspDiagnosticsSignError", {text = "", texthl = "LspDiagnosticsSignError"})
-    vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", texthl = "LspDiagnosticsSignWarning"})
-    vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "", texthl = "LspDiagnosticsSignInformation"})
-    vim.fn.sign_define("LspDiagnosticsSignHint", {text = "ᐅ", texthl = "LspDiagnosticsSignHint"})
+    vim.fn.sign_define("LspDiagnosticsSignError", {text = " ", texthl = "LspDiagnosticsSignError"})
+    vim.fn.sign_define("LspDiagnosticsSignWarning", {text = " ", texthl = "LspDiagnosticsSignWarning"})
+    vim.fn.sign_define("LspDiagnosticsSignInformation", {text = " ", texthl = "LspDiagnosticsSignInformation"})
+    vim.fn.sign_define("LspDiagnosticsSignHint", {text = "ᐅ ", texthl = "LspDiagnosticsSignHint"})
     --vim.cmd("source "..vim.g.CONFIG..'/bug/netrw.vim')
 end))
