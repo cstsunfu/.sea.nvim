@@ -205,6 +205,35 @@ plugin.mapping = function()
         action = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)<cr>",
         short_desc = "Buffer Sorted By Whether Modified"
     })
+
+
+    -- tab
+    mappings.register({
+            mode = "n",
+            key = {"<leader>", "t", "c"},
+            action = ':tabnew<cr>',
+            short_desc = "Tab Create"
+        })
+    mappings.register({
+            mode = "n",
+            key = {"<leader>", "t", "x"},
+            action = ':tabclose<cr>',
+            short_desc = "Tab Close"
+        })
+
+    mappings.register({
+            mode = "n",
+            key = {"<leader>", "t", "n"},
+            action = ':tabnext<cr>',
+            short_desc = "Tab Next"
+        })
+
+    mappings.register({
+            mode = "n",
+            key = {"<leader>", "t", "p"},
+            action = ':tabpre<cr>',
+            short_desc = "Tab Previous"
+        })
 end
 
 return plugin

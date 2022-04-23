@@ -11,6 +11,7 @@ if FEATURE_GROUPS['default'] == true then
         ["ultisnips"] = {disable=false},            -- for snippets
         ["snippets"] = {disable=false},             -- predefined snippets templete
         ['linediff'] = {disable=false},             -- diff view for two lines
+        ['diffview'] = {disable=false},             -- diff view for git
         ['multiple_cursor'] = {disable=false},      --  multiple cursor to change multi line in the same time
         ['undotree'] = {disable=false},             -- record all the change history
         ['repeat'] = {disable=false},               -- repeat some user defined commond
