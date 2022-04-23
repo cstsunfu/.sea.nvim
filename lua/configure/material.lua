@@ -37,6 +37,8 @@ plugin.setup = function (theme)
     timer:start(500, 0, vim.schedule_wrap(function()
         vim.cmd("hi! default link WhichKeyFloat Pmenu")
         vim.cmd("hi! default link NormalFloat Pmenu")
+
+        vim.cmd("hi! DiffDelete guibg=#A6647A")
         vim.cmd("hi FgCocWarningFloatBgCocFloating ctermfg=130 guibg=#434c5e ctermbg=13 guifg=#ff922b")
         vim.cmd("hi FgCocErrorFloatBgCocFloating ctermfg=9 ctermbg=13 guibg=#434c5e guifg=#ff0000")
         vim.cmd("hi FgCocHintFloatBgCocFloating guibg=#434c5e ctermbg=13 ctermfg=11 guifg=#fab005")

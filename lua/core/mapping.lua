@@ -33,7 +33,7 @@ local mapping_prefix = {
         ["<leader>q"] = {name = "+ Quick"},
         ["<leader>r"] = {name = "+ Read"},
         ["<leader>s"] = {name = "+ Snip/Save/CtrlSF/Space/Sign"},
-        ["<leader>t"] = {name = "+ Table/Terminal/Translate"},
+        ["<leader>t"] = {name = "+ Table/Terminal/Translate/Tab"},
         ["<leader>v"] = {name = "+ Visual"},
         ["<leader>w"] = {name = "+ Window"},
         ["<leader>x"] = {name = "+ Quit"},
@@ -261,6 +261,7 @@ global_mapping.register({
         short_desc = "Save All Buffers"
     })
 
+-- tab configure at bufferline plugin
 
 -- window
 
