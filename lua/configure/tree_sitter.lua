@@ -60,7 +60,6 @@ plugin.core = {
                 -- Using this option may slow down your editor, and you may see some duplicate highlights.
                 -- Instead of true it can also be a list of languages
                 --additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
-                additional_vim_regex_highlighting = {}, -- Required since TS highlighter doesn't support all syntax features (conceal)
             },
             indent = {
                 enable = true
