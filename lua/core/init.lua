@@ -1,13 +1,15 @@
-vim.g.colorscheme = "gruvbox"
-vim.g.colorscheme = "material"
-vim.g.colorscheme = "gruvbox_material"
-vim.g.colorscheme = "onedarkpro"
-vim.g.colorscheme = "onedark"
 vim.g.colorscheme = "vscode_theme"
+vim.g.colorscheme = "onedark"
 vim.g.colorscheme = "rose_pine"
 vim.g.colorscheme = "nord"
-vim.g.theme = "light"
+vim.g.colorscheme = "gruvbox_material"
+vim.g.colorscheme = "onedarkpro"
+vim.g.colorscheme = "material"
+
 vim.g.theme = "dark"
+if vim.g.colorscheme == 'onedarkpro' then
+    vim.g.theme = "light"
+end
 
 USE_COC = true
 FEATURE_GROUPS = {}

@@ -187,12 +187,16 @@ plugin.core = {
                 local fname = vim.fn.getcwd()
                 local path = Path:new(fname)
                 local split_path = path:_split()
-                return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
+                if vim.fn.winwidth(0) - 140 < 0 then
+                    return vim.fn.expand('%')
+                else
+                    return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
+                end
             end,
             cond = conditions.buffer_not_empty,
             color = {fg = colors.magenta, gui = 'bold'},
             file_status = true, -- displays file status (readonly status, modified status)
-            path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
+            path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
         }
 
         ins_left_active {'location'}
@@ -304,12 +308,12 @@ plugin.core = {
             color = {fg = colors.green, gui = 'bold'}
         }
 
-        ins_right_active {
-            'fileformat',
-            fmt = string.upper,
-            icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-            color = {fg = colors.green, gui = 'bold'}
-        }
+        --ins_right_active {
+            --'fileformat',
+            --fmt = string.upper,
+            --icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+            --color = {fg = colors.green, gui = 'bold'}
+        --}
 
         ins_right_active {
             'branch',
@@ -339,9 +343,9 @@ plugin.core = {
             color = {fg = colors.yellow, gui = 'bold'}
         }
 
-
+        --▊ ▌▐,█
         ins_right_active {
-            function() return '▊' end,
+            function() return '█' end,
             color = {fg = colors.blue},
             padding = { right = 0 },
         }
@@ -415,12 +419,12 @@ plugin.core = {
             color = {fg = colors.inactive, gui = 'bold'}
         }
 
-        ins_right_inactive {
-            'fileformat',
-            fmt = string.upper,
-            icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-            color = {fg = colors.inactive, gui = 'bold'}
-        }
+        --ins_right_inactive {
+            --'fileformat',
+            --fmt = string.upper,
+            --icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+            --color = {fg = colors.inactive, gui = 'bold'}
+        --}
 
         ins_right_inactive {
             'branch',
@@ -442,7 +446,7 @@ plugin.core = {
         }
 
         ins_right_inactive {
-            function() return '▊' end,
+            function() return '█' end,
             color = {fg = colors.gray},
             padding = { right = 0 },
         }

@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "nvim-telescope/telescope.nvim",
+    tag = 'nvim-0.5.0', --FIXED: latest compate with 0.7.0
     --requires = {{"nvim-lua/popup.nvim"}, {"nvim-lua/plenary.nvim"}},
     requires = {
         {"nvim-lua/popup.nvim", opt=true},

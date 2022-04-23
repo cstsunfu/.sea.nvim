@@ -13,7 +13,8 @@ plugin.core = {
         -- This could make the display more compact or more spacious.
         -- e.g., more compact: ["▸ ", ""]
         -- Note: this option only works for the kind renderer, not the tree renderer.
-        vim.g.vista_icon_indent = {"╰─▸ ", "├─▸ "}
+        --vim.g.vista_icon_indent = {"╰─▸ ", "├─▸ "}
+        vim.g.vista_icon_indent = {}
 
         -- Executive used when opening vista sidebar without specifying it.
         -- See all the avaliable executives via `:echo g:vista#executives`.
@@ -31,16 +32,8 @@ plugin.core = {
         vim.g.vista_sidebar_width = 36
         --vim.g["vista#renderer#icons"] = {}
         vim.cmd([[
-            let g:vista#renderer#icons = { "function": "\uf794 ", "functions": "\uf794 ", "variable": "硫", "variables": "硫", "maps": "\uf279 ", "members ": "\ufa85 ", "classes": "\ue61e ", "autocommand groups": "\uf7c2 ",}
+            let g:vista#renderer#icons = { "function": "  ", "functions": "  ", "variable": "  ", "variables": "  ", "maps": "  ", "members ": "  ", "classes": "  ", "autocommand groups": " 祐 "}
         ]])
-        --vim.g["vista#renderer#icons"]['function'] = "a"
-        --vim.g["vista#renderer#icons"]["functions"] = "a"
-        --vim.g["vista#renderer#icons"]["variable"] = "v"
-        --vim.g["vista#renderer#icons"]["variables"] = "V"
-        --vim.g["vista#renderer#icons"]["maps"] = "a"
-        --vim.g["vista#renderer#icons"]["members"] = "a"
-        --vim.g["vista#renderer#icons"]["classes"] = "a"
-        --vim.g["vista#renderer#icons"]["autocommand groups"] = "a"
 
     end,
 }
