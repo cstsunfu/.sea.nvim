@@ -17,8 +17,15 @@ plugin.core = {
             highlights = {
                 indicator_selected = {
                     --guifg = "#ee71ee"
-                    guifg = "#51afef"
-                }
+                    --guifg = "#51afef"
+                    guifg = "#61bfff",
+                },
+                --fill = {
+                    --guibg = {
+                        --attribute = "fg",
+                        ----highlight = "Pmenu"
+                    --}
+                --}
             },
             options = {
                 --numbers = "none" | "ordinal" | "buffer_id" | "both",
@@ -34,7 +41,8 @@ plugin.core = {
                 -- NOTE: this plugin is designed with this icon in mind,
                 -- and so changing this is NOT recommended, this is intended
                 -- as an escape hatch for people who cannot bear it for whatever reason
-                indicator_icon = '▎',
+                indicator_icon = '▍',
+                --"⎟⎜⎢⎜▏▊▋▉▎▍▋▍"
                 --indicator_icon = '',
                 buffer_close_icon = '',
                 modified_icon = '●',
@@ -77,7 +85,7 @@ plugin.core = {
                     end
                 end,
                 --offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left" | "center" | "right"}},
-                offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center", highlight = 'TAGBAR'}, {filetype = "vista", text = "Code Navigator", text_align = "center", highlight = 'TAGBAR'}},
+                offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center", highlight = 'TAGBAR', padding=0}, {filetype = "vista", text = "Code Navigator", text_align = "center", highlight = 'TAGBAR', padding=1}},
                 --show_buffer_icons = true | false, -- disable filetype icons for buffers
                 show_buffer_icons = true, -- disable filetype icons for buffers
                 --show_buffer_close_icons = true | false,
@@ -153,7 +161,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "b", "d"},
-        action = ":bdelete<cr>",
+        action = ":Bdelete<cr>",
         short_desc = "Delete Current Buffer"
     })
 

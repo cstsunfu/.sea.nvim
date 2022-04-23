@@ -349,7 +349,7 @@ global_mapping.register({
 global_mapping.register({
         mode = "n",
         key = {"<leader>", "x"},
-        action = ':q<cr>',
+        action = ':close<cr>',
         short_desc = "Close Current Window"
     })
 

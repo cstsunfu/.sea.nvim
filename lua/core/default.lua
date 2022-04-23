@@ -50,7 +50,13 @@ default_setting['opt'] = {
     --relativenumber = true,                    -- has moved to smarter_cursorline autocmd
     --
     backupdir = "$XDG_DATA_HOME/nvim/backup/",  -- no backup inplace
-    fillchars = "fold:-,eob: ,vert:│",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+    --fillchars = "fold:-,eob: ,vert: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+    fillchars = "fold:-,eob: ,vert:▕",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+    --"│⎟⎜⎜⎢⎜▏▊▋▉"
+    --"▕"
+    --https://unicode-table.com/en/
+    --fillchars = "fold:-,eob: ,vert:▎",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+	
     --vim.cmd("set fillchars=fold:\\-,eob:\\ ,vert:│") -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     history = 10000,                            -- undo file history
     undofile = true,                            -- use undo file

@@ -57,7 +57,7 @@ end
 
 if FEATURE_GROUPS['enhance'] == true then
     plugins_configure.plugins_groups['enhance'] = {
-        --['hlslens'] = {disable=false}, -- TODO: neovim 0.6 +
+        ['hlslens'] = {disable=false},
         ['todo_comments'] = {disable=false},
         ['zen_mode'] = {disable=false},
         ['firenvim'] = {disable=true}, -- TODO:嵌入nvim到chrome，比较鸡肋，但是很有意思
@@ -107,12 +107,10 @@ end
 if FEATURE_GROUPS['colorschemes'] == true then
     plugins_configure.plugins_groups['colorschemes'] = {
         ["nord"] = {disable=false, opt=true},
-        ["github_nvim_theme"] = {disable=false, opt=true},
         ['gruvbox_material'] = {disable=false, opt=true},
         ['rose_pine'] = {disable=false, opt=true},
         ['material'] = {disable=false, opt=true},
         ['onedark'] = {disable=false, opt=true},
-        ['gruvbox'] = {disable=false, opt=true},
         ['onedarkpro'] = {disable=false, opt=true},
         ['vscode_theme'] = {disable=false, opt=true}
     }
