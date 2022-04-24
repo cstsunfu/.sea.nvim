@@ -217,7 +217,7 @@ plugin.mapping = function()
         key = {"<leader>", "o", "a"},
         action = nil,
         short_desc = "Org Agenda",
-        silent = true
+        silent = false
     })
 
     mappings.register({
@@ -225,7 +225,7 @@ plugin.mapping = function()
         key = {"<leader>", "o", "c"},
         action = nil,
         short_desc = "Org Capture",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
@@ -239,210 +239,203 @@ plugin.mapping = function()
         key = {"<leader>", "o", "x", "e"},
         action = nil,
         short_desc = "Org Effort Estimate",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "x", "i"},
         action = nil,
         short_desc = "Clock In",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "x", "o"},
         action = nil,
         short_desc = "Clock Out",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "x", "q"},
         action = nil,
         short_desc = "Clock Cancel",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "x", "j"},
         action = nil,
         short_desc = "Clock Goto",
-        silent = true
+        silent = false
     })
-   --mappings.register({
-        --mode = {"n", 'x'},
-        --key = {"c", "i"},
-        --action = nil,
-        --short_desc = "Org Priority/ Change inner",
-        --silent = true
-    --})
     mappings.register({
         mode = "n",
         key = {"c", "i", "r"},
         action = nil,
         short_desc = "Org Priority Down",
-        silent = true
+        silent = false
     })
    mappings.register({
         mode = {"n", 'x'},
         key = {"c", "i", "R"},
         action = nil,
         short_desc = "Org Priority Up",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"c", "i", "t"},
         action = nil,
         short_desc = "Org Todo Status",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"c", "i", "T"},
         action = nil,
         short_desc = "Org Todo Status",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"c", "i", "d"},
         action = nil,
         short_desc = "Org Change Date",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "f"},
         action = nil,
         short_desc = "Org Open File",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "t"},
         action = nil,
         short_desc = "Org Tag",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "i"},
         action = nil,
         short_desc = "Org Insert",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "i", "d"},
         action = nil,
         short_desc = "Org Insert DEADLINE",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "i", "h"},
         action = nil,
         short_desc = "Org Insert Headline",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "i", "s"},
         action = nil,
         short_desc = "Org Insert SCHEDULED",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "i", "t"},
         action = nil,
         short_desc = "Org Insert TODO",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "i", "."},
         action = nil,
         short_desc = "Org Insert Time Stamp",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "i", "T"},
         action = nil,
         short_desc = "Org Inplace Insert TODO",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "i", ","},
         action = nil,
         short_desc = "Org Insert Inactive Time Stamp",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "K"},
         action = nil,
         short_desc = "Org Move Up",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "J"},
         action = nil,
         short_desc = "Org Move Down",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "'"},
         action = nil,
         short_desc = "Org Edit Source",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "$"},
         action = nil,
         short_desc = "Org Archive Subtree",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "A"},
         action = nil,
         short_desc = "Org Archive Tag",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "r"},
         action = nil,
         short_desc = "Org Refile To",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "*"},
         action = nil,
         short_desc = "Org Toggle Headline",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", ","},
         action = nil,
         short_desc = "Org Priority",
-        silent = true
+        silent = false
     })
     mappings.register({
         mode = "n",
         key = {"<leader>", "o", "e"},
         action = nil,
         short_desc = "Org Export(Emacs)",
-        silent = true
+        silent = false
     })
 end
 

@@ -39,6 +39,15 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
+        key = {"<leader>", "g", "C"},
+        action = ':Git checkout ',
+        short_desc = "Git Checkout",
+        silent = false,
+        noremap = true,
+    })
+
+    mappings.register({
+        mode = "n",
         key = {"<leader>", "g", "e"},
         action = ':Gedit ',
         short_desc = "Git Edit Something",
