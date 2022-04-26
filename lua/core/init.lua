@@ -1,5 +1,6 @@
 local theme_configs = require('core.themes')
-local theme_config = theme_configs.meterial_dark
+local theme_config = theme_configs.vscode_dark
+--local theme_config = theme_configs.nord
 
 vim.g.colorscheme = theme_config[1]
 vim.g.theme = theme_config[2]
