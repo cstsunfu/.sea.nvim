@@ -18,16 +18,16 @@ local theme_configs = {
         'dark'
     },
     meterial_light = {
-        'nord',
+        'material',
         'light'
     },
     meterial_dark = {
         'material',
         'dark'
     },
-    --vscode_dark = { -- use meterial_dark
-        --'vscode_theme',
-        --'dark'
-    --},
+    vscode_dark = { -- use meterial_dark
+        'vscode_theme',
+        'dark'
+    },
 }
 return theme_configs

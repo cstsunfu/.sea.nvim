@@ -1,6 +1,6 @@
 -- special setting
 local timer = vim.loop.new_timer()
-timer:start(500, 0, vim.schedule_wrap(function()
+timer:start(1000, 0, vim.schedule_wrap(function()
     vim.cmd("hi! link SignColumn LineNr")   --set VertSplit color to black
     vim.cmd("autocmd ColorScheme, VimEnter * highlight! link SignColumn LineNr")
 
