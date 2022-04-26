@@ -70,5 +70,3 @@ else
     hi VimwikiMarkers guifg=#5c6370 ctermfg=241 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 endif
  
- 
-"nnoremap <localleader>tt :VimwikiToggleListItem<cr>

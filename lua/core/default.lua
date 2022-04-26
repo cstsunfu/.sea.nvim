@@ -53,7 +53,7 @@ default_setting['opt'] = {
     --fillchars = "fold:-,eob: ,vert: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     fillchars = "fold:-,eob: ,vert:▕,diff: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉"
-    --"▕"
+    --"▕  https://unicode-table.com/en
     history = 10000,                            -- undo file history
     undofile = true,                            -- use undo file
     swapfile = false,                            -- use swap file
@@ -76,7 +76,7 @@ default_setting['opt'] = {
     softtabstop = 4,
     foldenable = true,                          -- enable fold
     foldlevel = 99,                             -- disable fold for opened file
-    foldminlines = 0,                           -- even the child is only one line, fold always works
+    foldminlines = 2,                           -- 0 means even the child is only one line, fold always works
     foldmethod = 'expr',                        -- for most filetype, fold by syntax
     foldnestmax = 5,                            -- max fold nest
     foldexpr = "nvim_treesitter#foldexpr()",

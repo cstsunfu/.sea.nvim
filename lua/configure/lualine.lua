@@ -1,11 +1,8 @@
 local plugin = {}
 
 plugin.core = {
-    "nvim-lualine/lualine.nvim", -- TODO: if this branch is merged, I should change to the master 'hoob3rt/lualine.nvim',
+    "nvim-lualine/lualine.nvim",
     as = "lualine",
-    --requires = {
-        --"kyazdani42/nvim-web-devicons",
-    --},
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -44,11 +41,12 @@ plugin.core = {
         }
 
         if vim.g.theme == 'light' and (vim.g.colorscheme == "gruvbox_material"  or vim.g.colorscheme == "gruvbox" or vim.g.colorscheme=='onedarkpro') then
-            colors.bg = '#928374'
-            colors.bg = '#868686'
+            --colors.bg = '#868686'
+            colors.bg = '#a89984'
             colors.fg = '#505338'
             colors.yellow = "#ffe19e"
-            colors.blue = '#51afff'
+            --colors.blue = '#51afff'
+            colors.blue = '#31bfff'
             colors.red = '#fc6f77'
             colors.gray = '#7c6f64'
             colors.magenta = '#f6a8fd'
@@ -448,7 +446,7 @@ plugin.core = {
         ins_right_inactive {
             function() return '█' end,
             color = {fg = colors.gray},
-            padding = { right = 0 },
+            padding = { right = -1 },
         }
 
         -- Now don't forget to initialize lualine

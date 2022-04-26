@@ -17,21 +17,15 @@ plugin.core = {
             highlights = {
                 indicator_selected = {
                     --guifg = "#ee71ee"
-                    --guifg = "#51afef"
-                    guifg = "#61bfff",
-                },
-                --fill = {
-                    --guibg = {
-                        --attribute = "fg",
-                        ----highlight = "Pmenu"
-                    --}
-                --}
+                    guifg = "#51afef"
+                }
             },
             options = {
                 --numbers = "none" | "ordinal" | "buffer_id" | "both",
                 numbers = function(opts)
-                  return string.format('%s.', opts.ordinal)
+                    return string.format('%s.', opts.ordinal)
                 end,
+                themable = false,
                 --number_style = "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
                 --mappings = true | false,
                 close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
@@ -41,14 +35,14 @@ plugin.core = {
                 -- NOTE: this plugin is designed with this icon in mind,
                 -- and so changing this is NOT recommended, this is intended
                 -- as an escape hatch for people who cannot bear it for whatever reason
-                indicator_icon = '▍',
+                --indicator_icon = '▎',
                 --"⎟⎜⎢⎜▏▊▋▉▎▍▋▍"
-                --indicator_icon = '',
+                indicator_icon = '▍',
                 buffer_close_icon = '',
                 modified_icon = '●',
-                close_icon = '',
-                left_trunc_marker = '',
-                right_trunc_marker = '',
+                close_icon = '⊠',
+                left_trunc_marker = ' ',
+                right_trunc_marker = ' ',
                 --- name_formatter can be used to change the buffer's label in the bufferline.
                 --- Please note some names can/will break the
                 --- bufferline so use this at your discretion knowing that it has
@@ -62,7 +56,7 @@ plugin.core = {
 
                 max_name_length = 15,
                 max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-                tab_size = 12,
+                tab_size = 6,
                 --diagnostics = false | "nvim_lsp",
                 diagnostics = false,
                 diagnostics_indicator = function(count, level, diagnostics_dict, context)
@@ -85,7 +79,7 @@ plugin.core = {
                     end
                 end,
                 --offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left" | "center" | "right"}},
-                offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center", highlight = 'TAGBAR', padding=0}, {filetype = "vista", text = "Code Navigator", text_align = "center", highlight = 'TAGBAR', padding=1}},
+                offsets = {{filetype = "NvimTree", text = "▌        ✯File Explorer✯", text_align = "left", highlight = 'TAGBAR', padding=1}, {filetype = "vista", text = "✶Code Navigator✶", text_align = "center", highlight = 'TAGBAR', padding=1}},
                 --show_buffer_icons = true | false, -- disable filetype icons for buffers
                 show_buffer_icons = true, -- disable filetype icons for buffers
                 --show_buffer_close_icons = true | false,

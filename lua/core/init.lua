@@ -1,12 +1,8 @@
-vim.g.colorscheme = "nord"
-vim.g.colorscheme = "gruvbox_material"
-vim.g.colorscheme = "vscode_theme"
-vim.g.colorscheme = "onedarkpro"
-vim.g.colorscheme = "rose_pine"
-vim.g.colorscheme = "material"
+local theme_configs = require('core.themes')
+local theme_config = theme_configs.meterial_dark
 
-vim.g.theme = "light"
-vim.g.theme = "dark"
+vim.g.colorscheme = theme_config[1]
+vim.g.theme = theme_config[2]
 
 USE_COC = true
 FEATURE_GROUPS = {}

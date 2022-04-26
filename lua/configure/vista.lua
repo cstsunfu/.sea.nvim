@@ -30,6 +30,7 @@ plugin.core = {
         --vim.g.vista_fzf_preview = {'right:30%'}
         vim.g.vista_sidebar_position = "vertical topleft"
         vim.g.vista_sidebar_width = 36
+        vim.g.vista_disable_statusline = true
         --vim.g["vista#renderer#icons"] = {}
         vim.cmd([[
             let g:vista#renderer#icons = { "function": "  ", "functions": "  ", "variable": "  ", "variables": "  ", "maps": "  ", "members ": "  ", "classes": "  ", "autocommand groups": " 祐 "}
@@ -47,8 +48,6 @@ plugin.mapping = function()
         short_desc = "Tag List",
         silent = true
     })
-    --nnoremap <leader>r :NvimTreeRefresh<CR>
-    --nnoremap <leader>n :NvimTreeFindFile<CR>
 
 end
 
