@@ -4,24 +4,20 @@ plugin.core = {
     "lukas-reineke/indent-blankline.nvim",
     as = "indent-blankline",
     setup = function()  -- Specifies code to run before this plugin is loaded.
-        --let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
-        --vim.g.indent_blankline_char_list = {'│'}
-
-        --vim.g.indent_blankline_filetype_exclude = {'help'}
-        --vim.g.indent_blankline_use_treesitter = 'v:true'
-        --vim.g.indent_blankline_context_highlight_list = {'Warning'}
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
         vim.g.indent_blankline_char_list = {'│'}
 
+        --vim.cmd('highlight IndentBlanklineContextChar guifg=#d090c0 gui=nocombine')
         vim.g.indent_blankline_filetype_exclude = {"translator", "dapui_breakpoints", "dapui_watches", "dapui_stacks", "dapui_scopes", "", 'help', 'packer', 'startify', 'dashboard', 'vimwiki', 'markdown', 'calendar'}
         vim.g.indent_blankline_use_treesitter = 'v:true'
-        --vim.g.indent_blankline_context_highlight_list = {'Error'}
-        vim.cmd('highlight IndentBlanklineChar guifg=#5090c0 gui=nocombine')
-
-        --vim.g.indent_blankline_show_first_indent_level = "v:false"
-        --vim.g.indent_blankline_show_trailing_blankline_indent = "v:false"
+        require("indent_blankline").setup {
+            -- for example, context is off by default, use this to turn it on
+            space_char_blankline = ' ',
+            show_current_context = true,
+            --show_current_context_start = true,
+        }
 
     end,
 

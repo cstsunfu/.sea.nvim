@@ -124,6 +124,7 @@ if FEATURE_GROUPS['beauty_vim'] == true then
         ["bufferline"] = {disable=false},
         ["web_devicons"] = {disable=false},
         ["dashboard"] = {disable=false},
+        ["specs"] = {disable=false},
     }
 end
 
