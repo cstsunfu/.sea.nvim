@@ -32,6 +32,7 @@ plugin.core = {
         vim.g.vista_sidebar_width = 36
         vim.g.vista_disable_statusline = true
         --vim.g["vista#renderer#icons"] = {}
+        vim.g.vista_enable_markdown_extension = 0
         vim.cmd([[
             let g:vista#renderer#icons = { "function": "  ", "functions": "  ", "variable": "  ", "variables": "  ", "maps": "  ", "members ": "  ", "classes": "  ", "autocommand groups": " 祐 "}
         ]])

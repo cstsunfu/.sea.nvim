@@ -1,9 +1,9 @@
 local theme_configs = require('core.themes')
-local theme_config = theme_configs.vscode_dark
---local theme_config = theme_configs.nord
+local theme_config = theme_configs.material_oceanic
 
-vim.g.colorscheme = theme_config[1]
-vim.g.theme = theme_config[2]
+vim.g.colorscheme_name = theme_config.name
+vim.g.colorscheme = theme_config.colorscheme
+vim.g.style = theme_config.style
 
 USE_COC = true
 FEATURE_GROUPS = {}

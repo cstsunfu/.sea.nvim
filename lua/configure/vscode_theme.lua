@@ -16,20 +16,20 @@ plugin.mapping = function()
 end
 
 plugin.light = function()
-    -- For light theme
+    -- For light style
     vim.g.vscode_style = "light"
     vim.cmd[[colorscheme vscode]]
 end
 
 plugin.dark = function ()
-    -- For dark theme
+    -- For dark style
     vim.g.vscode_style = "dark"
     vim.cmd[[colorscheme vscode]]
 end
 
-plugin.setup = function (theme)
+plugin.setup = function (style)
     vim.cmd("packadd vscode.nvim")
-    if theme == "light" then
+    if style == "light" then
         plugin.light()
     else
         plugin.dark()

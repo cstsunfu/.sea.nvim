@@ -23,10 +23,10 @@ plugin.light = {
 plugin.dark = {
 
 }
-plugin.setup = function (theme)
+plugin.setup = function (style)
     vim.cmd("packadd onedark")
     local onedark = require('onedark')
-    if vim.g.theme == "light" then
+    if vim.g.style == "light" then
         onedark.setup({
           style = 'light'
         })

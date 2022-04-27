@@ -25,22 +25,9 @@ plugin.core = {
 
         -- Color table for highlights
         local colors = {
-            fg = '#bbc2cf',
-            bg = '#202328',
-            yellow = '#ECBE7B',
-            cyan = '#008080',
-            darkblue = '#081633',
-            green = '#98be65',
-            orange = '#FF8800',
-            violet = '#a9a1e1',
-            magenta = '#c678dd',
-            blue = '#51afef',
-            red = '#ec5f67',
-            inactive = '#808080',
-            gray = '#808080'
         }
 
-        if vim.g.theme == 'light' and (vim.g.colorscheme == "gruvbox_material"  or vim.g.colorscheme == "gruvbox" or vim.g.colorscheme=='onedarkpro') then
+        if (vim.g.colorscheme == "gruvbox") then
             --colors.bg = '#868686'
             colors.bg = '#a89984'
             colors.fg = '#505338'
@@ -55,7 +42,36 @@ plugin.core = {
             colors.inactive = '#afafaf'
             colors.orange = '#FFa840'
             colors.red = '#fc6f77'
+        elseif vim.g.colorscheme == 'material' then
+            colors.bg = '#2e3c43'
+            colors.fg = '#ffffff'
+            colors.yellow = "#ffe19e"
+            --colors.blue = '#51afff'
+            colors.blue = '#31bfff'
+            colors.red = '#fc6f77'
+            colors.gray = '#7c6f64'
+            colors.magenta = '#f6a8fd'
+            colors.green = '#c8fe95'
+            colors.violet = '#d9bfff'
+            colors.inactive = '#afafaf'
+            colors.orange = '#FFa840'
+            colors.red = '#fc6f77'
+        else
+            colors.fg = '#bbc2cf'
+            colors.bg = '#202328'
+            colors.yellow = '#ECBE7B'
+            colors.cyan = '#008080'
+            colors.darkblue = '#081633'
+            colors.green = '#98be65'
+            colors.orange = '#FF8800'
+            colors.violet = '#a9a1e1'
+            colors.magenta = '#c678dd'
+            colors.blue = '#51afef'
+            colors.red = '#ec5f67'
+            colors.inactive = '#808080'
+            colors.gray = '#808080'
         end
+        colors.bg = '#2e3c43'
 
         local conditions = {
             buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
@@ -73,7 +89,7 @@ plugin.core = {
                 -- Disable sections and component separators
                 component_separators = "",
                 section_separators = "",
-                theme = {
+                style = {
                     -- We are going to use lualine_c an lualine_x as left and
                     -- right section. Both are highlighted by c theme .  So we
                     -- are just setting default looks o statusline

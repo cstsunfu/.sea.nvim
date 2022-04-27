@@ -16,20 +16,20 @@ plugin.mapping = function()
 end
 
 plugin.light = function()
-    -- For light theme
+    -- For light style
     vim.o.background = "light"
     require('onedarkpro').load()
 end
 
 plugin.dark = function ()
-    -- For dark theme
+    -- For dark style
     vim.o.background = "dark"
     require('onedarkpro').load()
 end
 
-plugin.setup = function (theme)
+plugin.setup = function (style)
     vim.cmd("packadd onedarkpro")
-    if theme == "light" then
+    if style == "light" then
         plugin.light()
     else
         plugin.dark()

@@ -24,9 +24,9 @@ plugin.light = {
 plugin.dark = {
 
 }
-plugin.setup = function (theme)
+plugin.setup = function (style)
     vim.cmd("packadd nord")
-    if theme == "light" then
+    if style == "light" then
         require('nord').set()
     else
         require('nord').set()
