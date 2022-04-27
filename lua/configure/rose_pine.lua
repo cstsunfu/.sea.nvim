@@ -27,9 +27,9 @@ plugin.dark = function ()
     vim.cmd("colorscheme rose-pine")
 end
 
-plugin.setup = function (theme)
+plugin.setup = function (style)
     vim.cmd("packadd rose-pine")
-    if theme == "light" then
+    if style == "light" then
         plugin.light()
     else
         plugin.dark()

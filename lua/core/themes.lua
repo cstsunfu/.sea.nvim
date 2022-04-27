@@ -2,32 +2,49 @@
 -- set in init.lua
 local theme_configs = {
     one_light = {
-        'onedarkpro',
-        'light'
+        colorscheme = 'onedarkpro',
+        style = 'light',
+        name ='one_light'
     },
-    --gruvbox_light = { -- use one_light as light theme
-        --'gruvbox_material',
-        --'light'
-    --},
     gruvbox_dark = {
-        'gruvbox_material',
-        'dark'
+        colorscheme = 'gruvbox_material',
+        style = 'dark',
+        name = 'gruvbox_dark'
     },
     nord = {
-        'nord',
-        'dark'
+        colorscheme = 'nord',
+        style = 'dark',
+        name = 'nord'
     },
-    meterial_light = {
-        'material',
-        'light'
+    material_light = {
+        colorscheme = 'material',
+        style = 'light',
+        name = 'material_light'
     },
-    meterial_dark = {
-        'material',
-        'dark'
+    material_oceanic = {
+        colorscheme = 'material',
+        style = 'oceanic',
+        name = 'material_oceanic'
     },
-    vscode_dark = { -- use meterial_dark
-        'vscode_theme',
-        'dark'
+    material_palenight = {
+        colorscheme = 'material',
+        style = 'palenight',
+        name = 'material_palenight'
+    },
+    material_deep_ocean = {
+        colorscheme = 'material',
+        style = 'deep ocean',
+        name = 'material_deep_ocean'
+    },
+    material_dark = {
+        colorscheme = 'material',
+        style = 'dark',
+        name = 'material_dark'
+    },
+    vscode_dark = { -- use material_dark
+        colorscheme = 'vscode_theme',
+        style = 'dark',
+        name = 'vscode_dark'
     },
 }
 return theme_configs

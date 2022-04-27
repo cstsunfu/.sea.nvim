@@ -26,9 +26,9 @@ plugin.dark = function ()
     vim.cmd("colorscheme gruvbox-material")
 end
 
-plugin.setup = function (theme)
+plugin.setup = function (style)
     vim.cmd("packadd gruvbox-material")
-    if theme == "light" then
+    if style == "light" then
         plugin.light()
     else
         plugin.dark()
