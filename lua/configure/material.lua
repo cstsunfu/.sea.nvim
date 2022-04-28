@@ -62,7 +62,7 @@ plugin.setup = function (style)
             borders = true, -- Disable borders between verticaly split windows
             background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
             term_colors = false, -- Prevent the theme from setting terminal colors
-            eob_lines = false -- Hide the end-of-buffer lines
+            eob_lines = true -- Hide the end-of-buffer lines
         },
 
         lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
