@@ -22,56 +22,30 @@ plugin.core = {
         local root = Path:new("/")
         local root_patterns = {".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt"}
         local home_path = Path:new(vim.g.HOME_PATH)
-
+        local custom_theme = require'lualine.themes.auto'
+        local global_fun = require'util.global'
+        if vim.g.colorscheme_name == 'material_light' then
+            custom_theme.normal.c.bg = '#e7e7e8'
+            custom_theme.normal.c.fg = '#383653'
+            custom_theme.inactive.c.bg = '#e7e7e8'
+            custom_theme.inactive.c.fg = '#384653'
+        end
         -- Color table for highlights
         local colors = {
+            fg = custom_theme.normal.c.fg,
+            bg = custom_theme.normal.c.bg,
+            yellow = '#ECBE7B',
+            cyan = '#008080',
+            darkblue = '#081633',
+            green = '#98be65',
+            orange = '#FF8800',
+            violet = '#a9a1e1',
+            magenta = '#c678dd',
+            blue = '#51afef',
+            red = '#ec5f67',
+            inactive = '#808080',
+            gray = '#808080'
         }
-
-        if (vim.g.colorscheme == "gruvbox") then
-            --colors.bg = '#868686'
-            colors.bg = '#a89984'
-            colors.fg = '#505338'
-            colors.yellow = "#ffe19e"
-            --colors.blue = '#51afff'
-            colors.blue = '#31bfff'
-            colors.red = '#fc6f77'
-            colors.gray = '#7c6f64'
-            colors.magenta = '#f6a8fd'
-            colors.green = '#c8fe95'
-            colors.violet = '#d9bfff'
-            colors.inactive = '#afafaf'
-            colors.orange = '#FFa840'
-            colors.red = '#fc6f77'
-        elseif vim.g.colorscheme == 'material' then
-            colors.bg = '#2e3c43'
-            colors.fg = '#ffffff'
-            colors.yellow = "#ffe19e"
-            --colors.blue = '#51afff'
-            colors.blue = '#31bfff'
-            colors.red = '#fc6f77'
-            colors.gray = '#7c6f64'
-            colors.magenta = '#f6a8fd'
-            colors.green = '#c8fe95'
-            colors.violet = '#d9bfff'
-            colors.inactive = '#afafaf'
-            colors.orange = '#FFa840'
-            colors.red = '#fc6f77'
-        else
-            colors.fg = '#bbc2cf'
-            colors.bg = '#202328'
-            colors.yellow = '#ECBE7B'
-            colors.cyan = '#008080'
-            colors.darkblue = '#081633'
-            colors.green = '#98be65'
-            colors.orange = '#FF8800'
-            colors.violet = '#a9a1e1'
-            colors.magenta = '#c678dd'
-            colors.blue = '#51afef'
-            colors.red = '#ec5f67'
-            colors.inactive = '#808080'
-            colors.gray = '#808080'
-        end
-        colors.bg = '#2e3c43'
 
         local conditions = {
             buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
@@ -88,15 +62,16 @@ plugin.core = {
             options = {
                 -- Disable sections and component separators
                 component_separators = "",
+                theme = custom_theme,
                 section_separators = "",
-                style = {
-                    -- We are going to use lualine_c an lualine_x as left and
-                    -- right section. Both are highlighted by c theme .  So we
-                    -- are just setting default looks o statusline
-                    normal = {c = {fg = colors.fg, bg = colors.bg}},
-                    inactive = {c = {fg = colors.fg, bg = colors.bg}}
-                },
-                disabled_filetypes = {'WhichKey', 'nofile', 'NvimTree', 'vista'}
+                --style = {
+                    ---- We are going to use lualine_c an lualine_x as left and
+                    ---- right section. Both are highlighted by c theme .  So we
+                    ---- are just setting default looks o statusline
+                    --normal = {c = {fg = colors.fg, bg = colors.bg}},
+                    --inactive = {c = {fg = colors.fg, bg = colors.bg}}
+                --},
+                disabled_filetypes = {'WhichKey', 'nofile', 'NvimTree', 'vista', 'packer'}
             },
             sections = {
                 -- these are to remove the defaults
@@ -215,7 +190,7 @@ plugin.core = {
 
         ins_left_active {'location'}
 
-        ins_left_active {'progress', color = {fg = colors.fg, gui = 'bold'}}
+        ins_left_active {'progress', color = {fg = colors.fg}}
 
         if USE_COC then
             ins_left_active {
@@ -264,7 +239,7 @@ plugin.core = {
                     return "*WARNING* THIS IS NOT A NORMAL PROJECT"
                 end,
                 icon = '  Project:',
-                color = {fg = '#dfffff', gui = 'bold'}
+                color = {fg = colors.fg}
             }
         else
             ins_left_active {
