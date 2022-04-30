@@ -21,9 +21,12 @@ plugin.mapping = function()
     vim.g.UltiSnipsExpandTrigger="<leader><tab>"   -- confilict
     vim.api.nvim_set_keymap("i", "<cr>", "pumvisible () ? coc#_select_confirm() : '<C-g>u<cr><C-r>=coc#on_enter()<CR>'", {expr=true, silent=true})
     vim.api.nvim_set_keymap("i", "<C-o>", "coc#refresh()", {expr=true, silent=true})
+    vim.api.nvim_set_keymap("i", "<C-f>", "coc#float#has_scroll() ? '<C-r>=coc#float#scroll(1)<CR>':'<Right>'", {expr=true, silent=true})
+    vim.api.nvim_set_keymap("i", "<C-b>", "coc#float#has_scroll() ? '<C-r>=coc#float#scroll(0)<CR>':'<Left>'", {expr=true, silent=true})
     -- use tab to confirm
     vim.api.nvim_set_keymap("i", "<TAB>", "pumvisible() ? '\\<C-n>':'\\<tab>'", {expr=true, silent=true, noremap=true})
     vim.api.nvim_set_keymap("i", "<S-TAB>", "pumvisible() ? '\\<C-p>':'\\<c-h>'", {expr=true, silent=true, noremap=true})
+
 
     mappings.register({
         mode = "n",
