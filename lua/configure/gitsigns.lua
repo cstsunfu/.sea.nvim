@@ -49,7 +49,7 @@ plugin.core = {
             numhl = false,
             linehl = false,
             watch_gitdir = { interval = 1000 },
-            sign_priority = 1,
+            sign_priority = 100,
             update_debounce = 200,
             status_formatter = nil, -- Use default
         }
@@ -58,6 +58,14 @@ plugin.core = {
 
 plugin.mapping = function()
 
+    local mappings = require('core.mapping')
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "g", "i"},
+        action = ":Gitsigns toggle_signs<cr>",
+        short_desc = "Git Indicator Toggle",
+        silent = true,
+    })
     --keymaps = {
     ---- Default keymap options
     --noremap = true,

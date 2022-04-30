@@ -49,7 +49,7 @@ plugin.setup = function (style)
             "terminal", -- Darker terminal background
             "packer", -- Darker packer background
             "NvimTree",
-            "vista",
+            --"vista",
             "qf" -- Darker qf list background
         },
 
@@ -59,7 +59,7 @@ plugin.setup = function (style)
         },
 
         disable = {
-            borders = true, -- Disable borders between verticaly split windows
+            borders = false, -- Disable borders between verticaly split windows
             background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
             term_colors = false, -- Prevent the theme from setting terminal colors
             eob_lines = true -- Hide the end-of-buffer lines
@@ -91,7 +91,8 @@ plugin.setup = function (style)
     timer:start(500, 0, vim.schedule_wrap(function()
         vim.cmd("hi! default link WhichKeyFloat Pmenu")
         vim.cmd("hi! default link NormalFloat Pmenu")
-
+        vim.cmd("hi! VertSplit ctermfg=black guifg=black")    --set VertSplit color to black
+        vim.cmd("hi! StatusLine ctermfg=black guifg=black")   --set HSplit color to black
         vim.cmd("hi! DiffDelete guibg=#A6647A")
         vim.cmd("hi FgCocWarningFloatBgCocFloating ctermfg=130 guibg=#434c5e ctermbg=13 guifg=#ff922b")
         vim.cmd("hi FgCocErrorFloatBgCocFloating ctermfg=9 ctermbg=13 guibg=#434c5e guifg=#ff0000")

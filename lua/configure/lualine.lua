@@ -25,10 +25,14 @@ plugin.core = {
         local custom_theme = require'lualine.themes.auto'
         local global_fun = require'util.global'
         if vim.g.colorscheme_name == 'material_light' then
-            custom_theme.normal.c.bg = '#e7e7e8'
+            --custom_theme.normal.c.bg = '#e7e7e8'
             custom_theme.normal.c.fg = '#383653'
-            custom_theme.inactive.c.bg = '#e7e7e8'
+            --custom_theme.inactive.c.bg = '#e7e7e8'
             custom_theme.inactive.c.fg = '#384653'
+        end
+        if vim.g.colorscheme == 'material' then
+            custom_theme.normal.c.bg = global_fun.get_highlight_values("Pmenu").background
+            custom_theme.inactive.c.bg = global_fun.get_highlight_values("Pmenu").background
         end
         -- Color table for highlights
         local colors = {
@@ -48,13 +52,27 @@ plugin.core = {
         }
 
         local conditions = {
-            buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 end,
-            hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
-            check_git_workspace = function()
-                local filepath = vim.fn.expand('%:p:h')
+            buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t', nil, nil)) ~= 1 end,
+            nest_active_file_name_in_width = function() return vim.fn.winwidth(0) > 140 end,
+            hide_encoding_in_width = function() return vim.fn.winwidth(vim.fn.winnr()) > 120 end,
+            check_git_workspace_hide_in_width = function()
+                local filepath = vim.fn.expand('%:p:h', nil, nil)
                 local gitdir = vim.fn.finddir('.git', filepath .. ';')
-                return gitdir and #gitdir > 0 and #gitdir < #filepath
-            end
+                return gitdir and #gitdir > 0 and #gitdir < #filepath and vim.fn.winwidth(0) > 110
+            end,
+            hide_diagnostics_in_width = function() return vim.fn.winwidth(0) > 105 end,
+            nest_project_prefix_in_width = function() return vim.fn.winwidth(0) > 100 end,
+            hide_project_in_width = function() return vim.fn.winwidth(0) > 90 end,
+            active_add_wind_in_width = function() return vim.fn.winwidth(0) <= 90 end,
+            buffer_not_empty_hide_size_in_width = function() 
+                return vim.fn.empty(vim.fn.expand('%:t', nil, nil)) ~= 1 and vim.fn.winwidth(vim.fn.winnr()) > 70
+            end,
+            hide_progress_in_width = function() return vim.fn.winwidth(0) > 60 end,
+            hide_pomodoro_in_width = function() return vim.fn.winwidth(0) > 55 end,
+            hide_clock_in_width = function() return vim.fn.winwidth(0) > 28 end,
+            buffer_not_empty_hide_file_in_width = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 and vim.fn.winwidth(0) > 40 end,
+            inactive_buffer_not_empty_hide_file_in_width = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 and vim.fn.winwidth(vim.fn.winnr()) > 25 end,
+            inactive_buffer_not_empty_nest_file_in_width = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 and vim.fn.winwidth(vim.fn.winnr()) > 40 end,
         }
 
         -- Config
@@ -168,7 +186,7 @@ plugin.core = {
                 if string.len(file) == 0 then return '' end
                 return format_file_size(file)
             end,
-            cond = conditions.buffer_not_empty
+            cond = conditions.buffer_not_empty_hide_size_in_width
         }
 
         ins_left_active {
@@ -176,33 +194,33 @@ plugin.core = {
                 local fname = vim.fn.getcwd()
                 local path = Path:new(fname)
                 local split_path = path:_split()
-                if vim.fn.winwidth(0) - 140 < 0 then
+                if not conditions.nest_active_file_name_in_width() then
                     return vim.fn.expand('%')
                 else
                     return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
                 end
             end,
-            cond = conditions.buffer_not_empty,
+            cond = conditions.buffer_not_empty_hide_file_in_width,
             color = {fg = colors.magenta, gui = 'bold'},
             file_status = true, -- displays file status (readonly status, modified status)
-            path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
         }
 
-        ins_left_active {'location'}
+        --ins_left_active {'location'}
 
-        ins_left_active {'progress', color = {fg = colors.fg}}
+        ins_left_active {'progress', color = {fg = colors.fg}, cond=conditions.hide_progress_in_width}
 
         if USE_COC then
             ins_left_active {
                 'diagnostics',
                 sources = {'coc'},
-                symbols = {error = ' ', warn = ' ', info = ' '},
+                symbols = {error = ' ', warn = ' ', info = ' '},
                 diagnostics_color = {
                     error = { fg = colors.red },
                     warning = { fg = colors.yellow },
                     info = { fg = colors.cyan },
                     hint = { fg = colors.cyan },
-                }
+                },
+                cond = conditions.hide_diagnostics_in_width
             }
             ins_left_active {
                 'g:coc_status',
@@ -211,56 +229,81 @@ plugin.core = {
             ins_left_active {
                 'diagnostics',
                 sources = {'nvim_lsp'},
-                symbols = {error = ' ', warn = ' ', info = ' '},
+                symbols = {error = ' ', warn = ' ', info = ' '},
                 color_error = colors.red,
                 color_warn = colors.yellow,
-                color_info = colors.cyan
+                color_info = colors.cyan,
+                cond = conditions.hide_diagnostics_in_width
             }
         end
         -- Insert mid section. You can make any number of sections in neovim :)
         -- for lualine it's any number greater then 2
         ins_left_active {function() return '%=' end}
 
-        if USE_COC == true then
-            ins_left_active {
-                -- Lsp server name .
-                function()
-                    local fname = vim.fn.getcwd()
-                    local path = Path:new(fname)
-                    while (path.filename ~= home_path.filename) and (path.filename ~= root.filename) do
-                        for _,pattern in ipairs(root_patterns) do
-                            if path:joinpath(pattern):exists() then
-                                local split_path = path:_split()
-                                return split_path[#split_path]
-                            end
-                        end
-                        path = path:parent()
-                    end
-                    return "*WARNING* THIS IS NOT A NORMAL PROJECT"
-                end,
-                icon = '  Project:',
-                color = {fg = colors.fg}
-            }
-        else
-            ins_left_active {
-                -- Lsp server name .
-                function()
-                    local msg = 'No Active Lsp'
-                    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-                    local clients = vim.lsp.get_active_clients()
-                    if next(clients) == nil then return msg end
-                    for _, client in ipairs(clients) do
-                        local filetypes = client.config.filetypes
-                        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                            return client.name
+        ins_left_active {
+            -- Lsp server name .
+            function()
+                local fname = vim.fn.getcwd()
+                local path = Path:new(fname)
+                local project_name = nil
+                while (path.filename ~= home_path.filename) and (path.filename ~= root.filename) and (project_name == nil) do
+                    for _,pattern in ipairs(root_patterns) do
+                        if path:joinpath(pattern):exists() then
+                            local split_path = path:_split()
+                            project_name = split_path[#split_path]
+                            break
                         end
                     end
-                    return msg
-                end,
-                icon = ' LSP:',
-                color = {fg = '#dfffff', gui = 'bold'}
-            }
-        end
+                    path = path:parent()
+                end
+
+                local prefix = ''
+                if conditions.nest_project_prefix_in_width() then
+                    prefix =  "  Project: "
+                else
+                    prefix =  ""
+                end
+                if project_name ~= nil then
+                    return prefix..project_name
+                else
+                    return prefix.."THIS IS NOT A NORMAL PROJECT"
+                end
+            end,
+            icon = '',
+            color = {fg = colors.fg},
+            cond = conditions.hide_project_in_width
+        }
+        ins_left_active {
+            function()
+                local cur_winnr = vim.fn.winnr()
+                local win_display_list = {"❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾"}
+                if cur_winnr > #win_display_list then
+                    return " "
+                end
+                return win_display_list[cur_winnr]
+            end,
+            color = {fg = colors.blue, gui = 'bold'}, -- Sets highlighting of component
+            padding = { left = 0 },
+            cond = conditions.active_add_wind_in_width
+        }
+        --ins_left_active { INFO: buildin LSP status
+            ---- Lsp server name .
+            --function()
+                --local msg = 'No Active Lsp'
+                --local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+                --local clients = vim.lsp.get_active_clients()
+                --if next(clients) == nil then return msg end
+                --for _, client in ipairs(clients) do
+                    --local filetypes = client.config.filetypes
+                    --if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                        --return client.name
+                    --end
+                --end
+                --return msg
+            --end,
+            --icon = ' LSP:',
+            --color = {fg = '#dfffff', gui = 'bold'}
+        --}
 
         -- Add components to right sections
 
@@ -272,7 +315,8 @@ plugin.core = {
                 return display
             end,
             icon = '',
-            color = {fg = colors.magenta}
+            color = {fg = colors.magenta},
+            cond = conditions.hide_pomodoro_in_width
         }
 
         ins_right_active {
@@ -293,7 +337,7 @@ plugin.core = {
         ins_right_active {
             'o:encoding', -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
-            cond = conditions.hide_in_width,
+            cond = conditions.hide_encoding_in_width,
             color = {fg = colors.green, gui = 'bold'}
         }
 
@@ -307,7 +351,7 @@ plugin.core = {
         ins_right_active {
             'branch',
             icon = '',
-            cond = conditions.check_git_workspace,
+            cond = conditions.check_git_workspace_hide_in_width,
             color = {fg = colors.violet, gui = 'bold'}
         }
 
@@ -320,16 +364,17 @@ plugin.core = {
                 modified = { fg = colors.orange },
                 removed = { fg = colors.red },
             },
-            cond = conditions.hide_in_width
+            cond = conditions.check_git_workspace_hide_in_width
         }
         ins_right_active {
             function()
                 local date = 'None date'
                 date = os.date("%H:%M")
-                return date
+                return ' '..date
             end,
-            icon = ' ',
-            color = {fg = colors.yellow, gui = 'bold'}
+            icon = '',
+            color = {fg = colors.yellow, gui = 'bold'},
+            cond = conditions.hide_clock_in_width
         }
 
         --▊ ▌▐,█
@@ -366,11 +411,11 @@ plugin.core = {
                     end
                     return string.format('%.1f%s', size, sufixes[i])
                 end
-                local file = vim.fn.expand('%:p')
+                local file = vim.fn.expand('%:p', nil, nil)
                 if string.len(file) == 0 then return '' end
                 return format_file_size(file)
             end,
-            cond = conditions.buffer_not_empty,
+            cond = conditions.buffer_not_empty_hide_size_in_width,
             color = {fg = colors.inactive}, -- Sets highlighting of component
         }
 
@@ -380,9 +425,13 @@ plugin.core = {
                 local fname = vim.fn.getcwd()
                 local path = Path:new(fname)
                 local split_path = path:_split()
-                return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
+                if conditions.inactive_buffer_not_empty_nest_file_in_width then
+                    return vim.fn.expand('%')
+                else
+                    return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
+                end
             end,
-            cond = conditions.buffer_not_empty,
+            cond = conditions.inactive_buffer_not_empty_hide_file_in_width,
             color = {fg = colors.inactive, gui = 'bold'},
             file_status = true, -- displays file status (readonly status, modified status)
         }
@@ -404,7 +453,7 @@ plugin.core = {
         ins_right_inactive {
             'o:encoding', -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
-            cond = conditions.hide_in_width,
+            cond = conditions.hide_encoding_in_width,
             color = {fg = colors.inactive, gui = 'bold'}
         }
 
@@ -418,7 +467,7 @@ plugin.core = {
         ins_right_inactive {
             'branch',
             icon = '',
-            cond = conditions.check_git_workspace,
+            cond = conditions.check_git_workspace_hide_in_width,
             color = {fg = colors.inactive, gui = 'bold'}
         }
 
@@ -431,7 +480,7 @@ plugin.core = {
                 modified = { fg = colors.inactive },
                 removed = { fg = colors.inactive },
             },
-            cond = conditions.hide_in_width
+            cond = conditions.check_git_workspace_hide_in_width
         }
 
         ins_right_inactive {
@@ -447,6 +496,11 @@ plugin.core = {
         timer:start(1000, 15000, vim.schedule_wrap(function()
             vim.cmd('redrawstatus')
         end))
+
+        --local fix_statusline_hl_timer = vim.loop.new_timer()
+        --fix_statusline_hl_timer:start(1500, 0, vim.schedule_wrap(function()
+            --vim.cmd("hi StatusLine guibg="..colors.blue)
+        --end))
     end,
 }
 
