@@ -27,8 +27,9 @@ OSX:
 
 5. Install `ag` or `rg`
 ```
-like:
+OSX:
     brew install rg
+Ubuntu:
     sudo apt-get install ripgrep
 ```
 
@@ -44,6 +45,8 @@ Install method depend on your os.
 ```bash
 ./install.sh
 ```
+
+9. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
 
 
 # Main features

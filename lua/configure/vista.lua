@@ -4,21 +4,22 @@ plugin.core = {
     "liuchengxu/vista.vim",
     as = "vista",
     setup = function()  -- Specifies code to run before this plugin is loaded.
-
-    end,
-
-    config = function() -- Specifies code to run after this plugin is loaded
-
         -- How each level is indented and what to prepend.
         -- This could make the display more compact or more spacious.
         -- e.g., more compact: ["▸ ", ""]
         -- Note: this option only works for the kind renderer, not the tree renderer.
-        --vim.g.vista_icon_indent = {"╰─▸ ", "├─▸ "}
-        vim.g.vista_icon_indent = {}
+        vim.g.vista_icon_indent = {"╰─▸ ", "├─▸ "}
 
         -- Executive used when opening vista sidebar without specifying it.
         -- See all the avaliable executives via `:echo g:vista#executives`.
         vim.g.vista_default_executive = 'coc'
+        vim.g.vista_executive_for = {
+            vimwiki = 'toc',
+            pandoc = 'toc',
+            markdown = 'toc'
+        }
+        vim.g.vista_vimwiki_executive = 'markdown'
+        vim.g.vista_markdown_executive = 'toc'
 
         -- Set the executive for some filetypes explicitly. Use the explicit executive
         -- instead of the default one for these filetypes when using `:Vista` without
@@ -32,10 +33,14 @@ plugin.core = {
         vim.g.vista_sidebar_width = 36
         vim.g.vista_disable_statusline = true
         --vim.g["vista#renderer#icons"] = {}
-        vim.g.vista_enable_markdown_extension = 0
+        vim.g.vista_enable_markdown_extension = 1
         vim.cmd([[
             let g:vista#renderer#icons = { "function": "  ", "functions": "  ", "variable": "  ", "variables": "  ", "maps": "  ", "members ": "  ", "classes": "  ", "autocommand groups": " 祐 "}
         ]])
+
+    end,
+
+    config = function() -- Specifies code to run after this plugin is loaded
 
     end,
 }
