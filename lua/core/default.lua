@@ -49,7 +49,6 @@ default_setting['opt'] = {
     number = true,
     --relativenumber = true,                    -- has moved to smarter_cursorline autocmd
     --
-    backupdir = "$XDG_DATA_HOME/nvim/backup/",  -- no backup inplace
     --fillchars = "fold:-,eob: ,vert: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     fillchars = "fold:-,eob: ,vert:▕,diff: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉"
