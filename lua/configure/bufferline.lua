@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     'akinsho/bufferline.nvim',
     requires = {{'kyazdani42/nvim-web-devicons'}},
-    
+
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
     end,

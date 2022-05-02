@@ -39,6 +39,7 @@ if FEATURE_GROUPS['org_my_life'] == true then
     plugins_configure.plugins_groups['org_my_life'] = {
         ['calendar'] = {disable=false},
         ['vimwiki'] = {disable=false},
+        ['markdown_code_edit'] = {disable=false},
         ['nabla'] = {disable=false},        -- for displya latex formulajbyuki/nabla.nvim
         ['clipboard_images'] = {disable=false},        -- for displya latex formulajbyuki/nabla.nvim
         ['table_mode'] = {disable=false},

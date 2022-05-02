@@ -5,6 +5,18 @@
 	"coc.preferences.messageLevel": "error",
     "list.signOffset": 900,
     "docker.enable": true,
+    "coc.source.omni.filetypes": ["org", "markdown", "vimwiki", "json"],
+    "coc.source.emoji.enable": true,
+    "coc.source.emoji.triggerCharacters": [
+        "="
+    ],
+    "coc.source.emoji.filetypes": [
+        "markdown",
+        "vimwiki",
+        "org",
+        "python",
+        "lua"
+    ],
 	"suggest.detailMaxLength": 50,
 	"suggest.noselect": false,
 	"suggest.enablePreselect": true,

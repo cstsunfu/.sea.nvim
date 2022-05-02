@@ -8,6 +8,12 @@ timer:start(3000, 0, vim.schedule_wrap(function()
         vim.cmd("hi! VertSplit ctermfg=black guifg=black")    --set VertSplit color to black
         vim.cmd("hi! StatusLine ctermfg=black guifg=black")   --set HSplit color to black
     end
+    if vim.g.colorscheme == 'nord'  then
+        vim.cmd("hi! clear Cursor")   --set HSplit color to black
+        vim.cmd("hi! Cursor guibg=#00aaaa")   --set HSplit color to black
+    end
+    --vim.cmd("highlight nCursor guifg='BrightRed'")
+    --vim.cmd("highlight nCursor guifg='BrightRed'")
     --hi VertSplit ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))   -- TODO if the above setting not work as espect, maybe these setting will work
     --hi VertSplit ctermbg=NONE guibg=dark
     --hi StatusLine ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))

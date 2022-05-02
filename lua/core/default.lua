@@ -47,6 +47,7 @@ global_func.augroup('empty_message', {
 
 default_setting['opt'] = {
     number = true,
+    guicursor = 'n-v:block-Cursor,i-ci-ve-c:ver25-Cursor', --block for normal visual mode, vertical for insert command mode. highlight set to Cursor
     --relativenumber = true,                    -- has moved to smarter_cursorline autocmd
     --
     --fillchars = "fold:-,eob: ,vert: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split

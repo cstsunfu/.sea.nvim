@@ -207,6 +207,7 @@ plugin.core = {
                 config_path = '$HOME/.emacs.d/init.el',
             },
         }
+        vim.cmd[[autocmd FileType org setlocal iskeyword+=:,#,+]]
     end,
 }
 
