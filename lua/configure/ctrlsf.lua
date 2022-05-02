@@ -8,7 +8,26 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-
+        vim.g.ctrlsf_mapping = {
+            chgmode = "M",
+            fzf = "",
+            loclist = "",
+            next = {"n", "N", 'gn'},
+            nfile = "gN",
+            open = { "<CR>", "<2-LeftMouse>" },
+            pfile = "gP",
+            openb = "o",
+            popen = "O",
+            popenf = "gO",
+            pquit = "q",
+            prev = {'P', "gp"},
+            quit = "q",
+            split = "<C-O>",
+            stop = "<C-C>",
+            tab = "t",
+            tabb = "T",
+            vsplit = ""
+        }
     end,
 
 }

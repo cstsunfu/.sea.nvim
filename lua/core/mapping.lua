@@ -30,7 +30,7 @@ local mapping_prefix = {
         ["<leader>m"] = {name = "+ Move"},
         ["<leader>o"] = {name = "+ Org"},
         ["<leader>p"] = {name = "+ Paste"},
-        ["<leader>q"] = {name = "+ Quick"},
+        ["<leader>q"] = {name = "+ Quit/QuickFix"},
         ["<leader>r"] = {name = "+ Read"},
         ["<leader>s"] = {name = "+ Snip/Save/CtrlSF/Space/Sign"},
         ["<leader>t"] = {name = "+ Table/Terminal/Translate/Tab"},
@@ -228,6 +228,21 @@ global_mapping.register({
         key = {"<leader>", "q", "w"},
         action = ':qaw<cr>',
         short_desc = "Directly Quit After Write"
+    })
+
+-- quickfix
+global_mapping.register({
+        mode = "n",
+        key = {"<leader>", "q", "p"},
+        action = ':cprevious<cr>',
+        short_desc = "QuickFix Previous Item"
+    })
+
+global_mapping.register({
+        mode = "n",
+        key = {"<leader>", "q", "n"},
+        action = ':cnext<cr>',
+        short_desc = "QuickFix Next Item"
     })
 
 -- read
