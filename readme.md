@@ -83,9 +83,6 @@ Install method depend on your os.
 TODO: detail
 
 
-
-
-
 ```
 
 .
