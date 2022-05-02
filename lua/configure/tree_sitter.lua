@@ -4,7 +4,6 @@ plugin.core = {
     "nvim-treesitter/nvim-treesitter",
     --as = "nvim-treesitter",
     run = ':TSUpdate',
-    branch = '0.5-compat', --FIXED: latest compate with 0.7.0, 'hjson'/'scheme'/"perl"/'make'/'norg'/"llvm" will support on newest branch
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
 
@@ -22,7 +21,7 @@ plugin.core = {
                 "css",
                 "dockerfile",
                 "go",
-                --"hjson",
+                "hjson",
                 "html",
                 "java",
                 "javascript",
@@ -32,15 +31,15 @@ plugin.core = {
                 "julia",
                 "latex",
                 "lua",
-                --"llvm",
-                --"make",
-                --"norg",
+                "llvm",
+                "make",
+                "norg",
                 "org",
-                --"perl",
+                "perl",
                 "python",
                 "regex",
                 "rust",
-                --"scheme",
+                "scheme",
                 "scss",
                 "toml",
                 "typescript",

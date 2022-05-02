@@ -6,7 +6,7 @@ plugin.core = {
     branch = 'release',
     setup = function()  -- Specifies code to run before this plugin is loaded.
         --vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-lua", 'coc-format-json', 'coc-dictionary', 'coc-word', 'coc-spell-checker'}
-        vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-sumneko-lua", 'coc-format-json', 'coc-calc', 'coc-vimlsp'}
+        vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-sumneko-lua", 'coc-format-json', 'coc-calc', 'coc-vimlsp', 'coc-omni'}
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -32,28 +32,35 @@ plugin.mapping = function()
         mode = "n",
         key = {"g", "d"},
         action = '<Plug>(coc-definition)',
-        short_desc = "goto definition",
+        short_desc = "Goto Definition",
         silent = false
     })
     mappings.register({
         mode = "n",
         key = {"g", "D"},
         action = '<Plug>(coc-declaration)',
-        short_desc = "goto declaration",
+        short_desc = "Goto Declaration",
         silent = false
     })
     mappings.register({
         mode = "n",
         key = {"g", "r"},
         action = '<Plug>(coc-references)',
-        short_desc = "goto references",
+        short_desc = "Goto References",
         silent = false
     })
     mappings.register({
         mode = "n",
         key = {"g", "i"},
         action = '<Plug>(coc-implementation)',
-        short_desc = "goto implementation",
+        short_desc = "Goto Implementation",
+        silent = false
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "r", "n"},
+        action = '<Plug>(coc-rename)',
+        short_desc = "Refactor Name",
         silent = false
     })
 

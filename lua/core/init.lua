@@ -1,5 +1,5 @@
 local theme_configs = require('core.themes')
-local theme_config = theme_configs.material_dark
+local theme_config = theme_configs.gruvbox_dark
 
 vim.g.colorscheme_name = theme_config.name
 vim.g.colorscheme = theme_config.colorscheme
