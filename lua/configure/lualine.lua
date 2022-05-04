@@ -82,6 +82,9 @@ plugin.core = {
                 return not_only_win_num() and vim.fn.winwidth(0) > 90
             end,
             active_add_wind_in_width = function() return not not_only_win_num() or vim.fn.winwidth(0) <= 90 end,
+            hide_location_in_width = function()
+                return not_only_win_num() and vim.fn.winwidth(0) > 80
+            end,
             buffer_not_empty_hide_size_in_width = function()
                 return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 70
             end,
@@ -237,7 +240,10 @@ plugin.core = {
             file_status = true, -- displays file status (readonly status, modified status)
         }
 
-        --ins_left_active {'location'}
+        ins_left_active {
+            'location',
+            cond=conditions.hide_location_in_width
+        }
 
         ins_left_active {'progress', color = {fg = colors.fg}, cond=conditions.hide_progress_in_width}
 

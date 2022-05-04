@@ -46,9 +46,10 @@ Install method depend on your os.
 ./install.sh
 ```
 
-9. You should also change the python3 path to your own in `init.lua`.
+9. Change the default global setting to your own in `lua/core/default.lua`.
 ```
-vim.g.python3_host_prog = 'you/python3/path'
+python3_host_prog = 'you/python3/path'
+global_proxy_port = 'http://you own proxy' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
 ```
 
 10. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.

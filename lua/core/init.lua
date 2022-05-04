@@ -1,12 +1,3 @@
-local theme_configs = require('core.themes')
-local theme_config = theme_configs.material_dark
-
-vim.g.colorscheme_name = theme_config.name
-vim.g.colorscheme = theme_config.colorscheme
-vim.g.style = theme_config.style
-
-vim.g.after_schedule_time_start = 500
-
 USE_COC = true
 FEATURE_GROUPS = {}
 FEATURE_GROUPS.default = true
