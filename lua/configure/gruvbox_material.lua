@@ -35,7 +35,7 @@ plugin.setup = function (style)
     end
     local timer = vim.loop.new_timer()
     vim.cmd("hi clear Search")
-    timer:start(500, 0, vim.schedule_wrap(function()
+    timer:start(vim.g.after_schedule_time_start+100, 0, vim.schedule_wrap(function()
         vim.cmd("hi clear Search")
         vim.cmd("hi! Search ctermfg=black ctermbg=142 guifg=Black guibg=#a9b665")
     end))

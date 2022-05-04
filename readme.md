@@ -46,8 +46,20 @@ Install method depend on your os.
 ./install.sh
 ```
 
-9. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
+9. You should also change the python3 path to your own in `init.lua`.
+```
+vim.g.python3_host_prog = 'you/python3/path'
+```
 
+10. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
+
+
+## More
+
+For getting the best performance, please use the GPU-based terminal:
+
+* [kitty](https://github.com/kovidgoyal/kitty)
+* [alacritty](https://github.com/jwilm/alacritty)
 
 # Main features
 ## Fuzzy Search

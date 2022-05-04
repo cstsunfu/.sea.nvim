@@ -37,7 +37,7 @@ plugin.setup = function (style)
     end
     onedark.load()
     local timer = vim.loop.new_timer()
-    timer:start(500, 0, vim.schedule_wrap(function()
+    timer:start(vim.g.after_schedule_time_start+100, 0, vim.schedule_wrap(function()
         vim.cmd("hi! default link NormalFloat Pmenu")
         vim.cmd("hi! default link WhichKeyFloat Pmenu")
         vim.cmd("hi FgCocWarningFloatBgCocFloating ctermfg=130 guibg=#434c5e ctermbg=13 guifg=#ff922b")

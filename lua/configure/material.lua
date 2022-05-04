@@ -46,10 +46,11 @@ plugin.setup = function (style)
         },
 
         contrast_filetypes = { -- Specify which filetypes get the contrasted (darker) background
-            "terminal", -- Darker terminal background
+            --"terminal", -- Darker terminal background
             "packer", -- Darker packer background
             "NvimTree",
-            --"vista",
+            "ctrlsf",
+            "vista",
             "qf" -- Darker qf list background
         },
 
@@ -59,7 +60,7 @@ plugin.setup = function (style)
         },
 
         disable = {
-            borders = false, -- Disable borders between verticaly split windows
+            borders = true, -- Disable borders between verticaly split windows
             background = false, -- Prevent the theme from setting the background (NeoVim then uses your teminal background)
             term_colors = false, -- Prevent the theme from setting terminal colors
             eob_lines = true -- Hide the end-of-buffer lines
@@ -88,16 +89,28 @@ plugin.setup = function (style)
     end
     vim.cmd 'colorscheme material'
     local timer = vim.loop.new_timer()
-    timer:start(500, 0, vim.schedule_wrap(function()
+    timer:start(vim.g.after_schedule_time_start+100, 0, vim.schedule_wrap(function()
         vim.cmd("hi! default link WhichKeyFloat Pmenu")
         vim.cmd("hi! default link NormalFloat Pmenu")
-        vim.cmd("hi! VertSplit ctermfg=black guifg=black")    --set VertSplit color to black
         vim.cmd("hi! StatusLine ctermfg=black guifg=black")   --set HSplit color to black
+        -- FIXME: material VertSplit not working https://github.com/marko-cerovac/material.nvim/issues/91
+        --vim.o.fillchars = "fold:-,eob: ,vert: ,diff: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+        --vim.cmd("hi! clear VertSplit")    set VertSplit color to black
+        --vim.cmd("hi! link VertSplit NormalContrast")    set VertSplit color to black
+
         vim.cmd("hi! DiffDelete guibg=#A6647A")
         vim.cmd("hi FgCocWarningFloatBgCocFloating ctermfg=130 guibg=#434c5e ctermbg=13 guifg=#ff922b")
         vim.cmd("hi FgCocErrorFloatBgCocFloating ctermfg=9 ctermbg=13 guibg=#434c5e guifg=#ff0000")
         vim.cmd("hi FgCocHintFloatBgCocFloating guibg=#434c5e ctermbg=13 ctermfg=11 guifg=#fab005")
     end))
+    local mappings = require('core.mapping')
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "c", "<tab>"},
+        action = ":lua require('material.functions').toggle_style()<cr>",
+        short_desc = "ColorStyle Exchange",
+        silent = true
+    })
 end
 
 return plugin

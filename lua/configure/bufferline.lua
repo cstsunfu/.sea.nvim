@@ -12,6 +12,12 @@ plugin.core = {
         vim.cmd("hi TAGBAR guifg=#009090")
         vim.cmd("hi NERDTREE guifg=#009090")
         vim.cmd('highlight IndentBlanklineChar guifg=#808080 gui=nocombine')
+        local padding_by_colorscheme = function ()
+            if vim.g.colorscheme == 'material' then
+                return 0
+            end
+            return 1
+        end
         require('bufferline').setup {
             highlights = {
                 indicator_selected = {
@@ -78,7 +84,7 @@ plugin.core = {
                     end
                 end,
                 --offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left" | "center" | "right"}},
-                offsets = {{filetype = "NvimTree", text = "▌        ✯File Explorer✯", text_align = "left", highlight = 'TAGBAR', padding=1}, {filetype = "vista", text = "✶Code Navigator✶", text_align = "center", highlight = 'TAGBAR', padding=1}},
+                offsets = {{filetype = "NvimTree", text = "▌        ✯File Explorer✯", text_align = "left", highlight = 'TAGBAR', padding=1}, {filetype = "vista", text = "✶Code Navigator✶", text_align = "center", highlight = 'TAGBAR', padding=padding_by_colorscheme()}},
                 --show_buffer_icons = true | false, -- disable filetype icons for buffers
                 show_buffer_icons = true, -- disable filetype icons for buffers
                 --show_buffer_close_icons = true | false,
