@@ -6,7 +6,19 @@ plugin.core = {
     branch = 'release',
     setup = function()  -- Specifies code to run before this plugin is loaded.
         --vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-lua", 'coc-format-json', 'coc-dictionary', 'coc-word', 'coc-spell-checker'}
-        vim.g['coc_global_extensions'] = {"coc-json", "coc-pyright", "coc-ultisnips", "coc-sumneko-lua", 'coc-format-json', 'coc-calc', 'coc-vimlsp', 'coc-omni'}
+        vim.g['coc_global_extensions'] = {
+            "coc-json",                           -- for coc config
+            "coc-pyright",                        -- for python
+            "coc-ultisnips",                      -- for ultisnips
+            "coc-sumneko-lua",                    -- for lua+neovim runtime
+            'coc-format-json',                    -- for json format
+            'coc-calc',                           -- for quick calc
+            'coc-vimlsp',                         -- for vimscript
+            'coc-omni',                           -- for omni source
+            'coc-sql',                            -- for sql
+            'coc-ltex',                           -- for grammar/spell check
+            --'coc-symbol-line',                           -- TODO: winbar for navigator the code, https://github.com/neovim/neovim/pull/17336
+        }
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded

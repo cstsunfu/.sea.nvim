@@ -35,7 +35,7 @@ plugin.setup = function (style)
         plugin.dark()
     end
     local timer = vim.loop.new_timer()
-    timer:start(500, 0, vim.schedule_wrap(function()
+    timer:start(vim.g.after_schedule_time_start+100, 0, vim.schedule_wrap(function()
         vim.cmd("hi! DiffDelete guibg=#A6647A")
     end))
 end

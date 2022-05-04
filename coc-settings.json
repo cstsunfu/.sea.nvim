@@ -17,6 +17,17 @@
         "python",
         "lua"
     ],
+    "sql.formatOptions":  {
+        "keywordCase": "upper",
+        "language": "sql",
+        "indent": "    ",
+        "keywordPosition": "tenSpaceLeft",
+        "aliasAs": "always",
+        "newlineBeforeOpenParen": false
+    },
+    "ltex.enabled":true, 
+    "ltex.language": "en",
+    "ltex.completionEnabled": true,
 	"suggest.detailMaxLength": 50,
 	"suggest.noselect": false,
 	"suggest.enablePreselect": true,

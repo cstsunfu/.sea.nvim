@@ -51,28 +51,58 @@ plugin.core = {
             gray = '#808080'
         }
 
+        local not_only_win_num = function()
+            local only_win_num_filetyps = {
+                ["NvimTree"] = true,
+                ["vista"] = true,
+                ["ctrlsf"] = true,
+            }
+            return not only_win_num_filetyps[vim.bo.filetype]
+        end
+
+        local buffer_not_empty = function()
+            return vim.fn.empty(vim.fn.expand('%:t', nil, nil)) ~= 1
+        end
+
         local conditions = {
-            buffer_not_empty = function() return vim.fn.empty(vim.fn.expand('%:t', nil, nil)) ~= 1 end,
             nest_active_file_name_in_width = function() return vim.fn.winwidth(0) > 140 end,
-            hide_encoding_in_width = function() return vim.fn.winwidth(vim.fn.winnr()) > 120 end,
+            hide_encoding_in_width = function()
+                return not_only_win_num() and vim.fn.winwidth(vim.fn.winnr()) > 120
+            end,
             check_git_workspace_hide_in_width = function()
                 local filepath = vim.fn.expand('%:p:h', nil, nil)
                 local gitdir = vim.fn.finddir('.git', filepath .. ';')
-                return gitdir and #gitdir > 0 and #gitdir < #filepath and vim.fn.winwidth(0) > 110
+                return not_only_win_num() and gitdir and #gitdir > 0 and #gitdir < #filepath and vim.fn.winwidth(0) > 110
             end,
-            hide_diagnostics_in_width = function() return vim.fn.winwidth(0) > 105 end,
+            hide_diagnostics_in_width = function()
+                return not_only_win_num() and vim.fn.winwidth(0) > 105
+            end,
             nest_project_prefix_in_width = function() return vim.fn.winwidth(0) > 100 end,
-            hide_project_in_width = function() return vim.fn.winwidth(0) > 90 end,
-            active_add_wind_in_width = function() return vim.fn.winwidth(0) <= 90 end,
-            buffer_not_empty_hide_size_in_width = function() 
-                return vim.fn.empty(vim.fn.expand('%:t', nil, nil)) ~= 1 and vim.fn.winwidth(vim.fn.winnr()) > 70
+            hide_project_in_width = function()
+                return not_only_win_num() and vim.fn.winwidth(0) > 90
             end,
-            hide_progress_in_width = function() return vim.fn.winwidth(0) > 60 end,
-            hide_pomodoro_in_width = function() return vim.fn.winwidth(0) > 55 end,
-            hide_clock_in_width = function() return vim.fn.winwidth(0) > 28 end,
-            buffer_not_empty_hide_file_in_width = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 and vim.fn.winwidth(0) > 40 end,
-            inactive_buffer_not_empty_hide_file_in_width = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 and vim.fn.winwidth(vim.fn.winnr()) > 25 end,
-            inactive_buffer_not_empty_nest_file_in_width = function() return vim.fn.empty(vim.fn.expand('%:t')) ~= 1 and vim.fn.winwidth(vim.fn.winnr()) > 40 end,
+            active_add_wind_in_width = function() return not not_only_win_num() or vim.fn.winwidth(0) <= 90 end,
+            buffer_not_empty_hide_size_in_width = function()
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 70
+            end,
+            hide_progress_in_width = function()
+                return not_only_win_num() and vim.fn.winwidth(0) > 60
+            end,
+            hide_pomodoro_in_width = function()
+                return not_only_win_num() and vim.fn.winwidth(0) > 55
+            end,
+            hide_clock_in_width = function()
+                return not_only_win_num() and vim.fn.winwidth(0) > 28
+            end,
+            buffer_not_empty_hide_file_in_width = function()
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(0) > 40
+            end,
+            inactive_buffer_not_empty_hide_file_in_width = function()
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 25 end,
+            inactive_buffer_not_empty_nest_file_in_width = function() return buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 40 end,
+            hide_status_indicate_in_width = function ()
+                return not_only_win_num() and vim.fn.winwidth(0) > 20
+            end
         }
 
         -- Config
@@ -89,7 +119,8 @@ plugin.core = {
                     --normal = {c = {fg = colors.fg, bg = colors.bg}},
                     --inactive = {c = {fg = colors.fg, bg = colors.bg}}
                 --},
-                disabled_filetypes = {'WhichKey', 'nofile', 'NvimTree', 'vista', 'packer'}
+                --disabled_filetypes = {'WhichKey', 'nofile', 'NvimTree', 'vista', 'packer'}
+                disabled_filetypes = {'WhichKey', 'nofile', 'packer'}
             },
             sections = {
                 -- these are to remove the defaults
@@ -127,7 +158,7 @@ plugin.core = {
         end
 
         ins_left_active {
-            function() return '▊' end,
+            function() return '▌' end, --'▌▊'
             color = {fg = colors.blue}, -- Sets highlighting of component
             padding = { left = 0 },
         }
@@ -166,6 +197,7 @@ plugin.core = {
             end,
             color = "LualineMode",
             padding = { left = 0 },
+            cond = conditions.hide_status_indicate_in_width
         }
 
         ins_left_active {
@@ -276,7 +308,7 @@ plugin.core = {
         ins_left_active {
             function()
                 local cur_winnr = vim.fn.winnr()
-                local win_display_list = {"❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾"}
+                local win_display_list = {" ❶ ", " ❷ ", " ❸ ", " ❹ ", " ❺ ", " ❻ ", " ❼ ", " ❽ ", " ❾ "}
                 if cur_winnr > #win_display_list then
                     return " "
                 end
@@ -379,7 +411,7 @@ plugin.core = {
 
         --▊ ▌▐,█
         ins_right_active {
-            function() return '█' end,
+            function() return '▐' end,  --█
             color = {fg = colors.blue},
             padding = { right = 0 },
         }
@@ -393,7 +425,7 @@ plugin.core = {
             insert_target(config.inactive_sections.lualine_x, component)
         end
         ins_left_inactive {
-            function() return '▊' end,
+            function() return '▌' end, --'▌▊'
             color = {fg = colors.gray}, -- Sets highlighting of component
             padding = { left = 0 },
         }
@@ -484,7 +516,7 @@ plugin.core = {
         }
 
         ins_right_inactive {
-            function() return '█' end,
+            function() return '▐' end,  --█
             color = {fg = colors.gray},
             padding = { right = -1 },
         }
