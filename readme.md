@@ -1,4 +1,4 @@
-![Dashboard](./pic/dashboard.png)
+![Startify](./pic/main.png)
 
 # Neovim Configure
 
@@ -62,12 +62,13 @@ For getting the best performance, please use the GPU-based terminal:
 * [kitty](https://github.com/kovidgoyal/kitty)
 * [alacritty](https://github.com/jwilm/alacritty)
 
-# Main features
+# Main features(Each figure may be displaied with different colorscheme.)
+
+## Complete/Nvim-Tree/Navigator
+![code_view_complete](./pic/code_view.png)
+
 ## Fuzzy Search
 ![Fuzzy Search](./pic/fuzzy_search.png)
-
-## Complete by Coc
-![Complete by Coc](./pic/complete.png)
 
 ## Agenda
 ![Agenda](./pic/orgmode.png)
@@ -78,22 +79,13 @@ For getting the best performance, please use the GPU-based terminal:
 ## Project TODO
 ![Project TODO](./pic/project_todo.png)
 
-## Code View & File View
-![Code View](./pic/code_view.png)
-
 ## Debug Adapter Protocol 
 ![Debug Adapter Protocol](./pic/debug_adapter_protocol.png)
 
 ## Pomodoro Clock 
 ![Pomodoro Clock](./pic/pomodoro.png)
 
-## Window Number 
-![Window Number](./pic/split_window.png)
-
-## WhichKey 
-![WhichKey](./pic/which_key.png)
-
-TODO: detail
+TODO: More detail
 
 
 ```
