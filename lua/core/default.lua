@@ -1,3 +1,17 @@
+local default_setting = {}
+
+local theme_configs = require('core.themes')
+local theme_config = theme_configs.material_oceanic
+
+default_setting['global'] = {
+    colorscheme_name = theme_config.name,
+    colorscheme = theme_config.colorscheme,
+    style = theme_config.style,
+    after_schedule_time_start = 500,
+    global_proxy_port = "http://127.0.0.1:7893",                    -- if no need this, change to nil
+    python3_host_prog = vim.g.HOME_PATH..'/anaconda3/bin/python3'   -- add to your own python3 path
+}
+
 -- setting map leader
 vim.cmd("let maplocalleader=','")
 vim.cmd("let mapleader=';'")
@@ -5,7 +19,6 @@ vim.cmd("nnoremap \\ ;")
 vim.cmd("vnoremap \\ ;")
 local global_func = require('util.global')
 
-default_setting = {}
 
 -- special setting
 
@@ -84,11 +97,6 @@ default_setting['opt'] = {
     --t_ut = " ",                               -- disable Backgroud color Erase（BCE）
     termguicolors = true,                       -- TODO
     colorcolumn = "99999"                       -- FIXED: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
-}
-
-default_setting['global'] = {
-    --python3_host_prog = '/usr/bin/python3'
-
 }
 
 for key, value in pairs(default_setting['opt']) do

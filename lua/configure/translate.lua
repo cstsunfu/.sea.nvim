@@ -9,6 +9,9 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+        if vim.g['global_proxy_port'] then
+            vim.g.translator_proxy_url = vim.g.global_proxy_port
+        end
     end,
 }
 

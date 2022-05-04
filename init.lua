@@ -1,16 +1,14 @@
-vim.g.HOME_PATH = ""
-
 if vim.fn.has('mac') == 1 then
     vim.g.HOME_PATH = "/Users/"..vim.fn.expand('$USER')
 elseif vim.fn.has('unix') == 1 then
     vim.g.HOME_PATH = "/home/"..vim.fn.expand("$USER")
 else
-    print("configure is only for mac or linux !")
+    print("configure is only for mac or linux or WSL !")
+    vim.g.HOME_PATH = " "
     return
 end
 vim.g.CONFIG = vim.g.HOME_PATH.."/.sea.nvim"
 vim.o.runtimepath = vim.o.runtimepath..","..vim.g.CONFIG
-vim.g.python3_host_prog = vim.g.HOME_PATH..'/anaconda3/bin/python3'
 
 local execute = vim.api.nvim_command
 local fn = vim.fn
