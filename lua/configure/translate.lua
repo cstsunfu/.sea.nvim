@@ -3,8 +3,8 @@ local plugin = {}
 plugin.core = {
     "voldikss/vim-translator",
     --as = "vim-translator",
-    --cmd = {'<Plug>TranslateW', '<Plug>TranslateWV'},
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    cmd = { '<Plug>TranslateW', '<Plug>TranslateWV' },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -19,7 +19,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "t", "w"},
+        key = { "<leader>", "t", "w" },
         action = '<Plug>TranslateW',
         short_desc = "Translate Current Word.",
         silent = true
@@ -27,7 +27,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "v",
-        key = {"<leader>", "t", "w"},
+        key = { "<leader>", "t", "w" },
         action = '<Plug>TranslateWV',
         short_desc = "Translate Current Vision Word.",
         silent = true
