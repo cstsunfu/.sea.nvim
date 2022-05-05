@@ -3,7 +3,8 @@ local plugin = {}
 plugin.core = {
     "dhruvasagar/vim-table-mode",
     --as = "vim-table-mode",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    ft = { "vimwiki", "markdown" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -15,7 +16,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "t", "m"},
+        key = { "<leader>", "t", "m" },
         action = ':TableModeToggle<cr>',
         short_desc = "Toggle Table Mode",
         silent = true

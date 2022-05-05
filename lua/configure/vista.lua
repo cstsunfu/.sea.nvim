@@ -3,12 +3,13 @@ local plugin = {}
 plugin.core = {
     "liuchengxu/vista.vim",
     as = "vista",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    cmd = { "Vista" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
         -- How each level is indented and what to prepend.
         -- This could make the display more compact or more spacious.
         -- e.g., more compact: ["▸ ", ""]
         -- Note: this option only works for the kind renderer, not the tree renderer.
-        vim.g.vista_icon_indent = {"╰─▸ ", "├─▸ "}
+        vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
 
         -- Executive used when opening vista sidebar without specifying it.
         -- See all the avaliable executives via `:echo g:vista#executives`.
@@ -49,7 +50,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "t", "l"},
+        key = { "<leader>", "t", "l" },
         action = ':Vista!!<cr>',
         short_desc = "Tag List",
         silent = true

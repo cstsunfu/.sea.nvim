@@ -3,7 +3,8 @@ local plugin = {}
 plugin.core = {
     "zenbro/mirror.vim",
     --as = "mirror.vim",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    cmd = { "MirrorEdit", "MirrorConfig" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -15,7 +16,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "r", "e"},
+        key = { "<leader>", "r", "e" },
         action = ':MirrorEdit<cr>',
         short_desc = "Remote Edit",
         silent = true
@@ -23,7 +24,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "r", "c"},
+        key = { "<leader>", "r", "c" },
         action = ':MirrorConfig<cr>',
         short_desc = "Remote Configure",
         silent = true

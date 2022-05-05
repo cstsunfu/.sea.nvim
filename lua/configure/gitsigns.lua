@@ -2,7 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "lewis6991/gitsigns.nvim",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    cmd = { "Gitsigns" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -61,7 +62,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "i"},
+        key = { "<leader>", "g", "i" },
         action = ":Gitsigns toggle_signs<cr>",
         short_desc = "Git Indicator Toggle",
         silent = true,

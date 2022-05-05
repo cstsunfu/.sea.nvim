@@ -7,7 +7,9 @@
     "docker.enable": true,
     "coc.preferences.formatOnSaveFiletypes": [
         "json",
-        "hjson"
+        "hjson",
+        "python",
+        "lua"
     ],
     "coc.source.omni.filetypes": [
         "org",

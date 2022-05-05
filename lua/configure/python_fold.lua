@@ -3,7 +3,8 @@ local plugin = {}
 plugin.core = {
     "eddiebergman/nvim-treesitter-pyfold",
     --as = "nvim-treesitter-pyfold",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    ft = { "python" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

@@ -2,8 +2,9 @@ local plugin = {}
 
 plugin.core = {
     "hjson/vim-hjson",
+    ft = { "hjson" },
     --as = "vim-hjson",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

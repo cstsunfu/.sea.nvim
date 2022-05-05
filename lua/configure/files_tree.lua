@@ -3,8 +3,9 @@ local plugin = {}
 plugin.core = {
     "kyazdani42/nvim-tree.lua",
     as = "nvim-tree",
+    on = { "NvimTreeToggle" },
     --requires = {"kyazdani42/nvim-web-devicons"},
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -20,7 +21,7 @@ plugin.core = {
         vim.g.nvim_tree_icon_padding = ' '
         --vim.g.nvim_tree_update_cwd = 1
         vim.g.nvim_tree_special_files = { ['Makefile'] = 1, ['MAKEFILE'] = 1 }
-        vim.g.nvim_tree_show_icons = { git = 1, folders = 1, files = 1, folder_arrows = 1}
+        vim.g.nvim_tree_show_icons = { git = 1, folders = 1, files = 1, folder_arrows = 1 }
 
         vim.g.nvim_tree_show_icons = {
             git = 0,
@@ -33,13 +34,13 @@ plugin.core = {
             symlink = '',
             hjson = '!',
             --git = {
-                --unstaged = "",
-                --staged = "",
-                --unmerged = "",
-                --renamed = "",
-                --untracked = "",
-                --deleted = "",
-                --ignored = ""
+            --unstaged = "",
+            --staged = "",
+            --unmerged = "",
+            --renamed = "",
+            --untracked = "",
+            --deleted = "",
+            --ignored = ""
             --},
             folder = {
                 arrow_open = "",
@@ -52,33 +53,33 @@ plugin.core = {
                 symlink_open = "",
             },
             --lsp = {
-                --hint = "",
-                --info = "",
-                --warning = "",
-                --['error'] = "",
+            --hint = "",
+            --info = "",
+            --warning = "",
+            --['error'] = "",
             --}
         }
 
         vim.cmd("highlight NvimTreeFolderIcon guifg=#0077aa")
         -- following options are the default
-        require'nvim-tree'.setup {
+        require 'nvim-tree'.setup {
             --nvim_tree_hide_dotfiles = 1,
             --nvim_tree_ignore = { '.git', 'node_modules', '.cache', '$XDG_DATA_HOME'},
             --nvim_tree_gitignore = 0,
             --nvim_tree_window_picker_exclude = {
-                --filetype = {'packer', 'qf'},
-                --buftype = {'terminal'}
+            --filetype = {'packer', 'qf'},
+            --buftype = {'terminal'}
             --},
             --nvim_tree_disable_window_picker = 1,
             --nvim_tree_quit_on_open = 1,
             -- disables netrw completely
-            disable_netrw       = true,
+            disable_netrw = true,
             -- hijack netrw window on startup
-            hijack_netrw        = true,
+            hijack_netrw  = true,
             -- open the tree when running this setup function
-            open_on_setup       = false,
-            -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
-            update_cwd          = true,
+            open_on_setup = false,
+            -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
+            update_cwd    = true,
 
             view = {
                 -- width of the window, can be either a number (columns) or a string in `%`
@@ -96,7 +97,7 @@ plugin.core = {
             },
             filters = {
                 dotfiles = false,
-                custom = {"$XDG_DATA_HOME", "__pycache__"},
+                custom = { "$XDG_DATA_HOME", "__pycache__" },
                 exclude = {},
             },
             git = {
@@ -122,7 +123,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "f", "t"},
+        key = { "<leader>", "f", "t" },
         action = ':NvimTreeToggle<cr>',
         short_desc = "File Tree",
         silent = true
