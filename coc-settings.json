@@ -8,7 +8,9 @@
     "coc.preferences.formatOnSaveFiletypes": [
         "json",
         "hjson",
-        "sql"
+        "sql",
+        "python",
+        "lua"
     ],
     "coc.source.omni.filetypes": [
         "org",

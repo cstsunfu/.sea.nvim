@@ -2,18 +2,19 @@ local plugin = {}
 
 plugin.core = {
     "lukas-reineke/headlines.nvim",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    ft = { "markdown", "vimwiki", "org" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
         --require("md-bullets").setup {
-            --symbols = {"", "", "✸", "✿", ""}
-                ------ or a function that receives the defaults and returns a list
-                ----symbols = function(default_list)
-                    ----table.insert(default_list, "♥")
-                    ----return default_list
-                ----end
+        --symbols = {"", "", "✸", "✿", ""}
+        ------ or a function that receives the defaults and returns a list
+        ----symbols = function(default_list)
+        ----table.insert(default_list, "♥")
+        ----return default_list
+        ----end
         --}
         require("headlines").setup {
             markdown = {
@@ -21,7 +22,7 @@ plugin.core = {
                 source_pattern_end = "^```$",
                 dash_pattern = "^---+$",
                 headline_pattern = "^#+",
-                headline_highlights = { "Headline1", "Headline2"},
+                headline_highlights = { "Headline1", "Headline2" },
                 codeblock_highlight = "CodeBlock",
                 dash_highlight = "Dash",
                 fat_headlines = true,
@@ -31,7 +32,7 @@ plugin.core = {
                 source_pattern_end = "^```$",
                 dash_pattern = "^---+$",
                 headline_pattern = "^#+",
-                headline_highlights = { "Headline1", "Headline2"},
+                headline_highlights = { "Headline1", "Headline2" },
                 codeblock_sign = "CodeBlock",
                 dash_highlight = "Dash",
                 fat_headlines = true,
@@ -41,7 +42,7 @@ plugin.core = {
                 source_pattern_end = "^}}}$",
                 dash_pattern = "^---+$",
                 headline_pattern = "^=+",
-                headline_highlights = { "Headline1", "Headline2"},
+                headline_highlights = { "Headline1", "Headline2" },
                 codeblock_highlight = "CodeBlock",
                 dash_highlight = "Dash",
                 fat_headlines = true,
@@ -51,7 +52,7 @@ plugin.core = {
                 source_pattern_end = "#%+[eE][nN][dD]_[sS][rR][cC]",
                 dash_pattern = "^-----+$",
                 headline_pattern = "^%*+",
-                headline_highlights = { "Headline1", "Headline2"},
+                headline_highlights = { "Headline1", "Headline2" },
                 codeblock_highlight = "CodeBlock",
                 dash_highlight = "Dash",
                 fat_headlines = true,

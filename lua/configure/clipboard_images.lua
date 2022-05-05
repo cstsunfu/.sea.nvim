@@ -2,18 +2,19 @@ local plugin = {}
 
 plugin.core = {
     "ekickx/clipboard-image.nvim",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    cmd = { "PasteImg" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require'clipboard-image'.setup {
+        require 'clipboard-image'.setup {
             -- Default configuration for all filetype
             default = {
                 img_dir = "img",
-                img_name = function() 
-                    --return os.date('%Y-%m-%d-%H-%M-%S') 
-                    
-                    return vim.fn.input('Image Name: ', '')..os.date("-%Y_%m_%d")
+                img_name = function()
+                    --return os.date('%Y-%m-%d-%H-%M-%S')
+
+                    return vim.fn.input('Image Name: ', '') .. os.date("-%Y_%m_%d")
                 end, -- Example result: "2021-04-13-10-04-18"
                 affix = "![](%s)"
             },
@@ -30,7 +31,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<localleader>", 'p'},
+        key = { "<localleader>", 'p' },
         action = ":PasteImg<cr>",
         short_desc = "Paste Image"
     })
