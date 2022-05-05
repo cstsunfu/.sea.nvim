@@ -3,7 +3,8 @@ local plugin = {}
 plugin.core = {
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    cmd = { "TodoTelescope" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -76,7 +77,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "t", "t"},
+        key = { "<leader>", "t", "t" },
         action = ':TodoTelescope<cr>',
         short_desc = "Toggle TODO List",
         silent = true

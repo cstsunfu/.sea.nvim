@@ -3,7 +3,8 @@ local plugin = {}
 plugin.core = {
     "folke/zen-mode.nvim",
     as = "zen-mode",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    cmd = { "ZenMode" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -20,7 +21,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "t", "o"},
+        key = { "<leader>", "t", "o" },
         action = ':ZenMode<cr>',
         short_desc = "Toggle Only Window(ZenMode)",
         silent = true

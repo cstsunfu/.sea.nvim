@@ -2,8 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "mfussenegger/nvim-dap-python",
-    
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    ft = { "python" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

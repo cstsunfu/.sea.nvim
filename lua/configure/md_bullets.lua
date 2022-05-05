@@ -3,18 +3,20 @@ local plugin = {}
 plugin.core = {
     "cstsunfu/md-bullets.nvim",
     as = "md-bullets",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+
+    ft = { "markdown", "vimwiki" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
         require("md-bullets").setup {
-            symbols = {"", "", "✸", "✿", ""}
-                ---- or a function that receives the defaults and returns a list
-                --symbols = function(default_list)
-                    --table.insert(default_list, "♥")
-                    --return default_list
-                --end
+            symbols = { "", "", "✸", "✿", "" }
+            ---- or a function that receives the defaults and returns a list
+            --symbols = function(default_list)
+            --table.insert(default_list, "♥")
+            --return default_list
+            --end
         }
         vim.cmd("hi MdHeadlineLevel1 guifg=#7388de")
         vim.cmd("hi MdHeadlineLevel2 guifg=#7388de")

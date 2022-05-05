@@ -3,7 +3,8 @@ local plugin = {}
 plugin.core = {
     "itchyny/calendar.vim",
     as = "calendar",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    cmd = { "Calendar" },
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -18,7 +19,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "o", "C"},
+        key = { "<leader>", "o", "C" },
         action = ':Calendar -view=week -first_day=monday -split=vertical -position=right <cr>',
         short_desc = "Calendar",
         silent = true

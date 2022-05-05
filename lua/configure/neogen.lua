@@ -3,8 +3,8 @@ local plugin = {}
 plugin.core = {
     "danymat/neogen",
 
-    after = {'nvim-treesitter'},
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    after = { 'nvim-treesitter' },
+    setup = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -22,9 +22,9 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "g", "a"},
+        key = { "<leader>", "g", "n" },
         action = ":lua require('neogen').generate()<cr>",
-        short_desc = "Generate Annotation",
+        short_desc = "Generate Note",
         noremap = true,
         silent = true,
     })
