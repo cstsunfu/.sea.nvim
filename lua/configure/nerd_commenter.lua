@@ -3,7 +3,6 @@ local plugin = {}
 plugin.core = {
     "preservim/nerdcommenter",
     --as = "nerdcommenter",
-    cmd = { "NERDCommenterAlignBoth", "NERDCommenterAltDelims", "NERDCommenterAppend", "NERDCommenterUncomment" },
     setup = function() -- Specifies code to run before this plugin is loaded.
         vim.g.NERDCreateDefaultMappings = 0
     end,
@@ -17,28 +16,28 @@ plugin.core = {
 plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
-        mode = "n",
+        mode = { "n", "v" },
         key = { "<leader>", "c", "c" },
         action = "<Plug>NERDCommenterAlignBoth",
         short_desc = "Comment",
         silent = true,
     })
     mappings.register({
-        mode = "n",
+        mode = { "n", "v" },
         key = { "<leader>", "c", "a" },
         action = "<Plug>NERDCommenterAltDelims",
         short_desc = "Comment Alt Format",
         silent = true,
     })
     mappings.register({
-        mode = "n",
+        mode = { "n", "v" },
         key = { "<leader>", "c", "A" },
         action = "<Plug>NERDCommenterAppend",
         short_desc = "Comment Append",
         silent = true,
     })
     mappings.register({
-        mode = "n",
+        mode = { "n", "v" },
         key = { "<leader>", "c", "u" },
         action = "<Plug>NERDCommenterUncomment",
         short_desc = "UnComment",
