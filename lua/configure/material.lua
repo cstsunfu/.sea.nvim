@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "marko-cerovac/material.nvim",
     as = "material",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -22,7 +22,7 @@ plugin.light = {
 plugin.dark = {
 
 }
-plugin.setup = function (style)
+plugin.setup = function(style)
 
     vim.cmd("packadd material")
 
@@ -50,6 +50,7 @@ plugin.setup = function (style)
             "packer", -- Darker packer background
             "NvimTree",
             "ctrlsf",
+            "calendar",
             "vista",
             "qf" -- Darker qf list background
         },
@@ -89,10 +90,10 @@ plugin.setup = function (style)
     end
     vim.cmd 'colorscheme material'
     local timer = vim.loop.new_timer()
-    timer:start(vim.g.after_schedule_time_start+100, 0, vim.schedule_wrap(function()
+    timer:start(vim.g.after_schedule_time_start + 100, 0, vim.schedule_wrap(function()
         vim.cmd("hi! default link WhichKeyFloat Pmenu")
         vim.cmd("hi! default link NormalFloat Pmenu")
-        vim.cmd("hi! StatusLine ctermfg=black guifg=black")   --set HSplit color to black
+        vim.cmd("hi! StatusLine ctermfg=black guifg=black") --set HSplit color to black
         -- FIXME: material VertSplit not working https://github.com/marko-cerovac/material.nvim/issues/91
         --vim.o.fillchars = "fold:-,eob: ,vert: ,diff: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
         --vim.cmd("hi! clear VertSplit")    set VertSplit color to black
@@ -106,7 +107,7 @@ plugin.setup = function (style)
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = {"<leader>", "c", "<tab>"},
+        key = { "<leader>", "c", "<tab>" },
         action = ":lua require('material.functions').toggle_style()<cr>",
         short_desc = "ColorStyle Exchange",
         silent = true

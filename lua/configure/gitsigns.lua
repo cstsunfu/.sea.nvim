@@ -2,7 +2,6 @@ local plugin = {}
 
 plugin.core = {
     "lewis6991/gitsigns.nvim",
-    cmd = { "Gitsigns" },
     setup = function() -- Specifies code to run before this plugin is loaded.
     end,
 
