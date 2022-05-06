@@ -13,7 +13,7 @@ plugin.core = {
         vim.cmd('highlight SpecsH guibg=#99ddee')
         require('specs').setup{ 
             show_jumps  = true,
-            min_jump = 2,
+            min_jump = 6,
             popup = {
                 delay_ms = 0, -- delay before popup displays
                 inc_ms = 8, -- time increments used for fade/resize effects 
