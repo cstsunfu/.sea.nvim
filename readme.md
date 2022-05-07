@@ -57,11 +57,23 @@ vim.g.global_proxy_port = 'http://127.0.1.1:7893' -- like "http://127.0.0.1:7893
 And some setting about me or very general for me put to `local.lua` like:
 
 ```
+vim.g.colorscheme_name = 'colorscheme+style name'   -- colorscheme should registed in core.themes
+vim.g.colorscheme = 'colorscheme name'
+vim.g.style = 'theme-style name'
+
 vim.g.python3_host_prog = vim.g.HOME_PATH .. '/anaconda3/bin/python3' -- add to your own python3 path
 vim.g.snips_author = 'Sun Fu'
 vim.g.snips_email = 'cstsunfu@gmail.com'
 vim.g.snips_github = 'https://github.com/cstsunfu'
 vim.g.snips_wechat = 'cstsunfu'
+```
+
+NOTE: The default leader is setting in `lua/core/default.lua`. The setting is 
+```
+let maplocalleader=','
+let mapleader=';'
+nnoremap \\ ;
+vnoremap \\ ;
 ```
 
 10. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
