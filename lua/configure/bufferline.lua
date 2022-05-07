@@ -2,9 +2,9 @@ local plugin = {}
 
 plugin.core = {
     'akinsho/bufferline.nvim',
-    requires = {{'kyazdani42/nvim-web-devicons'}},
+    requires = { { 'kyazdani42/nvim-web-devicons' } },
 
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -12,7 +12,7 @@ plugin.core = {
         vim.cmd("hi TAGBAR guifg=#009090")
         vim.cmd("hi NERDTREE guifg=#009090")
         vim.cmd('highlight IndentBlanklineChar guifg=#808080 gui=nocombine')
-        local padding_by_colorscheme = function ()
+        local padding_by_colorscheme = function()
             if vim.g.colorscheme == 'material' then
                 return 0
             end
@@ -33,10 +33,10 @@ plugin.core = {
                 themable = false,
                 --number_style = "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
                 --mappings = true | false,
-                close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
+                close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
                 right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-                left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
-                middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+                left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
+                middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
                 -- NOTE: this plugin is designed with this icon in mind,
                 -- and so changing this is NOT recommended, this is intended
                 -- as an escape hatch for people who cannot bear it for whatever reason
@@ -52,7 +52,7 @@ plugin.core = {
                 --- Please note some names can/will break the
                 --- bufferline so use this at your discretion knowing that it has
                 --- some limitations that will *NOT* be fixed.
-                name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
+                name_formatter = function(buf) -- buf contains a "name", "path" and "bufnr"
                     -- remove extension from markdown files for example
                     if buf.name:match('%.md') then
                         return vim.fn.fnamemodify(buf.name, ':t:r')
@@ -65,7 +65,7 @@ plugin.core = {
                 --diagnostics = false | "nvim_lsp",
                 diagnostics = false,
                 diagnostics_indicator = function(count, level, diagnostics_dict, context)
-                    return "("..count..")"
+                    return "(" .. count .. ")"
                 end,
                 -- NOTE: this will be called a lot so don't do any heavy processing here
                 custom_filter = function(buf_number)
@@ -84,7 +84,42 @@ plugin.core = {
                     end
                 end,
                 --offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left" | "center" | "right"}},
-                offsets = {{filetype = "NvimTree", text = "▌        ✯File Explorer✯", text_align = "left", highlight = 'TAGBAR', padding=1}, {filetype = "vista", text = "✶Code Navigator✶", text_align = "center", highlight = 'TAGBAR', padding=padding_by_colorscheme()}},
+                offsets = {
+                    {
+                        filetype = "NvimTree",
+                        text = "▌        ✯File Explorer✯",
+                        text_align = "left", highlight = 'TAGBAR',
+                        padding = 1
+                    },
+                    {
+                        filetype = "vista",
+                        text = "✶Code Navigator✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
+                        filetype = "vista_markdown",
+                        text = "✶Markdown Outline✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
+                        filetype = "undotree",
+                        text = "✶History✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
+                        filetype = "ctrlsf",
+                        text = "✶Finding Files✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                },
                 --show_buffer_icons = true | false, -- disable filetype icons for buffers
                 show_buffer_icons = true, -- disable filetype icons for buffers
                 --show_buffer_close_icons = true | false,
@@ -104,26 +139,26 @@ plugin.core = {
                 always_show_bufferline = true,
                 --sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
                 --sort_by = function(buffer_a, buffer_b)
-                    ---- add custom logic
-                    --local function bool_to_number(value, id)
-                        --if value then
-                            --return 100000 - id
-                        --else
-                            --return 0 - id
-                        --end
-                    --end
+                ---- add custom logic
+                --local function bool_to_number(value, id)
+                --if value then
+                --return 100000 - id
+                --else
+                --return 0 - id
+                --end
+                --end
 
-                    --return bool_to_number(buffer_a.modified, buffer_a.ordinal) > bool_to_number(buffer_b.modified, buffer_b.ordinal)
+                --return bool_to_number(buffer_a.modified, buffer_a.ordinal) > bool_to_number(buffer_b.modified, buffer_b.ordinal)
                 --end
             }
         }
         --local global_func = require('util.global')
         --global_func.augroup('Update Buffer Num', {
-            --{
-                --events = {'BufWritePre' },
-                --targets = {'*'},
-                --command = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)"
-            --},
+        --{
+        --events = {'BufWritePre' },
+        --targets = {'*'},
+        --command = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)"
+        --},
 
         --})
     end,
@@ -131,19 +166,19 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require('core.mapping')
-    for i=1,9,1 do
+    for i = 1, 9, 1 do
         mappings.register({
             mode = "n",
-            key = {"<leader>", tostring(i)},
-            action = "<Cmd>BufferLineGoToBuffer ".. tostring(i)..'<cr>',
-            short_desc = "Goto "..tostring(i).." Buffer",
+            key = { "<leader>", tostring(i) },
+            action = "<Cmd>BufferLineGoToBuffer " .. tostring(i) .. '<cr>',
+            short_desc = "Goto " .. tostring(i) .. " Buffer",
             noremap = true,
             silent = true,
         })
     end
     mappings.register({
         mode = "n",
-        key = {"<leader>", "b", "n"},
+        key = { "<leader>", "b", "n" },
         action = "<Cmd>BufferLineCycleNext<cr>",
         short_desc = "Goto Next Buffer",
         noremap = true,
@@ -151,7 +186,7 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "b", "p"},
+        key = { "<leader>", "b", "p" },
         action = "<Cmd>BufferLineCyclePrev<cr>",
         short_desc = "Goto Prev Buffer",
         noremap = true,
@@ -159,7 +194,7 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "b", "d"},
+        key = { "<leader>", "b", "d" },
         action = ":Bdelete<cr>",
         short_desc = "Delete Current Buffer"
     })
@@ -167,21 +202,21 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "b", "D"},
+        key = { "<leader>", "b", "D" },
         action = ":lua require('util.global').delete_all_buffers_in_window()<cr>",
         short_desc = "Delete All Buffer Except Current"
     })
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "b", "R"},
+        key = { "<leader>", "b", "R" },
         action = "<Cmd>BufferLineCloseRight<cr>",
         short_desc = "Delete All Right Buffers"
     })
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "b", "L"},
+        key = { "<leader>", "b", "L" },
         action = "<Cmd>BufferLineCloseLeft<cr>",
         short_desc = "Delete All Left Buffers"
     })
@@ -200,7 +235,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "b", "s"},
+        key = { "<leader>", "b", "s" },
         action = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)<cr>",
         short_desc = "Buffer Sorted By Whether Modified"
     })
@@ -208,31 +243,31 @@ plugin.mapping = function()
 
     -- tab
     mappings.register({
-            mode = "n",
-            key = {"<leader>", "t", "c"},
-            action = ':tabnew<cr>',
-            short_desc = "Tab Create"
-        })
+        mode = "n",
+        key = { "<leader>", "t", "c" },
+        action = ':tabnew<cr>',
+        short_desc = "Tab Create"
+    })
     mappings.register({
-            mode = "n",
-            key = {"<leader>", "t", "x"},
-            action = ':tabclose<cr>',
-            short_desc = "Tab Close"
-        })
+        mode = "n",
+        key = { "<leader>", "t", "x" },
+        action = ':tabclose<cr>',
+        short_desc = "Tab Close"
+    })
 
     mappings.register({
-            mode = "n",
-            key = {"<leader>", "t", "n"},
-            action = ':tabnext<cr>',
-            short_desc = "Tab Next"
-        })
+        mode = "n",
+        key = { "<leader>", "t", "n" },
+        action = ':tabnext<cr>',
+        short_desc = "Tab Next"
+    })
 
     mappings.register({
-            mode = "n",
-            key = {"<leader>", "t", "p"},
-            action = ':tabpre<cr>',
-            short_desc = "Tab Previous"
-        })
+        mode = "n",
+        key = { "<leader>", "t", "p" },
+        action = ':tabpre<cr>',
+        short_desc = "Tab Previous"
+    })
 end
 
 return plugin
