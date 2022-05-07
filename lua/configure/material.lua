@@ -51,7 +51,10 @@ plugin.setup = function(style)
             "NvimTree",
             "ctrlsf",
             "calendar",
+            "undotree",
+            "diff",
             "vista",
+            "vista_markdown",
             "qf" -- Darker qf list background
         },
 

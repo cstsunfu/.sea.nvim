@@ -9,7 +9,6 @@
         "json",
         "hjson",
         "sql",
-        "python",
         "lua"
     ],
     "coc.source.omni.filetypes": [

@@ -27,7 +27,7 @@ plugin.core = {
             {
                 events = { 'Filetype' },
                 targets = { 'vimwiki' },
-                command = "vnoremap <unique><silent> <leader><cr> :call VVimwiki_create_dir()<cr>"
+                command = "vnoremap <silent> <leader><cr> :call VVimwiki_create_dir()<cr>"
             },
             {
                 events = { 'Filetype' },
@@ -37,7 +37,7 @@ plugin.core = {
             {
                 events = { 'Filetype' },
                 targets = { 'vimwiki' },
-                command = "nnoremap <unique><silent> <leader><cr> :call NVimwiki_create_dir()<cr>"
+                command = "nnoremap <silent> <leader><cr> :call NVimwiki_create_dir()<cr>"
             },
             {
                 events = { 'Filetype' },
