@@ -1,15 +1,8 @@
 local default_setting = {}
 
-local theme_configs = require('core.themes')
-local theme_config = theme_configs.material_oceanic
 
 default_setting['global'] = {
-    colorscheme_name = theme_config.name,
-    colorscheme = theme_config.colorscheme,
-    style = theme_config.style,
     after_schedule_time_start = 500,
-    --global_proxy_port = "http://127.0.0.1:7893",                    -- if no need this, change to nil
-    python3_host_prog = vim.g.HOME_PATH .. '/anaconda3/bin/python3' -- add to your own python3 path
 }
 
 -- setting map leader
@@ -61,12 +54,10 @@ global_func.augroup('empty_message', {
 default_setting['opt'] = {
     number = true,
     guicursor = 'n-v:block-Cursor,i-ci-ve-c:ver25-Cursor', --block for normal visual mode, vertical for insert command mode. highlight set to Cursor
-    --relativenumber = true,                    -- has moved to smarter_cursorline autocmd
-    --
+    relativenumber = true,
     --fillchars = "fold:-,eob: ,vert: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     fillchars = "fold:-,eob: ,vert:▕,diff: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
-    --"│⎟⎜⎜⎢⎜▏▊▋▉"
-    --"▕  https://unicode-table.com/en
+    --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
     history = 10000, -- undo file history
     undofile = true, -- use undo file
     swapfile = false, -- use swap file
