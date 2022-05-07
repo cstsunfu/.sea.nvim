@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "nvim-lualine/lualine.nvim",
     as = "lualine",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -18,12 +18,12 @@ plugin.core = {
         end
 
         local lualine = require 'lualine'
-        local Path = require'plenary.path'
+        local Path = require 'plenary.path'
         local root = Path:new("/")
-        local root_patterns = {".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt"}
+        local root_patterns = { ".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt" }
         local home_path = Path:new(vim.g.HOME_PATH)
-        local custom_theme = require'lualine.themes.auto'
-        local global_fun = require'util.global'
+        local custom_theme = require 'lualine.themes.auto'
+        local global_fun = require 'util.global'
         if vim.g.colorscheme_name == 'material_light' then
             --custom_theme.normal.c.bg = '#e7e7e8'
             custom_theme.normal.c.fg = '#383653'
@@ -75,9 +75,9 @@ plugin.core = {
                 return not_only_win_num() and gitdir and #gitdir > 0 and #gitdir < #filepath and vim.fn.winwidth(0) > 110
             end,
             hide_diagnostics_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 105
+                return not_only_win_num() and vim.fn.winwidth(0) > 115
             end,
-            nest_project_prefix_in_width = function() return vim.fn.winwidth(0) > 100 end,
+            nest_project_prefix_in_width = function() return vim.fn.winwidth(0) > 110 end,
             hide_project_in_width = function()
                 return not_only_win_num() and vim.fn.winwidth(0) > 90
             end,
@@ -101,9 +101,10 @@ plugin.core = {
                 return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(0) > 40
             end,
             inactive_buffer_not_empty_hide_file_in_width = function()
-                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 25 end,
-            inactive_buffer_not_empty_nest_file_in_width = function() return buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 40 end,
-            hide_status_indicate_in_width = function ()
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 25
+            end,
+            inactive_buffer_not_empty_nest_file_in_width = function() return buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 60 end,
+            hide_status_indicate_in_width = function()
                 return not_only_win_num() and vim.fn.winwidth(0) > 20
             end
         }
@@ -116,14 +117,14 @@ plugin.core = {
                 theme = custom_theme,
                 section_separators = "",
                 --style = {
-                    ---- We are going to use lualine_c an lualine_x as left and
-                    ---- right section. Both are highlighted by c theme .  So we
-                    ---- are just setting default looks o statusline
-                    --normal = {c = {fg = colors.fg, bg = colors.bg}},
-                    --inactive = {c = {fg = colors.fg, bg = colors.bg}}
+                ---- We are going to use lualine_c an lualine_x as left and
+                ---- right section. Both are highlighted by c theme .  So we
+                ---- are just setting default looks o statusline
+                --normal = {c = {fg = colors.fg, bg = colors.bg}},
+                --inactive = {c = {fg = colors.fg, bg = colors.bg}}
                 --},
                 --disabled_filetypes = {'WhichKey', 'nofile', 'NvimTree', 'vista', 'packer'}
-                disabled_filetypes = {'WhichKey', 'nofile', 'packer'}
+                disabled_filetypes = { 'WhichKey', 'nofile', 'packer' }
             },
             sections = {
                 -- these are to remove the defaults
@@ -162,7 +163,7 @@ plugin.core = {
 
         ins_left_active {
             function() return '▌' end, --'▌▊'
-            color = {fg = colors.blue}, -- Sets highlighting of component
+            color = { fg = colors.blue }, -- Sets highlighting of component
             padding = { left = 0 },
         }
 
@@ -195,7 +196,7 @@ plugin.core = {
                     t = colors.red
                 }
                 vim.api.nvim_command(
-                'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
+                    'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
                 return '  '
             end,
             color = "LualineMode",
@@ -209,7 +210,7 @@ plugin.core = {
                 local function format_file_size(file)
                     local size = vim.fn.getfsize(file)
                     if size <= 0 then return '' end
-                    local sufixes = {'b', 'k', 'm', 'g'}
+                    local sufixes = { 'b', 'k', 'm', 'g' }
                     local i = 1
                     while size > 1024 do
                         size = size / 1024
@@ -217,6 +218,7 @@ plugin.core = {
                     end
                     return string.format('%.1f%s', size, sufixes[i])
                 end
+
                 local file = vim.fn.expand('%:p')
                 if string.len(file) == 0 then return '' end
                 return format_file_size(file)
@@ -230,28 +232,36 @@ plugin.core = {
                 local path = Path:new(fname)
                 local split_path = path:_split()
                 if not conditions.nest_active_file_name_in_width() then
-                    return vim.fn.expand('%')
+                    fname = vim.fn.expand('%')
+                    if string.len(fname) > 20 then
+                        fname = string.sub(fname, 1, 18) .. "..."
+                    end
+                    return fname
                 else
-                    return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
+                    fname = table.concat({ split_path[#split_path], vim.fn.expand('%') }, '/')
+                    if string.len(fname) > 30 then
+                        fname = string.sub(fname, 1, 28) .. "..."
+                    end
+                    return fname
                 end
             end,
             cond = conditions.buffer_not_empty_hide_file_in_width,
-            color = {fg = colors.magenta, gui = 'bold'},
+            color = { fg = colors.magenta, gui = 'bold' },
             file_status = true, -- displays file status (readonly status, modified status)
         }
 
         ins_left_active {
             'location',
-            cond=conditions.hide_location_in_width
+            cond = conditions.hide_location_in_width
         }
 
-        ins_left_active {'progress', color = {fg = colors.fg}, cond=conditions.hide_progress_in_width}
+        ins_left_active { 'progress', color = { fg = colors.fg }, cond = conditions.hide_progress_in_width }
 
         if USE_COC then
             ins_left_active {
                 'diagnostics',
-                sources = {'coc'},
-                symbols = {error = ' ', warn = ' ', info = ' '},
+                sources = { 'coc' },
+                symbols = { error = ' ', warn = ' ', info = ' ' },
                 diagnostics_color = {
                     error = { fg = colors.red },
                     warning = { fg = colors.yellow },
@@ -266,8 +276,8 @@ plugin.core = {
         else
             ins_left_active {
                 'diagnostics',
-                sources = {'nvim_lsp'},
-                symbols = {error = ' ', warn = ' ', info = ' '},
+                sources = { 'nvim_lsp' },
+                symbols = { error = ' ', warn = ' ', info = ' ' },
                 color_error = colors.red,
                 color_warn = colors.yellow,
                 color_info = colors.cyan,
@@ -276,7 +286,7 @@ plugin.core = {
         end
         -- Insert mid section. You can make any number of sections in neovim :)
         -- for lualine it's any number greater then 2
-        ins_left_active {function() return '%=' end}
+        ins_left_active { function() return '%=' end }
 
         ins_left_active {
             -- Lsp server name .
@@ -285,7 +295,7 @@ plugin.core = {
                 local path = Path:new(fname)
                 local project_name = nil
                 while (path.filename ~= home_path.filename) and (path.filename ~= root.filename) and (project_name == nil) do
-                    for _,pattern in ipairs(root_patterns) do
+                    for _, pattern in ipairs(root_patterns) do
                         if path:joinpath(pattern):exists() then
                             local split_path = path:_split()
                             project_name = split_path[#split_path]
@@ -297,50 +307,53 @@ plugin.core = {
 
                 local prefix = ''
                 if conditions.nest_project_prefix_in_width() then
-                    prefix =  "  Project: "
+                    prefix = "  Project: "
                 else
-                    prefix =  ""
+                    prefix = ""
                 end
                 if project_name ~= nil then
-                    return prefix..project_name
+                    if string.len(project_name) > 20 then
+                        project_name = string.sub(project_name, 1, 18) .. "..."
+                    end
+                    return prefix .. project_name
                 else
-                    return prefix.."THIS IS NOT A NORMAL PROJECT"
+                    return prefix .. "NOT A NORMAL PROJECT"
                 end
             end,
             icon = '',
-            color = {fg = colors.fg},
+            color = { fg = colors.fg },
             cond = conditions.hide_project_in_width
         }
         ins_left_active {
             function()
                 local cur_winnr = vim.fn.winnr()
-                local win_display_list = {" ❶ ", " ❷ ", " ❸ ", " ❹ ", " ❺ ", " ❻ ", " ❼ ", " ❽ ", " ❾ "}
+                local win_display_list = { " ❶ ", " ❷ ", " ❸ ", " ❹ ", " ❺ ", " ❻ ", " ❼ ", " ❽ ", " ❾ " }
                 if cur_winnr > #win_display_list then
                     return " "
                 end
                 return win_display_list[cur_winnr]
             end,
-            color = {fg = colors.blue, gui = 'bold'}, -- Sets highlighting of component
+            color = { fg = colors.blue, gui = 'bold' }, -- Sets highlighting of component
             padding = { left = 0 },
             cond = conditions.active_add_wind_in_width
         }
         --ins_left_active { INFO: buildin LSP status
-            ---- Lsp server name .
-            --function()
-                --local msg = 'No Active Lsp'
-                --local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-                --local clients = vim.lsp.get_active_clients()
-                --if next(clients) == nil then return msg end
-                --for _, client in ipairs(clients) do
-                    --local filetypes = client.config.filetypes
-                    --if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                        --return client.name
-                    --end
-                --end
-                --return msg
-            --end,
-            --icon = ' LSP:',
-            --color = {fg = '#dfffff', gui = 'bold'}
+        ---- Lsp server name .
+        --function()
+        --local msg = 'No Active Lsp'
+        --local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+        --local clients = vim.lsp.get_active_clients()
+        --if next(clients) == nil then return msg end
+        --for _, client in ipairs(clients) do
+        --local filetypes = client.config.filetypes
+        --if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+        --return client.name
+        --end
+        --end
+        --return msg
+        --end,
+        --icon = ' LSP:',
+        --color = {fg = '#dfffff', gui = 'bold'}
         --}
 
         -- Add components to right sections
@@ -349,11 +362,11 @@ plugin.core = {
             function()
                 local pomodoro = require('user.pomodoro')
                 local display = ""
-                display = display.."DONE "..tostring(pomodoro.finished_pomo).."*"
+                display = display .. "DONE " .. tostring(pomodoro.finished_pomo) .. "*"
                 return display
             end,
             icon = '',
-            color = {fg = colors.magenta},
+            color = { fg = colors.magenta },
             cond = conditions.hide_pomodoro_in_width
         }
 
@@ -362,12 +375,12 @@ plugin.core = {
                 local pomodoro = require('user.pomodoro')
                 local display = ""
                 if pomodoro.reserve then
-                    display = display.."  "..string.format("%d", (pomodoro.pomo_minites - pomodoro.reserve) / pomodoro.pomo_minites * 100).."%% "
+                    display = display .. "  " .. string.format("%d", (pomodoro.pomo_minites - pomodoro.reserve) / pomodoro.pomo_minites * 100) .. "%% "
                 end
                 return display
             end,
             icon = '',
-            color = {fg = colors.violet}
+            color = { fg = colors.violet }
         }
 
 
@@ -376,27 +389,27 @@ plugin.core = {
             'o:encoding', -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
             cond = conditions.hide_encoding_in_width,
-            color = {fg = colors.green, gui = 'bold'}
+            color = { fg = colors.green, gui = 'bold' }
         }
 
         --ins_right_active {
-            --'fileformat',
-            --fmt = string.upper,
-            --icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-            --color = {fg = colors.green, gui = 'bold'}
+        --'fileformat',
+        --fmt = string.upper,
+        --icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+        --color = {fg = colors.green, gui = 'bold'}
         --}
 
         ins_right_active {
             'branch',
             icon = '',
             cond = conditions.check_git_workspace_hide_in_width,
-            color = {fg = colors.violet, gui = 'bold'}
+            color = { fg = colors.violet, gui = 'bold' }
         }
 
         ins_right_active {
             'diff',
             -- Is it me or the symbol for modified us really weird
-            symbols = {added = ' ', modified = ' ', removed = ' '},
+            symbols = { added = ' ', modified = ' ', removed = ' ' },
             diff_color = {
                 added = { fg = colors.green },
                 modified = { fg = colors.orange },
@@ -408,17 +421,17 @@ plugin.core = {
             function()
                 local date = 'None date'
                 date = os.date("%H:%M")
-                return ' '..date
+                return ' ' .. date
             end,
             icon = '',
-            color = {fg = colors.yellow, gui = 'bold'},
+            color = { fg = colors.yellow, gui = 'bold' },
             cond = conditions.hide_clock_in_width
         }
 
         --▊ ▌▐,█
         ins_right_active {
-            function() return '▐' end,  --█
-            color = {fg = colors.blue},
+            function() return '▐' end, --█
+            color = { fg = colors.blue },
             padding = { right = 0 },
         }
         -- Inserts a component in lualine_c at left section
@@ -430,9 +443,10 @@ plugin.core = {
         local function ins_right_inactive(component)
             insert_target(config.inactive_sections.lualine_x, component)
         end
+
         ins_left_inactive {
             function() return '▌' end, --'▌▊'
-            color = {fg = colors.gray}, -- Sets highlighting of component
+            color = { fg = colors.gray }, -- Sets highlighting of component
             padding = { left = 0 },
         }
         ins_left_inactive {
@@ -441,7 +455,7 @@ plugin.core = {
                 local function format_file_size(file)
                     local size = vim.fn.getfsize(file)
                     if size <= 0 then return '' end
-                    local sufixes = {'b', 'k', 'm', 'g'}
+                    local sufixes = { 'b', 'k', 'm', 'g' }
                     local i = 1
                     while size > 1024 do
                         size = size / 1024
@@ -449,12 +463,13 @@ plugin.core = {
                     end
                     return string.format('%.1f%s', size, sufixes[i])
                 end
+
                 local file = vim.fn.expand('%:p', nil, nil)
                 if string.len(file) == 0 then return '' end
                 return format_file_size(file)
             end,
             cond = conditions.buffer_not_empty_hide_size_in_width,
-            color = {fg = colors.inactive}, -- Sets highlighting of component
+            color = { fg = colors.inactive }, -- Sets highlighting of component
         }
 
 
@@ -466,25 +481,25 @@ plugin.core = {
                 if conditions.inactive_buffer_not_empty_nest_file_in_width then
                     return vim.fn.expand('%')
                 else
-                    return table.concat({split_path[#split_path], vim.fn.expand('%')}, '/')
+                    return table.concat({ split_path[#split_path], vim.fn.expand('%') }, '/')
                 end
             end,
             cond = conditions.inactive_buffer_not_empty_hide_file_in_width,
-            color = {fg = colors.inactive, gui = 'bold'},
+            color = { fg = colors.inactive, gui = 'bold' },
             file_status = true, -- displays file status (readonly status, modified status)
         }
-        ins_left_inactive {function() return '%=' end}
+        ins_left_inactive { function() return '%=' end }
 
         ins_left_inactive {
             function()
                 local cur_winnr = vim.fn.winnr()
-                local win_display_list = {"❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾"}
+                local win_display_list = { "❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾" }
                 if cur_winnr > #win_display_list then
                     return " "
                 end
                 return win_display_list[cur_winnr]
             end,
-            color = {fg = colors.blue, gui = 'bold'}, -- Sets highlighting of component
+            color = { fg = colors.blue, gui = 'bold' }, -- Sets highlighting of component
             padding = { left = 0 },
         }
         -- Add components to right sections
@@ -492,27 +507,27 @@ plugin.core = {
             'o:encoding', -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
             cond = conditions.hide_encoding_in_width,
-            color = {fg = colors.inactive, gui = 'bold'}
+            color = { fg = colors.inactive, gui = 'bold' }
         }
 
         --ins_right_inactive {
-            --'fileformat',
-            --fmt = string.upper,
-            --icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-            --color = {fg = colors.inactive, gui = 'bold'}
+        --'fileformat',
+        --fmt = string.upper,
+        --icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+        --color = {fg = colors.inactive, gui = 'bold'}
         --}
 
         ins_right_inactive {
             'branch',
             icon = '',
             cond = conditions.check_git_workspace_hide_in_width,
-            color = {fg = colors.inactive, gui = 'bold'}
+            color = { fg = colors.inactive, gui = 'bold' }
         }
 
         ins_right_inactive {
             'diff',
             -- Is it me or the symbol for modified us really weird
-            symbols = {added = ' ', modified = ' ', removed = ' '},
+            symbols = { added = ' ', modified = ' ', removed = ' ' },
             diff_color = {
                 added = { fg = colors.inactive },
                 modified = { fg = colors.inactive },
@@ -522,8 +537,8 @@ plugin.core = {
         }
 
         ins_right_inactive {
-            function() return '▐' end,  --█
-            color = {fg = colors.gray},
+            function() return '▐' end, --█
+            color = { fg = colors.gray },
             padding = { right = -1 },
         }
 
@@ -537,7 +552,7 @@ plugin.core = {
 
         --local fix_statusline_hl_timer = vim.loop.new_timer()
         --fix_statusline_hl_timer:start(1500, 0, vim.schedule_wrap(function()
-            --vim.cmd("hi StatusLine guibg="..colors.blue)
+        --vim.cmd("hi StatusLine guibg="..colors.blue)
         --end))
     end,
 }
@@ -545,12 +560,12 @@ plugin.core = {
 plugin.mapping = function()
 
     local mappings = require('core.mapping')
-    for i=1,9,1 do
+    for i = 1, 9, 1 do
         mappings.register({
             mode = "n",
-            key = {"<localleader>", tostring(i)},
-            action = tostring(i)..'<c-w><c-w>',
-            short_desc = "Goto "..tostring(i).." Window",
+            key = { "<localleader>", tostring(i) },
+            action = tostring(i) .. '<c-w><c-w>',
+            short_desc = "Goto " .. tostring(i) .. " Window",
             noremap = true,
             silent = true,
         })
