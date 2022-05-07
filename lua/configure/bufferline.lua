@@ -99,6 +99,13 @@ plugin.core = {
                         padding = padding_by_colorscheme()
                     },
                     {
+                        filetype = "vista_markdown",
+                        text = "✶Markdown Outline✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
                         filetype = "undotree",
                         text = "✶History✶",
                         text_align = "center",

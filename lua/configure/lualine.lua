@@ -55,6 +55,7 @@ plugin.core = {
             local only_win_num_filetyps = {
                 ["NvimTree"] = true,
                 ["vista"] = true,
+                ["vista_markdown"] = true,
                 ["ctrlsf"] = true,
                 ["undotree"] = true,
                 ["diff"] = true,
