@@ -3,7 +3,6 @@ local plugin = {}
 plugin.core = {
     "zenbro/mirror.vim",
     --as = "mirror.vim",
-    cmd = { "MirrorEdit", "MirrorConfig" },
     setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
