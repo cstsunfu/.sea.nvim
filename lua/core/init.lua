@@ -19,11 +19,11 @@ FEATURE_GROUPS.git = true
 
 require('core.default')
 require('core.plugins').setup()
-require('user').setup({pomodoro={dir_path=vim.g.HOME_PATH..'/org/pomodoro/'}})
+require('hack').setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. '/org/pomodoro/' } })
 
 require('core.plugins').create_mapping()
-require('user').create_mapping()
+require('hack').create_mapping()
 require('core.mapping').setup()
-require("configure."..vim.g.colorscheme).setup(vim.g.theme)
+require("configure." .. vim.g.colorscheme).setup(vim.g.theme)
 
 require('core.after')
