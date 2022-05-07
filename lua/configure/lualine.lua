@@ -56,6 +56,8 @@ plugin.core = {
                 ["NvimTree"] = true,
                 ["vista"] = true,
                 ["ctrlsf"] = true,
+                ["undotree"] = true,
+                ["diff"] = true,
             }
             return not only_win_num_filetyps[vim.bo.filetype]
         end
