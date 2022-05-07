@@ -54,6 +54,7 @@ plugin.setup = function(style)
             "undotree",
             "diff",
             "vista",
+            "vista_markdown",
             "qf" -- Darker qf list background
         },
 
