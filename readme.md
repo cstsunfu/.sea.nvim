@@ -46,10 +46,22 @@ Install method depend on your os.
 ./install.sh
 ```
 
-9. Change the default global setting to your own in `lua/core/default.lua`.
+9. User related setting in `lua/local.lua` and `lua/user.lua`.
+
+Setting in `local.lua`  will not be indexed by git and `user.lua` will be.
+
+My own setting example in `local.lua` is:
 ```
-python3_host_prog = 'you/python3/path'
-global_proxy_port = 'http://you own proxy' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
+vim.g.global_proxy_port = 'http://127.0.1.1:7893' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
+```
+And some setting about me or very general for me put to `local.lua` like:
+
+```
+vim.g.python3_host_prog = vim.g.HOME_PATH .. '/anaconda3/bin/python3' -- add to your own python3 path
+vim.g.snips_author = 'Sun Fu'
+vim.g.snips_email = 'cstsunfu@gmail.com'
+vim.g.snips_github = 'https://github.com/cstsunfu'
+vim.g.snips_wechat = 'cstsunfu'
 ```
 
 10. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
@@ -89,30 +101,35 @@ TODO: More detail
 
 
 ```
-
 .
 ├── coc-settings.json         -- coc lsp 设置，也可选内置LSP
+├── compiler                  -- 编译相关配置
+│   └── python.vim
 ├── ftplugin                  -- 和原来的vim script一样，根据文件类型加载模块                  
-│   ├── python.vim            --                         
+│   ├── lua.lua               
+│   ├── python.lua            --                         
 │   └── vimwiki.vim           --                          
 ├── init.lua                  -- neovim配置文件入口                  
-├── lua                       -- lua 相关                 
-│   ├── configure             -- 每个插件一个配置文件                       
-│   │   ├── coc.lua           --                          
-│   │   ├── ....              --                       
+├── init.lua
+├── install.sh
+├── lua
+│   ├── configure
 │   ├── core                  -- 核心模块                 
 │   │   ├── after.lua         -- 后处理模块                    
 │   │   ├── default.lua       -- 默认设置模块                             
 │   │   ├── init.lua          -- 核心加载逻辑模块                         
 │   │   ├── mapping.lua       -- 快捷键注册模块                             
-│   │   └── plugins.lua       -- 插件加载模块                             
-│   ├── user                  -- 用户自定义模块                 
-│   │   ├── init.lua          --                           
-│   │   └── pomodoro.lua      --                              
+│   │   ├── plugins.lua       -- 插件加载模块                             
+│   │   └── themes.lua        -- 常用主题
+│   ├── hack                  -- 用户自定义模块，插件半成品
+│   │   ├── init.lua
+│   │   └── pomodoro.lua
+│   ├── local.lua             -- 机器相关配置，如代理等，不被git管理
+│   ├── user.lua              -- 用户相关配置，如邮箱，姓名等，希望被git管理的配置放到user.lua里面，不希望被管理的用户相关的配置放到local里面
 │   └── util                  -- 其他工具                  
 │       ├── global.lua        -- 全局函数                            
 │       ├── json.lua          -- json读写相关                          
 │       └── path.lua          -- 路径读写相关                          
 └── tasks.ini                 -- 任务定义                   
-                              
+
 ```

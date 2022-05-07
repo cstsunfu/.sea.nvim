@@ -4,7 +4,6 @@ plugin.core = {
     "Chandlercjy/vim-markdown-edit-code-block",
 
     ft = { "markdown", "vimwiki" },
-    cmd = { "MarkdownEditBlock" },
     setup = function() -- Specifies code to run before this plugin is loaded.
     end,
 

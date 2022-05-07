@@ -37,9 +37,15 @@ plugin.core = {
                 key_labels = {
                     -- override the label used to display some keys. It doesn't effect WK in any other way.
                     -- For example:
-                    -- ["<space>"] = "SPC",
-                    -- ["<cr>"] = "RET",
-                    -- ["<tab>"] = "TAB",
+                    ["<space>"] = "SPC",
+                    ["<Space>"] = "SPC",
+                    ["<SPACE>"] = "SPC",
+                    ["<cr>"] = "RET",
+                    ["<Cr>"] = "RET",
+                    ["<CR>"] = "RET",
+                    ["<tab>"] = "TAB",
+                    ["<Tab>"] = "TAB",
+                    ["<TAB>"] = "TAB",
                 },
                 icons = {
                     breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
@@ -67,7 +73,7 @@ plugin.core = {
                     -- list of mode / prefixes that should never be hooked by WhichKey
                     -- this is mostly relevant for key maps that start with a native binding
                     -- most people should not need to change this
-                    i = { "j", "k" },
+                    i = { "j", "k", ",", ";", " " },
                     v = { "j", "k" },
                     s = { "j", "k" },
                     c = { "j", "k" },
