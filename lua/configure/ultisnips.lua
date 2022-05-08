@@ -3,7 +3,7 @@ plugin.core = {
     "SirVer/ultisnips",
     --as = "ultisnips",
     setup = function() -- Specifies code to run before this plugin is loaded.
-        vim.g.UltiSnipsExpandTrigger = "<leader><tab>"
+        vim.g.UltiSnipsExpandTrigger = "<C-j>"
         vim.g.UltiSnipsEditSplit = 'vertical'
     end,
 

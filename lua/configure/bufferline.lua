@@ -92,6 +92,12 @@ plugin.core = {
                         padding = 1
                     },
                     {
+                        filetype = "toggleterm",
+                        text = "▌        ✯Terminal✯",
+                        text_align = "left", highlight = 'TAGBAR',
+                        padding = 1
+                    },
+                    {
                         filetype = "vista",
                         text = "✶Code Navigator✶",
                         text_align = "center",
@@ -115,6 +121,34 @@ plugin.core = {
                     {
                         filetype = "ctrlsf",
                         text = "✶Finding Files✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
+                        filetype = "dapui_stacks",
+                        text = "✶DEBUG✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
+                        filetype = "dapui_breakpoints",
+                        text = "✶DEBUG✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
+                        filetype = "dapui_watches",
+                        text = "✶DEBUG✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
+                        filetype = "dapui_scopes",
+                        text = "✶DEBUG✶",
                         text_align = "center",
                         highlight = 'TAGBAR',
                         padding = padding_by_colorscheme()

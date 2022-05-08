@@ -17,7 +17,9 @@ FEATURE_GROUPS.enhance = true
 FEATURE_GROUPS.git = true
 
 
+pcall(require, "core.local") -- local maybe not exists
 require('core.default')
+require('core.user')
 require('core.plugins').setup()
 require('hack').setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. '/org/pomodoro/' } })
 

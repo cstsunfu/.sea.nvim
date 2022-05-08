@@ -164,6 +164,18 @@ global_mapping.register = function(new_map)
 
 end
 
+global_mapping.register({
+    mode = "i",
+    key = { vim.g.mapleader },
+    action = vim.g.mapleader,
+})
+
+global_mapping.register({
+    mode = "i",
+    key = { vim.g.maplocalleader },
+    action = vim.g.maplocalleader,
+})
+
 -- common mappings
 global_mapping.register({
     mode = "x",

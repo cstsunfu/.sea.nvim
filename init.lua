@@ -34,6 +34,4 @@ packer.init {
     }
 }
 
-require("user")
-require("local")
 require("core")
