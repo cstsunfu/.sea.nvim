@@ -59,6 +59,10 @@ plugin.core = {
                 ["ctrlsf"] = true,
                 ["undotree"] = true,
                 ["diff"] = true,
+                ["dapui_stacks"] = true,
+                ["dapui_breakpoints"] = true,
+                ["dapui_watches"] = true,
+                ["dapui_scopes"] = true,
             }
             return not only_win_num_filetyps[vim.bo.filetype]
         end
@@ -66,8 +70,16 @@ plugin.core = {
         local buffer_not_empty = function()
             return vim.fn.empty(vim.fn.expand('%:t', nil, nil)) ~= 1
         end
-
+        local dap_ui_map = { -- dapui
+            ["dapui_stacks"] = "Stack",
+            ["dapui_breakpoints"] = "BreakPoint",
+            ["dapui_watches"] = "Watch",
+            ["dapui_scopes"] = "Scope",
+        }
         local conditions = {
+            dapui_condition = function() -- dapui
+                return dap_ui_map[vim.bo.filetype] ~= nil and vim.fn.winwidth(vim.fn.winnr()) > 30
+            end,
             nest_active_file_name_in_width = function() return vim.fn.winwidth(0) > 140 end,
             hide_encoding_in_width = function()
                 return not_only_win_num() and vim.fn.winwidth(vim.fn.winnr()) > 120
@@ -227,6 +239,14 @@ plugin.core = {
                 return format_file_size(file)
             end,
             cond = conditions.buffer_not_empty_hide_size_in_width
+        }
+
+        ins_left_active {
+            function()
+                return string.format("%-10s", dap_ui_map[vim.bo.filetype])
+            end,
+            cond = conditions.dapui_condition,
+            color = { fg = colors.blue, gui = 'bold' },
         }
 
         ins_left_active {
@@ -491,6 +511,15 @@ plugin.core = {
             color = { fg = colors.inactive, gui = 'bold' },
             file_status = true, -- displays file status (readonly status, modified status)
         }
+
+        ins_left_inactive { -- dapui
+            function()
+                return string.format("%-10s", dap_ui_map[vim.bo.filetype])
+            end,
+            cond = conditions.dapui_condition,
+            color = { fg = colors.inactive, gui = 'bold' },
+        }
+
         ins_left_inactive { function() return '%=' end }
 
         ins_left_inactive {

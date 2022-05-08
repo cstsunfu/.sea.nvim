@@ -1,10 +1,10 @@
 -- there are some my favor colorschemes
--- set in init.lua
-local theme_configs = {
+local themes = {}
+themes['configs'] = {
     one_light = {
         colorscheme = 'onedarkpro',
         style = 'light',
-        name ='one_light'
+        name = 'one_light'
     },
     gruvbox_dark = {
         colorscheme = 'gruvbox_material',
@@ -47,4 +47,12 @@ local theme_configs = {
         name = 'vscode_dark'
     },
 }
-return theme_configs
+
+themes['setting'] = function(theme_config)
+    vim.g.colorscheme_name = theme_config.name
+    vim.g.colorscheme = theme_config.colorscheme
+    vim.g.style = theme_config.style
+end
+
+
+return themes

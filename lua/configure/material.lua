@@ -52,8 +52,13 @@ plugin.setup = function(style)
             "ctrlsf",
             "calendar",
             "undotree",
+            "toggleterm",
             "diff",
             "vista",
+            "dapui_stacks",
+            "dapui_breakpoints",
+            "dapui_watches",
+            "dapui_scopes",
             "vista_markdown",
             "qf" -- Darker qf list background
         },

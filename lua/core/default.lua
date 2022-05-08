@@ -17,6 +17,13 @@ local global_func = require('util.global')
 
 vim.cmd("hi CursorLine term=bold cterm=bold guibg=Grey40") -- cursorline color
 
+vim.g.no_number_filetypes = {
+    dapui_stacks = true,
+    dapui_breakpoints = true,
+    dapui_watches = true,
+    dapui_scopes = true
+}
+
 global_func.augroup('smarter_cursorline', {
     {
         events = { 'InsertLeave', 'WinEnter', 'VimEnter', 'BufEnter', 'BufWinEnter', 'BufNew' },
@@ -36,9 +43,9 @@ global_func.augroup('smarter_cursorline', {
     {
         events = { 'InsertLeave' },
         targets = { '*' },
-        command = "set relativenumber"
+        --command = [[ if index(['dapui_stacks','dapui_breakpoints', 'dapui_watches', 'dapui_scopes'], &ft)<0 | set relativenumber | endif ]]
+        command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil then vim.o.relativenumber = true end ]]
     },
-
 })
 
 global_func.augroup('empty_message', {
