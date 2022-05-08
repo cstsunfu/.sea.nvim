@@ -20,7 +20,7 @@ plugin.core = {
         local lualine = require 'lualine'
         local Path = require 'plenary.path'
         local root = Path:new("/")
-        local root_patterns = { ".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt" }
+        local root_patterns = { ".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt", ".svn", ".root", ".project", ".hg" }
         local home_path = Path:new(vim.g.HOME_PATH)
         local custom_theme = require 'lualine.themes.auto'
         local global_fun = require 'util.global'
@@ -312,7 +312,7 @@ plugin.core = {
         ins_left_active { function() return '%=' end }
 
         ins_left_active {
-            -- Lsp server name .
+            -- Project name .
             function()
                 local fname = vim.fn.getcwd()
                 local path = Path:new(fname)
