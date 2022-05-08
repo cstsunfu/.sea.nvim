@@ -66,8 +66,6 @@ plugin.core = {
             },
             windows = { indent = 1 },
         })
-        vim.cmd([[autocmd filetype dapui_stacks,dapui_breakpoints,dapui_watches,dapui_scopes setlocal norelativenumber]])
-        vim.cmd([[autocmd filetype dapui_stacks,dapui_breakpoints,dapui_watches,dapui_scopes setlocal nonumber]])
     end,
 
 }
@@ -79,7 +77,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "q" },
         action = ":lua require'dapui'.close()<cr> :lua require('dap').disconnect()<cr> :lua require('dap').close()<cr><cr> :lua require('dap').repl.close()<cr>",
-        short_desc = "Debug Quit(F2)",
+        short_desc = string.format("%-15s", "Debug Quit") .. "F2",
         silent = true
     })
 
@@ -96,7 +94,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "C" },
         action = ":lua require'dap'.clear_breakpoints()<cr>",
-        short_desc = "Debug Clear Breakpoint(F4)",
+        short_desc = string.format("%-15s", "Clear Breaks") .. "F4",
         silent = true
     })
 
@@ -104,7 +102,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F4>" },
         action = ":lua require'dap'.clear_breakpoints()<cr>",
-        short_desc = "Debug Clear Breakpoint(F4)",
+        short_desc = "Clear Breaks",
         silent = true
     })
 
@@ -113,7 +111,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "c" },
         action = ":lua require'dap'.continue()<cr>",
-        short_desc = "Debug Continue",
+        short_desc = string.format("%-15s", "Run Continue") .. "F5",
         silent = true
     })
 
@@ -121,7 +119,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F5>" },
         action = ":lua require'dap'.continue()<cr>",
-        short_desc = "Debug Continue",
+        short_desc = "Run Continue",
         silent = true
     })
 
@@ -130,7 +128,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "B" },
         action = ":lua require'dap'.step_back()<cr>",
-        short_desc = "Debug Step Back(F6)",
+        short_desc = string.format("%-15s", "Step Back") .. "F6",
         silent = true
     })
 
@@ -138,7 +136,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F6>" },
         action = ":lua require'dap'.step_back()<cr>",
-        short_desc = "Debug Step Back",
+        short_desc = "Step Back",
         silent = true
     })
     mappings.register({
@@ -154,7 +152,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "a", "w" },
         action = ":lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '), vim.fn.input('Hit Condition: '), vim.fn.input('Log Message: '))<cr>",
-        short_desc = "Advanced Breakpoint(F7)",
+        short_desc = string.format("%-15s", "Advanced Break") .. "F7",
         silent = true
     })
 
@@ -162,7 +160,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F7>" },
         action = ":lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '), vim.fn.input('Hit Condition: '), vim.fn.input('Log Message: '))<cr>",
-        short_desc = "Advanced Breakpoint",
+        short_desc = "Advanced Break",
         silent = true
     })
 
@@ -171,7 +169,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "a", "c" },
         action = ":lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
-        short_desc = "Condition Breakpoint(F8)",
+        short_desc = string.format("%-15s", "Cond Break") .. "F8",
         silent = true
     })
 
@@ -179,7 +177,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F8>" },
         action = ":lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
-        short_desc = "Condition Breakpoint",
+        short_desc = "Cond Break",
         silent = true
     })
 
@@ -188,7 +186,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "b" },
         action = ":lua require'dap'.toggle_breakpoint()<cr>",
-        short_desc = "Debug Breakpoint(F9)",
+        short_desc = string.format("%-15s", "Toggle Break") .. "F9",
         silent = true
     })
 
@@ -196,7 +194,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F9>" },
         action = ":lua require'dap'.toggle_breakpoint()<cr>",
-        short_desc = "Debug Breakpoint",
+        short_desc = "Toggle Break",
         silent = true
     })
 
@@ -205,7 +203,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "o" },
         action = ":lua require'dap'.step_over()<cr>",
-        short_desc = "Debug Step Over(F10)",
+        short_desc = string.format("%-15s", "Step Over") .. "F10",
         silent = true
     })
 
@@ -213,7 +211,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F10>" },
         action = ":lua require'dap'.step_over()<cr>",
-        short_desc = "Debug Step Over",
+        short_desc = "Step Over",
         silent = true
     })
 
@@ -223,7 +221,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "i" },
         action = ":lua require'dap'.step_into()<cr>",
-        short_desc = "Debug Step Into(F11)",
+        short_desc = string.format("%-15s", "Step Into") .. "F11",
         silent = true
     })
 
@@ -231,7 +229,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F11>" },
         action = ":lua require'dap'.step_into()<cr>",
-        short_desc = "Debug Step Into",
+        short_desc = "Step Into",
         silent = true
     })
 
@@ -240,7 +238,7 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "d", "O" },
         action = ":lua require'dap'.step_out()<cr>",
-        short_desc = "Debug Step Out(F12)",
+        short_desc = string.format("%-15s", "Step Out") .. "F12",
         silent = true
     })
 
@@ -248,17 +246,17 @@ plugin.mapping = function()
         mode = "n",
         key = { "<F12>" },
         action = ":lua require'dap'.step_out()<cr>",
-        short_desc = "Debug Step Out",
+        short_desc = "Step Out",
         silent = true
     })
 
-    --mappings.register({
-    --    mode = "n",
-    --    key = { "<leader>", "d", "r" },
-    --    action = ":lua require'dap'.repl.open()<cr>",
-    --    short_desc = "Debug Repl Open",
-    --    silent = true
-    --})
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "d", "r" },
+        action = ":lua require'dap'.repl.open()<cr>",
+        short_desc = "Repl Open",
+        silent = true
+    })
 
 
 end

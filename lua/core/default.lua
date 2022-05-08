@@ -21,10 +21,27 @@ vim.g.no_number_filetypes = {
     dapui_stacks = true,
     dapui_breakpoints = true,
     dapui_watches = true,
-    dapui_scopes = true
+    dapui_scopes = true,
+    qf = true,
 }
+vim.g.no_number_filetypes_list = {}
+for key, _ in pairs(vim.g.no_number_filetypes) do
+    table.insert(vim.g.no_number_filetypes_list, key)
+end
+
+local no_number_filetypes_list = "dapui_stacks,dapui_breakpoints,dapui_watches,dapui_scopes,qf" -- why table.concat not work?
 
 global_func.augroup('smarter_cursorline', {
+    {
+        events = { 'filetype' },
+        targets = { no_number_filetypes_list },
+        command = "setlocal nonumber"
+    },
+    {
+        events = { 'filetype' },
+        targets = { no_number_filetypes_list },
+        command = "setlocal norelativenumber"
+    },
     {
         events = { 'InsertLeave', 'WinEnter', 'VimEnter', 'BufEnter', 'BufWinEnter', 'BufNew' },
         targets = { '*' },
@@ -43,7 +60,6 @@ global_func.augroup('smarter_cursorline', {
     {
         events = { 'InsertLeave' },
         targets = { '*' },
-        --command = [[ if index(['dapui_stacks','dapui_breakpoints', 'dapui_watches', 'dapui_scopes'], &ft)<0 | set relativenumber | endif ]]
         command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil then vim.o.relativenumber = true end ]]
     },
 })
