@@ -109,7 +109,7 @@ For getting the best performance, please use the GPU-based terminal:
 ![Project TODO](./pic/project_todo.png)
 
 ## Debug Adapter Protocol 
-![Debug Adapter Protocol](./pic/debug_adapter_protocol.png)
+![Debug Adapter Protocol](./pic/dap.png)
 
 ## Pomodoro Clock 
 ![Pomodoro Clock](./pic/pomodoro.png)
