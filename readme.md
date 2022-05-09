@@ -162,6 +162,9 @@ TODO: More detail
 | Mode | ShortCut        | Short Description                            |
 |------|-----------------|----------------------------------------------|
 | i    | [C-Q]           | Save & Quit                                  |
+| i    | jk              | ESC                                   |
+| c    | jk              | ESC                                   |
+| t    | jk              | ESC                                   |
 | n    | gd              | Goto Definition                              |
 | n    | gD              | Goto Declaration                             |
 | n    | gr              | Goto References                              |
