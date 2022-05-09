@@ -197,16 +197,19 @@ global_mapping.register({
     mode = "i",
     key = { "j", "k" },
     action = "<esc>",
+    short_desc = "ESC"
 })
 global_mapping.register({
     mode = "c",
     key = { "j", "k" },
     action = "<esc>",
+    short_desc = "ESC"
 })
 global_mapping.register({
     mode = "t",
     key = { "j", "k" },
     action = "<esc>",
+    short_desc = "ESC"
 })
 
 
