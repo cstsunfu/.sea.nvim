@@ -52,7 +52,7 @@ local mapping_prefix = {
 
 global_mapping.register = function(new_map)
     --  mode = "n", --string or list of string         default : "n" or {"n"}
-    --  key = {"<leader>", "ff"},     required
+    --  key = {"<leader>", "f"},     required
     --  noremap = nil,               default : nil
     --  action = "",                  required
     --  short_desc = "",              default : No DESC
@@ -113,6 +113,7 @@ global_mapping.register = function(new_map)
             table.insert(key_list, key)
         end
     end
+    --print(new_map['mode'] .. '     ' .. uni_key_string .. '     ' .. new_map['short_desc'])
 
     if used[new_map['mode']][uni_key_string] then
         print("Mode " .. new_map['mode'] .. " " .. uni_key_string .. " has been used for " .. used[new_map['mode']][uni_key_string] .. ", you should change " .. new_map["short_desc"] .. " to another one.")
