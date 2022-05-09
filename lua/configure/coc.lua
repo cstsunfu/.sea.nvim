@@ -23,6 +23,7 @@ plugin.core = {
             'coc-ltex', -- for grammar/spell check
             'coc-docker', -- for dockerfile
             'coc-emoji', -- for emoji start with `=`
+            'coc-highlight', -- for emoji start with `=`
             --'coc-symbol-line',                           -- TODO: winbar for navigator the code, https://github.com/neovim/neovim/pull/17336
         }
         vim.g.NERDCustomDelimiters = { hjson = { left = '// ' }, json = { left = '// ' } }

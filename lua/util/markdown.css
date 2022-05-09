@@ -5,30 +5,24 @@
     --active-file-text-color: #262626;
     --active-file-border-color: #f22f27;
     --primary-color: #f22f27;
-    --mid-1: #ffffff;
-    --mid-2: #fafafa;
-    --mid-3: #f5f5f5;
-    --mid-4: #f0f0f0;
-    --mid-5: #d9d9d9;
-    --mid-6: #bfbfbf;
-    --mid-7: #8c8c8c;
-    --mid-8: #595959;
-    --mid-9: #434343;
-    --mid-10: #262626;
-    --mid-11: #1f1f1f;
-    --mid-12: #141414;
-    --mid-13: #000000;
-    --main-1: #fff3f0;
-    --main-2: #ffd4cc;
-    --main-3: #ffafa3;
-    --main-4: #ff887a;
-    --main-5: #ff5d52;
-    --main-6: #f22f27;
-    --main-7: #cc1616;
-    --main-8: #a60a0f;
-    --main-9: #80010a;
-    --main-10: #590009;
+
+    --black: #000000;
+    --header-bg-1: #ff9f97;
+    --header-bg-2: #ffd4cc;
+    --header-bg-3: #B9D3EE;
+    --header-bg-4: #e0ffe0;
+    --header-shadow-1: #ffeeee;
+    --header-shadow-2: #ffeeee;
+    --header-shadow-3: #e9eeff;
+    --header-shadow-4: #cBffc6;
+    --header-1: #e22f27;
+    --header-2: #ff5d52;
+    --header-3: #1874CD;
+    --header-4: #5BdC86;
+    --header-5: #a5c3b7;
+    --header-6: #dCa5a0;
 }
+
 
 .markdown-body ol ol,
 .markdown-body ul ol,
@@ -44,7 +38,7 @@
 .markdown-body {
     font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 16px;
-    color: var(--mid-13);
+    color: var(--black);
     line-height: 1.8rem;
     letter-spacing: 0;
     word-wrap: break-word;
@@ -120,87 +114,159 @@
 }
 
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    position: relative;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    line-height: 1.4;
-    cursor: text;
-}
-
-h1:hover a.anchor,
-h2:hover a.anchor,
-h3:hover a.anchor,
-h4:hover a.anchor,
-h5:hover a.anchor,
-h6:hover a.anchor {
-    text-decoration: none;
-}
-
 h1 {
-    padding-bottom: 0.2em;
-    font-size: 1.6em;
-    line-height: 1.2;
-    margin: 2.4em auto 1.2em;
-    color: var(--main-10);
-}
-
-h1:after {
-    content: '';
-    display: block;
-    margin: 0.2em auto 0;
-    width: 100%;
-    height: 2px;
-    border-bottom: 2px solid var(--main-6);
+  font-size: 1.3em; 
+  text-indent: 0px; 
+  border-radius: 4px; 
+  padding: 6px 15px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  background:var(--header-bg-1);
+  /*0px right, 5px botton, 5px fuzzy*/
+  box-shadow: 0px 2px 2px var(--header-shadow-1);
+  border-left: 7px solid var(--header-1); 
+  position:relative;
 }
 
 h2 {
-    margin: 1.8em auto 1.2em;
-    /* padding-left: 10px; */
-    /* display:inline-block; */
-    line-height: 1.4;
-    font-size: 1.6em;
-    /* border-left: 9px solid var(--main-6); */
-    /* border-bottom: 1px solid #ddd; */
-    border-bottom: 1px solid var(--main-6);
-}
-
-h2::before {
-    content: ''!important;
-    color:  var(--main-6);
+  font-size: 1.2em; 
+  text-indent: 4px; 
+  border-radius: 4px; 
+  padding: 6px 15px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  background:var(--header-bg-2);
+  box-shadow: 0px 2px 2px var(--header-shadow-2);
+  border-left: 6px solid var(--header-2); 
+  position:relative;
 }
 
 h3 {
-    font-size: 1.4em;
-    line-height: 1.43;
-    margin: 1.6em auto 1.2em;
-    padding-left: 9px;
-    border-left: 5px solid  var(--main-6);
+    font-size: 1.2em; 
+    text-indent: 12px; 
+    border-radius: 4px; 
+    padding: 6px 15px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    background:var(--header-bg-3);
+    box-shadow: 0px 2px 2px var(--header-shadow-3);
+    border-left: 8px solid var(--header-3);
+    line-height: 1.43;                     
+    margin: 1.4em auto 1.0em;              
+    padding-left: 7px;                     
 }
 
-
-
 h4 {
-    font-size: 1.2em;
-    line-height: 1.43;
-    margin: 1.2em auto 0.8em;
-    padding-left: 6px;
-    border-left: 3px solid var(--main-6);
+    font-size: 1.2em; 
+    text-indent: 12px; 
+    padding: 6px 15px;
+    border-radius: 4px; 
+    font-size: 1.3em;                      
+    line-height: 1.43;                     
+    margin: 1.4em auto 1.0em;              
+    background:var(--header-bg-4);
+    box-shadow: 0px 2px 2px var(--header-shadow-4);
+    padding-left: 7px;                     
+    border-left: 6px solid var(--header-4)
 }
 
 h5 {
-    font-size: 1em;
+    font-size: 1.2em; 
+    text-indent: 12px; 
+    padding: 6px 15px;
+    font-size: 1.3em;                      
+    border-radius: 4px; 
+    line-height: 1.43;                     
+    margin: 1.4em auto 1.0em;              
+    padding-left: 7px;                     
+    border-left: 3px solid var(--header-4)
 }
 h6 {
-    font-size: 1em;
-    color: var(--color-text-tertiary);
+    font-size: 1.2em; 
+    color: var(--color-text-tertiary);     
 }
+/*h1,                                        */
+/*h2,                                        */
+/*h3,                                        */
+/*h4,                                        */
+/*h5,                                        */
+/*h6 {                                       */
+/*    position: relative;                    */
+/*    margin-top: 1rem;                      */
+/*    margin-bottom: 1rem;                   */
+/*    font-weight: bold;                     */
+/*    line-height: 1.4;                      */
+/*    cursor: text;                          */
+/*}                                          */
+
+/*h1:hover a.anchor,                         */
+/*h2:hover a.anchor,                         */
+/*h3:hover a.anchor,                         */
+/*h4:hover a.anchor,                         */
+/*h5:hover a.anchor,                         */
+/*h6:hover a.anchor {                        */
+/*    text-decoration: none;                 */
+/*}                                          */
+
+/*h1 {                                       */
+/*    padding-bottom: 0.2em;                 */
+/*    font-size: 1.6em;                      */
+/*    line-height: 1.2;                      */
+/*    margin: 2.4em auto 1.2em;              */
+/*    color: var(--main-10);                 */
+/*}                                          */
+
+/*h1:after {                                 */
+/*    content: '';                           */
+/*    display: block;                        */
+/*    margin: 0.2em auto 0;                  */
+/*    width: 100%;                           */
+/*    height: 2px;                           */
+/*    border-bottom: 2px solid var(--main-6);*/
+/*}                                          */
+
+/*h2 {                                       */
+/*    font-size: 1.5em;                      */
+/*    line-height: 1.43;                     */
+/*    margin: 1.6em auto 1.2em;              */
+/*    padding-left: 9px;                     */
+/*    border-left: 6px solid  var(--main-6); */
+/*}                                          */
+
+/*h2::before {                               */
+/*    content: ''!important;                 */
+/*    color:  var(--main-6);                 */
+/*}                                          */
+
+/*h3 {                                       */
+/*    font-size: 1.4em;                      */
+/*    line-height: 1.43;                     */
+/*    margin: 1.5em auto 1.1em;              */
+/*    padding-left: 8px;                     */
+/*    border-left: 5px solid  var(--main-6); */
+/*}                                          */
+
+
+/*h4 {                                       */
+/*    font-size: 1.3em;                      */
+/*    line-height: 1.43;                     */
+/*    margin: 1.4em auto 1.0em;              */
+/*    padding-left: 7px;                     */
+/*    border-left: 4px solid var(--main-6);  */
+/*}                                          */
+
+/*h5 {                                       */
+/*    font-size: 1.2em;                      */
+/*    line-height: 1.43;                     */
+/*    [>margin: 1.4em auto 1.0em;<]          */
+/*    padding-left: 7px;                     */
+/*    border-left: 4px solid var(--main-6);  */
+/*}                                          */
+
+/*h6 {                                       */
+/*    font-size: 1.1em;                      */
+/*    color: var(--color-text-tertiary);     */
+/*}                                          */
 
 
 .markdown-body ol,
@@ -268,11 +334,6 @@ table tr:hover {
     -ms-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
 }
-/*table tr {*/
-    /*border-top: 1px solid var(--main-6);*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-/*}*/
 table td, .table th {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
