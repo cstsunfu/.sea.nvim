@@ -20,7 +20,7 @@ plugin.core = {
         local lualine = require 'lualine'
         local Path = require 'plenary.path'
         local root = Path:new("/")
-        local root_patterns = { ".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt", ".svn", ".root", ".project", ".hg" }
+        local root_patterns = { ".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt", ".svn", ".root", ".project", ".hg", "__main__.py" }
         local home_path = Path:new(vim.g.HOME_PATH)
         local custom_theme = require 'lualine.themes.auto'
         local global_fun = require 'util.global'
@@ -63,8 +63,12 @@ plugin.core = {
                 ["dapui_breakpoints"] = true,
                 ["dapui_watches"] = true,
                 ["dapui_scopes"] = true,
+                ["dap-repl"] = true,
             }
-            return not only_win_num_filetyps[vim.bo.filetype]
+            local only_win_num_buffertype = {
+                ["terminal"] = true,
+            }
+            return not only_win_num_filetyps[vim.bo.filetype] and not only_win_num_buffertype[vim.bo.buftype]
         end
 
         local buffer_not_empty = function()
@@ -75,8 +79,12 @@ plugin.core = {
             ["dapui_breakpoints"] = "BreakPoint",
             ["dapui_watches"] = "Watch",
             ["dapui_scopes"] = "Scope",
+            ["dap-repl"] = "Repl",
         }
         local conditions = {
+            terminal_condition = function() -- dapui
+                return vim.bo.buftype == "terminal" and vim.fn.winwidth(vim.fn.winnr()) > 30
+            end,
             dapui_condition = function() -- dapui
                 return dap_ui_map[vim.bo.filetype] ~= nil and vim.fn.winwidth(vim.fn.winnr()) > 30
             end,
@@ -246,6 +254,14 @@ plugin.core = {
                 return string.format("%-10s", dap_ui_map[vim.bo.filetype])
             end,
             cond = conditions.dapui_condition,
+            color = { fg = colors.blue, gui = 'bold' },
+        }
+
+        ins_left_active {
+            function()
+                return string.format("%-10s", "Terminal")
+            end,
+            cond = conditions.terminal_condition,
             color = { fg = colors.blue, gui = 'bold' },
         }
 
@@ -517,6 +533,14 @@ plugin.core = {
                 return string.format("%-10s", dap_ui_map[vim.bo.filetype])
             end,
             cond = conditions.dapui_condition,
+            color = { fg = colors.inactive, gui = 'bold' },
+        }
+
+        ins_left_inactive { -- dapui
+            function()
+                return string.format("%-10s", "Terminal")
+            end,
+            cond = conditions.terminal_condition,
             color = { fg = colors.inactive, gui = 'bold' },
         }
 

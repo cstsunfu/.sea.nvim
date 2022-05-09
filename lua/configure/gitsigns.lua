@@ -46,6 +46,7 @@ plugin.core = {
                     linehl = "GitSignsChangeLn",
                 },
             },
+            signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
             numhl = false,
             linehl = false,
             watch_gitdir = { interval = 1000 },

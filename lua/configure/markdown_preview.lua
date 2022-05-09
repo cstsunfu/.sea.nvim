@@ -20,7 +20,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = { "<leader>", "f", "e" },
+        key = { "<leader>", "m", "p" },
         action = ':MarkdownPreviewToggle<cr>',
         short_desc = "Markdown Preview",
         silent = true

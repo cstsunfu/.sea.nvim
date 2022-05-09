@@ -2,7 +2,8 @@ local plugin = {}
 
 plugin.core = {
 
-    "skywind3000/asynctasks.vim",
+    --"skywind3000/asynctasks.vim",
+    "cstsunfu/asynctasks.vim", --FIXME: when this buf fix, change to the default repo. https://github.com/skywind3000/asynctasks.vim/issues/92
     as = "asynctasks",
     cmd = { "AsyncTask" },
 

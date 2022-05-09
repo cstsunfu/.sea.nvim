@@ -124,12 +124,20 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "t" },
-        action = ':NvimTreeToggle<cr>',
+        --action = ':NvimTreeToggle<cr>',
+        action = ':lua require"nvim-tree".toggle(false, true)<cr>',
         short_desc = "File Tree",
         silent = true
     })
-    --nnoremap <leader>r :NvimTreeRefresh<CR>
-    --nnoremap <leader>n :NvimTreeFindFile<CR>
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "f", "." },
+        --action = ':NvimTreeToggle<cr>',
+        action = ':NvimTreeClose<cr>:botright vnew %:~:h<cr>',
+        short_desc = "Current File Tree",
+        silent = true
+    })
 
 end
 

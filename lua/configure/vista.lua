@@ -9,7 +9,8 @@ plugin.core = {
         -- This could make the display more compact or more spacious.
         -- e.g., more compact: ["▸ ", ""]
         -- Note: this option only works for the kind renderer, not the tree renderer.
-        vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
+        --vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
+        vim.g.vista_icon_indent = { " ", " " }
 
         -- Executive used when opening vista sidebar without specifying it.
         -- See all the avaliable executives via `:echo g:vista#executives`.
@@ -19,6 +20,8 @@ plugin.core = {
             pandoc = 'toc',
             markdown = 'toc'
         }
+        vim.g.vista_stay_on_open = 0 -- keep cursor current window when opening the vista sidebar
+        vim.g.vista_update_on_text_changed = 1
         vim.g.vista_vimwiki_executive = 'markdown'
         vim.g.vista_markdown_executive = 'toc'
 
@@ -38,6 +41,7 @@ plugin.core = {
         vim.cmd([[
             let g:vista#renderer#icons = { "function": "  ", "functions": "  ", "variable": "  ", "variables": "  ", "maps": "  ", "members ": "  ", "classes": "  ", "autocommand groups": " 祐 "}
         ]])
+        --vim.cmd([[]])
 
     end,
 
@@ -53,6 +57,14 @@ plugin.mapping = function()
         key = { "<leader>", "t", "l" },
         action = ':Vista!!<cr>',
         short_desc = "Tag List",
+        silent = true
+    })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "t", "r" },
+        action = ':Vista<cr>',
+        short_desc = "Tag List Refresh",
         silent = true
     })
 
