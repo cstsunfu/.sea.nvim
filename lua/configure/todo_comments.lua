@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
-    cmd = { "TodoTelescope" },
+    --cmd = { "TodoTelescope" },
     setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -26,6 +26,8 @@ plugin.core = {
                 TODO = { icon = " ", color = "info" },
                 FIXED = { icon = " ", color = "fixed" },
                 WAIT = { icon = " ", color = "warning" },
+                ASSIGN = { icon = " ", color = "info" },
+                TALK = { icon = " ", color = "hint", alt = { "DISCUSS", "CALL", "MEET" } },
                 HACK = { icon = " ", color = "warning" },
                 WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
                 PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },

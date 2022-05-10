@@ -9,4 +9,6 @@ timer:start(vim.g.after_schedule_time_start, 0, vim.schedule_wrap(function()
     vim.cmd("hi! StatusLine ctermfg=black guifg=black") --set HSplit color to black
     vim.cmd("hi! clear WhichKeyDesc")
     vim.cmd("hi! WhichKeyDesc guifg=#76ACED")
+    vim.cmd("hi! clear CocBorderHighlight")
+    vim.cmd("hi CocBorderHighlight ctermbg=None ctermfg=cyan guifg=#009999 guibg=None")
 end))

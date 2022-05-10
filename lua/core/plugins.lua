@@ -41,6 +41,8 @@ if FEATURE_GROUPS['org_my_life'] == true then
         ['vimwiki'] = { disable = false },
         ['glow'] = { disable = false }, -- preview markdown in terminal
         ['markdown_code_edit'] = { disable = false },
+        ['markdown_preview'] = { disable = false },
+        ['present'] = { disable = false },
         ['nabla'] = { disable = false }, -- for displya latex formulajbyuki/nabla.nvim
         ['clipboard_images'] = { disable = false }, -- for displya latex formulajbyuki/nabla.nvim
         ['table_mode'] = { disable = false },
@@ -86,7 +88,6 @@ end
 if FEATURE_GROUPS['special_for_language'] == true then
     plugins_configure.plugins_groups['special_for_language'] = {
         ['python_fold'] = { disable = true },
-        ['markdown_preview'] = { disable = false },
     }
 end
 
@@ -102,7 +103,6 @@ if FEATURE_GROUPS['buildin_complete'] == true then
         ["lsp_config"] = { disable = false },
         ["nvim_comp"] = { disable = false },
         ['lsp_icon'] = { disable = false },
-        ['lsp_installer'] = { disable = false },
         ['fold_expr'] = { disable = false },
     }
 end

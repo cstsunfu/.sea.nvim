@@ -5,10 +5,13 @@ plugin.core = {
     --as = "vim-table-mode",
     ft = { "vimwiki", "markdown" },
     setup = function() -- Specifies code to run before this plugin is loaded.
-
+        vim.g.table_mode_disable_mappings = 1
+        vim.g.table_mode_disable_tableize_mappings = 1
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+        vim.g.table_mode_disable_mappings = 1
+        vim.g.table_mode_disable_tableize_mappings = 1
     end,
 }
 

@@ -6,6 +6,7 @@ if USE_COC then
 else
     FEATURE_GROUPS.buildin_complete = true
 end
+FEATURE_GROUPS.lsp = "coc"
 FEATURE_GROUPS.colorschemes = true
 FEATURE_GROUPS.beauty_vim = true
 FEATURE_GROUPS.file_and_view = true

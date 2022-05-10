@@ -83,7 +83,7 @@ default_setting['opt'] = {
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
     history = 10000, -- undo file history
     undofile = true, -- use undo file
-    swapfile = false, -- use swap file
+    swapfile = true, -- use swap file
     maxmempattern = 2000, -- max match pattern
     autochdir = true, -- auto change directory to current file
     lazyredraw = true, -- true will speed up in macro repeat
@@ -107,7 +107,7 @@ default_setting['opt'] = {
     foldmethod = 'expr', -- for most filetype, fold by syntax
     foldnestmax = 5, -- max fold nest
     foldexpr = "nvim_treesitter#foldexpr()",
-    completeopt = "menuone,noselect",
+    completeopt = "menu,menuone,noselect",
     --t_ut = " ",                               -- disable Backgroud color Erase（BCE）
     termguicolors = true, -- TODO
     colorcolumn = "99999" -- FIXED: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
