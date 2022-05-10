@@ -12,7 +12,7 @@ plugin.core = {
         local util = require('zen-mode.util')
         local normal = util.get_hl("Normal")
         local line_nr = util.get_hl("LineNr")
-        local backdrop = 0.7
+        local backdrop = 0.85
         require("zen-mode").setup {
             -- your configuration comes here
             -- or leave it empty to use the default settings

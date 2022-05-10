@@ -87,15 +87,15 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "K" },
-        action = ':call <Plug>show_documentation()<CR>',
-        short_desc = "Displays hover information about the symbol.",
+        action = ':call CocAction("doHover")<CR>',
+        short_desc = "Displays Hover",
         silent = true
     })
     mappings.register({
         mode = "n",
         key = { "<leader>", 'q', 'f' },
         action = '<Plug>(coc-fix-current)',
-        short_desc = "Quick fix the errors.",
+        short_desc = "Quick Fix Error",
         silent = true
     })
 
@@ -103,29 +103,29 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "s", "p" },
         action = "<Plug>(coc-diagnostic-prev)",
-        short_desc = "goto prev diagnostic",
+        short_desc = "Prev Diagnostic",
         silent = true
     })
     mappings.register({
         mode = "n",
         key = { "<leader>", "s", "n" },
         action = "<Plug>(coc-diagnostic-next)",
-        short_desc = "goto next diagnostic",
+        short_desc = "Next Diagnostic",
         silent = true,
     })
 
     mappings.register({
         mode = "n",
-        key = { "<leader>", "j", "f" },
-        action = ":CocCommand formatJson --indent=4 --quote-as-needed=true<cr>",
-        short_desc = "Json Format",
+        key = { "<leader>", "=" },
+        action = ":call CocAction('format')",
+        short_desc = "Do Format",
         silent = true,
     })
     mappings.register({
         mode = "v",
-        key = { "<leader>", "j", "f" },
-        action = ":'<,'>CocCommand formatJson --indent=4 --quote-as-needed=true<cr>",
-        short_desc = "Json Format",
+        key = { "<leader>", "=" },
+        action = ":'<,'>call CocAction('formatSelected')<cr>",
+        short_desc = "Do Format Selected",
         silent = true,
     })
 end
