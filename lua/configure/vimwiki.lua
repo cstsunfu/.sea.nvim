@@ -3,8 +3,9 @@ local plugin = {}
 plugin.core = {
     "vimwiki/vimwiki",
     --as = "vimwiki",
-    ft = { "markdown", "vimwiki" },
+    --ft = { "markdown", "vimwiki" },
     setup = function() -- Specifies code to run before this plugin is loaded.
+        vim.g.vimwiki_filetypes = {'markdown', 'pandoc'}
         vim.g.vimwiki_map_prefix = '<leader>O'
         vim.g.vimwiki_key_mappings = {
             all_maps = 1,
@@ -24,6 +25,11 @@ plugin.core = {
         vim.cmd("let g:vimwiki_list = [{'path': $HOME.'/org/', 'syntax': 'markdown', 'ext': '.md'}]")
         local global_func = require('util.global')
         global_func.augroup('Vimwiki Map', {
+            {
+                events = { 'Filetype' },
+                targets = { 'vimwiki' },
+                command = "vnoremap <silent> <leader><cr> :call VVimwiki_create_dir()<cr>"
+            },
             {
                 events = { 'Filetype' },
                 targets = { 'vimwiki' },
@@ -55,6 +61,7 @@ plugin.core = {
                 command = "nnoremap <localleader>tt :VimwikiToggleListItem<cr>"
             },
         })
+
     end,
 }
 

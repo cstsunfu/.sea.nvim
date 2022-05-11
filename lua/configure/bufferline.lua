@@ -105,6 +105,20 @@ plugin.core = {
                         padding = padding_by_colorscheme()
                     },
                     {
+                        filetype = "Outline",
+                        text = "✶Code Navigator✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
+                        filetype = "vista_kind",
+                        text = "✶Markdown Outline✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
+                    {
                         filetype = "vista_markdown",
                         text = "✶Markdown Outline✶",
                         text_align = "center",

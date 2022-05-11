@@ -1,6 +1,7 @@
 if exists('g:filetype_vimwiki_user')
   finish
 endif
+
 let g:filetype_vimwiki_user = 1
 highlight VimwikiDelText gui=strikethrough guifg=#5c6370 guibg=background
 highlight link VimwikiCheckBoxDone VimwikiDelText
