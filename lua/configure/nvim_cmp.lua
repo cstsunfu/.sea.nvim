@@ -22,15 +22,15 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         local kind_icons = {
-            Text = "",
-            Method = "",
-            Function = "",
-            Constructor = "",
+            Text = "",
+            Method = "",
+            Function = "",
+            Constructor = "",
             Field = "",
             Variable = "",
             Class = "ﴯ",
             Interface = "",
-            Module = "",
+            Module = "",
             Property = "ﰠ",
             Unit = "",
             Value = "",
@@ -43,10 +43,10 @@ plugin.core = {
             Folder = "",
             EnumMember = "",
             Constant = "",
-            Struct = "",
+            Struct = "ﴯ",
             Event = "",
             Operator = "",
-            TypeParameter = ""
+            TypeParameter = " "
         }
         local cmp = require 'cmp'
         vim.cmd [[
