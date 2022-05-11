@@ -15,8 +15,6 @@ plugin.core = {
                 custom_foldtext = true -- Sets provided foldtext on window where module is active
             }
         }
-
-
     end,
 }
 

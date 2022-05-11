@@ -14,7 +14,12 @@ plugin.core = {
 
         -- Executive used when opening vista sidebar without specifying it.
         -- See all the avaliable executives via `:echo g:vista#executives`.
-        vim.g.vista_default_executive = 'coc'
+        if vim.g.feature_groups.lsp == 'coc' then
+            vim.g.vista_default_executive = 'coc'
+        elseif vim.g.feature_groups.lsp == 'buildin' then
+            vim.g.vista_default_executive = 'nvim_lsp'
+        end
+        --vim.g.vista_default_executive = 'vim_lsc'
         vim.g.vista_executive_for = {
             vimwiki = 'toc',
             pandoc = 'toc',

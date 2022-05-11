@@ -81,7 +81,11 @@ nnoremap \\ ;
 vnoremap \\ ;
 ```
 
-10. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
+10. Select `buildin` or `coc.nvim` for the default LSP in 'core/init.lua'.
+
+In my opnion, `coc.nvim` is more easy to use in the most of the time. But now more and more neovim users change to use `buildin`?
+
+11. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
 
 
 ## More
@@ -91,9 +95,14 @@ For getting the best performance, please use the GPU-based terminal:
 * [kitty](https://github.com/kovidgoyal/kitty)
 * [alacritty](https://github.com/jwilm/alacritty)
 
-# Main features(Each figure may be displaied with different colorscheme.)
+# Main features
 
-## Complete/Nvim-Tree/Navigator
+Each figure may be displaied with different colorscheme.
+
+## Complete/Nvim-Tree/Navigator(based `buildin lsp`)
+![code_view_complete](./pic/buildin.png)
+
+## Complete/Nvim-Tree/Navigator(based `coc.nvim`)
 ![code_view_complete](./pic/code_view.png)
 
 ## Fuzzy Search

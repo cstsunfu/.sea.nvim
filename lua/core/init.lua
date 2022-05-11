@@ -1,21 +1,16 @@
-USE_COC = true
-FEATURE_GROUPS = {}
-FEATURE_GROUPS.default = true
-if USE_COC then
-    FEATURE_GROUPS.coc_complete = true
-else
-    FEATURE_GROUPS.buildin_complete = true
-end
-FEATURE_GROUPS.lsp = "coc"
-FEATURE_GROUPS.colorschemes = true
-FEATURE_GROUPS.beauty_vim = true
-FEATURE_GROUPS.file_and_view = true
-FEATURE_GROUPS.move_behavior = true
-FEATURE_GROUPS.special_for_language = true
-FEATURE_GROUPS.debug_adapter = true
-FEATURE_GROUPS.org_my_life = true
-FEATURE_GROUPS.enhance = true
-FEATURE_GROUPS.git = true
+vim.g.feature_groups = {
+    default = true,
+    lsp = "buildin", -- or "coc" or set to nil/false to disable lsp
+    --lsp = "coc", --"buildin" or "coc" or set to nil/false to disable lsp
+    colorschemes = true,
+    beauty_vim = true,
+    file_and_view = true,
+    special_for_language = true,
+    debug_adapter = true,
+    org_my_life = true,
+    enhance = true,
+    git = true,
+}
 
 
 require('core.default')

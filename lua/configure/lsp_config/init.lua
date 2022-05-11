@@ -3,8 +3,8 @@ local plugin = {}
 plugin.core = {
     "williamboman/nvim-lsp-installer",
     requires = {
-        "neovim/nvim-lspconfig",
-        "brymer-meneses/grammar-guard.nvim", -- for grammar check
+        {"neovim/nvim-lspconfig", disable = vim.g.feature_groups.lsp ~= "buildin"},
+        {"brymer-meneses/grammar-guard.nvim", disable = vim.g.feature_groups.lsp ~= "buildin"}, -- for grammar check
     },
     setup = function() -- Specifies code to run before this plugin is loaded.
 
@@ -28,17 +28,24 @@ plugin.core = {
         })
 
         local lspconfig = require("lspconfig")
+        require('configure.lsp_config.default_setting')
         local util = require("lspconfig.util")
-        lspconfig.sumneko_lua.setup {}
+
+        lspconfig.sumneko_lua.setup {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { 'vim' }
+                    }
+                }
+            }
+        }
         lspconfig.pyright.setup {
             root_dir = function(fname)
                 return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or util.path.dirname(fname)
             end,
             cmd = { "pyright-langserver", "--stdio" },
             filetypes = { "python" },
-            --root_dir = function(filename)
-            --return util.root_pattern(unpack(root_files))(filename) or util.path.dirname(filename)
-            --end,
             settings = {
                 python = {
                     analysis = {
@@ -47,7 +54,8 @@ plugin.core = {
                         useLibraryCodeForTypes = true
                     }
                 }
-            }
+            },
+            single_file_support = true
         }
     end,
 }
@@ -94,14 +102,14 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "s", "n" },
-        action = '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>',
+        action = '<cmd>lua vim.diagnostic.goto_next()<cr>',
         short_desc = "Prev Diagnostic",
         silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "<C-p>" },
-        action = '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>',
+        action = '<cmd>lua vim.diagnostic.goto_prev()<cr>',
         short_desc = "Next Diagnostic",
         silent = false
     })

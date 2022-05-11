@@ -4,7 +4,7 @@ plugins_configure.plugins_groups = {}
 plugins_configure.plugin_configure_root = 'configure.'
 plugins_configure["all_loaded_module"] = {}
 
-if FEATURE_GROUPS['default'] == true then
+if vim.g.feature_groups['default'] == true then
     plugins_configure.plugins_groups['default'] = {
         ["nerd_commenter"] = { disable = false }, -- for quick comment
         ["better_escape"] = { disable = true }, -- for quick map jk to <esc>
@@ -29,13 +29,8 @@ if FEATURE_GROUPS['default'] == true then
     }
 end
 
-if FEATURE_GROUPS['coc_complete'] == true then
-    plugins_configure.plugins_groups['coc_complete'] = {
-        ['coc'] = { disable = false },
-    }
-end
 
-if FEATURE_GROUPS['org_my_life'] == true then
+if vim.g.feature_groups['org_my_life'] == true then
     plugins_configure.plugins_groups['org_my_life'] = {
         ['calendar'] = { disable = false },
         ['vimwiki'] = { disable = false },
@@ -53,19 +48,19 @@ if FEATURE_GROUPS['org_my_life'] == true then
     }
 end
 
-if FEATURE_GROUPS['git'] == true then
+if vim.g.feature_groups['git'] == true then
     plugins_configure.plugins_groups['git'] = {
         ['gitsigns'] = { disable = false },
         ['fugitive'] = { disable = false },
     }
 end
 
-if FEATURE_GROUPS['enhance'] == true then
+if vim.g.feature_groups['enhance'] == true then
     plugins_configure.plugins_groups['enhance'] = {
         ['hlslens'] = { disable = false },
         ['todo_comments'] = { disable = false },
         ['zen_mode'] = { disable = false },
-        ['firenvim'] = { disable = true }, -- TODO:嵌入nvim到chrome，比较鸡肋，但是很有意思
+        ['firenvim'] = { disable = true }, -- TODO:嵌入nvim到chrome，比较鸡肋
         ['ts_text_object'] = { disable = false },
         ['speed_date'] = { disable = false },
         ['translate'] = { disable = false },
@@ -75,39 +70,31 @@ if FEATURE_GROUPS['enhance'] == true then
         ['terminal'] = { disable = false },
         ['remote'] = { disable = false },
         ['high_str'] = { disable = true },
-        --
         ['colorizer'] = { disable = false },
         ['pretty_print_json'] = { disable = false },
         ['hjson'] = { disable = false },
         ['json5'] = { disable = false },
         ["files_tree"] = { disable = false },
+        ["accelerate_jk"] = { disable = true },
+        ["scroll"] = { disable = false },
     }
 end
 
 -- main language
-if FEATURE_GROUPS['special_for_language'] == true then
+if vim.g.feature_groups['special_for_language'] == true then
     plugins_configure.plugins_groups['special_for_language'] = {
         ['python_fold'] = { disable = true },
     }
 end
 
-if FEATURE_GROUPS['debug_adapter'] == true then
+if vim.g.feature_groups['debug_adapter'] == true then
     plugins_configure.plugins_groups['debug_adapter'] = {
         ['dap_python'] = { disable = false },
         ['dap_ui'] = { disable = false }
     }
 end
 
-if FEATURE_GROUPS['buildin_complete'] == true then
-    plugins_configure.plugins_groups['buildin_complete'] = {
-        ["lsp_config"] = { disable = false },
-        ["nvim_comp"] = { disable = false },
-        ['lsp_icon'] = { disable = false },
-        ['fold_expr'] = { disable = false },
-    }
-end
-
-if FEATURE_GROUPS['colorschemes'] == true then
+if vim.g.feature_groups['colorschemes'] == true then
     plugins_configure.plugins_groups['colorschemes'] = {
         ["nord"] = { disable = false, opt = true },
         ['gruvbox_material'] = { disable = false, opt = true },
@@ -120,7 +107,7 @@ if FEATURE_GROUPS['colorschemes'] == true then
 end
 
 
-if FEATURE_GROUPS['beauty_vim'] == true then
+if vim.g.feature_groups['beauty_vim'] == true then
     plugins_configure.plugins_groups['beauty_vim'] = {
         ["lualine"] = { disable = false },
         ["bufferline"] = { disable = false },
@@ -130,46 +117,44 @@ if FEATURE_GROUPS['beauty_vim'] == true then
     }
 end
 
-if FEATURE_GROUPS['file_and_view'] == true then
-    if FEATURE_GROUPS['coc_complete'] == true then
-        plugins_configure.plugins_groups['file_and_view'] = {
-            ["telescope"] = { disable = false },
-            ["vista"] = { disable = false },
-            ["navigator"] = { disable = true }, -- TODO: this plugin will be useful, but too beta
-            ['ctrlsf'] = { disable = false }, -- search the same token under cursor
-            ['spectre'] = { disable = false }, -- search the and replace token by reg exp
-        }
-    end
-    if FEATURE_GROUPS['buildin_complete'] == true then
-        plugins_configure.plugins_groups['file_and_view'] = {
-            ["telescope"] = { disable = false },
-            ["file_symbols"] = { disable = false },
-            ["navigator"] = { disable = true }, -- TODO: this plugin will be useful, but too beta
-            ['ctrlsf'] = { disable = false }, -- search the same token under cursor
-            ['spectre'] = { disable = false }, -- search the and replace token by reg exp
-        }
-    end
+
+if vim.g.feature_groups['lsp'] then
+    plugins_configure.plugins_groups['lsp'] = {
+        ['coc'] = { disable = vim.g.feature_groups.lsp ~= 'coc' },
+        ["lsp_config"] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
+        --["trouble"] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
+        ["trouble"] = { disable = false },
+        ["nvim_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
+        ['lsp_icon'] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
+        ['fold_expr'] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
+    }
 end
 
-if FEATURE_GROUPS['move_behavior'] == true then
-    plugins_configure.plugins_groups['move_behavior'] = {
-        ["accelerate_jk"] = { disable = false },
-        ["scroll"] = { disable = false },
+if vim.g.feature_groups['file_and_view'] == true then
+    plugins_configure.plugins_groups['file_and_view'] = {
+        ["telescope"] = { disable = false },
+        ["navigator"] = { disable = true }, -- TODO: this plugin will be useful, but too beta
+        ['ctrlsf'] = { disable = false }, -- search the same token under cursor
+        ['spectre'] = { disable = false }, -- search the and replace token by reg exp
+
+        ["vista"] = { disable = vim.g.feature_groups.lsp ~= 'coc' }, -- only works for coc lsp
+        --["vista"] = { disable = false }, -- only works for coc lsp
+        ["file_symbols"] = { disable = vim.g.feature_groups.lsp ~= 'buildin' }, -- only works for buildin lsp
     }
 end
 
 plugins_configure.setup = function()
     packer.startup(function()
         for group_name, plugins_group in pairs(plugins_configure.plugins_groups) do
-            if FEATURE_GROUPS[group_name] == nil then
-                vim.notify(group_name .. " is not in FEATURE_GROUPS", vim.lsp.log_levels.ERROR, {
+            if vim.g.feature_groups[group_name] == nil then
+                vim.notify(group_name .. " is not in vim.g.feature_groups", vim.lsp.log_levels.ERROR, {
                     title = "ERROR",
                     icon = "",
                     timeout = 3000,
                 })
-            elseif FEATURE_GROUPS[group_name] == true then
+            elseif vim.g.feature_groups[group_name] then -- true or string for some special taget
                 for plugin_name, is_active in pairs(plugins_group) do
-                    core = require(plugins_configure.plugin_configure_root .. plugin_name).core
+                    local core = require(plugins_configure.plugin_configure_root .. plugin_name).core
                     for key, value in pairs(is_active) do
                         core[key] = value
                     end
@@ -186,7 +171,7 @@ end
 
 plugins_configure.create_mapping = function()
     for group_name, plugins_group in pairs(plugins_configure.plugins_groups) do
-        if FEATURE_GROUPS[group_name] == true then
+        if vim.g.feature_groups[group_name] then
             for plugin_name, is_active in pairs(plugins_group) do
                 if is_active['disable'] == false then
                     require(plugins_configure.plugin_configure_root .. plugin_name).mapping()
