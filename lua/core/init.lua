@@ -1,6 +1,6 @@
 vim.g.feature_groups = {
     default = true,
-    lsp = "buildin", -- or "coc" or set to nil/false to disable lsp
+    lsp = "buildin", --"buildin" or "coc" or set to nil/false to disable lsp
     --lsp = "coc", --"buildin" or "coc" or set to nil/false to disable lsp
     colorschemes = true,
     beauty_vim = true,
