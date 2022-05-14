@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "tpope/vim-fugitive",
+    as = "fugitive",
     cmd = { "Git", "Gedit", "Gdiff", "Ggrep", "Gclog", "GMove", "Gread", "Gwrite" },
     setup = function() -- Specifies code to run before this plugin is loaded.
 
@@ -52,7 +53,7 @@ plugin.mapping = function()
         key = { "<leader>", "g", "e" },
         action = ':Gedit ',
         short_desc = "Git Edit Something",
-        silent = true,
+        silent = false,
         noremap = true,
     })
 

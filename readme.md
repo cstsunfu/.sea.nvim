@@ -2,6 +2,41 @@
 
 # Neovim Configure
 
+
+```
+.
+├── coc-settings.json         -- coc lsp 设置，也可选内置LSP
+├── compiler                  -- 编译相关配置
+│   └── python.vim
+├── ftplugin                  -- 和原来的vim script一样，根据文件类型加载模块                  
+│   ├── lua.lua               
+│   ├── python.lua            --                         
+│   └── vimwiki.vim           --                          
+├── init.lua                  -- neovim配置文件入口                  
+├── init.lua
+├── install.sh
+├── lua
+│   ├── configure
+│   ├── core                  -- 核心模块                 
+│   │   ├── after.lua         -- 后处理模块                    
+│   │   ├── default.lua       -- 默认设置模块                             
+│   │   ├── init.lua          -- 核心加载逻辑模块                         
+│   │   ├── mapping.lua       -- 快捷键注册模块                             
+│   │   ├── plugins.lua       -- 插件加载模块                             
+│   │   └── themes.lua        -- 常用主题
+│   ├── hack                  -- 用户自定义模块，插件半成品
+│   │   ├── init.lua
+│   │   └── pomodoro.lua
+│   ├── local.lua             -- 机器相关配置，如代理等，不被git管理
+│   ├── user.lua              -- 用户相关配置，如邮箱，姓名等，希望被git管理的配置放到user.lua里面，不希望被管理的用户相关的配置放到local里面
+│   └── util                  -- 其他工具                  
+│       ├── global.lua        -- 全局函数                            
+│       ├── json.lua          -- json读写相关                          
+│       └── path.lua          -- 路径读写相关                          
+└── tasks.ini                 -- 任务定义                   
+
+```
+
 ## Install
 
 1. Install `Neovim` >=0.7
@@ -81,9 +116,10 @@ nnoremap \\ ;
 vnoremap \\ ;
 ```
 
-10. Select `buildin` or `coc.nvim` for the default LSP in 'core/init.lua'.
 
-In my opnion, `coc.nvim` is more easy to use in the most of the time. But now more and more neovim users change to use `buildin`?
+10. Select `builtin` or `coc.nvim` for the default LSP in 'core/init.lua'.
+
+In my opinion, `coc.nvim` is more easy to use in the most of the time. But now more and more neovim users change to use `builtin`?
 
 11. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
 
@@ -97,10 +133,10 @@ For getting the best performance, please use the GPU-based terminal:
 
 # Main features
 
-Each figure may be displaied with different colorscheme.
+Each figure may display with different colorscheme.
 
-## Complete/Nvim-Tree/Navigator(based `buildin lsp`)
-![code_view_complete](./pic/buildin.png)
+## Complete/Nvim-Tree/Navigator(based `builtin lsp`)
+![code_view_complete](./pic/builtin.png)
 
 ## Complete/Nvim-Tree/Navigator(based `coc.nvim`)
 ![code_view_complete](./pic/code_view.png)
@@ -123,49 +159,12 @@ Each figure may be displaied with different colorscheme.
 ## Pomodoro Clock 
 ![Pomodoro Clock](./pic/pomodoro.png)
 
-TODO: More detail
-
-
-```
-.
-├── coc-settings.json         -- coc lsp 设置，也可选内置LSP
-├── compiler                  -- 编译相关配置
-│   └── python.vim
-├── ftplugin                  -- 和原来的vim script一样，根据文件类型加载模块                  
-│   ├── lua.lua               
-│   ├── python.lua            --                         
-│   └── vimwiki.vim           --                          
-├── init.lua                  -- neovim配置文件入口                  
-├── init.lua
-├── install.sh
-├── lua
-│   ├── configure
-│   ├── core                  -- 核心模块                 
-│   │   ├── after.lua         -- 后处理模块                    
-│   │   ├── default.lua       -- 默认设置模块                             
-│   │   ├── init.lua          -- 核心加载逻辑模块                         
-│   │   ├── mapping.lua       -- 快捷键注册模块                             
-│   │   ├── plugins.lua       -- 插件加载模块                             
-│   │   └── themes.lua        -- 常用主题
-│   ├── hack                  -- 用户自定义模块，插件半成品
-│   │   ├── init.lua
-│   │   └── pomodoro.lua
-│   ├── local.lua             -- 机器相关配置，如代理等，不被git管理
-│   ├── user.lua              -- 用户相关配置，如邮箱，姓名等，希望被git管理的配置放到user.lua里面，不希望被管理的用户相关的配置放到local里面
-│   └── util                  -- 其他工具                  
-│       ├── global.lua        -- 全局函数                            
-│       ├── json.lua          -- json读写相关                          
-│       └── path.lua          -- 路径读写相关                          
-└── tasks.ini                 -- 任务定义                   
-
-```
-
 
 ## There are some shortcuts.
 
-    NOTE: `leader == ; ` `localleader == , `
+    NOTE: leader == ;  localleader == , 
 
-    WARNING: All the shortcut may be remap but not update this table, just for reference only.
+    WARNING: We will remap some shortcuts but not update this table, just for reference.
 
 
 | Mode | ShortCut        | Short Description                            |

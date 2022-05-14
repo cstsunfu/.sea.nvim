@@ -13,7 +13,10 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         --vim.g.crease_foldtext = { default = " %l lines %f%f%t%=%{gitgutter#fold#is_changed() ? ' ' : ''}%=" }
-        vim.g.crease_foldtext = { default = " %l lines %f%f  %t%=" }
+        vim.g.crease_foldtext = { 
+            --default = "  %l lines %f%f  %t%= ",
+            indent = '%{repeat(" ", shiftwidth() * v:foldlevel)}➤ %l lines %f%f %t %f'
+        }
     end,
 
 }

@@ -3,8 +3,8 @@ local plugin = {}
 plugin.core = {
     "williamboman/nvim-lsp-installer",
     requires = {
-        {"neovim/nvim-lspconfig", disable = vim.g.feature_groups.lsp ~= "buildin"},
-        {"brymer-meneses/grammar-guard.nvim", disable = vim.g.feature_groups.lsp ~= "buildin"}, -- for grammar check
+        {"neovim/nvim-lspconfig", disable = vim.g.feature_groups.lsp ~= "builtin"},
+        --{"brymer-meneses/grammar-guard.nvim", disable = vim.g.feature_groups.lsp ~= "builtin"}, -- FIXIT: when this plugin provide fix feature https://github.com/brymer-meneses/grammar-guard.nvim/issues/11
     },
     setup = function() -- Specifies code to run before this plugin is loaded.
 
@@ -57,6 +57,31 @@ plugin.core = {
             },
             single_file_support = true
         }
+
+        --require("grammar-guard").init()
+        --lspconfig.ltex.setup()
+        lspconfig.ltex.setup({
+            settings = {
+                ltex = {
+                    enabled = { "latex", "tex", "bib", "markdown", "vimwiki" },
+                    language = "en",
+                    diagnosticSeverity = "information",
+                    setenceCacheSize = 2000,
+                    additionalRules = {
+                        enablePickyRules = true,
+                        motherTongue = "en",
+                    },
+                    trace = { server = "verbose" },
+                    dictionary = {},
+                    disabledRules = { ['en'] = { 'WHITESPACE_RULE', "DASH_RULE", "EN_QUOTES" } },
+                    --disabledRules = {
+                    --    "WHITESPACE_RULE",
+                    --    "DASH_RULE"
+                    --},
+                    hiddenFalsePositives = {},
+                },
+            },
+        })
     end,
 }
 
