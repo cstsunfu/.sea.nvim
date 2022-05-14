@@ -26,6 +26,7 @@ if vim.g.feature_groups['default'] == true then
         ['plenary'] = { disable = false }, -- key binding suggestion
         ['tree_sitter'] = { disable = false },
         ['popup'] = { disable = false },
+        ['easyjump'] = { disable = false },
     }
 end
 
@@ -121,12 +122,12 @@ end
 if vim.g.feature_groups['lsp'] then
     plugins_configure.plugins_groups['lsp'] = {
         ['coc'] = { disable = vim.g.feature_groups.lsp ~= 'coc' },
-        ["lsp_config"] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
-        --["trouble"] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
+        ["lsp_config"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        --["trouble"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["trouble"] = { disable = false },
-        ["nvim_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
-        ['lsp_icon'] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
-        ['fold_expr'] = { disable = vim.g.feature_groups.lsp ~= 'buildin' },
+        ["nvim_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        ['lsp_icon'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        ['fold_expr'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
     }
 end
 
@@ -136,10 +137,8 @@ if vim.g.feature_groups['file_and_view'] == true then
         ["navigator"] = { disable = true }, -- TODO: this plugin will be useful, but too beta
         ['ctrlsf'] = { disable = false }, -- search the same token under cursor
         ['spectre'] = { disable = false }, -- search the and replace token by reg exp
-
-        ["vista"] = { disable = vim.g.feature_groups.lsp ~= 'coc' }, -- only works for coc lsp
-        --["vista"] = { disable = false }, -- only works for coc lsp
-        ["file_symbols"] = { disable = vim.g.feature_groups.lsp ~= 'buildin' }, -- only works for buildin lsp
+        ["vista"] = { disable = vim.g.feature_groups.lsp ~= 'coc' }, -- only works for coc lsp, tree view
+        ["file_symbols"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' }, -- only works for builtin lsp
     }
 end
 

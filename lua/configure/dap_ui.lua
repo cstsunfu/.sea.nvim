@@ -16,10 +16,9 @@ plugin.core = {
         local dap, dapui = require('dap'), require('dapui')
         vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Debug', linehl = '', numhl = '' })
         vim.fn.sign_define('DapStopped', { text = '➤', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
-        vim.fn.sign_define('DapBreakpointCondition', { text = '⌚', texthl = 'DiagnosticChanged', linehl = '', numhl = '' })
-        vim.fn.sign_define('DapBreakpointRejected', { text = '⊙', texthl = 'DiagnosticWarning', linehl = '', numhl = '' })
-        vim.fn.sign_define('DapLogPoint', { text = '✉ ', texthl = 'DiagnosticHint', linehl = '', numhl = '' })
-
+        vim.fn.sign_define('DapBreakpointCondition', { text = '鬒', texthl = 'TSTodo', linehl = '', numhl = '' })
+        vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'TSError', linehl = '', numhl = '' })
+        vim.fn.sign_define('DapLogPoint', { text = ' ', texthl = 'DiagnosticHint', linehl = '', numhl = '' })
         dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
         dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
         dap.listeners.before.event_exited['dapui_config'] = function() dapui.close() end

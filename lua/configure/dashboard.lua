@@ -66,7 +66,7 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "f", "c"},
+        key = {"<leader>", "f", ";", "c"},
         action = ':DashboardChangeColorscheme<CR>',
         short_desc = "Change Color",
         silent = true
@@ -74,7 +74,7 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = {"<leader>", "f", "s"},
+        key = {"<leader>", "f", ";", "s"},
         action = ':Dashboard<CR>',
         short_desc = "Open Startify Page",
         silent = true

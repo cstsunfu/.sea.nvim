@@ -249,6 +249,20 @@ global_mapping.register({
 -- quickfix
 global_mapping.register({
     mode = "n",
+    key = { "<leader>", "q", "c" },
+    action = ':cclose<cr>',
+    short_desc = "QuickFix Close"
+})
+
+global_mapping.register({
+    mode = "n",
+    key = { "<leader>", "q", "o" },
+    action = ':copen<cr>',
+    short_desc = "QuickFix Open"
+})
+
+global_mapping.register({
+    mode = "n",
     key = { "<leader>", "q", "p" },
     action = ':cprevious<cr>',
     short_desc = "QuickFix Previous Item"

@@ -6,16 +6,16 @@ plugin.core = {
         "nvim-lspconfig"
     },
     requires = {
-        {"quangnguyen30192/cmp-nvim-ultisnips", disable = vim.g.feature_groups.lsp ~= "buildin"}, -- ultisnips source
-        {"hrsh7th/cmp-nvim-lsp", disable = vim.g.feature_groups.lsp ~= "buildin"}, --buildin lsp source
-        {"hrsh7th/cmp-buffer", disable = vim.g.feature_groups.lsp ~= "buildin"}, --buffer source
-        {"hrsh7th/cmp-path", disable = vim.g.feature_groups.lsp ~= "buildin"}, --path source
-        {"hrsh7th/cmp-cmdline", disable = vim.g.feature_groups.lsp ~= "buildin"}, -- for commandline complation
-        {"dmitmel/cmp-cmdline-history", disable = vim.g.feature_groups.lsp ~= "buildin"},  -- for commandline complation
-        {"hrsh7th/cmp-calc", disable = vim.g.feature_groups.lsp ~= "buildin"}, --for calc
-        {"hrsh7th/cmp-emoji", disable = vim.g.feature_groups.lsp ~= "buildin"},
-        {"lukas-reineke/cmp-rg", disable = vim.g.feature_groups.lsp ~= "buildin"},
-        {"rcarriga/cmp-dap", disable = vim.g.feature_groups.lsp ~= "buildin"},
+        {"quangnguyen30192/cmp-nvim-ultisnips", disable = vim.g.feature_groups.lsp ~= "builtin"}, -- ultisnips source
+        {"hrsh7th/cmp-nvim-lsp", disable = vim.g.feature_groups.lsp ~= "builtin"}, --builtin lsp source
+        {"hrsh7th/cmp-buffer", disable = vim.g.feature_groups.lsp ~= "builtin"}, --buffer source
+        {"hrsh7th/cmp-path", disable = vim.g.feature_groups.lsp ~= "builtin"}, --path source
+        {"hrsh7th/cmp-cmdline", disable = vim.g.feature_groups.lsp ~= "builtin"}, -- for commandline complation
+        {"dmitmel/cmp-cmdline-history", disable = vim.g.feature_groups.lsp ~= "builtin"},  -- for commandline complation
+        {"hrsh7th/cmp-calc", disable = vim.g.feature_groups.lsp ~= "builtin"}, --for calc
+        {"hrsh7th/cmp-emoji", disable = vim.g.feature_groups.lsp ~= "builtin"},
+        {"lukas-reineke/cmp-rg", disable = vim.g.feature_groups.lsp ~= "builtin"},
+        {"rcarriga/cmp-dap", disable = vim.g.feature_groups.lsp ~= "builtin"},
     },
     setup = function() -- Specifies code to run before this plugin is loaded.
     end,
@@ -26,12 +26,12 @@ plugin.core = {
             Method = "",
             Function = "",
             Constructor = "",
-            Field = "",
-            Variable = "",
+            Field = "",
+            Variable = "",
             Class = "ﴯ",
             Interface = "",
             Module = "",
-            Property = "ﰠ",
+            Property = " ",
             Unit = "",
             Value = "",
             Enum = "",
@@ -43,7 +43,7 @@ plugin.core = {
             Folder = "",
             EnumMember = "",
             Constant = "",
-            Struct = "ﴯ",
+            Struct = "",
             Event = "",
             Operator = "",
             TypeParameter = " "
@@ -54,7 +54,7 @@ plugin.core = {
 
             highlight CompBorder guifg=#ffaa55 guibg=#None
             autocmd! ColorScheme * highlight CompBorder guifg=#ffaa55 guibg=None
-
+            autocmd FileType AerojumpFilter lua require('cmp').setup.buffer { enabled = false }
         ]]
             --highlight CompDocBorder guifg=# guibg=#None
             --autocmd! ColorScheme * highlight CompDocBorder guifg=#ffaa55 guibg=None

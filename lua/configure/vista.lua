@@ -16,7 +16,7 @@ plugin.core = {
         -- See all the avaliable executives via `:echo g:vista#executives`.
         if vim.g.feature_groups.lsp == 'coc' then
             vim.g.vista_default_executive = 'coc'
-        elseif vim.g.feature_groups.lsp == 'buildin' then
+        elseif vim.g.feature_groups.lsp == 'builtin' then
             vim.g.vista_default_executive = 'nvim_lsp'
         end
         --vim.g.vista_default_executive = 'vim_lsc'
@@ -44,7 +44,7 @@ plugin.core = {
         --vim.g["vista#renderer#icons"] = {}
         vim.g.vista_enable_markdown_extension = 1
         vim.cmd([[
-            let g:vista#renderer#icons = { "function": "  ", "functions": "  ", "variable": "  ", "variables": "  ", "maps": "  ", "members ": "  ", "classes": "  ", "autocommand groups": " 祐 "}
+            let g:vista#renderer#icons = { "function": "  ", "functions": "  ", "variable": "  ", "variables": "  ", "maps": "  ", "members ": "  ", "classes": "  ", "autocommand groups": " 祐 "}
         ]])
         --vim.cmd([[]])
 

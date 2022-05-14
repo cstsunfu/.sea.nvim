@@ -74,8 +74,8 @@ plugin.core = {
                     '--column',
                     '--smart-case'
                 },
-                prompt_prefix = "> ",
-                selection_caret = "> ",
+                prompt_prefix = " ",
+                selection_caret = "➤ ",
                 entry_prefix = "  ",
                 initial_mode = "insert",
                 selection_strategy = "reset",
@@ -176,12 +176,30 @@ plugin.mapping = function()
         short_desc = "Find Query",
         silent = true
     })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "f", "l" },
+        action = "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find({skip_empty_lines=true})<cr>",
+        short_desc = "Find Lines",
+        silent = true
+    })
+
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "b" },
         action = "<cmd>lua require('telescope.builtin').buffers()<cr>",
         short_desc = "Find Buffers",
         silent = true
+    })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "f", "c" },
+        action = "<cmd>lua require('telescope.builtin').command_history()<cr>",
+        short_desc = "Find Command History",
+        silent = true,
+        noremap = true
     })
     mappings.register({
         mode = "n",
@@ -251,14 +269,6 @@ plugin.mapping = function()
         key = { "<leader>", "f", ";", "t" },
         action = "<cmd>lua require('telescope.builtin').colorscheme()<cr>",
         short_desc = "Find Themes",
-        silent = true,
-        noremap = true
-    })
-    mappings.register({
-        mode = "n",
-        key = { "<leader>", "f", ";", "c" },
-        action = "<cmd>lua require('telescope.builtin').command_history()<cr>",
-        short_desc = "Find Command History",
         silent = true,
         noremap = true
     })

@@ -378,7 +378,7 @@ plugin.core = {
             padding = { left = 0 },
             cond = conditions.active_add_wind_in_width
         }
-        --ins_left_active { INFO: buildin LSP status
+        --ins_left_active { INFO: builtin LSP status
         ---- Lsp server name .
         --function()
         --local msg = 'No Active Lsp'
