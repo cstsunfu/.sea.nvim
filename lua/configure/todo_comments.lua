@@ -1,7 +1,9 @@
 local plugin = {}
 
 plugin.core = {
-    "folke/todo-comments.nvim",
+    "robertgzr/todo-comments.nvim",
+    -- FIXME: when the origin source fix command line window highlight issue, should change to the origin
+    -- https://github.com/folke/todo-comments.nvim/issues/97
     requires = "nvim-lua/plenary.nvim",
     --cmd = { "TodoTelescope" },
     setup = function() -- Specifies code to run before this plugin is loaded.

@@ -654,6 +654,7 @@ global_mapping.register({
     short_desc = "Save & Quit"
 })
 
+
 global_mapping.setup = function()
     local plugins_config = require('core.plugins')
     if plugins_config.all_loaded_module['indent_line'] ~= nil then
