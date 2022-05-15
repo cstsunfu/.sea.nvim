@@ -124,6 +124,12 @@ In my opinion, `coc.nvim` is more easy to use in the most of the time. But now m
 11. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
 
 
+## Optional
+
+1. Install `sql-formatter` for sql format
+
+```npm install sql-formatter```
+
 ## More
 
 For getting the best performance, please use the GPU-based terminal:

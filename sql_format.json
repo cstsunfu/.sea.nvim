@@ -1,0 +1,11 @@
+{
+    "language": "spark",
+    "tabWidth": 4,
+    "keywordCase": "upper",
+    "newlineBeforeOpenParen": false,
+    "newlineBeforeCloseParen": true,
+    "logicalOperatorNewline": "after",
+    "multilineLists": "avoid",
+    "aliasAs": "always",
+    "newlineBeforeSemicolon": false
+}

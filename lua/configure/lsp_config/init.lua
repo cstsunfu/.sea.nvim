@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "williamboman/nvim-lsp-installer",
     requires = {
-        {"neovim/nvim-lspconfig", disable = vim.g.feature_groups.lsp ~= "builtin"},
+        { "neovim/nvim-lspconfig", disable = vim.g.feature_groups.lsp ~= "builtin" },
         --{"brymer-meneses/grammar-guard.nvim", disable = vim.g.feature_groups.lsp ~= "builtin"}, -- FIXIT: when this plugin provide fix feature https://github.com/brymer-meneses/grammar-guard.nvim/issues/11
     },
     setup = function() -- Specifies code to run before this plugin is loaded.
@@ -16,6 +16,7 @@ plugin.core = {
                 "sumneko_lua", -- lua
                 "pyright", -- python
                 "ltex", -- grammar
+                "sqlls", -- sql
             },
             automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
             ui = {
@@ -58,6 +59,8 @@ plugin.core = {
             single_file_support = true
         }
 
+        --lspconfig.sqlls.setup{}
+        lspconfig.sqlls.setup {}
         --require("grammar-guard").init()
         --lspconfig.ltex.setup()
         lspconfig.ltex.setup({
@@ -73,7 +76,18 @@ plugin.core = {
                     },
                     trace = { server = "verbose" },
                     dictionary = {},
-                    disabledRules = { ['en'] = { 'WHITESPACE_RULE', "DASH_RULE", "EN_QUOTES" } },
+                    disabledRules = {
+                        ['en'] = {
+                            'WHITESPACE_RULE',
+                            "DASH_RULE",
+                            "EN_QUOTES",
+                            "NON_STANDARD_COMMA",
+                            "PUNCTUATION_PARAGRAPH_END",
+                            "EN_UNPAIRED_BRACKETS",
+                            "WORD_CONTAINS_UNDERSCORE",
+                            "COMMA_PARENTHESIS_WHITESPACE",
+                        }
+                    },
                     --disabledRules = {
                     --    "WHITESPACE_RULE",
                     --    "DASH_RULE"
@@ -137,6 +151,28 @@ plugin.mapping = function()
         action = '<cmd>lua vim.diagnostic.goto_prev()<cr>',
         short_desc = "Next Diagnostic",
         silent = false
+    })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "=" },
+        action = ":lua vim.lsp.buf.format()<cr>",
+        short_desc = "Code Format"
+    })
+
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "s", "=" },
+        action = ":% !npx sql-formatter --config='$HOME/.sea.nvim/sql_format.json'<cr>",
+        short_desc = "Sql Format"
+    })
+
+    mappings.register({
+        mode = "v",
+        key = { "<leader>", "s", "=" },
+        action = ": !npx sql-formatter --config='$HOME/.sea.nvim/sql_format.json'<cr>",
+        short_desc = "Sql Format"
     })
 
 end

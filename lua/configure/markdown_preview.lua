@@ -3,10 +3,12 @@ local plugin = {}
 plugin.core = {
     "iamcco/markdown-preview.nvim",
     --as = "markdown-preview.nvim",
-    run = "cd app && yarn install",
+    --run = "cd app && npm install",
+    run = function() vim.fn["mkdp#util#install"]() end,
     --cmd = "MarkdownPreview",
 
     setup = function() -- Specifies code to run before this plugin is loaded.
+        vim.g.mkdp_filetypes = { "markdown", "vimwiki", "vimwiki.markdown.pandoc" }
     end,
 
 
