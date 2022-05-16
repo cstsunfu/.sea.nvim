@@ -14,7 +14,7 @@ plugin.core = {
         { "dmitmel/cmp-cmdline-history", disable = vim.g.feature_groups.lsp ~= "builtin" }, -- for commandline complation
         { "hrsh7th/cmp-calc", disable = vim.g.feature_groups.lsp ~= "builtin" }, --for calc
         { "hrsh7th/cmp-emoji", disable = vim.g.feature_groups.lsp ~= "builtin" },
-        { "lukas-reineke/cmp-rg", disable = vim.g.feature_groups.lsp ~= "builtin" },
+        --{ "lukas-reineke/cmp-rg", disable = vim.g.feature_groups.lsp ~= "builtin" },
         { "rcarriga/cmp-dap", disable = vim.g.feature_groups.lsp ~= "builtin" },
     },
     setup = function() -- Specifies code to run before this plugin is loaded.
@@ -89,7 +89,7 @@ plugin.core = {
                 { name = 'ultisnips' }, -- For ultisnips users.
                 { name = 'calc' },
                 { name = 'path' },
-                { name = 'rg' },
+                --{ name = 'rg' },
                 --{ name = 'orgmode' },
                 { name = 'buffer' },
                 { name = 'emoji', insert = true },
@@ -106,7 +106,7 @@ plugin.core = {
                         nvim_lsp = "[LSP]",
                         ultisnips = "[Snip]",
                         nvim_lua = "[Lua]",
-                        rg = "[Rg]",
+                        --rg = "[Rg]",
                         path = "[Path]",
                         emoji = "[Emoji]",
                         --orgmode = "[Org]",
