@@ -47,13 +47,24 @@ plugin.core = {
             end,
             cmd = { "pyright-langserver", "--stdio" },
             filetypes = { "python" },
+            flags = {
+                debounce_text_changes = 500,
+            },
             settings = {
                 python = {
                     analysis = {
-                        autoSearchPaths = true,
-                        diagnosticMode = "workspace",
-                        useLibraryCodeForTypes = true
-                    }
+                        autoImportCompletions = true,
+                        autoSearchPaths = false,
+                        diagnosticMode = "openFilesOnly", -- or "workspace"
+                        stubPath = "typings", --or ""
+                        typeshedPaths = {},
+                        useLibraryCodeForTypes = true,
+                    },
+                    linting = {
+                        enabled = false
+                    },
+                    pythonPath = "/home/sun/anaconda3/envs/dlkit/bin/python",
+                    venvPath = "/home/sun/anaconda3/envs/dlkit",
                 }
             },
             single_file_support = true
@@ -88,10 +99,6 @@ plugin.core = {
                             "COMMA_PARENTHESIS_WHITESPACE",
                         }
                     },
-                    --disabledRules = {
-                    --    "WHITESPACE_RULE",
-                    --    "DASH_RULE"
-                    --},
                     hiddenFalsePositives = {},
                 },
             },
