@@ -7,9 +7,10 @@ timer:start(1000, 0, vim.schedule_wrap(function()
     vim.cmd("hi VertSplit ctermfg=black guifg=black")    --set VertSplit color to black
     vim.cmd("hi StatusLine ctermfg=black guifg=black")   --set HSplit color to black
 
-    vim.cmd(("highlight TelescopePromptBorder guifg=%s"):format("#da85ff"))
-    vim.cmd(("highlight TelescopeResultsBorder guifg=%s"):format("#da85ff"))
-    vim.cmd(("highlight TelescopePreviewBorder guifg=%s"):format("#00cdcd"))
+    vim.cmd(("highlight TelescopePromptBorder guifg=%s"):format("#9a95bf"))
+    vim.cmd(("highlight TelescopeResultsBorder guifg=%s"):format("#9a95bf"))
+    --vim.cmd(("highlight TelescopeResultsBorder guifg=%s"):format("#90cdcd"))
+    vim.cmd(("highlight TelescopePreviewBorder guifg=%s"):format("#9a95bf"))
 
     --hi VertSplit ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))   -- TODO if the above setting not work as espect, maybe these setting will work
     --hi VertSplit ctermbg=NONE guibg=dark
