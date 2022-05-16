@@ -6,16 +6,16 @@ plugin.core = {
         "nvim-lspconfig"
     },
     requires = {
-        {"quangnguyen30192/cmp-nvim-ultisnips", disable = vim.g.feature_groups.lsp ~= "builtin"}, -- ultisnips source
-        {"hrsh7th/cmp-nvim-lsp", disable = vim.g.feature_groups.lsp ~= "builtin"}, --builtin lsp source
-        {"hrsh7th/cmp-buffer", disable = vim.g.feature_groups.lsp ~= "builtin"}, --buffer source
-        {"hrsh7th/cmp-path", disable = vim.g.feature_groups.lsp ~= "builtin"}, --path source
-        {"hrsh7th/cmp-cmdline", disable = vim.g.feature_groups.lsp ~= "builtin"}, -- for commandline complation
-        {"dmitmel/cmp-cmdline-history", disable = vim.g.feature_groups.lsp ~= "builtin"},  -- for commandline complation
-        {"hrsh7th/cmp-calc", disable = vim.g.feature_groups.lsp ~= "builtin"}, --for calc
-        {"hrsh7th/cmp-emoji", disable = vim.g.feature_groups.lsp ~= "builtin"},
-        {"lukas-reineke/cmp-rg", disable = vim.g.feature_groups.lsp ~= "builtin"},
-        {"rcarriga/cmp-dap", disable = vim.g.feature_groups.lsp ~= "builtin"},
+        { "quangnguyen30192/cmp-nvim-ultisnips", disable = vim.g.feature_groups.lsp ~= "builtin" }, -- ultisnips source
+        { "hrsh7th/cmp-nvim-lsp", disable = vim.g.feature_groups.lsp ~= "builtin" }, --builtin lsp source
+        { "hrsh7th/cmp-buffer", disable = vim.g.feature_groups.lsp ~= "builtin" }, --buffer source
+        { "hrsh7th/cmp-path", disable = vim.g.feature_groups.lsp ~= "builtin" }, --path source
+        { "hrsh7th/cmp-cmdline", disable = vim.g.feature_groups.lsp ~= "builtin" }, -- for commandline complation
+        { "dmitmel/cmp-cmdline-history", disable = vim.g.feature_groups.lsp ~= "builtin" }, -- for commandline complation
+        { "hrsh7th/cmp-calc", disable = vim.g.feature_groups.lsp ~= "builtin" }, --for calc
+        { "hrsh7th/cmp-emoji", disable = vim.g.feature_groups.lsp ~= "builtin" },
+        { "lukas-reineke/cmp-rg", disable = vim.g.feature_groups.lsp ~= "builtin" },
+        { "rcarriga/cmp-dap", disable = vim.g.feature_groups.lsp ~= "builtin" },
     },
     setup = function() -- Specifies code to run before this plugin is loaded.
     end,
@@ -29,7 +29,7 @@ plugin.core = {
             Field = "",
             Variable = "",
             Class = "ﴯ",
-            Interface = "",
+            Interface = "",
             Module = "",
             Property = " ",
             Unit = "",
@@ -56,8 +56,8 @@ plugin.core = {
             autocmd! ColorScheme * highlight CompBorder guifg=#ffaa55 guibg=None
             autocmd FileType AerojumpFilter lua require('cmp').setup.buffer { enabled = false }
         ]]
-            --highlight CompDocBorder guifg=# guibg=#None
-            --autocmd! ColorScheme * highlight CompDocBorder guifg=#ffaa55 guibg=None
+        --highlight CompDocBorder guifg=# guibg=#None
+        --autocmd! ColorScheme * highlight CompDocBorder guifg=#ffaa55 guibg=None
         cmp.setup({
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
@@ -92,9 +92,9 @@ plugin.core = {
                 { name = 'rg' },
                 { name = 'orgmode' },
                 { name = 'buffer' },
-                { name = 'emoji', insert=true },
+                { name = 'emoji', insert = true },
                 { name = 'dap' },
-            } ),
+            }),
 
             formatting = {
                 format = function(entry, vim_item)
@@ -115,7 +115,7 @@ plugin.core = {
                     return vim_item
                 end
             },
-            enabled = function ()
+            enabled = function()
                 return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
                     or require("cmp_dap").is_dap_buffer()
             end,

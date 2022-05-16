@@ -32,6 +32,16 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         --vim.g.coc_config_home = vim.g.CONFIG
         vim.cmd("autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']")
+        vim.cmd [[
+            highlight! DiagnosticSignError guibg=None guifg=#ec5f67 gui=bold
+            highlight! DiagnosticSignWarn guibg=None guifg=#FF8800 gui=bold
+            highlight! DiagnosticSignInfo guibg=None guifg=#008080 gui=bold
+            highlight! DiagnosticSignHint guibg=None guifg=#a9a1e1 gui=bold
+            highlight FloatBorder guifg=#7B68EE guibg=#None
+            highlight CocBorderHighlight guifg=#7B68EE guibg=#None
+
+        ]]
+        --autocmd! ColorScheme * highlight FloatBorder guifg=#7B68EE guibg=None
     end,
 }
 
