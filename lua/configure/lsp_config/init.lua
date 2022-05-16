@@ -54,7 +54,7 @@ plugin.core = {
                 python = {
                     analysis = {
                         autoImportCompletions = true,
-                        autoSearchPaths = false,
+                        autoSearchPaths = true,
                         diagnosticMode = "openFilesOnly", -- or "workspace"
                         stubPath = "typings", --or ""
                         typeshedPaths = {},
@@ -63,8 +63,8 @@ plugin.core = {
                     linting = {
                         enabled = false
                     },
-                    pythonPath = "/home/sun/anaconda3/envs/dlkit/bin/python",
-                    venvPath = "/home/sun/anaconda3/envs/dlkit",
+                    --pythonPath = "/home/sun/anaconda3/envs/dlkit/bin/python",
+                    --venvPath = "/home/sun/anaconda3/envs/dlkit",
                 }
             },
             single_file_support = true

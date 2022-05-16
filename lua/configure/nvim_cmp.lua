@@ -90,7 +90,7 @@ plugin.core = {
                 { name = 'calc' },
                 { name = 'path' },
                 { name = 'rg' },
-                { name = 'orgmode' },
+                --{ name = 'orgmode' },
                 { name = 'buffer' },
                 { name = 'emoji', insert = true },
                 { name = 'dap' },
@@ -109,7 +109,7 @@ plugin.core = {
                         rg = "[Rg]",
                         path = "[Path]",
                         emoji = "[Emoji]",
-                        orgmode = "[Org]",
+                        --orgmode = "[Org]",
                         latex_symbols = "[LaTeX]",
                     })[entry.source.name]
                     return vim_item
