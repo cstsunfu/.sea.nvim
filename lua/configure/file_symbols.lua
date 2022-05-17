@@ -40,6 +40,7 @@ plugin.core = {
             endfunction
 
             autocmd FileType Outline execute 'setl foldlevel=1|setl foldexpr=FoldOutline(v:lnum)|setl foldtext=FoldTextOutline()|setl foldmethod=expr'
+            autocmd FileType Outline execute 'setl nowrap'
         ]]
         vim.g.symbols_outline = {
             highlight_hovered_item = true,

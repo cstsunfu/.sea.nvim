@@ -9,7 +9,6 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         vim.g.indent_blankline_char_list = {'│'}
 
-        --vim.cmd('highlight IndentBlanklineContextChar guifg=#d090c0 gui=nocombine')
         vim.g.indent_blankline_filetype_exclude = {"translator", "dapui_breakpoints", "dapui_watches", "dapui_stacks", "dapui_scopes", "", 'help', 'packer', 'startify', 'dashboard', 'vimwiki', 'markdown', 'calendar'}
         vim.g.indent_blankline_use_treesitter = 'v:true'
         require("indent_blankline").setup {
@@ -18,7 +17,6 @@ plugin.core = {
             show_current_context = true,
             --show_current_context_start = true,
         }
-
     end,
 
 }

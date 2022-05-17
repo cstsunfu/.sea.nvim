@@ -104,6 +104,20 @@ plugin.core = {
                 enable = false,
                 ignore = false,
             },
+            renderer = {
+                indent_markers = {
+                    enable = true,
+                    icons = {
+                        corner = "└ ",
+                        edge = "│ ",
+                        none = "  ",
+                    },
+                },
+                icons = {
+                    webdev_colors = true,
+                    git_placement = "before",
+                }
+            },
             diagnostics = {
                 enable = false,
                 icons = {
