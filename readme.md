@@ -83,7 +83,7 @@ Both `local.lua` and `user.lua` are bind to user. `user.lua` is more general for
 
 My own setting example in `local.lua` is:
 ```
-vim.g.global_proxy_port = 'http://127.0.1.1:7893' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
+vim.g.global_proxy_port = 'http://127.0.0.1:7893' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
 ```
 And some setting personally but put to `local.lua` like:
 

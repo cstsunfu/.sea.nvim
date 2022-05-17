@@ -91,7 +91,6 @@ default_setting['opt'] = {
     ttyfast = true, -- true maybe as lazyredraw ? TODO
     mouse = 'a',
     hidden = true, -- permit of change buffer when the buffer is not been written
-    syntax = 'on', -- permit change default syntax
     fileencodings = "utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,latin1",
     encoding = "utf-8",
     path = vim.o.path .. ",./**",
