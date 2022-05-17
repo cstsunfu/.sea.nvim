@@ -19,13 +19,13 @@ plugin.core = {
         --vim.g.dashboard_preview_file_height = 7
         --vim.g.dashboard_preview_file_width = 70
         vim.g.dashboard_custom_shortcut = {
-            last_session       = 'SPC s l',
-            find_history       = 'SPC f h',
-            find_file          = 'SPC f f',
-            new_file           = 'SPC c f',
-            change_colorscheme = 'SPC f c',
-            find_word          = 'SPC f q',
-            book_marks         = 'SPC f m',
+            last_session       = '<leader> s l',
+            find_history       = '<leader> f h',
+            find_file          = '<leader> f f',
+            new_file           = '<leader> c f',
+            change_colorscheme = '<leader> f c',
+            find_word          = '<leader> f q',
+            book_marks         = '<leader> f m',
         }
         vim.g.dashboard_session_directory = vim.fn.stdpath('cache').."/session"
     end,

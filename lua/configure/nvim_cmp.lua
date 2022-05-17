@@ -58,6 +58,7 @@ plugin.core = {
         ]]
         --highlight CompDocBorder guifg=# guibg=#None
         --autocmd! ColorScheme * highlight CompDocBorder guifg=#ffaa55 guibg=None
+        local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
         cmp.setup({
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
@@ -83,6 +84,18 @@ plugin.core = {
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.abort(),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                ["<C-j>"] = cmp.mapping(
+                    function(fallback)
+                        cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+                    end,
+                    { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+                ),
+                ["<C-k>"] = cmp.mapping(
+                    function(fallback)
+                        cmp_ultisnips_mappings.jump_backwards(fallback)
+                    end,
+                    { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+                ),
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
