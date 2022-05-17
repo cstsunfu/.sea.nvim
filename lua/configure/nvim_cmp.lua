@@ -22,7 +22,7 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         local kind_icons = {
-            Text = "",
+            Text = " ",
             Method = "",
             Function = "",
             Constructor = "",
@@ -102,11 +102,8 @@ plugin.core = {
                 { name = 'ultisnips' }, -- For ultisnips users.
                 { name = 'calc' },
                 { name = 'path' },
-                --{ name = 'rg' },
-                --{ name = 'orgmode' },
                 { name = 'buffer' },
                 { name = 'emoji', insert = true },
-                { name = 'dap' },
             }),
 
             formatting = {
@@ -119,11 +116,14 @@ plugin.core = {
                         nvim_lsp = "[LSP]",
                         ultisnips = "[Snip]",
                         nvim_lua = "[Lua]",
-                        --rg = "[Rg]",
+                        orgmode = "[Org]",
                         path = "[Path]",
+                        dap = "[DAP]",
                         emoji = "[Emoji]",
-                        --orgmode = "[Org]",
+                        calc = "[CALC]",
                         latex_symbols = "[LaTeX]",
+                        cmdline_history = "[History]",
+                        cmdline = "[Command]",
                     })[entry.source.name]
                     return vim_item
                 end
@@ -135,12 +135,39 @@ plugin.core = {
         })
 
         -- Set configuration for specific filetype.
+        cmp.setup.filetype('org', {
+            sources = cmp.config.sources({
+                { name = 'orgmode' },
+                { name = 'buffer' },
+                { name = 'path' },
+                { name = 'calc' },
+                { name = 'ultisnips' },
+                { name = 'emoji', insert = true }
+            })
+        })
+        cmp.setup.filetype('markdown', {
+            sources = cmp.config.sources({
+                { name = 'ultisnips' },
+                { name = 'buffer' },
+                { name = 'path' },
+                { name = 'calc' },
+                { name = 'emoji', insert = true }
+            })
+        })
+        cmp.setup.filetype('dap-repl', {
+            sources = cmp.config.sources({
+                { name = 'dap' },
+                { name = 'buffer' },
+                { name = 'path' },
+                { name = 'ultisnips' }, -- For ultisnips users.
+            })
+        })
         cmp.setup.filetype('gitcommit', {
             sources = cmp.config.sources({
-                { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-            }, {
+                { name = 'cmp_git' },  -- You can specify the `cmp_git` source if you were installed it.
                 { name = 'buffer' },
-            })
+            }
+            )
         })
 
         -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
