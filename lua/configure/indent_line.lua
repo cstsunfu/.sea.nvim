@@ -10,7 +10,8 @@ plugin.core = {
         vim.g.indent_blankline_char_list = {'│'}
 
         vim.g.indent_blankline_filetype_exclude = {"translator", "dapui_breakpoints", "dapui_watches", "dapui_stacks", "dapui_scopes", "", 'help', 'packer', 'startify', 'dashboard', 'vimwiki', 'markdown', 'calendar'}
-        vim.g.indent_blankline_use_treesitter = 'v:true'
+        vim.g.indent_blankline_indent_level = 4
+        vim.g.indent_blankline_use_treesitter = false
         require("indent_blankline").setup {
             -- for example, context is off by default, use this to turn it on
             space_char_blankline = ' ',
