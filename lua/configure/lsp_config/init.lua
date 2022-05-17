@@ -48,7 +48,7 @@ plugin.core = {
             cmd = { "pyright-langserver", "--stdio" },
             filetypes = { "python" },
             flags = {
-                debounce_text_changes = 500,
+                debounce_text_changes = 150,
             },
             settings = {
                 python = {

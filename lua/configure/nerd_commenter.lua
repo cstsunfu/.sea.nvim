@@ -5,6 +5,17 @@ plugin.core = {
     --as = "nerdcommenter",
     setup = function() -- Specifies code to run before this plugin is loaded.
         vim.g.NERDCreateDefaultMappings = 0
+        vim.g.NERDCustomDelimiters = {
+            json = {
+                left='// '
+            },
+            json5 = {
+                left='// '
+            },
+            hjson = {
+                left='// '
+            },
+         }
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded

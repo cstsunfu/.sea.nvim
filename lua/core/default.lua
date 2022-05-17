@@ -82,7 +82,7 @@ default_setting['opt'] = {
     fillchars = "fold:-,eob: ,vert:▕,diff: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
     history = 10000, -- undo file history
-    updatetime = 150, -- CursorHold
+    updatetime = 250, -- CursorHold
     undofile = true, -- use undo file
     swapfile = true, -- use swap file
     maxmempattern = 2000, -- max match pattern

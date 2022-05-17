@@ -126,7 +126,7 @@ if vim.g.feature_groups['lsp'] then
         ["trouble"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["null_ls"] = { disable =  vim.g.feature_groups.lsp ~= 'builtin' },
         ["nvim_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
-        ['lsp_icon'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        --['lsp_icon'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' }, -- directly setting in nvim_cmp
         --['fold_expr'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' }, -- may cause slow
     }
 end
