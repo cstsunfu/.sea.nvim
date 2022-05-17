@@ -80,7 +80,7 @@ plugin.core = {
                 Function = {icon = "", hl = "TSFunction"},
                 Variable = {icon = "", hl = "TSTag"},
                 Constant = {icon = "", hl = "TSConstant"},
-                String = {icon = "", hl = "TSString"},
+                String = {icon = "", hl = "TSString"},
                 Number = {icon = "", hl = "TSNumber"},
                 Boolean = {icon = "", hl = "TSBoolean"},
                 Array = {icon = "", hl = "TSConstant"},

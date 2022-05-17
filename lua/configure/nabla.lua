@@ -15,7 +15,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<localleader>", 'f' },
-        action = ":lua require('nabla').popup()<CR>",
+        action = ":lua require('nabla').popup({border='rounded'})<CR>",
         short_desc = "Display Formula"
     })
 end
