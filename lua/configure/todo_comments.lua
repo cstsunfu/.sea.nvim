@@ -1,9 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "robertgzr/todo-comments.nvim",
-    -- FIXME: when the origin source fix command line window highlight issue, should change to the origin
-    -- https://github.com/folke/todo-comments.nvim/issues/97
+    "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
     --cmd = { "TodoTelescope" },
     setup = function() -- Specifies code to run before this plugin is loaded.
@@ -11,6 +9,15 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+        -- HACK: #104 Invalid in command-line window
+        -- FIXME: when the origin source fix command line window highlight issue, remove this
+        -- https://github.com/folke/todo-comments.nvim/issues/97
+        local hl = require("todo-comments.highlight")
+        local highlight_win = hl.highlight_win
+        hl.highlight_win = function(win, force)
+            pcall(highlight_win, win, force)
+        end
+
         require("todo-comments").setup {
             -- your configuration comes here
             -- or leave it empty to use the default settings
@@ -29,7 +36,7 @@ plugin.core = {
                 FIXED = { icon = " ", color = "fixed" },
                 WAIT = { icon = " ", color = "warning" },
                 ASSIGN = { icon = " ", color = "info" },
-                TALK = { icon = " ", color = "hint", alt = { "DISCUSS", "CALL", "MEET" } },
+                TALK = { icon = " ", color = "hint", alt = { "DISCUSS", "CALL", "MEET", "ALIGH" } },
                 HACK = { icon = " ", color = "warning" },
                 WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
                 PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
