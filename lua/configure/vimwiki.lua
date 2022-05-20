@@ -27,37 +27,37 @@ plugin.core = {
         global_func.augroup('Vimwiki Map', {
             {
                 events = { 'Filetype' },
-                targets = { 'vimwiki' },
+                targets = { 'vimwiki', 'markdown', 'vimwiki.markdown.pandoc' },
                 command = "vnoremap <silent> <leader><cr> :call VVimwiki_create_dir()<cr>"
             },
             {
                 events = { 'Filetype' },
-                targets = { 'vimwiki' },
+                targets = { 'vimwiki', 'markdown', 'vimwiki.markdown.pandoc' },
                 command = "vnoremap <silent> <leader><cr> :call VVimwiki_create_dir()<cr>"
             },
             {
                 events = { 'Filetype' },
-                targets = { 'vimwiki' },
+                targets = { 'vimwiki', 'markdown', 'vimwiki.markdown.pandoc' },
                 command = 'inoremap <silent><expr><buffer> <cr> pumvisible() ? coc#_select_confirm() : "<C-]><Esc>:VimwikiReturn 1 5<CR>"'
             },
             {
                 events = { 'Filetype' },
-                targets = { 'vimwiki' },
+                targets = { 'vimwiki', 'markdown', 'vimwiki.markdown.pandoc' },
                 command = "nnoremap <silent> <leader><cr> :call NVimwiki_create_dir()<cr>"
             },
             {
                 events = { 'Filetype' },
-                targets = { 'vimwiki' },
+                targets = { 'vimwiki', 'markdown', 'vimwiki.markdown.pandoc' },
                 command = "inoremap <silent><expr><buffer> <C-j> vimwiki#tbl#kbd_tab()"
             },
             {
                 events = { 'Filetype' },
-                targets = { 'vimwiki' },
+                targets = { 'vimwiki', 'markdown', 'vimwiki.markdown.pandoc' },
                 command = "inoremap <silent><expr><buffer> <C-k> vimwiki#tbl#kbd_shift_tab()"
             },
             {
                 events = { 'Filetype' },
-                targets = { 'vimwiki' },
+                targets = { 'vimwiki', 'markdown', 'vimwiki.markdown.pandoc' },
                 command = "nnoremap <localleader>tt :VimwikiToggleListItem<cr>"
             },
         })
