@@ -15,13 +15,15 @@ end
 
 
 _G.dlk_goto_configure = function()
-    local current_line = vim.fn.getpos('.')
-    vim.g._dlk_current_configure_line = (vim.api.nvim_buf_get_lines(0, current_line[2]-1, current_line[2], false)[1])
+    --NOTE: local current_line = vim.fn.getpos('.') equal to vim.api.nvim_win_get_cursor()
+    local current_line = vim.api.nvim_win_get_cursor(0)
+    vim.g._dlk_current_configure_line = (vim.api.nvim_buf_get_lines(0, current_line[1]-1, current_line[1], false)[1])
     vim.cmd("normal viBo")
     vim.api.nvim_input("<esc>")
     vim.fn.search(':', "bW")
-    current_line = vim.fn.getpos('.')
-    vim.g._dlk_current_module_line = vim.api.nvim_buf_get_lines(0, current_line[2]-1, current_line[2], false)[1]
+    local module_line = vim.fn.getpos('.')
+    vim.g._dlk_current_module_line = vim.api.nvim_buf_get_lines(0, module_line[2]-1, module_line[2], false)[1]
+    pcall(vim.api.nvim_win_set_cursor, 0, current_line)
     vim.cmd[[ 
 python3 << EOF
 import os
@@ -118,8 +120,8 @@ end
 
 
 _G.dlk_goto_source = function()
-    local current_line = vim.fn.getpos('.')
-    vim.g._dlk_current_configure_line = (vim.api.nvim_buf_get_lines(0, current_line[2]-1, current_line[2], false)[1])
+    local current_line = vim.api.nvim_win_get_cursor(0)
+    vim.g._dlk_current_configure_line = (vim.api.nvim_buf_get_lines(0, current_line[1]-1, current_line[1], false)[1])
     vim.cmd("normal viBo")
     vim.api.nvim_input("<esc>")
     local module_name_line_pos = vim.fn.search(':', "bW")
@@ -128,9 +130,10 @@ _G.dlk_goto_source = function()
         vim.g._dlk_get_current_module_name_in_file = false
         vim.g._dlk_current_module_line = vim.fn.expand("%:p")
     else
-        current_line = vim.fn.getpos('.')
-        vim.g._dlk_current_module_line = vim.api.nvim_buf_get_lines(0, current_line[2]-1, current_line[2], false)[1]
+        local module_line = vim.fn.getpos('.')
+        vim.g._dlk_current_module_line = vim.api.nvim_buf_get_lines(0, module_line[2]-1, module_line[2], false)[1]
     end
+    pcall(vim.api.nvim_win_set_cursor, 0, current_line)
     vim.cmd[[ 
 python3 << EOF
 import os
