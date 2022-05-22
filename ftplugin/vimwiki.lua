@@ -43,7 +43,7 @@ end_row, end_col = list(vim.current.buffer.mark('>'))
 cur_line = list(vim.current.buffer[start_row-1])
 name = ''.join(cur_line[start_col:end_col+1])
 dir_name = '_'.join(name.split(' ')).strip()
-file_name = dir_name
+file_name = "index.md"
 if os.path.isdir(dir_name):
     pass
 else:
@@ -60,11 +60,12 @@ python3 << EOF
 import os
 cword = vim.eval('expand("<cWORD>")')
 dir_name = '_'.join(cword.split())
+file_name = "index.md"
 if os.path.isdir(dir_name):
     pass
 else:
     os.mkdir(dir_name)
-cword = f"[{cword}]({os.path.join(dir_name, dir_name)})"
+cword = f"[{cword}]({os.path.join(dir_name, file_name)})"
 vim.command("normal viwc%s" % cword)
 EOF
 endfunction

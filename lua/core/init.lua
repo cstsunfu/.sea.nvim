@@ -14,8 +14,8 @@ vim.g.feature_groups = {
 
 
 require('core.default')
-require('core.user')
 pcall(require, "core.local") -- local maybe not exists
+require('core.user')
 require('core.plugins').setup()
 require('hack').setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. '/org/pomodoro/' } })
 
