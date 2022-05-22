@@ -15,7 +15,7 @@ local global_func = require('util.global')
 
 -- special setting
 
-vim.cmd("hi CursorLine term=bold cterm=bold guibg=Grey40") -- cursorline color
+--vim.cmd("hi CursorLine term=bold cterm=bold guibg=Grey40") -- cursorline color
 
 vim.g.no_number_filetypes = {
     dapui_stacks = true,

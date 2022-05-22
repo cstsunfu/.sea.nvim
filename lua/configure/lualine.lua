@@ -295,10 +295,7 @@ plugin.core = {
             'location',
             cond = conditions.hide_location_in_width
         }
-
-        ins_left_active { 'progress', color = { fg = colors.fg }, cond = conditions.hide_progress_in_width }
-
-        if USE_COC then
+        if vim.g.feature_groups.lsp == 'coc' then
             ins_left_active {
                 'diagnostics',
                 sources = { 'coc' },
@@ -378,24 +375,6 @@ plugin.core = {
             padding = { left = 0 },
             cond = conditions.active_add_wind_in_width
         }
-        --ins_left_active { INFO: builtin LSP status
-        ---- Lsp server name .
-        --function()
-        --local msg = 'No Active Lsp'
-        --local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-        --local clients = vim.lsp.get_active_clients()
-        --if next(clients) == nil then return msg end
-        --for _, client in ipairs(clients) do
-        --local filetypes = client.config.filetypes
-        --if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-        --return client.name
-        --end
-        --end
-        --return msg
-        --end,
-        --icon = ' LSP:',
-        --color = {fg = '#dfffff', gui = 'bold'}
-        --}
 
         -- Add components to right sections
 
@@ -447,17 +426,20 @@ plugin.core = {
             color = { fg = colors.violet, gui = 'bold' }
         }
 
-        ins_right_active {
-            'diff',
-            -- Is it me or the symbol for modified us really weird
-            symbols = { added = ' ', modified = ' ', removed = ' ' },
-            diff_color = {
-                added = { fg = colors.green },
-                modified = { fg = colors.orange },
-                removed = { fg = colors.red },
-            },
-            cond = conditions.check_git_workspace_hide_in_width
-        }
+        --ins_right_active {
+        --    'diff',
+        --    -- Is it me or the symbol for modified us really weird
+        --    symbols = { added = ' ', modified = ' ', removed = ' ' },
+        --    diff_color = {
+        --        added = { fg = colors.green },
+        --        modified = { fg = colors.orange },
+        --        removed = { fg = colors.red },
+        --    },
+        --    cond = conditions.check_git_workspace_hide_in_width
+        --}
+
+        ins_right_active { 'progress', color = { fg = colors.fg }, cond = conditions.hide_progress_in_width }
+
         ins_right_active {
             function()
                 local date = 'None date'
@@ -582,17 +564,17 @@ plugin.core = {
             color = { fg = colors.inactive, gui = 'bold' }
         }
 
-        ins_right_inactive {
-            'diff',
-            -- Is it me or the symbol for modified us really weird
-            symbols = { added = ' ', modified = ' ', removed = ' ' },
-            diff_color = {
-                added = { fg = colors.inactive },
-                modified = { fg = colors.inactive },
-                removed = { fg = colors.inactive },
-            },
-            cond = conditions.check_git_workspace_hide_in_width
-        }
+        --ins_right_inactive {
+        --    'diff',
+        --    -- Is it me or the symbol for modified us really weird
+        --    symbols = { added = ' ', modified = ' ', removed = ' ' },
+        --    diff_color = {
+        --        added = { fg = colors.inactive },
+        --        modified = { fg = colors.inactive },
+        --        removed = { fg = colors.inactive },
+        --    },
+        --    cond = conditions.check_git_workspace_hide_in_width
+        --}
 
         ins_right_inactive {
             function() return '▐' end, --█
