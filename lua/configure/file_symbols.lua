@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "simrat39/symbols-outline.nvim",
+    "cstsunfu/symbols-outline.nvim", -- when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/134
     as = "symbols-outline",
     cmd = { "SymbolsOutline" },
     setup = function() -- Specifies code to run before this plugin is loaded.
