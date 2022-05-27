@@ -1,4 +1,4 @@
-![Startify](./pic/main.png)
+![Startify](./pic/startify.png)
 
 # Neovim Configure
 
