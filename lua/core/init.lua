@@ -22,6 +22,6 @@ require('hack').setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. '/org/pomodor
 require('core.plugins').create_mapping()
 require('hack').create_mapping()
 require('core.mapping').setup()
-require("configure." .. vim.g.colorscheme).setup(vim.g.theme)
+require("configure." .. vim.g.colorscheme).setup(vim.g.style)
 
 require('core.after')

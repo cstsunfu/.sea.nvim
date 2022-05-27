@@ -167,6 +167,13 @@ plugin.core = {
                         highlight = 'TAGBAR',
                         padding = padding_by_colorscheme()
                     },
+                    {
+                        filetype = "DiffviewFiles",
+                        text = "✶Diff View✶",
+                        text_align = "center",
+                        highlight = 'TAGBAR',
+                        padding = padding_by_colorscheme()
+                    },
                 },
                 --show_buffer_icons = true | false, -- disable filetype icons for buffers
                 show_buffer_icons = true, -- disable filetype icons for buffers

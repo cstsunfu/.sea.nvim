@@ -32,7 +32,7 @@ plugin.setup = function (style)
         })
     else
         onedark.setup({
-          style = 'light', -- Or
+          style = 'dark', -- Or
         })
     end
     onedark.load()

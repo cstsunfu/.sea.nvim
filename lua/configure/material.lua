@@ -53,6 +53,7 @@ plugin.setup = function(style)
             "calendar",
             "undotree",
             "toggleterm",
+            "DiffviewFiles",
             "diff",
             "Outline",
             "vista",
@@ -103,9 +104,8 @@ plugin.setup = function(style)
         vim.g.material_style = 'darker'
     end
     vim.cmd 'colorscheme material'
+    vim.cmd("hi clear Cursor")
 
-    --vim.cmd("hi clear Cursor")
-    --vim.cmd("hi Cursor guibg=#993333")   --set HSplit color to black
     local timer = vim.loop.new_timer()
     timer:start(vim.g.after_schedule_time_start + 100, 0, vim.schedule_wrap(function()
         vim.cmd("hi! default link WhichKeyFloat Pmenu")
@@ -113,8 +113,6 @@ plugin.setup = function(style)
         vim.cmd("hi! StatusLine ctermfg=black guifg=black") --set HSplit color to black
         -- FIXED: FIXED: the VertSplit is renamed to WinSeparator https://github.com/marko-cerovac/material.nvim/issues/91 ,
         vim.o.fillchars = "fold:-,eob: ,vert: ,diff: "   -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
-        --vim.cmd("hi! clear VertSplit")    set VertSplit color to black
-        --vim.cmd("hi! link VertSplit NormalContrast")    set VertSplit color to black
         vim.cmd("hi! DiffDelete guibg=#A6647A")
     end))
     local mappings = require('core.mapping')
