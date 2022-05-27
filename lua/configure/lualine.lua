@@ -66,6 +66,7 @@ plugin.core = {
                 ["dapui_watches"] = true,
                 ["dapui_scopes"] = true,
                 ["dap-repl"] = true,
+                ["DiffviewFiles"] = true,
             }
             local only_win_num_buffertype = {
                 ["terminal"] = true,
@@ -222,7 +223,8 @@ plugin.core = {
                 }
                 vim.api.nvim_command(
                     'hi! LualineMode guifg=' .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
-                return '  '
+                return '  '
+                --
             end,
             color = "LualineMode",
             padding = { left = 0 },
@@ -438,7 +440,7 @@ plugin.core = {
         --    cond = conditions.check_git_workspace_hide_in_width
         --}
 
-        ins_right_active { 'progress', color = { fg = colors.fg }, cond = conditions.hide_progress_in_width }
+        ins_right_active { 'progress', color = { fg = colors.magenta }, cond = conditions.hide_progress_in_width }
 
         ins_right_active {
             function()

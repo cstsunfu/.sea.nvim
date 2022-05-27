@@ -6,6 +6,7 @@ plugin.core = {
     requires = {
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
+        {"tami5/sqlite.lua"},
         { "tami5/sql.nvim", opt = true },
         {
             "nvim-telescope/telescope-frecency.nvim",
@@ -124,22 +125,16 @@ plugin.core = {
             extensions = {
                 frecency = {
                     show_scores = false,
-                    show_unindexed = false,
+                    show_unindexed = true,
                     ignore_patterns = { "*.git/*" },
                     workspaces = {
-                        ["conf"] = vim.g.HOME_PATH .. ".config",
-                        ["data"] = vim.g.HOME_PATH .. ".local/share",
-                        ["nvim"] = vim.g.HOME_PATH .. ".config/nvim",
-                        ["work"] = vim.g.HOME_PATH .. "workspaces",
                     }
                 },
                 project = {
                     base_dirs = {
-                        --'~/dev/src',
-                        --{'~/dev/src2'},
-                        --{'~/dev/src3', max_depth = 4},
-                        --{path = '~/dev/src4'},
-                        --{path = '~/dev/src5', max_depth = 2},
+                        '~/.sea.nvim',
+                        '~/org',
+                        '~/.dotfiles',
                         '~/workspace',
                     },
                     hidden_files = true -- default: false
@@ -156,6 +151,7 @@ plugin.core = {
             }
         }
         require 'telescope'.load_extension('fzf')
+        require"telescope".load_extension("frecency")
     end,
 }
 

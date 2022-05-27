@@ -67,6 +67,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['translate'] = { disable = false },
         ['notify'] = { disable = false },
         ['ipython'] = { disable = false },
+        ['jukit'] = { disable = false }, --for jupyter
         ['neogen'] = { disable = true }, -- generate annotations
         ['terminal'] = { disable = false },
         ['remote'] = { disable = false },
@@ -139,6 +140,7 @@ if vim.g.feature_groups['file_and_view'] == true then
         ['spectre'] = { disable = false }, -- search the and replace token by reg exp
         ["vista"] = { disable = vim.g.feature_groups.lsp ~= 'coc' }, -- only works for coc lsp, tree view
         ["file_symbols"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' }, -- only works for builtin lsp
+        ["aerial"] = { disable = true }, -- TODO: if the file_symbols plugin is not fix the bugs, will change to this plugin
     }
 end
 

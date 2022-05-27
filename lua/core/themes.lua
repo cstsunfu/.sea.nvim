@@ -11,6 +11,11 @@ themes['configs'] = {
         style = 'dark',
         name = 'gruvbox_dark'
     },
+    gruvbox_light = {
+        colorscheme = 'gruvbox_material',
+        style = 'light',
+        name = 'gruvbox_light'
+    },
     nord = {
         colorscheme = 'nord',
         style = 'dark',

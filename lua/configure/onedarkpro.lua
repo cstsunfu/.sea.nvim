@@ -31,6 +31,7 @@ plugin.setup = function (style)
     vim.cmd("packadd onedarkpro")
     if style == "light" then
         plugin.light()
+        vim.cmd("hi CursorLine guibg=#e3e3e3")
     else
         plugin.dark()
     end

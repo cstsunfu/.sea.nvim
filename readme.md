@@ -128,6 +128,13 @@ For my experience,  `coc.nvim` is more easy to configure to get all things work.
 npm install sql-formatter
 ```
 
+2. Install `sqlite3` for better frequence files display(<leader>fh)
+
+```
+sudo apt-get install sqlite3
+sudo apt-get install libsqlite3-dev
+```
+
 ## More
 
 For getting the best performance, please use the GPU-based terminal:

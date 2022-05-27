@@ -16,21 +16,23 @@ end
 
 plugin.light = function()
     vim.cmd("set background=light")
-    vim.cmd("let g:gruvbox_material_background = 'soft'")
+    vim.cmd("let g:gruvbox_material_background = 'medium'")
     vim.cmd("colorscheme gruvbox-material")
 end
 
 plugin.dark = function ()
     vim.cmd("set background=dark")
-    vim.cmd("let g:gruvbox_material_background = 'soft'")
+    vim.cmd("let g:gruvbox_material_background = 'medium'")
     vim.cmd("colorscheme gruvbox-material")
 end
 
 plugin.setup = function (style)
     vim.cmd("packadd gruvbox-material")
     if style == "light" then
+        print('hi')
         plugin.light()
     else
+        print('here')
         plugin.dark()
     end
     local timer = vim.loop.new_timer()

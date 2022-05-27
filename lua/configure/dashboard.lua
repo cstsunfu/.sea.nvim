@@ -14,7 +14,7 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        vim.g.dashboard_custom_footer = {"🐬 Have A Good Day!"}
+        vim.g.dashboard_custom_footer = {"💎 Have A Good Day! "}
         --vim.g.dashboard_preview_pipeline = 'lolcat'
         --vim.g.dashboard_preview_file_height = 7
         --vim.g.dashboard_preview_file_width = 70
