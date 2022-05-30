@@ -91,6 +91,7 @@ plugin.core = {
             dapui_condition = function() -- dapui
                 return dap_ui_map[vim.bo.filetype] ~= nil and vim.fn.winwidth(vim.fn.winnr()) > 30
             end,
+            limit_active_file_name_in_width = function() return vim.fn.winwidth(0) > 160 end,
             nest_active_file_name_in_width = function() return vim.fn.winwidth(0) > 140 end,
             hide_encoding_in_width = function()
                 return not_only_win_num() and vim.fn.winwidth(vim.fn.winnr()) > 120
@@ -124,15 +125,18 @@ plugin.core = {
                 return not_only_win_num() and vim.fn.winwidth(0) > 28
             end,
             buffer_not_empty_hide_file_in_width = function()
-                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(0) > 40
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(0) > 55
             end,
             inactive_buffer_not_empty_hide_file_in_width = function()
-                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 25
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 45
             end,
             inactive_buffer_not_empty_nest_file_in_width = function() return buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 60 end,
-            hide_status_indicate_in_width = function()
+            hide_status_active_in_width = function()
                 return not_only_win_num() and vim.fn.winwidth(0) > 20
-            end
+            end,
+            hide_bound_in_width = function()
+                return vim.fn.winwidth(vim.fn.winnr()) > 10
+            end,
         }
 
         -- Config
@@ -191,6 +195,7 @@ plugin.core = {
             function() return '▌' end, --'▌▊'
             color = { fg = colors.blue }, -- Sets highlighting of component
             padding = { left = 0 },
+            cond = conditions.hide_bound_in_width
         }
 
 
@@ -228,7 +233,7 @@ plugin.core = {
             end,
             color = "LualineMode",
             padding = { left = 0 },
-            cond = conditions.hide_status_indicate_in_width
+            cond = conditions.hide_status_active_in_width
         }
 
         ins_left_active {
@@ -276,14 +281,24 @@ plugin.core = {
                 local split_path = path:_split()
                 if not conditions.nest_active_file_name_in_width() then
                     fname = vim.fn.expand('%')
-                    if string.len(fname) > 20 then
-                        fname = string.sub(fname, 1, 18) .. "..."
+                    if string.len(fname) > 25 then
+                        fname = string.sub(fname, 1, 23) .. ".."
+                    end
+                    return fname
+                elseif not conditions.limit_active_file_name_in_width() then
+                    fname = table.concat({ split_path[#split_path], vim.fn.expand('%') }, '/')
+                    if string.len(fname) > 30 then
+                        --fname = string.sub(fname, 1, 28) .. "..."
+                        local fname_len = string.len(fname)
+                        fname = ".."..string.sub(fname, fname_len-28, fname_len) -- Keep the name except the folder
                     end
                     return fname
                 else
                     fname = table.concat({ split_path[#split_path], vim.fn.expand('%') }, '/')
-                    if string.len(fname) > 30 then
-                        fname = string.sub(fname, 1, 28) .. "..."
+                    if string.len(fname) > 45 then
+                        --fname = string.sub(fname, 1, 28) .. "..."
+                        local fname_len = string.len(fname)
+                        fname = ".."..string.sub(fname, fname_len-43, fname_len) -- Keep the name except the folder
                     end
                     return fname
                 end
@@ -347,7 +362,8 @@ plugin.core = {
 
                 local prefix = ''
                 if conditions.nest_project_prefix_in_width() then
-                    prefix = "  Project: "
+                    prefix = "🍀 Project: " -- 
+                    --🌊🐶 🍵 ☕ 🌿 🍀
                 else
                     prefix = ""
                 end
@@ -458,6 +474,7 @@ plugin.core = {
             function() return '▐' end, --█
             color = { fg = colors.blue },
             padding = { right = 0 },
+            cond = conditions.hide_bound_in_width
         }
         -- Inserts a component in lualine_c at left section
         local function ins_left_inactive(component)
@@ -473,6 +490,7 @@ plugin.core = {
             function() return '▌' end, --'▌▊'
             color = { fg = colors.gray }, -- Sets highlighting of component
             padding = { left = 0 },
+            cond = conditions.hide_bound_in_width
         }
         ins_left_inactive {
             -- filesize component
@@ -503,10 +521,20 @@ plugin.core = {
                 local fname = vim.fn.getcwd()
                 local path = Path:new(fname)
                 local split_path = path:_split()
-                if conditions.inactive_buffer_not_empty_nest_file_in_width then
-                    return vim.fn.expand('%')
+                if not conditions.inactive_buffer_not_empty_nest_file_in_width() then
+                    fname = vim.fn.expand('%')
+                    if string.len(fname) > 30 then
+                        fname = string.sub(fname, 1, 28) .. ".."
+                    end
+                    return fname
                 else
-                    return table.concat({ split_path[#split_path], vim.fn.expand('%') }, '/')
+                    fname = table.concat({ split_path[#split_path], vim.fn.expand('%') }, '/')
+                    if string.len(fname) > 55 then
+                        --fname = string.sub(fname, 1, 28) .. "..."
+                        local fname_len = string.len(fname)
+                        fname = ".."..string.sub(fname, fname_len-53, fname_len) -- Keep the name except the folder
+                    end
+                    return fname
                 end
             end,
             cond = conditions.inactive_buffer_not_empty_hide_file_in_width,
@@ -582,6 +610,7 @@ plugin.core = {
             function() return '▐' end, --█
             color = { fg = colors.gray },
             padding = { right = -1 },
+            cond = conditions.hide_bound_in_width
         }
 
         -- Now don't forget to initialize lualine

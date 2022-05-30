@@ -2,9 +2,14 @@ if vim.g.custom_filetype_vimwiki then
     return
 end
 vim.g.custom_filetype_vimwiki = true
+-- default glow highlight
 vim.cmd[[ 
     highlight VimwikiDelText gui=strikethrough guifg=#5c6370 guibg=background
     highlight link VimwikiCheckBoxDone VimwikiDelText
+    hi MdList guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
+    hi MdCiteLevel1 guifg=#fc5e5e guibg=NONE ctermbg=NONE gui=bold cterm=bold
+    hi MdCiteLevel2 guifg=#fc5e5e guibg=NONE ctermbg=NONE gui=bold cterm=bold
+    hi MdCiteLevel3 guifg=#fc5e5e guibg=NONE ctermbg=NONE gui=bold cterm=bold
     hi VimwikiHeader1 guifg=#FFFF87 guibg=#5f5fff ctermbg=NONE gui=bold cterm=bold
     hi VimwikiHeader2 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
     hi VimwikiHeader3 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold

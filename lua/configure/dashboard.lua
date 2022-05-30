@@ -15,14 +15,11 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         vim.g.dashboard_custom_footer = {"💎 Have A Good Day! "}
-        --vim.g.dashboard_preview_pipeline = 'lolcat'
-        --vim.g.dashboard_preview_file_height = 7
-        --vim.g.dashboard_preview_file_width = 70
         vim.g.dashboard_custom_shortcut = {
             last_session       = '<leader> s l',
             find_history       = '<leader> f h',
+            new_file           = '<leader> c f',    -- FIXME: https://github.com/glepnir/dashboard-nvim/issues/79
             find_file          = '<leader> f f',
-            new_file           = '<leader> c f',
             change_colorscheme = '<leader> f c',
             find_word          = '<leader> f q',
             book_marks         = '<leader> f m',
@@ -88,7 +85,6 @@ plugin.mapping = function()
         short_desc = "Create New File",
         silent = true
     })
-    --nnoremap <silent> <Leader>cn :DashboardNewFile<CR>
 
 end
 

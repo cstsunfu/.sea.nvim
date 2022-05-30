@@ -28,6 +28,7 @@ local mapping_prefix = {
     ["<leader>j"] = { name = "+ Json/Jupyter" },
     ["<leader>l"] = { name = "+ Line" },
     ["<leader>m"] = { name = "+ Move" },
+    ["<leader>n"] = { name = "+ New/Note" },
     ["<leader>o"] = { name = "+ Org" },
     ["<leader>p"] = { name = "+ Paste" },
     ["<leader>q"] = { name = "+ Quit/QuickFix" },
