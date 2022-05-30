@@ -9,15 +9,10 @@ timer:start(1000, 0, vim.schedule_wrap(function()
 
     vim.cmd(("highlight TelescopePromptBorder guifg=%s"):format("#9a95bf"))
     vim.cmd(("highlight TelescopeResultsBorder guifg=%s"):format("#9a95bf"))
-    --vim.cmd(("highlight TelescopeResultsBorder guifg=%s"):format("#90cdcd"))
     vim.cmd(("highlight TelescopePreviewBorder guifg=%s"):format("#9a95bf"))
     vim.cmd("highlight IndentBlanklineContextChar guifg=#95c0c0 gui=nocombine")
-
-    --hi VertSplit ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))   -- TODO if the above setting not work as espect, maybe these setting will work
-    --hi VertSplit ctermbg=NONE guibg=dark
-    --hi StatusLine ctermbg=NONE guibg=string(synIDattr(hlID("Normal"), "bg"))
-    --hi StatusLine ctermbg=NONE guibg=dark
-
+    vim.cmd("highlight clear WhichKeyDesc")
+    vim.cmd("highlight WhichKeyDesc guifg=#98be65")
 end))
 
 

@@ -62,7 +62,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['todo_comments'] = { disable = false },
         ['zen_mode'] = { disable = false },
         ['firenvim'] = { disable = true }, -- TODO:嵌入nvim到chrome，比较鸡肋
-        ['ts_text_object'] = { disable = false },
+        ['ts_text_object'] = { disable = true }, -- map v m is used frequence
         ['speed_date'] = { disable = false },
         ['translate'] = { disable = false },
         ['notify'] = { disable = false },
