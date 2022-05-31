@@ -10,76 +10,63 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        --vim.g.nvim_tree_side = 'right'
-        vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' }
-        vim.g.nvim_tree_git_hl = 0
-        vim.g.nvim_tree_highlight_opened_files = 3
-        vim.g.nvim_tree_root_folder_modifier = ':~'
-        --vim.g.nvim_tree_auto_resize = 1
-        vim.g.nvim_tree_add_trailing = 1
-        vim.g.nvim_tree_group_empty = 1
-        vim.g.nvim_tree_icon_padding = ' '
-        --vim.g.nvim_tree_update_cwd = 1
-        vim.g.nvim_tree_special_files = { ['Makefile'] = 1, ['MAKEFILE'] = 1 }
-        vim.g.nvim_tree_show_icons = { git = 1, folders = 1, files = 1, folder_arrows = 1 }
-
-        vim.g.nvim_tree_show_icons = {
-            git = 0,
-            folders = 1,
-            files = 1
-        }
-
-        vim.g.nvim_tree_icons = {
-            default = '',
-            symlink = '',
-            hjson = '!',
-            --git = {
-            --unstaged = "",
-            --staged = "",
-            --unmerged = "",
-            --renamed = "",
-            --untracked = "",
-            --deleted = "",
-            --ignored = ""
-            --},
-            folder = {
-                arrow_open = "",
-                arrow_closed = "",
-                default = "",
-                open = "",
-                empty = "",
-                empty_open = "",
-                symlink = "",
-                symlink_open = "",
-            },
-            --lsp = {
-            --hint = "",
-            --info = "",
-            --warning = "",
-            --['error'] = "",
-            --}
-        }
 
         vim.cmd("highlight NvimTreeFolderIcon guifg=#0077aa")
         -- following options are the default
         require 'nvim-tree'.setup {
-            --nvim_tree_hide_dotfiles = 1,
-            --nvim_tree_ignore = { '.git', 'node_modules', '.cache', '$XDG_DATA_HOME'},
-            --nvim_tree_gitignore = 0,
-            --nvim_tree_window_picker_exclude = {
-            --filetype = {'packer', 'qf'},
-            --buftype = {'terminal'}
-            --},
-            --nvim_tree_disable_window_picker = 1,
-            --nvim_tree_quit_on_open = 1,
-            -- disables netrw completely
             disable_netrw = true,
-            -- hijack netrw window on startup
-            hijack_netrw  = true,
-            -- open the tree when running this setup function
-            open_on_setup = false,
-            -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
-            update_cwd    = true,
+            ignore_ft_on_setup = { 'startify', 'dashboard' },
+            renderer = {
+                add_trailing = false,
+                group_empty = false,
+                highlight_git = false,
+                highlight_opened_files = "none", -- Value can be `"none"`, `"icon"`, `"name"` or `"all"`.
+                root_folder_modifier = ":~",
+                indent_markers = {
+                    enable = true,
+                    icons = {
+                        corner = "└ ",
+                        edge = "│ ",
+                        none = "  ",
+                    },
+                },
+                icons = {
+                    webdev_colors = true,
+                    git_placement = "before",
+                    padding = " ",
+                    symlink_arrow = " ➛ ",
+                    show = {
+                        file = true,
+                        folder = true,
+                        folder_arrow = true,
+                        git = true,
+                    },
+                    glyphs = {
+                        default = "",
+                        symlink = "",
+                        folder = {
+                            arrow_closed = "",
+                            arrow_open = "",
+                            default = "",
+                            open = "",
+                            empty = "",
+                            empty_open = "",
+                            symlink = "",
+                            symlink_open = "",
+                        },
+                        git = {
+                            unstaged = "✗",
+                            staged = "✓",
+                            unmerged = "",
+                            renamed = "➜",
+                            untracked = "★",
+                            deleted = "",
+                            ignored = "◌",
+                        },
+                    },
+                },
+                special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md", "MAKEFILE" },
+            },
 
             view = {
                 -- width of the window, can be either a number (columns) or a string in `%`
@@ -103,20 +90,6 @@ plugin.core = {
             git = {
                 enable = false,
                 ignore = false,
-            },
-            renderer = {
-                indent_markers = {
-                    enable = true,
-                    icons = {
-                        corner = "└ ",
-                        edge = "│ ",
-                        none = "  ",
-                    },
-                },
-                icons = {
-                    webdev_colors = true,
-                    git_placement = "before",
-                }
             },
             diagnostics = {
                 enable = false,
