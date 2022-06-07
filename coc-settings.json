@@ -34,7 +34,7 @@
     "sql.formatOptions": {
         "language": "spark",
         "tabWidth": 4,
-        "keywordCase": "upper",
+        "keywordCase": "lower",
         "newlineBeforeOpenParen": false,
         "newlineBeforeCloseParen": true,
         "logicalOperatorNewline": "after",
