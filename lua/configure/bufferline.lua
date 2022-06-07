@@ -249,6 +249,22 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = "n",
+        key = { "<leader>", "b", "f" },
+        action = "<Cmd>bfirst<cr>",
+        short_desc = "Goto First Buffer",
+        noremap = true,
+        silent = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "b", "l" },
+        action = "<Cmd>blast<cr>",
+        short_desc = "Goto Last Buffer",
+        noremap = true,
+        silent = true,
+    })
+    mappings.register({
+        mode = "n",
         key = { "<leader>", "b", "d" },
         action = ":Bdelete<cr>",
         short_desc = "Delete Current Buffer"

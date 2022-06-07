@@ -16,13 +16,13 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         vim.g.dashboard_custom_footer = {"💎 Have A Good Day! "}
         vim.g.dashboard_custom_shortcut = {
-            last_session       = '<leader> s l',
             find_history       = '<leader> f h',
             new_file           = '<leader> c f',    -- FIXME: https://github.com/glepnir/dashboard-nvim/issues/79
             find_file          = '<leader> f f',
-            change_colorscheme = '<leader> f c',
+            change_colorscheme = '<leader> f C',
             find_word          = '<leader> f q',
             book_marks         = '<leader> f m',
+            last_session       = '<leader> s l',
         }
         vim.g.dashboard_session_directory = vim.fn.stdpath('cache').."/session"
     end,
@@ -57,13 +57,15 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "f", "r"},
-        action = ':DashboardFindHistory<CR>',
-        short_desc = "Find History By Dashboard",
+        --action = ':DashboardFindHistory<CR>',
+        --short_desc = "Find History By Dashboard",
+        action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
+        short_desc = "Find Recent/History",
         silent = true
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "f", ";", "c"},
+        key = {"<leader>", "f", "C"},
         action = ':DashboardChangeColorscheme<CR>',
         short_desc = "Change Color",
         silent = true

@@ -16,6 +16,7 @@ plugin.core = {
         { "hrsh7th/cmp-emoji", disable = vim.g.feature_groups.lsp ~= "builtin" },
         --{ "lukas-reineke/cmp-rg", disable = vim.g.feature_groups.lsp ~= "builtin" },
         { "rcarriga/cmp-dap", disable = vim.g.feature_groups.lsp ~= "builtin" },
+        { "hrsh7th/cmp-nvim-lsp-signature-help", disable = vim.g.feature_groups.lsp ~= "builtin" },
     },
     setup = function() -- Specifies code to run before this plugin is loaded.
     end,
@@ -83,7 +84,7 @@ plugin.core = {
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.abort(),
-                ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                --['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 ["<C-j>"] = cmp.mapping(
                     function(fallback)
                         cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
@@ -101,6 +102,7 @@ plugin.core = {
                 { name = 'nvim_lsp' },
                 { name = 'ultisnips' }, -- For ultisnips users.
                 { name = 'calc' },
+                { name = 'nvim_lsp_signature_help' },
                 { name = 'path' },
                 { name = 'buffer' },
                 { name = 'emoji', insert = true },
@@ -132,6 +134,8 @@ plugin.core = {
                 return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
                     or require("cmp_dap").is_dap_buffer()
             end,
+            preselect = true,
+
         })
 
         -- Set configuration for specific filetype.
@@ -157,9 +161,7 @@ plugin.core = {
         cmp.setup.filetype('dap-repl', {
             sources = cmp.config.sources({
                 { name = 'dap' },
-                { name = 'buffer' },
                 { name = 'path' },
-                { name = 'ultisnips' }, -- For ultisnips users.
             })
         })
         cmp.setup.filetype('gitcommit', {
