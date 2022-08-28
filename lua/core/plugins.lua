@@ -77,7 +77,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['hjson'] = { disable = false },
         ['json5'] = { disable = false },
         ["files_tree"] = { disable = false },
-        ["accelerate_jk"] = { disable = false },
+        ["accelerate_jk"] = { disable = true },
         ["scroll"] = { disable = false },
     }
 end

@@ -98,7 +98,7 @@ if config_path:
         vim.vars["_dlk_get_configure_path_status"] = "Failed"
 else:
     vim.vars["_dlk_get_configure_path_status"] = "Failed"
-vim.vars["_dlk_get_configure_path"]  = config_path
+vim.vars["_dlk_get_configure_path"]  = config_path.replace("#", "\#")
 vim.vars["_dlk_get_configure_message"]  = message
 EOF
     ]]
@@ -218,7 +218,7 @@ if source_path:
         vim.vars["_dlk_get_source_path_status"] = "Failed"
 else:
     vim.vars["_dlk_get_source_path_status"] = "Failed"
-vim.vars["_dlk_get_source_path"]  = source_path
+vim.vars["_dlk_get_source_path"]  = source_path.replace("#", "\#")
 vim.vars["_dlk_get_source_message"]  = message
 EOF
     ]]
