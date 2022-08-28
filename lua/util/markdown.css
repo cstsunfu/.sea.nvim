@@ -1,11 +1,19 @@
 :root {
-    --side-bar-bg-color: #fff;
-    --control-text-color: #777;
-    --select-text-bg-color: #ffafa3;
+    --color-text-tertiary: #777777;   
+    --color-text-link: #4078c0;       
+    --color-bg-primary: none;
+    --color-bg-secondary: #f0ffff;    
+    --color-bg-tertiary: #f0ffff;     
+    --color-border-primary: #ffffff;  
+    --color-border-secondary: #ffffff;
+    --color-border-tertiary: #ffffff; 
+    --color-kbd-foreground: #444d56;  
+    --select-text-bg-color: #fff0ff;
     --active-file-text-color: #262626;
     --active-file-border-color: #f22f27;
     --primary-color: #f22f27;
-
+    --color-markdown-code-bg: #ffcfff;
+    --color-text-link: #4078c0;
     --black: #000000;
     --header-bg-1: #ff9f97;
     --header-bg-2: #ffd4cc;
@@ -22,6 +30,7 @@
     --header-5: #a5c3b7;
     --header-6: #dCa5a0;
 }
+
 
 
 .markdown-body ol ol,
@@ -185,89 +194,6 @@ h6 {
     font-size: 1.2em; 
     color: var(--color-text-tertiary);     
 }
-/*h1,                                        */
-/*h2,                                        */
-/*h3,                                        */
-/*h4,                                        */
-/*h5,                                        */
-/*h6 {                                       */
-/*    position: relative;                    */
-/*    margin-top: 1rem;                      */
-/*    margin-bottom: 1rem;                   */
-/*    font-weight: bold;                     */
-/*    line-height: 1.4;                      */
-/*    cursor: text;                          */
-/*}                                          */
-
-/*h1:hover a.anchor,                         */
-/*h2:hover a.anchor,                         */
-/*h3:hover a.anchor,                         */
-/*h4:hover a.anchor,                         */
-/*h5:hover a.anchor,                         */
-/*h6:hover a.anchor {                        */
-/*    text-decoration: none;                 */
-/*}                                          */
-
-/*h1 {                                       */
-/*    padding-bottom: 0.2em;                 */
-/*    font-size: 1.6em;                      */
-/*    line-height: 1.2;                      */
-/*    margin: 2.4em auto 1.2em;              */
-/*    color: var(--main-10);                 */
-/*}                                          */
-
-/*h1:after {                                 */
-/*    content: '';                           */
-/*    display: block;                        */
-/*    margin: 0.2em auto 0;                  */
-/*    width: 100%;                           */
-/*    height: 2px;                           */
-/*    border-bottom: 2px solid var(--main-6);*/
-/*}                                          */
-
-/*h2 {                                       */
-/*    font-size: 1.5em;                      */
-/*    line-height: 1.43;                     */
-/*    margin: 1.6em auto 1.2em;              */
-/*    padding-left: 9px;                     */
-/*    border-left: 6px solid  var(--main-6); */
-/*}                                          */
-
-/*h2::before {                               */
-/*    content: ''!important;                 */
-/*    color:  var(--main-6);                 */
-/*}                                          */
-
-/*h3 {                                       */
-/*    font-size: 1.4em;                      */
-/*    line-height: 1.43;                     */
-/*    margin: 1.5em auto 1.1em;              */
-/*    padding-left: 8px;                     */
-/*    border-left: 5px solid  var(--main-6); */
-/*}                                          */
-
-
-/*h4 {                                       */
-/*    font-size: 1.3em;                      */
-/*    line-height: 1.43;                     */
-/*    margin: 1.4em auto 1.0em;              */
-/*    padding-left: 7px;                     */
-/*    border-left: 4px solid var(--main-6);  */
-/*}                                          */
-
-/*h5 {                                       */
-/*    font-size: 1.2em;                      */
-/*    line-height: 1.43;                     */
-/*    [>margin: 1.4em auto 1.0em;<]          */
-/*    padding-left: 7px;                     */
-/*    border-left: 4px solid var(--main-6);  */
-/*}                                          */
-
-/*h6 {                                       */
-/*    font-size: 1.1em;                      */
-/*    color: var(--color-text-tertiary);     */
-/*}                                          */
-
 
 .markdown-body ol,
 .markdown-body ul {
@@ -312,21 +238,22 @@ h6 {
 
 
 /*table css from https://www.cnblogs.com/zhangjk1993/p/5442676.html*/
-table {
+.markdown-body table {
     *border-collapse: collapse; /* IE7 and lower */
     border-spacing: 0;
     width: 100%;
 }
-table {
+
+.markdown-body table {
     border: solid #ccc 1px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    /*-webkit-box-shadow: 0 1px 1px #ccc;
     -moz-box-shadow: 0 1px 1px #ccc;
     box-shadow: 0 1px 1px #ccc;   */
+    overflow-x: scroll;
 }
-table tr:hover {
+.markdown-body table tr:hover {
     background: #fbf8e9;
     -o-transition: all 0.1s ease-in-out;
     -webkit-transition: all 0.1s ease-in-out;
@@ -334,14 +261,14 @@ table tr:hover {
     -ms-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
 }
-table td, .table th {
+.markdown-body table td, .table th {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
     padding: 10px;
     text-align: left;
 }
 
-table th {
+.markdown-body table th {
     background-color: #dce9f9;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
     background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
@@ -357,31 +284,31 @@ table th {
     padding: 5px;
 }
 
-table td:first-child, table th:first-child {
+.markdown-body table td:first-child, table th:first-child {
     border-left: none;
 }
 
-table th:first-child {
+.markdown-body table th:first-child {
     -moz-border-radius: 4px 0 0 0;
     -webkit-border-radius: 4px 0 0 0;
     border-radius: 4px 0 0 0;
 }
-table th:last-child {
+.markdown-body table th:last-child {
     -moz-border-radius: 0 4px 0 0;
     -webkit-border-radius: 0 4px 0 0;
     border-radius: 0 4px 0 0;
 }
-table th:only-child{
+.markdown-body table th:only-child{
     -moz-border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
 }
-table tr:last-child td:first-child {
+.markdown-body table tr:last-child td:first-child {
     -moz-border-radius: 0 0 0 4px;
     -webkit-border-radius: 0 0 0 4px;
     border-radius: 0 0 0 4px;
 }
-table tr:last-child td:last-child {
+.markdown-body table tr:last-child td:last-child {
     -moz-border-radius: 0 0 4px 0;
     -webkit-border-radius: 0 0 4px 0;
     border-radius: 0 0 4px 0;
