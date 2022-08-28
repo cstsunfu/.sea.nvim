@@ -16,6 +16,10 @@ plugin.core = {
         python_path = python_path:read("*all")
         python_path = string.gsub(python_path, "^(.-)%s*\n*$", "%1")
         require('dap-python').setup(python_path)
+        local configurations = require('dap').configurations.python
+        for _, configuration in pairs(configurations) do
+            configuration.justMyCode = false
+        end
     end,
 
 }
