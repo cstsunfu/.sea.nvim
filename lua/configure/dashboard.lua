@@ -5,26 +5,61 @@ plugin.core = {
     --as = "dashboard-nvim",
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
-        vim.g.dashboard_default_executive = 'telescope'
-        vim.g.dashboard_preview_command = 'cat'
-        vim.g.dashboard_preview_pipeline = 'lolcat'
-        vim.g.dashboard_preview_file_height = 10
-        vim.g.dashboard_preview_file_width = 70
-        vim.g.dashboard_preview_file = vim.g.CONFIG..'/lua/util/neovim.txt'
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        vim.g.dashboard_custom_footer = {"💎 Have A Good Day! "}
-        vim.g.dashboard_custom_shortcut = {
-            last_session       = '<leader> s l',
-            find_history       = '<leader> f h',
-            new_file           = '<leader> c f',    -- FIXME: https://github.com/glepnir/dashboard-nvim/issues/79
-            find_file          = '<leader> f f',
-            change_colorscheme = '<leader> f c',
-            find_word          = '<leader> f q',
-            book_marks         = '<leader> f m',
+
+
+        local home = os.getenv('HOME')
+        local db = require('dashboard')
+        db.session_directory = vim.fn.stdpath('cache').."/session"
+        -- macos
+        db.preview_command = 'cat | lolcat -F 0.3'
+        ---- linux
+        --db.preview_command = 'ueberzug'
+        --
+        db.custom_footer = {"💎 Have A Good Day! "}
+        db.preview_file_path = vim.g.CONFIG..'/lua/util/neovim.txt'
+        db.preview_file_height = 10
+        db.preview_file_width = 70
+        db.custom_center = {
+            {
+                icon = '  ',
+                desc = 'Recently opened files                   ',
+                action =  'DashboardFindHistory',
+                shortcut = '<leader> f r'
+            },
+            {
+                icon = '  ',
+                desc = 'Recently latest session                 ',
+                shortcut = '<leader> s l',
+                action ='SessionLoad'
+            },
+            {
+                icon = '  ',
+                desc = 'Find  File                              ',
+                action = 'Telescope find_files find_command=rg,--hidden,--files',
+                shortcut = '<leader> f f'
+            },
+            {
+                icon = '  ',
+                desc ='File Browser                            ',
+                action =  'Telescope file_browser',
+                shortcut = '<leader> f b'
+            },
+            {
+                icon = '  ',
+                desc = 'Find  word                              ',
+                action = 'Telescope live_grep',
+                shortcut = '<leader> f q'
+            },
+            --{
+            --    icon = '  ',
+            --    desc = 'Open Personal dotfiles                  ',
+            --    action = 'Telescope dotfiles path=' .. home ..'/.dotfiles',
+            --    shortcut = '<leader> f d'
+            --},
         }
-        vim.g.dashboard_session_directory = vim.fn.stdpath('cache').."/session"
     end,
 }
 
@@ -57,7 +92,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "f", "r"},
-        action = ':DashboardFindHistory<CR>',
+        action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
         short_desc = "Find History By Dashboard",
         silent = true
     })

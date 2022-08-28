@@ -16,6 +16,16 @@ plugin.core = {
         python_path = python_path:read("*all")
         python_path = string.gsub(python_path, "^(.-)%s*\n*$", "%1")
         require('dap-python').setup(python_path)
+        require('dap').configurations.python = {
+          {
+            type = 'python';
+            request = 'launch';
+            name = "Launch file with venv";
+            justMyCode = false;
+            program = "${file}";
+            pythonPath = python_path;
+          },
+        }
     end,
 
 }

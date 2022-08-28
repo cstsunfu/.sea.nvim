@@ -40,27 +40,31 @@ plugin.core = {
             },
             --expand_lines = vim.fn.has("nvim-0.7"),
             expand_lines = false,
-            sidebar = {
-                --open_on_start = true,
-                -- You can change the order of elements in the sidebar
-                elements = {
-                    -- Provide as ID strings or tables with "id" and "size" keys
-                    { id = "stacks", size = 0.20 },
-                    { id = "breakpoints", size = 0.20 },
-                    {
-                        id = "scopes",
-                        size = 0.40, -- Can be float or integer > 1
+            layouts = {
+                {
+                    --open_on_start = true,
+                    -- You can change the order of elements in the sidebar
+                    elements = {
+                        -- Provide as ID strings or tables with "id" and "size" keys
+                        { id = "stacks", size = 0.20 },
+                        { id = "breakpoints", size = 0.20 },
+                        {
+                            id = "scopes",
+                            size = 0.40, -- Can be float or integer > 1
+                        },
+                        { id = "watches", size = 0.20 },
                     },
-                    { id = "watches", size = 0.20 },
+                    size = math.floor(vim.fn.winwidth(vim.fn.winnr()) / 4),
+                    position = "left", -- Can be "left", "right", "top", "bottom"
                 },
-                size = math.floor(vim.fn.winwidth(vim.fn.winnr()) / 4),
-                position = "left", -- Can be "left", "right", "top", "bottom"
-            },
-            tray = {
-                open_on_start = true,
-                elements = { "repl" },
-                size = math.floor(vim.fn.winheight(vim.fn.winnr()) / 6),
-                position = "top", -- Can be "left", "right", "top", "bottom"
+                {
+                    elements = {
+                        "repl",
+                        "console",
+                    },
+                    size = math.floor(vim.fn.winheight(vim.fn.winnr()) / 6),
+                    position = "top",
+                },
             },
             floating = {
                 max_height = nil, -- These can be integers or a float between 0 and 1.
