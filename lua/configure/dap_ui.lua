@@ -60,10 +60,16 @@ plugin.core = {
                 {
                     elements = {
                         "repl",
-                        "console",
                     },
                     size = math.floor(vim.fn.winheight(vim.fn.winnr()) / 6),
                     position = "top",
+                },
+                {
+                    elements = {
+                        "console",
+                    },
+                    size = math.floor(vim.fn.winheight(vim.fn.winnr()) / 6),
+                    position = "bottom",
                 },
             },
             floating = {
