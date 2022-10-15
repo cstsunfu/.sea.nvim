@@ -9,7 +9,6 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
 
-
         local home = os.getenv('HOME')
         local db = require('dashboard')
         db.session_directory = vim.fn.stdpath('cache').."/session"
@@ -17,7 +16,7 @@ plugin.core = {
         db.preview_command = 'cat | lolcat -F 0.3'
         ---- linux
         --db.preview_command = 'ueberzug'
-        --
+        ---- FIXME: https://github.com/glepnir/dashboard-nvim/issues/79
         db.custom_footer = {"💎 Have A Good Day! "}
         db.preview_file_path = vim.g.CONFIG..'/lua/util/neovim.txt'
         db.preview_file_height = 10
@@ -92,13 +91,15 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "f", "r"},
+        --action = ':DashboardFindHistory<CR>',
+        --short_desc = "Find History By Dashboard",
         action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
-        short_desc = "Find History By Dashboard",
+        short_desc = "Find Recent/History",
         silent = true
     })
     mappings.register({
         mode = "n",
-        key = {"<leader>", "f", ";", "c"},
+        key = {"<leader>", "f", "C"},
         action = ':DashboardChangeColorscheme<CR>',
         short_desc = "Change Color",
         silent = true
