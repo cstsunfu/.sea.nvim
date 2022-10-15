@@ -27,6 +27,7 @@ if vim.g.feature_groups['default'] == true then
         ['tree_sitter'] = { disable = false },
         ['popup'] = { disable = false },
         ['easyjump'] = { disable = false },
+        ['non_latin_input'] = { disable = false },
     }
 end
 
@@ -66,6 +67,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['speed_date'] = { disable = false },
         ['translate'] = { disable = false },
         ['notify'] = { disable = false },
+        ['auto_select'] = { disable = false },
         ['ipython'] = { disable = false },
         ['jukit'] = { disable = false }, --for jupyter
         ['neogen'] = { disable = true }, -- generate annotations

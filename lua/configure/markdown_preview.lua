@@ -4,6 +4,7 @@ plugin.core = {
     "iamcco/markdown-preview.nvim",
     --as = "markdown-preview.nvim",
     --run = "cd app && npm install",
+    opt = false,
     run = function() vim.fn["mkdp#util#install"]() end,
     --cmd = "MarkdownPreview",
 
