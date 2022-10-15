@@ -398,7 +398,7 @@ plugin.core = {
 
         ins_right_active {
             function()
-                local pomodoro = require('user.pomodoro')
+                local pomodoro = require('hack.pomodoro')
                 local display = ""
                 display = display .. "DONE " .. tostring(pomodoro.finished_pomo) .. "*"
                 return display
@@ -410,7 +410,7 @@ plugin.core = {
 
         ins_right_active {
             function()
-                local pomodoro = require('user.pomodoro')
+                local pomodoro = require('hack.pomodoro')
                 local display = ""
                 if pomodoro.reserve then
                     display = display .. "  " .. string.format("%d", (pomodoro.pomo_minites - pomodoro.reserve) / pomodoro.pomo_minites * 100) .. "%% "

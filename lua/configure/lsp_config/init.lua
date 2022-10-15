@@ -17,6 +17,7 @@ plugin.core = {
                 "pyright", -- python
                 "ltex", -- grammar
                 "sqlls", -- sql
+                "clangd"
             },
             automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
             ui = {
@@ -72,6 +73,7 @@ plugin.core = {
 
         --lspconfig.sqlls.setup{}
         lspconfig.sqlls.setup {}
+        lspconfig.clangd.setup {}
         --require("grammar-guard").init()
         --lspconfig.ltex.setup()
         lspconfig.ltex.setup({
