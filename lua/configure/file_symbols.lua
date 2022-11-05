@@ -1,48 +1,14 @@
 local plugin = {}
 
 plugin.core = {
-    "cstsunfu/symbols-outline.nvim", -- when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/134
+    --"cstsunfu/symbols-outline.nvim", --TODO: when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/134
+    "simrat39/symbols-outline.nvim", -- when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/134
     as = "symbols-outline",
-    cmd = { "SymbolsOutline" },
     setup = function() -- Specifies code to run before this plugin is loaded.
-        --FIX: fold https://github.com/simrat39/symbols-outline.nvim/issues/7
-        vim.cmd[[ 
+    end,
 
-            function! FoldOutline(lnum)
-                " Marker for first character that isnt some guides or space
-                let l:marker = '\v(\s|├|└|│)@!'
-
-                " Get this line and next
-                let l:this = getline(v:lnum)
-                let l:next = getline(v:lnum + 1)
-
-                " Calculate their indents, the 3 is spacing for the markers
-                let l:this_indent = (match(l:this, l:marker) + 1) / 3
-                let l:next_indent = (match(l:next, l:marker) + 1) / 3
-
-                " If less indented than the next line, start a fold at
-                " the level of the next line
-                if l:this_indent < l:next_indent
-                    return ">".l:next_indent
-
-                " If more indented the the next line, end the fold
-                elseif l:this_indent > l:next_indent
-                    return "<".l:this_indent
-
-                " Just return whatever the previous line is
-                else
-                    return "="
-                endif
-            endfunction
-
-            function! FoldTextOutline()
-                return substitute(getline(v:foldstart), '├\|└\|│', '-', 'g')
-            endfunction
-
-            autocmd FileType Outline execute 'setl foldlevel=1|setl foldexpr=FoldOutline(v:lnum)|setl foldtext=FoldTextOutline()|setl foldmethod=expr'
-            autocmd FileType Outline execute 'setl nowrap'
-        ]]
-        vim.g.symbols_outline = {
+    config = function() -- Specifies code to run after this plugin is loaded
+        local opts = {
             highlight_hovered_item = true,
             show_guides = true,
             auto_preview = true,
@@ -54,14 +20,23 @@ plugin.core = {
             show_relative_numbers = false,
             show_symbol_details = true,
             preview_bg_highlight = 'Pmenu',
+            autofold_depth = nil,
+            auto_unfold_hover = true,
+            fold_markers = { '', '' },
+            wrap = false,
             keymaps = { -- These keymaps can be a string or a table for multiple keys
-                close = {"q"},
                 goto_location = "<Cr>",
                 focus_location = "o",
+                rename_symbol = "r",
+                close = {"<Esc>", "q"},
                 hover_symbol = "<C-space>",
                 toggle_preview = "K",
-                rename_symbol = "r",
                 code_actions = "a",
+                fold = "h",
+                unfold = "l",
+                fold_all = "W",
+                unfold_all = "E",
+                fold_reset = "R",
             },
             lsp_blacklist = {},
             symbol_blacklist = {},
@@ -94,9 +69,8 @@ plugin.core = {
                 TypeParameter = {icon = " ", hl = "TSType"}
             }
         }
-    end,
 
-    config = function() -- Specifies code to run after this plugin is loaded
+        require("symbols-outline").setup(opts)
     end,
 
 }

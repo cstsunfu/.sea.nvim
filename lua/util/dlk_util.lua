@@ -18,6 +18,7 @@ _G.dlk_goto_configure = function()
     --NOTE: local current_line = vim.fn.getpos('.') equal to vim.api.nvim_win_get_cursor()
     local current_line = vim.api.nvim_win_get_cursor(0)
     vim.g._dlk_current_configure_line = (vim.api.nvim_buf_get_lines(0, current_line[1]-1, current_line[1], false)[1])
+    vim.api.nvim_input("<esc>")
     vim.cmd("normal viBo")
     vim.api.nvim_input("<esc>")
     vim.fn.search(':', "bW")
@@ -73,18 +74,18 @@ def _get_config_path(config_name_line, module_name_line):
     try:
         config_name = re.search(rf"{config_quoted}([\w#@]*){config_quoted}", config_name_line).group(1)
     except:
-        return "", f"There is not a valid config name in {config_name_line}"
+        return "", f"There is not a valid config name in {config_name_line}. Try go to source."
     try:
         module_name = re.search(rf"{module_quoted}([\w#@]*){module_quoted}", module_name_line).group(1)
     except:
-        return "", f"There is not a valid module name in {module_name_line}"
+        return "", f"There is not a valid module name in {module_name_line}. Try go to source."
 
     config_name = config_name
     module_name = module_name.split("@")[0]
     try:
         module_dir = module_config_dir_map[module_name]
     except:
-        return "", f"{module_name} is not a valid module name"
+        return "", f"{module_name} is not a valid module name. Try go to source."
     return os.path.join(dlk_base, module_dir, config_name.strip()+'.hjson'), f"Jump to config `{os.path.join(dlk_base, module_dir, config_name.strip()+'.hjson')}`"
 
 
@@ -106,8 +107,12 @@ EOF
         vim.notify(vim.g._dlk_get_configure_message, vim.lsp.log_levels.ERROR, {
             title = vim.g._dlk_get_configure_path_status,
             icon = " DLK:",
-            timeout = 3000,
+            timeout = 2000,
         })
+        local timer = vim.loop.new_timer()
+        timer:start(300, 0, vim.schedule_wrap(function()
+            vim.cmd("lua _G.dlk_goto_source()")   --set VertSplit color to black
+        end))
     else
         vim.notify(vim.g._dlk_get_configure_message, vim.lsp.log_levels.INFO, {
             title = vim.g._dlk_get_configure_path_status,
@@ -122,6 +127,8 @@ end
 _G.dlk_goto_source = function()
     local current_line = vim.api.nvim_win_get_cursor(0)
     vim.g._dlk_current_configure_line = (vim.api.nvim_buf_get_lines(0, current_line[1]-1, current_line[1], false)[1])
+    vim.api.nvim_input("<esc>")
+    vim.api.nvim_input("<esc>")
     vim.cmd("normal viBo")
     vim.api.nvim_input("<esc>")
     local module_name_line_pos = vim.fn.search(':', "bW")
@@ -168,8 +175,8 @@ module_name_infile = vim.vars["_dlk_get_current_module_name_in_file"]
 
 def _get_source_path(config_name_line, module_name_line):
 
-    if "_name" not in config_name_line:
-        return "", "You must move your cursor on `_name`"
+    if "_name" not in config_name_line and "_base" not in config_name_line:
+        return "", "You must move your cursor on `_name` or `_base`"
     _sp_position = config_name_line.find(":")
     if _sp_position == -1:
         return "", f"Not a valid line '{config_name_line}'"
@@ -197,7 +204,7 @@ def _get_source_path(config_name_line, module_name_line):
     try:
         config_name = re.search(rf"{config_quoted}([\w#@]*){config_quoted}", config_name_line).group(1)
     except:
-        return "", f"There is not a valid config name in {config_name_line}"
+        return "", f"There is not a valid config name in {config_name_line}."
 
     config_name = config_name.split("@")[0]
     module_name = module_name.split("@")[0]
@@ -226,13 +233,13 @@ EOF
         vim.notify(vim.g._dlk_get_source_message, vim.lsp.log_levels.ERROR, {
             title = vim.g._dlk_get_source_path_status,
             icon = "DLK  :",
-            timeout = 3000,
+            timeout = 2000,
         })
     else
         vim.notify(vim.g._dlk_get_source_message, vim.lsp.log_levels.INFO, {
             title = vim.g._dlk_get_source_path_status,
             icon = "DLK  :",
-            timeout = 3000,
+            timeout = 2000,
         })
         vim.cmd("e "..vim.g._dlk_get_source_path)
     end
