@@ -24,6 +24,13 @@ plugin.mapping = function()
         short_desc = "Toggle Table Mode",
         silent = true
     })
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "t", "f", "e" },
+        action = ':TableEvalFormulaLine<cr>',
+        short_desc = "Table Fomule Eval",
+        silent = true
+    })
 
 end
 
