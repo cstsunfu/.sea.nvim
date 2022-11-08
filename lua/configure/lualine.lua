@@ -24,12 +24,12 @@ plugin.core = {
         local home_path = Path:new(vim.g.HOME_PATH)
         local custom_theme = require 'lualine.themes.auto'
         local global_fun = require 'util.global'
-        --if vim.g.colorscheme_name == 'material_light' then
-        --    --custom_theme.normal.c.bg = '#e7e7e8'
-        --    custom_theme.normal.c.fg = '#383653'
-        --    --custom_theme.inactive.c.bg = '#e7e7e8'
-        --    custom_theme.inactive.c.fg = '#384653'
-        --end
+        if vim.g.colorscheme_name == 'material_light' then
+            custom_theme.normal.c.bg = '#e7e7e8'
+            custom_theme.normal.c.fg = '#383653'
+            custom_theme.inactive.c.bg = '#e7e7e8'
+            custom_theme.inactive.c.fg = '#384653'
+        end
         --if vim.g.colorscheme == 'material' then
         --    custom_theme.normal.c.bg = global_fun.get_highlight_values("Pmenu").background
         --    custom_theme.inactive.c.bg = global_fun.get_highlight_values("Pmenu").background
