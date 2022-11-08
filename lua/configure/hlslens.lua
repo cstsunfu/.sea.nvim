@@ -8,6 +8,7 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+        require('hlslens').setup()
         local timer = vim.loop.new_timer()
         timer:start(vim.g.after_schedule_time_start+100, 0, vim.schedule_wrap(function()
             vim.cmd("hi clear HlSearchLens")

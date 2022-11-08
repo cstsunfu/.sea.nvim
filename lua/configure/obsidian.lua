@@ -12,6 +12,7 @@ plugin.core = {
                 nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
             },
             notes_subdir = "Draft",
+            note_frontmatter_func = nil, -- disable note note_frontmatter_func
             note_id_func = function(title)
                 -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
                 local suffix = ""
@@ -35,7 +36,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", 'f', 'o' },
-        action = "ObsidianSearch",
+        action = ":ObsidianSearch<cr>",
         short_desc = "ObsidianSearch"
     })
     mappings.register({
