@@ -28,6 +28,7 @@ if vim.g.feature_groups['default'] == true then
         ['popup'] = { disable = false },
         ['easyjump'] = { disable = false },
         ['non_latin_input'] = { disable = false },
+        ['boole'] = { disable = false },
     }
 end
 

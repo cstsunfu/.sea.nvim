@@ -19,6 +19,7 @@ plugin.core = {
             html = 1,
             mouse = 0,
         }
+        vim.g.tex_conceal = ''
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
