@@ -25,7 +25,7 @@ plugin.core = {
                         suffix = suffix .. string.char(math.random(65, 90))
                     end
                 end
-                return tostring(os.date("%Y-%m-%d %H-%M")) .. " " .. suffix
+                return tostring(os.date("%Y%m%d%H%M")) .. " " .. suffix
             end
         })
     end,
