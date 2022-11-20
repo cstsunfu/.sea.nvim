@@ -48,6 +48,8 @@ module_config_dir_map = {
     "processor": "dlk/configures/data/processors",
     "subprocessor": "dlk/configures/data/subprocessors",
     "postprocessor": "dlk/configures/data/postprocessors",
+    "adv_method": "dlk/configures/core/adv_method",
+    "search_method": "dlk/core/search_methods",
 }
 config_name_line = vim.vars["_dlk_current_configure_line"]
 module_name_line = vim.vars["_dlk_current_module_line"]
@@ -164,6 +166,8 @@ module_source_dir_map = {
     "processor": "dlk/data/processors",
     "subprocessor": "dlk/data/subprocessors",
     "postprocessor": "dlk/data/postprocessors",
+    "adv_method": "dlk/core/adv_method",
+    "search_method": "dlk/core/search_methods",
 }
 
 complex_name_map = {
