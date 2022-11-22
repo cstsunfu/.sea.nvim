@@ -27,7 +27,7 @@ if vim.g.feature_groups['default'] == true then
         ['tree_sitter'] = { disable = false },
         ['popup'] = { disable = false },
         ['easyjump'] = { disable = false },
-        ['non_latin_input'] = { disable = false },
+        ['non_latin_input'] = { disable = true },
         ['boole'] = { disable = false },
     }
 end
