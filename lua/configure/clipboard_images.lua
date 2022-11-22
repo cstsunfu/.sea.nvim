@@ -39,7 +39,7 @@ plugin.mapping = function()
 
                 img_dir_txt = "Files",
                 img_name = function()
-                    vim.g._obsidian_temp_image_name = os.date("%Y-%m-%d_%H_%M_") .. vim.fn.input('Image Name: ', '')
+                    vim.g._obsidian_temp_image_name = os.date("%Y%m%d%H%M_") .. vim.fn.input('Image Name: ', '')
                     return vim.g._obsidian_temp_image_name
                 end, -- Example result: "2021-04-13-10-04-18"
                 affix = "![](%s)"
