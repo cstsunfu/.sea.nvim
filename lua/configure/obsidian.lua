@@ -12,7 +12,8 @@ plugin.core = {
                 nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
             },
             notes_subdir = "Draft",
-            note_frontmatter_func = nil, -- disable note note_frontmatter_func
+            --note_frontmatter_func = nil, -- disable note note_frontmatter_func
+            disable_frontmatter = true, -- disable note note_frontmatter_func
             note_id_func = function(title)
                 -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
                 local suffix = ""
