@@ -37,7 +37,8 @@ if vim.g.feature_groups['org_my_life'] == true then
     plugins_configure.plugins_groups['org_my_life'] = {
         ['calendar'] = { disable = false },
         ['vimwiki'] = { disable = false },
-        ['obsidian'] = { disable = true },
+        ['vimtex'] = { disable = false },
+        ['obsidian'] = { disable = false },
         ['glow'] = { disable = false }, -- preview markdown in terminal
         ['markdown_code_edit'] = { disable = false },
         ['markdown_preview'] = { disable = false },
