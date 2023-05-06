@@ -17,7 +17,8 @@ plugin.core = {
             -- defines how annotations are shown
             -- default: symbol
             -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-            mode = 'symbol_text',
+            --mode = 'symbol_text',
+            mode = 'symbol',
 
             -- default symbol map
             -- can be either 'default' (requires nerd-fonts font) or
@@ -30,6 +31,7 @@ plugin.core = {
             --
             -- default: {}
             symbol_map = {
+                Copilot = "",
                 Text = "",
                 Method = "",
                 Function = "",
@@ -57,6 +59,7 @@ plugin.core = {
                 TypeParameter = ""
             },
         })
+        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
     end,
 }
 

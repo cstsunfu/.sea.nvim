@@ -3,7 +3,8 @@ local plugin = {}
 plugin.core = {
     "hrsh7th/nvim-cmp",
     after = {
-        "nvim-lspconfig"
+        "nvim-lspconfig",
+        --"lspkind",
     },
     requires = {
         { "quangnguyen30192/cmp-nvim-ultisnips", disable = vim.g.feature_groups.lsp ~= "builtin" }, -- ultisnips source
@@ -23,6 +24,7 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         local kind_icons = {
+            Copilot = "",
             Text = " ",
             Method = "",
             Function = "",
@@ -54,9 +56,11 @@ plugin.core = {
             highlight CompNormal guibg=None guifg=None
 
             highlight CompBorder guifg=#ffaa55 guibg=#None
+
             autocmd! ColorScheme * highlight CompBorder guifg=#ffaa55 guibg=None
             autocmd FileType AerojumpFilter lua require('cmp').setup.buffer { enabled = false }
         ]]
+        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
         --highlight CompDocBorder guifg=# guibg=#None
         --autocmd! ColorScheme * highlight CompDocBorder guifg=#ffaa55 guibg=None
         local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
@@ -97,8 +101,14 @@ plugin.core = {
                     end,
                     { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
                 ),
+                ["<CR>"] = cmp.mapping.confirm({
+                    -- this is the important line
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = false,
+                }),
             }),
             sources = cmp.config.sources({
+                { name = "copilot"},
                 { name = 'nvim_lsp' },
                 { name = 'ultisnips' }, -- For ultisnips users.
                 { name = 'calc' },
@@ -126,6 +136,7 @@ plugin.core = {
                         latex_symbols = "[LaTeX]",
                         cmdline_history = "[History]",
                         cmdline = "[Command]",
+                        copilot = "[GIT]",
                     })[entry.source.name]
                     return vim_item
                 end
