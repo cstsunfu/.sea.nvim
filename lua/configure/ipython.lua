@@ -46,7 +46,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "v",
         key = { "<localleader>", "e" },
-        action = '<Plug>JupyterRunVisual',
+        action = ':JupyterRunVisual<cr>',
         short_desc = "Jupyter Run Visual",
         silent = true
     })
