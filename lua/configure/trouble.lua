@@ -62,7 +62,7 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = { "g", "R" },
+        key = { "g", "T" },
         action = '<cmd>TroubleToggle lsp_references<cr>',
         short_desc = "Goto Trouble Reference",
         noremap = true,

@@ -27,7 +27,7 @@ if vim.g.feature_groups['default'] == true then
         ['tree_sitter'] = { disable = false },
         ['popup'] = { disable = false },
         ['easyjump'] = { disable = false },
-        ['non_latin_input'] = { disable = false },
+        ['non_latin_input'] = { disable = true },
         ['boole'] = { disable = false },
     }
 end
@@ -130,8 +130,11 @@ if vim.g.feature_groups['lsp'] then
         ['coc'] = { disable = vim.g.feature_groups.lsp ~= 'coc' },
         ["lsp_config"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["trouble"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        ["glance"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["null_ls"] = { disable =  vim.g.feature_groups.lsp ~= 'builtin' },
         ["nvim_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        ["copilot"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        ["copilot_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         --['lsp_icon'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' }, -- directly setting in nvim_cmp
         --['fold_expr'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' }, -- may cause slow
     }

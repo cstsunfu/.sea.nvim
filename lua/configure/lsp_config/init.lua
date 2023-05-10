@@ -117,13 +117,13 @@ plugin.mapping = function()
         short_desc = "Goto Definition",
         silent = false
     })
-    mappings.register({
-        mode = "n",
-        key = { "g", "D" },
-        action = '<cmd>lua vim.lsp.buf.declaration()<cr>',
-        short_desc = "Goto Declaration",
-        silent = false
-    })
+    --mappings.register({
+    --    mode = "n",
+    --    key = { "g", "D" },
+    --    action = '<cmd>lua vim.lsp.buf.declaration()<cr>',
+    --    short_desc = "Goto Declaration",
+    --    silent = false
+    --})
     mappings.register({
         mode = "n",
         key = { "g", "r" },
