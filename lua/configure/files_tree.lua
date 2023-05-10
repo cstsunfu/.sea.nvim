@@ -15,7 +15,7 @@ plugin.core = {
         -- following options are the default
         require 'nvim-tree'.setup {
             disable_netrw = true,
-            ignore_ft_on_setup = { 'startify', 'dashboard' },
+            --ignore_ft_on_setup = { 'startify', 'dashboard' },
             renderer = {
                 add_trailing = false,
                 group_empty = false,
@@ -111,8 +111,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "t" },
-        --action = ':NvimTreeToggle<cr>',
-        action = ':lua require"nvim-tree".toggle(false, true)<cr>',
+        action = ':NvimTreeToggle<cr>',
+        --action = ':lua require"nvim-tree".toggle(false, true)<cr>',
         short_desc = "File Tree",
         silent = true
     })
