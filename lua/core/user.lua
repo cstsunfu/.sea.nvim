@@ -1,5 +1,5 @@
 local themes = require('core.themes')
-themes.setting(themes.configs.material_dark)
+themes.setting(themes.configs.material_oceanic)
 
 local user_setting = {
     python3_host_prog = vim.g.HOME_PATH .. '/anaconda3/bin/python3', -- add to your own python3 path
