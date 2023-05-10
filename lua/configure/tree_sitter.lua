@@ -44,7 +44,9 @@ plugin.core = {
             }, -- List of parsers to ignore installing
             highlight = {
                 enable = true,              -- false will disable the whole extension
-                disable = {'org', "tex", "latex"},  -- list of language that will be disabled
+                --disable = {'org', "tex", "latex"},  -- list of language that will be disabled
+                --disable = function(lang, bufnr) return (lang == 'org' or lang=='tex') and vim.b.large_buf end,
+                disable = function(lang, bufnr) return vim.b.large_buf end,
                 additional_vim_regex_highlighting = {'org', 'tex'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
                 -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
                 -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).

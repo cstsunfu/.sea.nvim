@@ -1,9 +1,12 @@
 local plugin = {}
 
 plugin.core = {
-    "williamboman/nvim-lsp-installer",
+    --"williamboman/nvim-lsp-installer",
+    "williamboman/mason.nvim",
+    run = ":MasonUpdate",
     requires = {
         { "neovim/nvim-lspconfig", disable = vim.g.feature_groups.lsp ~= "builtin" },
+        { "williamboman/mason-lspconfig.nvim", disable = vim.g.feature_groups.lsp ~= "builtin" },
         --{"brymer-meneses/grammar-guard.nvim", disable = vim.g.feature_groups.lsp ~= "builtin"}, -- FIXIT: when this plugin provide fix feature https://github.com/brymer-meneses/grammar-guard.nvim/issues/11
     },
     setup = function() -- Specifies code to run before this plugin is loaded.
@@ -11,34 +14,56 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require("nvim-lsp-installer").setup({
+        require("mason").setup({
+            ui = {
+                icons = {
+                    package_installed = "✓",
+                    package_pending = "➜",
+                    package_uninstalled = "✗"
+                },
+                border = "single",
+            },
+        })
+        require("mason-lspconfig").setup {
             ensure_installed = {
-                "sumneko_lua", -- lua
+
+                "lua_ls", -- lua
                 "pyright", -- python
                 "ltex", -- grammar
                 "sqlls", -- sql
                 "clangd"
             },
-            automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-            ui = {
-                icons = {
-                    server_installed = "✓",
-                    server_pending = "➜",
-                    server_uninstalled = "✗"
-                }
-            }
-        })
+        }
+        --require("nvim-lsp-installer").setup({
+        --    ensure_installed = {
+        --        "lua_ls", -- lua
+        --        "pyright", -- python
+        --        "ltex", -- grammar
+        --        "sqlls", -- sql
+        --        "clangd"
+        --    },
+        --    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+        --    ui = {
+        --        icons = {
+        --            server_installed = "✓",
+        --            server_pending = "➜",
+        --            server_uninstalled = "✗"
+        --        }
+        --    }
+        --})
 
         local lspconfig = require("lspconfig")
         require('configure.lsp_config.default_setting')
         local util = require("lspconfig.util")
 
-        lspconfig.sumneko_lua.setup {
+        lspconfig.lua_ls.setup {
             settings = {
                 Lua = {
                     diagnostics = {
                         globals = { 'vim' }
-                    }
+                    },
+                    workspace = { checkThirdParty = false },
+                    telemetry = { enable = false },
                 }
             }
         }
@@ -110,6 +135,14 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require('core.mapping')
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "l", "c" },
+        action = '<cmd>Mason<cr>',
+        short_desc = "Lsp Config",
+        silent = false
+    })
+
     mappings.register({
         mode = "n",
         key = { "g", "d" },

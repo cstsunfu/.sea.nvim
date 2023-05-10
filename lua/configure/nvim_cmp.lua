@@ -2,12 +2,16 @@ local plugin = {}
 
 plugin.core = {
     "hrsh7th/nvim-cmp",
+    as = 'cmp',
     after = {
         "nvim-lspconfig",
         --"lspkind",
     },
     requires = {
-        { "quangnguyen30192/cmp-nvim-ultisnips", disable = vim.g.feature_groups.lsp ~= "builtin" }, -- ultisnips source
+        {
+            "quangnguyen30192/cmp-nvim-ultisnips",
+            disable = vim.g.feature_groups.lsp ~= "builtin",
+        }, -- ultisnips source
         { "hrsh7th/cmp-nvim-lsp", disable = vim.g.feature_groups.lsp ~= "builtin" }, --builtin lsp source
         { "hrsh7th/cmp-buffer", disable = vim.g.feature_groups.lsp ~= "builtin" }, --buffer source
         { "hrsh7th/cmp-path", disable = vim.g.feature_groups.lsp ~= "builtin" }, --path source

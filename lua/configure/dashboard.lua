@@ -3,61 +3,84 @@ local plugin = {}
 plugin.core = {
     "glepnir/dashboard-nvim",
     --as = "dashboard-nvim",
+    event = 'VimEnter',
 
     setup = function()  -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+        require('dashboard').setup {
+              -- config
+              theme = "doom",
+              hide = {
+                  statusline = false,   -- hide statusline default is true
+                  tabline = true,      -- hide the tabline
+                  winbar = true,       -- hide winbar
+              },
+              preview = {
+                  command = "cat | lolcat -F 0.3",
+                  file_path =  vim.g.CONFIG..'/lua/util/neovim.txt',  -- preview file path
+                  file_height = 15,   -- preview file height
+                  file_width = 70,   -- preview file width
+              },
+              config = {
+                  footer = {"🐬 Have A Good Day! "},
+                  center = {
+                      {
+                          icon = '  ',
+                          desc = 'Recently opened files                   ',
+                          action =  'DashboardFindHistory',
+                          key = '<leader> f r',
+                          icon_hl = 'Title',
+                          desc_hl = 'String',
+                          key_hl = 'Number',
+                      },
+                      {
+                          icon = '  ',
+                          desc = 'Recently latest session                 ',
+                          key = '<leader> s l',
+                          action ='SessionLoad',
+                          icon_hl = 'Title',
+                          desc_hl = 'String',
+                          key_hl = 'Number',
+                      },
+                      {
+                          icon = '  ',
+                          desc = 'Find  File                              ',
+                          action = 'Telescope find_files find_command=rg,--hidden,--files',
+                          key = '<leader> f f',
+                          icon_hl = 'Title',
+                          desc_hl = 'String',
+                          key_hl = 'Number',
+                      },
+                      {
+                          icon = '  ',
+                          desc ='File Browser                            ',
+                          action =  'Telescope file_browser',
+                          key = '<leader> f b',
+                          icon_hl = 'Title',
+                          desc_hl = 'String',
+                          key_hl = 'Number',
+                      },
+                      {
+                          icon = '  ',
+                          desc = 'Find  word                              ',
+                          action = 'Telescope live_grep',
+                          key = '<leader> f q',
+                          icon_hl = 'Title',
+                          desc_hl = 'String',
+                          key_hl = 'Number',
+                      },
+                      --{
+                          --    icon = '  ',
+                          --    desc = 'Open Personal dotfiles                  ',
+                          --    action = 'Telescope dotfiles path=' .. home ..'/.dotfiles',
+                          --    shortcut = '<leader> f d'
+                          --},
+                      }
 
-        local home = os.getenv('HOME')
-        local db = require('dashboard')
-        db.session_directory = vim.fn.stdpath('cache').."/session"
-        -- macos
-        db.preview_command = 'cat | lolcat -F 0.3'
-        ---- linux
-        --db.preview_command = 'ueberzug'
-        ---- FIXME: https://github.com/glepnir/dashboard-nvim/issues/79
-        db.custom_footer = {"💎 Have A Good Day! "}
-        db.preview_file_path = vim.g.CONFIG..'/lua/util/neovim.txt'
-        db.preview_file_height = 10
-        db.preview_file_width = 70
-        db.custom_center = {
-            {
-                icon = '  ',
-                desc = 'Recently opened files                   ',
-                action =  'DashboardFindHistory',
-                shortcut = '<leader> f r'
-            },
-            {
-                icon = '  ',
-                desc = 'Recently latest session                 ',
-                shortcut = '<leader> s l',
-                action ='SessionLoad'
-            },
-            {
-                icon = '  ',
-                desc = 'Find  File                              ',
-                action = 'Telescope find_files find_command=rg,--hidden,--files',
-                shortcut = '<leader> f f'
-            },
-            {
-                icon = '  ',
-                desc ='File Browser                            ',
-                action =  'Telescope file_browser',
-                shortcut = '<leader> f b'
-            },
-            {
-                icon = '  ',
-                desc = 'Find  word                              ',
-                action = 'Telescope live_grep',
-                shortcut = '<leader> f q'
-            },
-            --{
-            --    icon = '  ',
-            --    desc = 'Open Personal dotfiles                  ',
-            --    action = 'Telescope dotfiles path=' .. home ..'/.dotfiles',
-            --    shortcut = '<leader> f d'
-            --},
+              },
+
         }
     end,
 }

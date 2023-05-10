@@ -1,14 +1,12 @@
 local plugin = {}
 
 plugin.core = {
-    "vim-scripts/Auto-Pairs",
-    as = "Auto-Pairs",
+    "windwp/nvim-autopairs",
     setup = function()  -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-
+        require("nvim-autopairs").setup {}
     end,
 }
 
