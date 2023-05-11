@@ -10,6 +10,7 @@ vim.cmd("let maplocalleader=','")
 vim.cmd("let mapleader=';'")
 vim.cmd("nnoremap \\ ;")
 vim.cmd("vnoremap \\ ;")
+vim.cmd("syntax off")
 local global_func = require('util.global')
 
 
@@ -64,6 +65,7 @@ global_func.augroup('smarter_cursorline', {
     },
 })
 
+
 global_func.augroup('empty_message', {
     {
         events = { 'CursorHold' },
@@ -72,7 +74,6 @@ global_func.augroup('empty_message', {
     },
 
 })
-
 
 default_setting['opt'] = {
     number = true,
@@ -120,3 +121,43 @@ end
 for key, value in pairs(default_setting['global']) do
     vim.g[key] = value
 end
+
+
+local aug = vim.api.nvim_create_augroup("buf_large", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
+    callback = function()
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
+        if ok and stats and (stats.size > 100000) then
+            vim.b.large_buf = true
+            vim.cmd("syntax off")
+            --vim.cmd("IlluminatePauseBuf") -- disable vim-illuminate
+            vim.opt_local.foldmethod = "manual"
+            if vim.fn.exists(":TSBufDisable") then
+                vim.cmd('TSBufDisable autotag')
+                vim.cmd('TSBufDisable highlight')
+                vim.cmd('TSBufDisable incremental_selection')
+                vim.cmd('TSBufDisable indent')
+                vim.cmd('TSBufDisable playground')
+                vim.cmd('TSBufDisable query_linter')
+                vim.cmd('TSBufDisable rainbow')
+                vim.cmd('TSBufDisable refactor.highlight_definitions')
+                vim.cmd('TSBufDisable refactor.navigation')
+                vim.cmd('TSBufDisable refactor.smart_rename')
+                vim.cmd('TSBufDisable refactor.highlight_current_scope')
+                vim.cmd('TSBufDisable textobjects.swap')
+                vim.cmd('TSBufDisable textobjects.move')
+                vim.cmd('TSBufDisable textobjects.lsp_interop')
+                vim.cmd('TSBufDisable textobjects.select')
+            end
+            if vim.fn.exists(":TSBufDisable") then
+                vim.cmd('TSBufDisable textobjects.select')
+            end
+            vim.opt_local.spell = false
+        else
+            vim.b.large_buf = false
+        end
+    end,
+    group = aug,
+    pattern = "*",
+})
