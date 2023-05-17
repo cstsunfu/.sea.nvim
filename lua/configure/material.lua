@@ -1,4 +1,5 @@
 local plugin = {}
+local global = require "util.global"
 
 plugin.core = {
     "marko-cerovac/material.nvim",
@@ -44,26 +45,7 @@ plugin.setup = function(style)
             cursor_line = false, -- Enable darker background for the cursor line
             non_current_windows = false, -- Enable darker background for non-current windows
             popup_menu = false, -- Enable lighter background for the popup menu
-            filetypes = { -- Specify which filetypes get the contrasted (darker) background
-                --"terminal", -- Darker terminal background
-                "packer", -- Darker packer background
-                "NvimTree",
-                "ctrlsf",
-                "calendar",
-                "undotree",
-                "toggleterm",
-                "DiffviewFiles",
-                "diff",
-                "Outline",
-                "vista",
-                "vista_kind",
-                "dapui_stacks",
-                "dapui_breakpoints",
-                "dapui_watches",
-                "dapui_scopes",
-                "vista_markdown",
-                "qf" -- Darker qf list background
-            },
+            filetypes = global.side_filetypes
         },
 
         styles = { -- Give comments style such as bold, italic, underline etc.
