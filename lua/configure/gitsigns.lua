@@ -46,13 +46,13 @@ plugin.core = {
                     linehl = "GitSignsChangeLn",
                 },
             },
-            signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
-            numhl = false,
-            linehl = false,
-            watch_gitdir = { interval = 1000 },
-            sign_priority = 100,
-            update_debounce = 200,
-            status_formatter = nil, -- Use default
+            --signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
+            --numhl = false,
+            --linehl = false,
+            --watch_gitdir = { interval = 1000 },
+            --sign_priority = 100,
+            --update_debounce = 200,
+            --status_formatter = nil, -- Use default
         }
     end,
 }

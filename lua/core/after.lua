@@ -16,7 +16,7 @@ timer:start(1000, 0, vim.schedule_wrap(function()
     vim.cmd("highlight WhichKeyDesc guifg=#98be65")
 
     local normal = hl_fun.get_highlight_values("Normal")
-    local darkbg = hl_fun.brighten(normal.background, -3) -- darken by 10%
+    local darkbg = hl_fun.brighten(normal.background, -5) -- darken by 5%
     hl_fun.highlight("DarkNormal", {bg = darkbg})
 end))
 
