@@ -2,8 +2,6 @@ local plugin = {}
 
 plugin.core = {
     "folke/zen-mode.nvim",
-    as = "zen-mode",
-    cmd = { "ZenMode" },
     setup = function() -- Specifies code to run before this plugin is loaded.
 
     end,
@@ -23,8 +21,8 @@ plugin.core = {
                 -- * an absolute number of cells when > 1
                 -- * a percentage of the width / height of the editor when <= 1
                 -- * a function that returns the width or the height
-                width = 0.72, -- width of the Zen window
-                height = 0.90, -- height of the Zen window
+                width = 0.82, -- width of the Zen window
+                height = 0.95, -- height of the Zen window
                 -- by default, no options are changed for the Zen window
                 -- uncomment any of the options below, or add other vim.wo options you want to apply
                 options = {
@@ -56,22 +54,26 @@ plugin.core = {
                     enabled = false,
                     font = "+4", -- font size increment
                 },
+                alacritty = {
+                    enabled = false,
+                    font = "14", -- font size
+                },
             },
             -- callback where you can add custom code when the Zen window opens
             on_open = function(win)
-                if vim.g.style ~= "light" then
-                    local norm_bg = util.darken(normal.background, 0.5 + backdrop / 2)
-                    vim.cmd(("highlight Normal guibg=%s guifg=%s"):format(norm_bg, normal.foreground))
-                    local nr_bg = util.darken(line_nr.background, 0.5 + backdrop / 2)
-                    vim.cmd(("highlight LineNr guibg=%s guifg=%s"):format(nr_bg, line_nr.foreground))
-                end
+                --if vim.g.style ~= "light" then
+                --    local norm_bg = util.darken(normal.background, 0.5 + backdrop / 2)
+                --    vim.cmd(("highlight Normal guibg=%s guifg=%s"):format(norm_bg, normal.foreground))
+                --    local nr_bg = util.darken(line_nr.background, 0.5 + backdrop / 2)
+                --    vim.cmd(("highlight LineNr guibg=%s guifg=%s"):format(nr_bg, line_nr.foreground))
+                --end
             end,
             -- callback where you can add custom code when the Zen window closes
             on_close = function()
-                if vim.g.style ~= "light" then
-                    vim.cmd(("highlight Normal guibg=%s guifg=%s"):format(normal.background, normal.foreground))
-                    vim.cmd(("highlight LineNr guibg=%s guifg=%s"):format(line_nr.background, line_nr.foreground))
-                end
+                --if vim.g.style ~= "light" then
+                --    vim.cmd(("highlight Normal guibg=%s guifg=%s"):format(normal.background, normal.foreground))
+                --    vim.cmd(("highlight LineNr guibg=%s guifg=%s"):format(line_nr.background, line_nr.foreground))
+                --end
             end,
         }
     end,
