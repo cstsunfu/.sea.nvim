@@ -56,6 +56,7 @@ end
 if vim.g.feature_groups['git'] == true then
     plugins_configure.plugins_groups['git'] = {
         ['gitsigns'] = { disable = false },
+        ['statuscol'] = { disable = false },
         ['fugitive'] = { disable = false },
     }
 end
