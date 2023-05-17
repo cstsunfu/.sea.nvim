@@ -10,7 +10,6 @@ vim.cmd("let maplocalleader=','")
 vim.cmd("let mapleader=';'")
 vim.cmd("nnoremap \\ ;")
 vim.cmd("vnoremap \\ ;")
-vim.cmd("syntax off")
 local global_func = require('util.global')
 
 
@@ -159,5 +158,27 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
         end
     end,
     group = aug,
+    pattern = "*",
+})
+
+local active_group = vim.api.nvim_create_augroup("active_group", { clear = false })
+vim.cmd('highlight link DarkNormal Normal')
+vim.api.nvim_create_autocmd({ "WinEnter" }, {
+    callback = function()
+        -- if filetype in 
+        if global_func.index(global_func.side_filetypes, vim.bo.filetype) == nil then
+            vim.cmd('setl winhighlight=Normal:Normal')
+        end
+    end,
+    group = active_group,
+    pattern = "*",
+})
+vim.api.nvim_create_autocmd({ "WinLeave" }, {
+    callback = function()
+        if global_func.index(global_func.side_filetypes, vim.bo.filetype) == nil then
+            vim.cmd('setl winhighlight=Normal:DarkNormal')
+        end
+    end,
+    group = active_group,
     pattern = "*",
 })
