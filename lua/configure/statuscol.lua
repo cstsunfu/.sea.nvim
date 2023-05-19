@@ -13,7 +13,7 @@ plugin.core = {
             relculright = true,
             segments = {
                 {
-                    sign = { name = { "Diagnostic*" }, maxwidth = 1, auto = false, colwidth = 1 },
+                    sign = { name = { "Diagnostic*" }, maxwidth = 1, auto = false, colwidth = 2 },
                     click = "v:lua.ScSa",
                 },
                 { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },

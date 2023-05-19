@@ -9,9 +9,10 @@ plugin.core = {
         if not packer_plugins['plenary.nvim'].loaded then
             vim.cmd [[packadd plenary.nvim]]
         end
-        vim.api.nvim_exec("highlight GitSignsAdd guifg=#00FF00", false)
-        vim.api.nvim_exec("highlight GitSignsChange guifg=#73cef4", false)
-        vim.api.nvim_exec("highlight GitSignsDelete guifg=#ffc24b", false)
+        vim.api.nvim_exec("highlight! GitSignsAdd guifg=#00FF00", false)
+        vim.api.nvim_exec("highlight! GitSignsChange guifg=#73cef4", false)
+        vim.api.nvim_exec("highlight! GitSignsDelete guifg=#ffc24b", false)
+        vim.api.nvim_exec("highlight! GitSignsUntracked guifg=#ca321b", false)
         require("gitsigns").setup {
             signs = {
                 add = {
@@ -44,6 +45,12 @@ plugin.core = {
                     text = "▎",
                     numhl = "GitSignsChangeNr",
                     linehl = "GitSignsChangeLn",
+                },
+                untracked    = {
+                    hl = "GitSignsUntracked",
+                    text = "▎",
+                    numhl = "GitSignsUntrackedNr",
+                    linehl = "GitSignsUntrackedLn",
                 },
             },
             --signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
