@@ -45,7 +45,7 @@ plugin.setup = function(style)
             cursor_line = false, -- Enable darker background for the cursor line
             non_current_windows = false, -- Enable darker background for non-current windows
             popup_menu = false, -- Enable lighter background for the popup menu
-            filetypes = global.side_filetypes
+            filetypes = vim.g.side_filetypes
         },
 
         styles = { -- Give comments style such as bold, italic, underline etc.

@@ -1,27 +1,6 @@
 local func = {}
 local uv = vim.loop
 
-func.side_filetypes = { -- Specify which filetypes get the contrasted (darker) background
-    --"terminal", -- Darker terminal background
-    "packer", -- Darker packer background
-    "NvimTree",
-    "ctrlsf",
-    "calendar",
-    "undotree",
-    "toggleterm",
-    "DiffviewFiles",
-    "diff",
-    "Outline",
-    "vista",
-    "vista_kind",
-    "dapui_stacks",
-    "dapui_breakpoints",
-    "dapui_watches",
-    "dapui_scopes",
-    "vista_markdown",
-    "qf" -- Darker qf list background
-}
-
 -- highlight
 local hl_fun = require('util.highlight')
 func.get_highlight_values = hl_fun.get_highlight_values
