@@ -29,6 +29,8 @@ plugin.core = {
             custom_theme.normal.c.fg = '#383653'
             custom_theme.inactive.c.bg = '#e7e7e8'
             custom_theme.inactive.c.fg = '#384653'
+        else
+            custom_theme.normal.c.bg = global_fun.brighten(custom_theme.normal.c.bg, -20)
         end
         --if vim.g.colorscheme == 'material' then
         --    custom_theme.normal.c.bg = global_fun.get_highlight_values("Pmenu").background
@@ -316,7 +318,7 @@ plugin.core = {
             ins_left_active {
                 'diagnostics',
                 sources = { 'coc' },
-                symbols = { error = ' ', warn = ' ', info = ' ' },
+                symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
                 diagnostics_color = {
                     error = { fg = colors.red },
                     warning = { fg = colors.yellow },
@@ -332,10 +334,11 @@ plugin.core = {
             ins_left_active {
                 'diagnostics',
                 sources = { 'nvim_lsp' },
-                symbols = { error = ' ', warn = ' ', info = ' ' },
+                symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' },
                 color_error = colors.red,
                 color_warn = colors.yellow,
                 color_info = colors.cyan,
+                color_hint = colors.cyan,
                 cond = conditions.hide_diagnostics_in_width
             }
         end
@@ -349,15 +352,31 @@ plugin.core = {
                 local fname = vim.fn.getcwd()
                 local path = Path:new(fname)
                 local project_name = nil
-                while (path.filename ~= home_path.filename) and (path.filename ~= root.filename) and (project_name == nil) do
-                    for _, pattern in ipairs(root_patterns) do
-                        if path:joinpath(pattern):exists() then
-                            local split_path = path:_split()
-                            project_name = split_path[#split_path]
-                            break
-                        end
+                -- for python lib/python3.x/site-packages/
+                local split_path = {}
+                local lib_flag = false
+                for _, value in pairs(path:_split()) do
+                    if value == 'lib' then
+                        lib_flag = true
                     end
-                    path = path:parent()
+                    if lib_flag and value ~= nil and value ~= '' then
+                        table.insert(split_path, value)
+                    end
+                end
+                if #split_path >= 4 and string.find(split_path[2], 'python') ~= nil and split_path[3] == 'site-packages' then
+                    project_name = split_path[4]
+                -- for general case
+                else
+                    while (path.filename ~= home_path.filename) and (path.filename ~= root.filename) and (project_name == nil) do
+                        for _, pattern in ipairs(root_patterns) do
+                            if path:joinpath(pattern):exists() then
+                                split_path = path:_split()
+                                project_name = split_path[#split_path]
+                                break
+                            end
+                        end
+                        path = path:parent()
+                    end
                 end
 
                 local prefix = ''

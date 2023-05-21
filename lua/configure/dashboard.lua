@@ -27,19 +27,10 @@ plugin.core = {
                   footer = {"🐬 Have A Good Day! "},
                   center = {
                       {
-                          icon = '  ',
-                          desc = 'Recently opened files                   ',
-                          action =  'DashboardFindHistory',
-                          key = '<leader> f r',
-                          icon_hl = 'Title',
-                          desc_hl = 'String',
-                          key_hl = 'Number',
-                      },
-                      {
                           icon = '  ',
-                          desc = 'Recently latest session                 ',
-                          key = '<leader> s l',
-                          action ='SessionLoad',
+                          desc = 'Recently Files                          ',
+                          key = 'LEADER f r',
+                          action ="lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}",
                           icon_hl = 'Title',
                           desc_hl = 'String',
                           key_hl = 'Number',
@@ -48,7 +39,7 @@ plugin.core = {
                           icon = '  ',
                           desc = 'Find  File                              ',
                           action = 'Telescope find_files find_command=rg,--hidden,--files',
-                          key = '<leader> f f',
+                          key = 'LEADER f f',
                           icon_hl = 'Title',
                           desc_hl = 'String',
                           key_hl = 'Number',
@@ -57,7 +48,16 @@ plugin.core = {
                           icon = '  ',
                           desc ='File Browser                            ',
                           action =  'Telescope file_browser',
-                          key = '<leader> f b',
+                          key = 'LEADER f B',
+                          icon_hl = 'Title',
+                          desc_hl = 'String',
+                          key_hl = 'Number',
+                      },
+                      {
+                          icon = '  ',
+                          desc = 'Open Personal Dotfiles                  ',
+                          action = "lua require 'telescope.builtin'.find_files{ cwd = vim.g.HOME_PATH .. '/.sea.nvim'}",
+                          key = 'LEADER f d',
                           icon_hl = 'Title',
                           desc_hl = 'String',
                           key_hl = 'Number',
@@ -66,18 +66,12 @@ plugin.core = {
                           icon = '  ',
                           desc = 'Find  word                              ',
                           action = 'Telescope live_grep',
-                          key = '<leader> f q',
+                          key = 'LEADER f q',
                           icon_hl = 'Title',
                           desc_hl = 'String',
                           key_hl = 'Number',
                       },
-                      --{
-                          --    icon = '  ',
-                          --    desc = 'Open Personal dotfiles                  ',
-                          --    action = 'Telescope dotfiles path=' .. home ..'/.dotfiles',
-                          --    shortcut = '<leader> f d'
-                          --},
-                      }
+                  }
 
               },
 
@@ -87,46 +81,6 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require('core.mapping')
-    mappings.register({
-        mode = "n",
-        key = {"<leader>", "s", "k"},
-        action = ':<C-u>SessionSave<cr>',
-        short_desc = "Session Keep",
-        silent = true
-    })
-
-    mappings.register({
-        mode = "n",
-        key = {"<leader>", "s", "l"},
-        action = ':<C-u>SessionLoad<cr>',
-        short_desc = "Last Session",
-        silent = true
-    })
-
-    mappings.register({
-        mode = "n",
-        key = {"<leader>", "s", "L"},
-        action = ':SessionLoad ',
-        short_desc = "Session List",
-        silent = true
-    })
-
-    mappings.register({
-        mode = "n",
-        key = {"<leader>", "f", "r"},
-        --action = ':DashboardFindHistory<CR>',
-        --short_desc = "Find History By Dashboard",
-        action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
-        short_desc = "Find Recent/History",
-        silent = true
-    })
-    mappings.register({
-        mode = "n",
-        key = {"<leader>", "f", "C"},
-        action = ':DashboardChangeColorscheme<CR>',
-        short_desc = "Change Color",
-        silent = true
-    })
 
     mappings.register({
         mode = "n",
@@ -136,14 +90,6 @@ plugin.mapping = function()
         silent = true
     })
 
-
-    mappings.register({
-        mode = "n",
-        key = {"<leader>", "c", "f"},
-        action = ':DashboardNewFile<CR>',
-        short_desc = "Create New File",
-        silent = true
-    })
 
 end
 

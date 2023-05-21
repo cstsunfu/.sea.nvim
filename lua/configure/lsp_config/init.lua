@@ -4,6 +4,7 @@ plugin.core = {
     --"williamboman/nvim-lsp-installer",
     "williamboman/mason.nvim",
     run = ":MasonUpdate",
+    after = { "plenary.nvim" },
     requires = {
         { "neovim/nvim-lspconfig", disable = vim.g.feature_groups.lsp ~= "builtin" },
         { "williamboman/mason-lspconfig.nvim", disable = vim.g.feature_groups.lsp ~= "builtin" },
@@ -67,9 +68,32 @@ plugin.core = {
                 }
             }
         }
+        local Path = require('plenary.path')
         lspconfig.pyright.setup {
             root_dir = function(fname)
-                return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or util.path.dirname(fname)
+                local split_path = {}
+                local path = Path:new(fname)
+                local lib_flag = false
+                for _, value in pairs(path:_split()) do
+                    if value == 'lib' then
+                        lib_flag = true
+                    end
+                    if value ~= nil and value ~= '' and lib_flag then
+                        table.insert(split_path, value)
+                    end
+                end
+                if #split_path >= 4 and string.find(split_path[2], 'python') ~= nil and split_path[3] == 'site-packages' then
+                    for _=1, #split_path-4,1 do
+                        path = path:parent()
+                    end
+                    return path.filename
+                end
+                local root = util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname) -- or util.path.dirname(fname)
+                if root == vim.g.HOME_PATH or root == nil then
+                    return nil
+                end
+                return root
+
             end,
             cmd = { "pyright-langserver", "--stdio" },
             filetypes = { "python" },
