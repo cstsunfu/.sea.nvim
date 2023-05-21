@@ -29,10 +29,8 @@ end
 plugin.setup = function (style)
     vim.cmd("packadd gruvbox-material")
     if style == "light" then
-        print('hi')
         plugin.light()
     else
-        print('here')
         plugin.dark()
     end
     local timer = vim.loop.new_timer()

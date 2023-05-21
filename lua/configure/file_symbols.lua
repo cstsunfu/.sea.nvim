@@ -1,9 +1,9 @@
 local plugin = {}
 
 plugin.core = {
-    --"cstsunfu/symbols-outline.nvim", --TODO: when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/134
-    "simrat39/symbols-outline.nvim", -- when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/134
-    as = "symbols-outline",
+    "enddeadroyal/symbols-outline.nvim", --TODO: when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/176
+    branch = 'bugfix/symbol-hover-misplacement',
+    --"simrat39/symbols-outline.nvim", -- when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/176
     setup = function() -- Specifies code to run before this plugin is loaded.
     end,
 
@@ -11,6 +11,7 @@ plugin.core = {
         local opts = {
             highlight_hovered_item = true,
             show_guides = true,
+            border = "rounded",
             auto_preview = true,
             position = 'left',
             relative_width = true,
@@ -19,7 +20,8 @@ plugin.core = {
             show_numbers = false,
             show_relative_numbers = false,
             show_symbol_details = true,
-            preview_bg_highlight = 'Pmenu',
+            --preview_bg_highlight = 'Pmenu',
+            preview_bg_highlight = 'Normal',
             autofold_depth = nil,
             auto_unfold_hover = true,
             fold_markers = { '', '' },
@@ -28,14 +30,14 @@ plugin.core = {
                 goto_location = "<Cr>",
                 focus_location = "o",
                 rename_symbol = "r",
-                close = {"<Esc>", "q"},
-                hover_symbol = "<C-space>",
+                close = { "q" },
+                hover_symbol = "s",
                 toggle_preview = "K",
-                code_actions = "a",
+                --code_actions = "a", -- TODO
                 fold = "h",
                 unfold = "l",
-                fold_all = "W",
-                unfold_all = "E",
+                fold_all = "H",
+                unfold_all = "L",
                 fold_reset = "R",
             },
             lsp_blacklist = {},

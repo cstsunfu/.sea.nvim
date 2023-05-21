@@ -9,9 +9,10 @@ plugin.core = {
         if not packer_plugins['plenary.nvim'].loaded then
             vim.cmd [[packadd plenary.nvim]]
         end
-        vim.api.nvim_exec("highlight GitSignsAdd guifg=#00FF00", false)
-        vim.api.nvim_exec("highlight GitSignsChange guifg=#73cef4", false)
-        vim.api.nvim_exec("highlight GitSignsDelete guifg=#ffc24b", false)
+        vim.api.nvim_exec("highlight! GitSignsAdd guifg=#00FF00", false)
+        vim.api.nvim_exec("highlight! GitSignsChange guifg=#73cef4", false)
+        vim.api.nvim_exec("highlight! GitSignsDelete guifg=#ffc24b", false)
+        vim.api.nvim_exec("highlight! GitSignsUntracked guifg=#ca321b", false)
         require("gitsigns").setup {
             signs = {
                 add = {
@@ -45,14 +46,20 @@ plugin.core = {
                     numhl = "GitSignsChangeNr",
                     linehl = "GitSignsChangeLn",
                 },
+                untracked    = {
+                    hl = "GitSignsUntracked",
+                    text = "▎",
+                    numhl = "GitSignsUntrackedNr",
+                    linehl = "GitSignsUntrackedLn",
+                },
             },
-            signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
-            numhl = false,
-            linehl = false,
-            watch_gitdir = { interval = 1000 },
-            sign_priority = 100,
-            update_debounce = 200,
-            status_formatter = nil, -- Use default
+            --signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
+            --numhl = false,
+            --linehl = false,
+            --watch_gitdir = { interval = 1000 },
+            --sign_priority = 100,
+            --update_debounce = 200,
+            --status_formatter = nil, -- Use default
         }
     end,
 }

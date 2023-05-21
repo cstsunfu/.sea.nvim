@@ -8,6 +8,7 @@ plugin.core = {
         { "nvim-lua/plenary.nvim" },
         {"tami5/sqlite.lua"},
         { "tami5/sql.nvim", opt = true },
+        { "nvim-telescope/telescope-file-browser.nvim" },
         {
             "nvim-telescope/telescope-frecency.nvim",
             opt = true,
@@ -43,6 +44,9 @@ plugin.core = {
         end
         if not packer_plugins['sql.nvim'].loaded then
             vim.cmd [[packadd sql.nvim]]
+        end
+        if not packer_plugins['telescope-file-browser.nvim'].loaded then
+            vim.cmd [[packadd telescope-file-browser.nvim]]
         end
         local actions = require('telescope.actions')
         require 'telescope'.load_extension('project')
@@ -185,11 +189,12 @@ plugin.core = {
                     override_file_sorter = true, -- override the file sorter
                     case_mode = "smart_case", -- or "ignore_case" or "respect_case"
                     -- the default case_mode is "smart_case"
-                }
+                },
             }
         }
         require 'telescope'.load_extension('fzf')
         require"telescope".load_extension("frecency")
+        require("telescope").load_extension "file_browser"
     end,
 }
 
@@ -201,6 +206,22 @@ plugin.mapping = function()
         action = "<cmd>lua require('telescope.builtin').find_files()<cr>",
         short_desc = "Find files",
         silent = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", "B"},
+        action = "Telescope file_browser",
+        short_desc = "File Browser",
+        silent = true
+    })
+
+
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", "r"},
+        action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
+        short_desc = "Find Recent/History",
+        silent = true
     })
 
     mappings.register({
@@ -235,6 +256,16 @@ plugin.mapping = function()
         silent = true,
         noremap = true
     })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "f", "d" },
+        action = 'Telescope dotfiles path=' .. vim.g.HOME_PATH ..'/.sea.nvim',
+        short_desc = 'Open Dotfiles                  ',
+        silent = true,
+        noremap = true
+    })
+
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "w" },

@@ -284,6 +284,20 @@ global_mapping.register({
     short_desc = "Read Date From System"
 })
 
+global_mapping.register({
+    mode = "n",
+    key = { "<leader>", "r", "r" },
+    action = ':e!<cr>',
+    short_desc = "Reload Current File"
+})
+
+global_mapping.register({
+    mode = "n",
+    key = { "<leader>", "r", "t" },
+    action = ':read !tree<cr>',
+    short_desc = "Read FileTree"
+})
+
 --save/space
 
 global_mapping.register({

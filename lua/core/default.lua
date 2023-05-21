@@ -10,7 +10,6 @@ vim.cmd("let maplocalleader=','")
 vim.cmd("let mapleader=';'")
 vim.cmd("nnoremap \\ ;")
 vim.cmd("vnoremap \\ ;")
-vim.cmd("syntax off")
 local global_func = require('util.global')
 
 
@@ -18,29 +17,54 @@ local global_func = require('util.global')
 
 --vim.cmd("hi CursorLine term=bold cterm=bold guibg=Grey40") -- cursorline color
 
+vim.g.side_filetypes = { -- Specify which filetypes get the contrasted (darker) background
+    --"terminal", -- Darker terminal background
+    "packer", -- Darker packer background
+    "NvimTree",
+    "ctrlsf",
+    "calendar",
+    "undotree",
+    "toggleterm",
+    "DiffviewFiles",
+    "diff",
+    "Outline",
+    "vista",
+    "vista_kind",
+    "dapui_stacks",
+    "dapui_breakpoints",
+    "dapui_watches",
+    "dapui_scopes",
+    "vista_markdown",
+    "qf" -- Darker qf list background
+}
+
 vim.g.no_number_filetypes = {
     dapui_stacks = true,
     dapui_breakpoints = true,
     dapui_watches = true,
     dapui_scopes = true,
     qf = true,
+    Telescope = true,
+    dashboard = true,
 }
-vim.g.no_number_filetypes_list = {}
+vim.g.no_number_filetypes[''] = true
+
+local no_number_filetypes_list = {} -- if set vim.g.no_number_filetypes_list = {}, cannot insert as list
 for key, _ in pairs(vim.g.no_number_filetypes) do
-    table.insert(vim.g.no_number_filetypes_list, key)
+    table.insert(no_number_filetypes_list, key)
 end
 
-local no_number_filetypes_list = "dapui_stacks,dapui_breakpoints,dapui_watches,dapui_scopes,qf" -- why table.concat not work?
+vim.g.no_number_filetypes_concat_list = table.concat(no_number_filetypes_list, ',')
 
 global_func.augroup('smarter_cursorline', {
     {
         events = { 'filetype' },
-        targets = { no_number_filetypes_list },
+        targets = { vim.g.no_number_filetypes_concat_list },
         command = "setlocal nonumber"
     },
     {
         events = { 'filetype' },
-        targets = { no_number_filetypes_list },
+        targets = { vim.g.no_number_filetypes_concat_list },
         command = "setlocal norelativenumber"
     },
     {
@@ -78,7 +102,7 @@ global_func.augroup('empty_message', {
 default_setting['opt'] = {
     number = true,
     guicursor = 'n-v:block-Cursor,i-ci-ve-c:ver25-Cursor', --block for normal visual mode, vertical for insert command mode. highlight set to Cursor
-    relativenumber = true,
+    --relativenumber = true, -- set in autocmd
     --fillchars = "fold:-,eob: ,vert: ",          -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     fillchars = "fold:-,eob: ,vert:▕,diff: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
@@ -159,5 +183,33 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
         end
     end,
     group = aug,
+    pattern = "*",
+})
+
+local active_group = vim.api.nvim_create_augroup("active_group", { clear = false })
+vim.cmd('highlight link DarkNormal Normal')
+vim.api.nvim_create_autocmd({ "WinEnter" }, {
+    callback = function()
+        -- if filetype in 
+        if global_func.index(vim.g.side_filetypes, vim.bo.filetype) == nil then
+            vim.cmd('setl winhighlight=Normal:Normal')
+            if vim.g.no_number_filetypes[vim.bo.filetype] == nil then
+                vim.cmd('setl relativenumber')
+            end
+        end
+    end,
+    group = active_group,
+    pattern = "*",
+})
+vim.api.nvim_create_autocmd({ "WinLeave" }, {
+    callback = function()
+        if global_func.index(vim.g.side_filetypes, vim.bo.filetype) == nil then
+            vim.cmd('setl winhighlight=Normal:DarkNormal')
+            if vim.g.no_number_filetypes[vim.bo.filetype] == nil then
+                vim.cmd('setl norelativenumber')
+            end
+        end
+    end,
+    group = active_group,
     pattern = "*",
 })

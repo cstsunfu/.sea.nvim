@@ -1,6 +1,13 @@
 local func = {}
 local uv = vim.loop
 
+-- highlight
+local hl_fun = require('util.highlight')
+func.get_highlight_values = hl_fun.get_highlight_values
+func.highlight = hl_fun.highlight
+func.brighten = hl_fun.brighten
+
+-- delete buffers
 func.delete_all_buffers_in_window = function ()
     local cur_win_nr = vim.fn.bufnr("%")
     vim.cmd("bn")
@@ -13,6 +20,7 @@ func.delete_all_buffers_in_window = function ()
 end
 
 
+-- augroup
 func.augroup = function(name, commands)
     vim.cmd('augroup ' .. name)
     vim.cmd 'autocmd!'
@@ -31,6 +39,7 @@ func.augroup = function(name, commands)
     vim.cmd 'augroup END'
 end
 
+-- get the index of the key in the table
 func.index = function(tab, key)
     if not tab then
         return nil
@@ -43,6 +52,7 @@ func.index = function(tab, key)
     return nil
 end
 
+-- async read file
 func.async_read_file = function(path, callback)
     uv.fs_open(path, "r", 438, function(err, fd)
         --assert(not err, err)
@@ -64,6 +74,7 @@ func.async_read_file = function(path, callback)
     end)
 end
 
+-- sync read file
 func.sync_read_file = function(path)
     local fd, err = uv.fs_open(path, "r", 438)
     if err then
@@ -95,6 +106,7 @@ func.sync_write_file = function(path, data)
     assert(uv.fs_close(fd))
 end
 
+-- select item from menu
 func.menu = function(title, items, prompt)
     local content = { title .. ':' }
     local valid_keys = {}
@@ -118,25 +130,15 @@ func.menu = function(title, items, prompt)
     return entry.action()
 end
 
+-- split string
 func.split = function(str, _sep)
     local sep, fields = _sep or "\t", {}
     string.gsub(str, '[^'..sep..']+', function(w) table.insert(fields, w) end )
     return fields
 end
 
-func.get_highlight_values = function(name)
-    local ok, hl = pcall(vim.api.nvim_get_hl_by_name, name, true)
-    if not ok then
-        return
-    end
-    for _, key in pairs({"foreground", "background", "special"}) do
-        if hl[key] then
-            hl[key] = string.format("#%06x", hl[key])
-        end
-    end
-    return hl
+-- change highlight
 
-end
 
 -- math math_environment https://github.com/nvim-treesitter/nvim-treesitter/issues/1184
 local has_treesitter, ts = pcall(require, 'vim.treesitter')
