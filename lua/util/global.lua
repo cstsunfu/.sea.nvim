@@ -157,13 +157,18 @@ local COMMENT = {
     ['comment_environment'] = true,
 }
 
-local function get_node_at_cursor()
+function func.get_node_at_cursor_tex()
     local buf = vim.api.nvim_get_current_buf()
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
     row = row - 1
     col = col - 1
-
-    local ok, parser = pcall(ts.get_parser, buf, 'latex')
+    local ok = nil
+    local parser = nil
+    if vim.bo.filetype == 'python' then
+        ok, parser = pcall(ts.get_parser, buf, 'python')
+    else
+        ok, parser = pcall(ts.get_parser, buf, 'latex')
+    end
     if not ok or not parser then return end
 
     local root_tree = parser:parse()[1]
@@ -178,7 +183,7 @@ end
 
 function func.in_comment()
     if has_treesitter then
-        local node = get_node_at_cursor()
+        local node = func.get_node_at_cursor_tex()
         while node do
             if COMMENT[node:type()] then
                 return true
@@ -191,12 +196,21 @@ end
 
 function func.in_mathzone()
     if has_treesitter then
-        local node = get_node_at_cursor()
+        local node = func.get_node_at_cursor_tex()
+        local filetype = vim.bo.filetype
         while node do
-            if node:type() == 'text_mode' then
-                return false
-            elseif MATH_NODES[node:type()] then
-                return true
+            if filetype == 'python' then
+                if node:type() == 'string' then
+                    return true
+                else
+                    return false
+                end
+            else
+                if node:type() == 'text_mode' then
+                    return false
+                elseif MATH_NODES[node:type()] then
+                    return true
+                end
             end
             node = node:parent()
         end
