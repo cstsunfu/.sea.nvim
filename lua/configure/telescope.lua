@@ -260,7 +260,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "d" },
-        action = 'Telescope dotfiles path=' .. vim.g.HOME_PATH ..'/.sea.nvim',
+        action = "<cmd>lua require 'telescope.builtin'.find_files{ cwd = vim.g.HOME_PATH .. '/.sea.nvim'}<cr>",
         short_desc = 'Open Dotfiles                  ',
         silent = true,
         noremap = true

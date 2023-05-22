@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "rlane/pounce.nvim",
+    "cstsunfu/pounce-zh.nvim",
     setup = function() -- Specifies code to run before this plugin is loaded.
     end,
 
