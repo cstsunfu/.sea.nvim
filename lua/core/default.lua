@@ -38,22 +38,26 @@ vim.g.side_filetypes = { -- Specify which filetypes get the contrasted (darker) 
     "qf" -- Darker qf list background
 }
 
-vim.g.no_number_filetypes = {
-    dapui_stacks = true,
-    dapui_breakpoints = true,
-    dapui_watches = true,
-    dapui_scopes = true,
-    qf = true,
+local no_number_filetypes = {
     Telescope = true,
     dashboard = true,
+    dapui_console = true,
+    ['dap-repl'] = true,
+    help = true,
 }
-vim.g.no_number_filetypes[''] = true
+for _,filetype in ipairs(vim.g.side_filetypes) do
+    no_number_filetypes[filetype] = true
+end
+no_number_filetypes[''] = true
+
+vim.g.no_number_filetypes = no_number_filetypes
 
 local no_number_filetypes_list = {} -- if set vim.g.no_number_filetypes_list = {}, cannot insert as list
 for key, _ in pairs(vim.g.no_number_filetypes) do
     table.insert(no_number_filetypes_list, key)
 end
 
+vim.g.no_number_filetypes_list = no_number_filetypes_list
 vim.g.no_number_filetypes_concat_list = table.concat(no_number_filetypes_list, ',')
 
 global_func.augroup('smarter_cursorline', {
@@ -83,7 +87,7 @@ global_func.augroup('smarter_cursorline', {
         command = "set norelativenumber"
     },
     {
-        events = { 'InsertLeave' },
+        events = { 'InsertLeave', 'BufEnter' },
         targets = { '*' },
         command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil then vim.o.relativenumber = true end ]]
     },
@@ -107,7 +111,7 @@ default_setting['opt'] = {
     fillchars = "fold:-,eob: ,vert:▕,diff: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
     history = 10000, -- undo file history
-    updatetime = 250, -- CursorHold
+    updatetime = 500, -- CursorHold
     undofile = true, -- use undo file
     swapfile = true, -- use swap file
     maxmempattern = 2000, -- max match pattern

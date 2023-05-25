@@ -96,6 +96,7 @@ plugin.setup = function(style)
 
         custom_highlights = {
             --WinSeparator = { link = "NormalContrast" },
+            DapUINormal = { link = "NormalContrast" },
             DapUIValue = { link = "NormalContrast" },
             DapUIVariable = { link = "NormalContrast" },
             DapUIFrameName = { link = "NormalContrast" },
