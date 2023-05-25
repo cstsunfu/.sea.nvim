@@ -128,10 +128,11 @@ plugin.core = {
                     winhighlight = 'NormalFloat:CompNormal,FloatBorder:FloatBorder',
                 },
             },
+
             mapping = cmp.mapping.preset.insert({
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<C-x>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.abort(),
                 --['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 ["<C-j>"] = cmp.mapping(
@@ -147,7 +148,14 @@ plugin.core = {
                     { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
                 ),
                 ["<CR>"] = cmp.mapping.confirm({
-                    -- this is the important line
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = false,
+                }),
+                ["C-y"] = cmp.mapping.confirm({
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = false,
+                }),
+                ["C-l"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
                 }),

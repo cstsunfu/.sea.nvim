@@ -17,10 +17,10 @@ plugin.core = {
         --vim.cmd [[packadd nvim-dap]]
         --end
         local dap, dapui = require('dap'), require('dapui')
-        vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Debug', linehl = '', numhl = '' })
+        vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'Error', linehl = '', numhl = '' })
         vim.fn.sign_define('DapStopped', { text = '➤', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })
-        vim.fn.sign_define('DapBreakpointCondition', { text = '鬒', texthl = 'TSTodo', linehl = '', numhl = '' })
-        vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'TSError', linehl = '', numhl = '' })
+        vim.fn.sign_define('DapBreakpointCondition', { text = '鬒', texthl = 'Todo', linehl = '', numhl = '' })
+        vim.fn.sign_define('DapBreakpointRejected', { text = ' ', texthl = 'Error', linehl = '', numhl = '' })
         vim.fn.sign_define('DapLogPoint', { text = ' ', texthl = 'DiagnosticHint', linehl = '', numhl = '' })
         dap.listeners.after.event_initialized['dapui_config'] = function() dapui.open() end
         dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
@@ -29,7 +29,11 @@ plugin.core = {
         --dap.defaults.fallback.terminal_win_cmd = 'resize 10'
         dap.defaults.fallback.terminal_win_cmd = 'botright ' .. math.floor(vim.fn.winheight(vim.fn.winnr()) / 6) .. 'new'
         require("dapui").setup({
-            icons = { expanded = "▾", collapsed = "▸" },
+            icons = {
+                collapsed = "",
+                current_frame = "",
+                expanded = ""
+            },
             mappings = {
                 -- Use a table to apply multiple mappings
                 expand = { "<CR>", "<2-LeftMouse>" },
@@ -40,6 +44,21 @@ plugin.core = {
             },
             --expand_lines = vim.fn.has("nvim-0.7"),
             expand_lines = false,
+            controls = {
+                element = "repl",
+                enabled = true,
+                icons = {
+                    disconnect = "",
+                    pause = "",
+                    play = "",
+                    run_last = "",
+                    step_back = "",
+                    step_into = "",
+                    step_out = "",
+                    step_over = "",
+                    terminate = ""
+                }
+            },
             layouts = {
                 {
                     --open_on_start = true,
@@ -59,14 +78,14 @@ plugin.core = {
                 },
                 {
                     elements = {
-                        "repl",
-                    },
-                    size = math.floor(vim.fn.winheight(vim.fn.winnr()) / 6),
-                    position = "top",
-                },
-                {
-                    elements = {
-                        "console",
+                        {
+                            id = "console",
+                            size = 0.5,
+                        },
+                        {
+                            id = "repl",
+                            size = 0.5,
+                        },
                     },
                     size = math.floor(vim.fn.winheight(vim.fn.winnr()) / 6),
                     position = "bottom",
