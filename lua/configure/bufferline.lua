@@ -1,5 +1,6 @@
 local plugin = {}
 
+
 plugin.core = {
     'akinsho/bufferline.nvim',
     requires = { { 'kyazdani42/nvim-web-devicons' } },
@@ -9,8 +10,13 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        vim.cmd("hi TAGBAR guifg=#009090")
-        vim.cmd("hi NERDTREE guifg=#009090")
+        --vim.cmd("hi TAGBAR guifg=#009090")
+        --vim.cmd("hi link TAGBAR Pmenu")
+        local hl_fun = require('util.highlight')
+        local normal = hl_fun.get_highlight_values("Normal")
+        local darkbg = hl_fun.brighten(normal.background, -15) -- darken by 5%
+        --hl_fun.highlight("BufferLine", {bg = darkbg, fg=normal.foreground})
+        hl_fun.highlight("Tagbar", {bg = darkbg, fg="#009090"})
         vim.cmd('highlight IndentBlanklineChar guifg=#808080 gui=nocombine')
         local padding_by_colorscheme = function()
             if vim.g.colorscheme == 'material' then
@@ -23,13 +29,25 @@ plugin.core = {
                 indicator_selected = {
                     --fg = "#ee71ee"
                     fg = "#51afef"
+                },
+                fill = {
+                    bg = darkbg
                 }
             },
             options = {
-                --numbers = "none" | "ordinal" | "buffer_id" | "both",
                 numbers = function(opts)
-                    return string.format('%s.', opts.ordinal)
+                    local buffer_num_name_map = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"}
+                    local ordinal = tostring(opts.ordinal)
+                    if opts.ordinal <= #buffer_num_name_map then
+                        ordinal = buffer_num_name_map[tonumber(ordinal)]
+                    end
+                    return string.format('%s.', ordinal)
                 end,
+                hover = {
+                    enabled = true,
+                    delay = 100,
+                    reveal = {'close'}
+                },
                 themable = false,
                 --number_style = "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
                 --mappings = true | false,
@@ -43,6 +61,8 @@ plugin.core = {
                 --"⎟⎜⎢⎜▏▊▋▉▎▍▋▍"
                 indicator = {
                     icon = '▍',
+                    style = 'icon'
+                    --style = 'icon' | 'underline' | 'none',
                 },
                 buffer_close_icon = '',
                 modified_icon = '●',
@@ -89,90 +109,90 @@ plugin.core = {
                     {
                         filetype = "NvimTree",
                         text = "▌        ✯File Explorer✯",
-                        text_align = "left", highlight = 'TAGBAR',
+                        text_align = "left", highlight = 'Tagbar',
                         padding = 1
                     },
                     {
                         filetype = "toggleterm",
                         text = "▌        ✯Terminal✯",
-                        text_align = "left", highlight = 'TAGBAR',
+                        text_align = "left", highlight = 'Tagbar',
                         padding = 1
                     },
                     {
                         filetype = "vista",
                         text = "✶Code Navigator✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "Outline",
                         text = "✶Code Navigator✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "vista_kind",
                         text = "✶Markdown Outline✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "vista_markdown",
                         text = "✶Markdown Outline✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "undotree",
                         text = "✶History✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "ctrlsf",
                         text = "✶Finding Files✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "dapui_stacks",
                         text = "✶DEBUG✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "dapui_breakpoints",
                         text = "✶DEBUG✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "dapui_watches",
                         text = "✶DEBUG✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "dapui_scopes",
                         text = "✶DEBUG✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                     {
                         filetype = "DiffviewFiles",
                         text = "✶Diff View✶",
                         text_align = "center",
-                        highlight = 'TAGBAR',
+                        highlight = 'Tagbar',
                         padding = padding_by_colorscheme()
                     },
                 },
@@ -222,12 +242,14 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require('core.mapping')
-    for i = 1, 9, 1 do
+    local buffer_num_name_map = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"}
+    for key, value in pairs(buffer_num_name_map) do
         mappings.register({
             mode = "n",
-            key = { "<leader>", tostring(i) },
-            action = "<Cmd>BufferLineGoToBuffer " .. tostring(i) .. '<cr>',
-            short_desc = "Goto " .. tostring(i) .. " Buffer",
+            key = { "<leader>", tostring(value) },
+            --action = "<Cmd>BufferLineGoToBuffer " .. tostring(i) .. '<cr>',
+            action = "<Cmd>lua require('bufferline').go_to(" .. tostring(key) .. ', true)<cr>',
+            short_desc = "Goto " .. tostring(value) .. " Buffer",
             noremap = true,
             silent = true,
         })
