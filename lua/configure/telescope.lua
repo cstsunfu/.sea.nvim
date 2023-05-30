@@ -177,7 +177,7 @@ plugin.core = {
                         '~/.sea.nvim',
                         '~/org',
                         '~/.dotfiles',
-                        '~/workspace',
+                        {'~/workspace', max_depth=4},
                     },
                     hidden_files = true -- default: false
                 },
@@ -297,6 +297,15 @@ plugin.mapping = function()
         silent = true,
         noremap = true
     })
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "s", "p" },
+        action = '<Cmd>lua require("telescope._extensions.project.actions").add_project_cwd()<CR>',
+        short_desc = "Save Project",
+        silent = true,
+        noremap = true
+    })
+
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "m" },
