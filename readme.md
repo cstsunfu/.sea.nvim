@@ -81,7 +81,7 @@ Install method depend on your os.
 
 9. User related setting in `lua/core/local.lua` and `lua/core/user.lua`.
 
-Both `local.lua` and `user.lua` are bind to user. `user.lua` is more general for each user,  and `local.lua` is special to each machine, and setting in `local.lua`  will not be indexed by git but `user.lua` will be.
+Both `local.lua` and `user.lua` are bind to user. `user.lua` is more general for each user, and `local.lua` is special to each machine, and setting in `local.lua`  will not be indexed by git but `user.lua` will be.
 
 My own setting example in `local.lua` is:
 ```

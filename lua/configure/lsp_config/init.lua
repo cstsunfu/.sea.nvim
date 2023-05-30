@@ -96,10 +96,6 @@ plugin.core = {
 
             },
             ltex = {
-            },
-            sqlls = {
-            },
-            clangd = {
                 settings = {
                     ltex = {
                         enabled = { "latex", "tex", "bib", "markdown", "vimwiki" },
@@ -127,6 +123,10 @@ plugin.core = {
                         hiddenFalsePositives = {},
                     },
                 },
+            },
+            sqlls = {
+            },
+            clangd = {
             },
         }
         mason_lspconfig.setup {
