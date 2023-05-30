@@ -13,8 +13,8 @@ plugin.core = {
             suggestion = { enabled = false },
             panel = { enabled = false },
             filetypes = {
-                yaml = false,
-                markdown = false,
+                --yaml = false,
+                --markdown = false,
                 help = false,
                 gitcommit = false,
                 gitrebase = false,

@@ -125,6 +125,7 @@ default_setting['opt'] = {
     path = vim.o.path .. ",./**",
     omnifunc = 'v:lua.vim.lsp.omnifunc', -- for default lsp
     tabstop = 4, -- replace tab as white space
+    mousemoveevent = true,
     expandtab = true,
     shiftwidth = 4,
     conceallevel = 2,
