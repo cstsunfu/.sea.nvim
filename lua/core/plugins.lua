@@ -64,6 +64,8 @@ end
 
 if vim.g.feature_groups['enhance'] == true then
     plugins_configure.plugins_groups['enhance'] = {
+        ['session'] = { disable = false },
+        ['session_auto'] = { disable = false },
         ['hlslens'] = { disable = false },
         ['todo_comments'] = { disable = false },
         ['zen_mode'] = { disable = false },
@@ -137,6 +139,7 @@ if vim.g.feature_groups['lsp'] then
         ["nvim_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["copilot"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["copilot_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        ["lsp_status"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         --['lsp_icon'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' }, -- directly setting in nvim_cmp
         --['fold_expr'] = { disable = vim.g.feature_groups.lsp ~= 'builtin' }, -- may cause slow
     }
