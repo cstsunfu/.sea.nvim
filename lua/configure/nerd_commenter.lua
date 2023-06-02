@@ -35,9 +35,9 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = { "n", "v" },
-        key = { "<leader>", "c", "a" },
+        key = { "<leader>", "c", "x" },
         action = "<Plug>NERDCommenterAltDelims",
-        short_desc = "Comment Alt Format",
+        short_desc = "Comment Exchange Format",
         silent = true,
     })
     mappings.register({
