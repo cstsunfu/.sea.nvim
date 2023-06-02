@@ -12,7 +12,7 @@ plugin.core = {
             height = 18, -- Height of the window
             zindex = 45,
             border = {
-                enable = false, -- Show window borders. Only horizontal borders allowed
+                enable = true, -- Show window borders. Only horizontal borders allowed
                 top_char = '―',
                 bottom_char = '―',
             },
@@ -73,32 +73,32 @@ plugin.mapping = function()
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",
-        key = { "g", "D" },
+        key = { "g", "G" },
         action = '<cmd>Glance definitions<cr>',
         short_desc = "Glance Definitions",
         silent = false
     })
-    mappings.register({
-        mode = "n",
-        key = { "g", "R" },
-        action = '<cmd>Glance references<cr>',
-        short_desc = "Glance References",
-        silent = false
-    })
-    mappings.register({
-        mode = "n",
-        key = { "g", "Y" },
-        action = '<CMD>Glance type_definitions<CR>',
-        short_desc = "Glance Type Definitions",
-        silent = false
-    })
-    mappings.register({
-        mode = "n",
-        key = { "g", "M" },
-        action = '<CMD>Glance implementations<CR>',
-        short_desc = "Glance Implementations",
-        silent = false
-    })
+    --mappings.register({
+    --    mode = "n",
+    --    key = { "g", "R" },
+    --    action = '<cmd>Glance references<cr>',
+    --    short_desc = "Glance References",
+    --    silent = false
+    --})
+    --mappings.register({
+    --    mode = "n",
+    --    key = { "g", "Y" },
+    --    action = '<CMD>Glance type_definitions<CR>',
+    --    short_desc = "Glance Type Definitions",
+    --    silent = false
+    --})
+    --mappings.register({
+    --    mode = "n",
+    --    key = { "g", "M" },
+    --    action = '<CMD>Glance implementations<CR>',
+    --    short_desc = "Glance Implementations",
+    --    silent = false
+    --})
 end
 
 return plugin
