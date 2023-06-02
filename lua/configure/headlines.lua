@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "lukas-reineke/headlines.nvim",
     ft = { "markdown", "vimwiki", "org" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

@@ -2,9 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "shaunsingh/nord.nvim",
-    as = "nord",
 
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -25,7 +24,6 @@ plugin.dark = {
 
 }
 plugin.setup = function (style)
-    vim.cmd("packadd nord")
     if style == "light" then
         require('nord').set()
     else

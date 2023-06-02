@@ -2,13 +2,10 @@ local plugin = {}
 
 plugin.core = {
     "lewis6991/gitsigns.nvim",
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        if not packer_plugins['plenary.nvim'].loaded then
-            vim.cmd [[packadd plenary.nvim]]
-        end
         vim.api.nvim_exec("highlight! GitSignsAdd guifg=#00FF00", false)
         vim.api.nvim_exec("highlight! GitSignsChange guifg=#73cef4", false)
         vim.api.nvim_exec("highlight! GitSignsDelete guifg=#ffc24b", false)

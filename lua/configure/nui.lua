@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "MunifTanjim/nui.nvim",
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

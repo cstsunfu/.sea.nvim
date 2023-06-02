@@ -3,15 +3,11 @@ local plugin = {}
 plugin.core = {
     "danymat/neogen",
 
-    after = { 'nvim-treesitter' },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    dependencies = { 'nvim-treesitter' },
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        if not packer_plugins['nvim-treesitter'].loaded then
-            vim.cmd [[packadd nvim-treesitter]]
-        end
-
         require('neogen').setup {
             enabled = true
         }

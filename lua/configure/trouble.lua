@@ -2,8 +2,9 @@ local plugin = {}
 
 plugin.core = {
     "folke/trouble.nvim",
-    --requires = { { 'kyazdani42/nvim-web-devicons' } },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    --    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+    cmd = {"TroubleToggle"},
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

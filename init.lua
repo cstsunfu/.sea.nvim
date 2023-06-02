@@ -10,29 +10,16 @@ end
 vim.g.CONFIG = vim.g.HOME_PATH .. "/.sea.nvim"
 vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.g.CONFIG
 
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-
-if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
-    execute 'packadd packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
-packer_ok, packer = pcall(require, "packer")
-
-if not packer_ok then
-    print('can not load packer.')
-    return
-end
-
-packer.init {
-    git = {
-        depth = 1, -- Git clone depth
-        clone_timeout = 600, -- Timeout, in seconds, for git clones
-        --default_url_format = 'https://github.com/%s' -- Lua format string used for "aaa/bbb" style plugins
-    },
-    max_jobs = 10
-}
-
+vim.opt.rtp:prepend(lazypath)
 require("core")

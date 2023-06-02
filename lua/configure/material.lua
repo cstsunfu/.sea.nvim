@@ -1,10 +1,8 @@
 local plugin = {}
-local global = require "util.global"
 
 plugin.core = {
     "marko-cerovac/material.nvim",
-    as = "material",
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -24,9 +22,6 @@ plugin.dark = {
 
 }
 plugin.setup = function(style)
-
-    vim.cmd("packadd material")
-
 
     local colors   = require "material.colors"
     colors = require "material.colors.conditionals"

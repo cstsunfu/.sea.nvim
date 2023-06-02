@@ -2,9 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "liuchengxu/vista.vim",
-    as = "vista",
     cmd = { "Vista" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
         -- How each level is indented and what to prepend.
         -- This could make the display more compact or more spacious.
         -- e.g., more compact: ["▸ ", ""]

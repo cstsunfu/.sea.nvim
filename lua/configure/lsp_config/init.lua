@@ -1,16 +1,16 @@
 local plugin = {}
 
 plugin.core = {
-    --"williamboman/nvim-lsp-installer",
     "williamboman/mason.nvim",
-    run = ":MasonUpdate",
+    build = ":MasonUpdate",
     after = { "plenary.nvim" },
-    requires = {
-        { "neovim/nvim-lspconfig", disable = vim.g.feature_groups.lsp ~= "builtin" },
-        { "williamboman/mason-lspconfig.nvim", disable = vim.g.feature_groups.lsp ~= "builtin" },
-        { "hrsh7th/nvim-cmp", disable = vim.g.feature_groups.lsp ~= "builtin" },
+    dependencies = {
+        "plenary.nvim",
+        { "neovim/nvim-lspconfig", enable = vim.g.feature_groups.lsp == "builtin" },
+        { "williamboman/mason-lspconfig.nvim", enable = vim.g.feature_groups.lsp == "builtin" },
+        { "hrsh7th/nvim-cmp", enable = vim.g.feature_groups.lsp == "builtin" },
     },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -98,35 +98,6 @@ plugin.core = {
                 single_file_support = true
 
             },
-            --ltex = {
-            --    settings = {
-            --        ltex = {
-            --            enabled = { "latex", "tex", "bib", "markdown", "vimwiki" },
-            --            language = "en",
-            --            diagnosticSeverity = "information",
-            --            setenceCacheSize = 2000,
-            --            additionalRules = {
-            --                enablePickyRules = true,
-            --                motherTongue = "en",
-            --            },
-            --            trace = { server = "verbose" },
-            --            dictionary = {},
-            --            disabledRules = {
-            --                ['en'] = {
-            --                    'WHITESPACE_RULE',
-            --                    "DASH_RULE",
-            --                    "EN_QUOTES",
-            --                    "NON_STANDARD_COMMA",
-            --                    "PUNCTUATION_PARAGRAPH_END",
-            --                    "EN_UNPAIRED_BRACKETS",
-            --                    "WORD_CONTAINS_UNDERSCORE",
-            --                    "COMMA_PARENTHESIS_WHITESPACE",
-            --                }
-            --            },
-            --            hiddenFalsePositives = {},
-            --        },
-            --    },
-            --},
             sqlls = {
             },
             clangd = {
@@ -143,116 +114,7 @@ plugin.core = {
             server_config = vim.tbl_deep_extend('force', common_config, server_config)
             require('lspconfig')[server_name].setup(server_config)
         end
-
-        --mason_lspconfig.setup_handlers {
-        --    function(server_name)
-        --        local server_config = {
-        --            capabilities = capabilities,
-        --            on_attach = function(_, _) end,
-        --        }
-        --        server_config = vim.tbl_deep_extend('force', server_config, servers[server_name])
-        --        require('lspconfig')[server_name].setup(server_config)
-        --    end,
-        --}
-        --local lspconfig = require("lspconfig")
         require('configure.lsp_config.default_setting')
-
-        --lspconfig.lua_ls.setup {
-        --    settings = {
-        --        Lua = {
-        --            diagnostics = {
-        --                globals = { 'vim' }
-        --            },
-        --            workspace = { checkThirdParty = false },
-        --            telemetry = { enable = false },
-        --        }
-        --    }
-        --}
-        --lspconfig.pyright.setup {
-        --    root_dir = function(fname)
-        --        local split_path = {}
-        --        local path = Path:new(fname)
-        --        local lib_flag = false
-        --        for _, value in pairs(path:_split()) do
-        --            if value == 'lib' then
-        --                lib_flag = true
-        --            end
-        --            if value ~= nil and value ~= '' and lib_flag then
-        --                table.insert(split_path, value)
-        --            end
-        --        end
-        --        if #split_path >= 4 and string.find(split_path[2], 'python') ~= nil and split_path[3] == 'site-packages' then
-        --            for _=1, #split_path-4,1 do
-        --                path = path:parent()
-        --            end
-        --            return path.filename
-        --        end
-        --        local root = util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname) -- or util.path.dirname(fname)
-        --        if root == vim.g.HOME_PATH or root == nil then
-        --            return nil
-        --        end
-        --        return root
-
-        --    end,
-        --    cmd = { "pyright-langserver", "--stdio" },
-        --    filetypes = { "python" },
-        --    flags = {
-        --        debounce_text_changes = 150,
-        --    },
-        --    settings = {
-        --        python = {
-        --            analysis = {
-        --                autoImportCompletions = true,
-        --                autoSearchPaths = true,
-        --                diagnosticMode = "openFilesOnly", -- or "workspace"
-        --                stubPath = "typings", --or ""
-        --                typeshedPaths = {},
-        --                useLibraryCodeForTypes = true,
-        --            },
-        --            linting = {
-        --                enabled = false
-        --            },
-        --            --pythonPath = "/home/sun/anaconda3/envs/dlkit/bin/python",
-        --            --venvPath = "/home/sun/anaconda3/envs/dlkit",
-        --        }
-        --    },
-        --    single_file_support = true
-        --}
-
-        ----lspconfig.sqlls.setup{}
-        --lspconfig.sqlls.setup {}
-        --lspconfig.clangd.setup {}
-        ----require("grammar-guard").init()
-        ----lspconfig.ltex.setup()
-        --lspconfig.ltex.setup({
-        --    settings = {
-        --        ltex = {
-        --            enabled = { "latex", "tex", "bib", "markdown", "vimwiki" },
-        --            language = "en",
-        --            diagnosticSeverity = "information",
-        --            setenceCacheSize = 2000,
-        --            additionalRules = {
-        --                enablePickyRules = true,
-        --                motherTongue = "en",
-        --            },
-        --            trace = { server = "verbose" },
-        --            dictionary = {},
-        --            disabledRules = {
-        --                ['en'] = {
-        --                    'WHITESPACE_RULE',
-        --                    "DASH_RULE",
-        --                    "EN_QUOTES",
-        --                    "NON_STANDARD_COMMA",
-        --                    "PUNCTUATION_PARAGRAPH_END",
-        --                    "EN_UNPAIRED_BRACKETS",
-        --                    "WORD_CONTAINS_UNDERSCORE",
-        --                    "COMMA_PARENTHESIS_WHITESPACE",
-        --                }
-        --            },
-        --            hiddenFalsePositives = {},
-        --        },
-        --    },
-        --})
     end,
 }
 

@@ -2,9 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "norcalli/nvim-colorizer.lua",
-    as = "nvim-colorizer",
     ft = { "lua", "vim", "html", "css", "markdown" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

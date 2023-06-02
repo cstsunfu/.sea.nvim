@@ -2,8 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    dependencies = { "copilot.lua" },
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

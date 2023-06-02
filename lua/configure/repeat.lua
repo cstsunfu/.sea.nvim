@@ -1,8 +1,7 @@
 local plugin = {}
 plugin.core = {
     "tpope/vim-repeat",
-    --as = "vim-repeat",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 

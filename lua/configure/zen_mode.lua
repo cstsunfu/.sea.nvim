@@ -2,7 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "folke/zen-mode.nvim",
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    cmd = "ZenMode",
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

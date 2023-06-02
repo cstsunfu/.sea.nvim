@@ -2,8 +2,9 @@ local plugin = {}
 
 plugin.core = {
     "kristijanhusak/orgmode.nvim",
-    as = "orgmode",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    ft = "org",
+    cmd = { "Org" },
+    init = function()  -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded

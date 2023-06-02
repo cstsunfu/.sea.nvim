@@ -2,65 +2,52 @@ local plugin = {}
 
 plugin.core = {
     "hrsh7th/nvim-cmp",
-    as = 'cmp',
-    after = {
+    dependencies = {
         "nvim-lspconfig",
-        -- "nvim-lua/plenary.nvim"
-    },
-    requires = {
         {
             "quangnguyen30192/cmp-nvim-ultisnips",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = "cmp",
+            disable = vim.g.feature_groups.lsp == "builtin",
             event = "BufEnter"
         }, -- ultisnips source
         {
             "hrsh7th/cmp-nvim-lsp",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
+            enable = vim.g.feature_groups.lsp == "builtin",
         }, --builtin lsp source
         {
             "hrsh7th/cmp-buffer",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = "cmp",
+            enable = vim.g.feature_groups.lsp == "builtin",
             event = "BufEnter"
         }, --buffer source
         {
             "hrsh7th/cmp-path",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = 'cmp'
+            enable = vim.g.feature_groups.lsp == "builtin",
         }, --path source
         {
             "hrsh7th/cmp-cmdline",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = 'cmp'
+            enable = vim.g.feature_groups.lsp == "builtin",
         }, -- for commandline complation
         {
             "dmitmel/cmp-cmdline-history",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = 'cmp'
+            enable = vim.g.feature_groups.lsp == "builtin",
         }, -- for commandline complation
         {
             "hrsh7th/cmp-calc",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = 'cmp'
+            enable = vim.g.feature_groups.lsp == "builtin",
         }, --for calc
         {
             "hrsh7th/cmp-emoji",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = 'cmp'
+            enable = vim.g.feature_groups.lsp == "builtin",
         },
         {
             "rcarriga/cmp-dap",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = 'cmp'
+            enable = vim.g.feature_groups.lsp == "builtin",
         },
         {
             "hrsh7th/cmp-nvim-lsp-signature-help",
-            disable = vim.g.feature_groups.lsp ~= "builtin",
-            after = 'cmp'
+            enable = vim.g.feature_groups.lsp == "builtin",
         },
     },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -101,9 +88,6 @@ plugin.core = {
             autocmd! ColorScheme * highlight CompBorder guifg=#ffaa55 guibg=None
             autocmd FileType AerojumpFilter lua require('cmp').setup.buffer { enabled = false }
         ]]
-        if not packer_plugins['cmp-nvim-ultisnips'].loaded then
-            vim.cmd [[packadd cmp-nvim-ultisnips]]
-        end
         require("cmp_nvim_ultisnips").setup{}
         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
         --highlight CompDocBorder guifg=# guibg=#None

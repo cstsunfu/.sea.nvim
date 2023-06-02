@@ -2,9 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "dyng/ctrlsf.vim",
-    as = "ctrlsf",
     cmd = { "CtrlSF" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

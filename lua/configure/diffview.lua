@@ -2,16 +2,15 @@ local plugin = {}
 
 plugin.core = {
     "sindrets/diffview.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "plenary.nvim"
+    },
     cmd = { "DiffviewOpen" },
-    after = { "plenary.nvim" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        if not packer_plugins['plenary.nvim'].loaded then
-            vim.cmd [[packadd plenary.nvim]]
-        end
         local cb = require 'diffview.config'.diffview_callback
 
         require 'diffview'.setup {

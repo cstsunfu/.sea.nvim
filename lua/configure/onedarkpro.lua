@@ -2,8 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "olimorris/onedarkpro.nvim",
-    as = "onedarkpro",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -28,7 +27,6 @@ plugin.dark = function ()
 end
 
 plugin.setup = function (style)
-    vim.cmd("packadd onedarkpro")
     if style == "light" then
         plugin.light()
         vim.cmd("hi CursorLine guibg=#e3e3e3")

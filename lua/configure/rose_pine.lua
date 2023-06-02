@@ -2,9 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "rose-pine/neovim",
-    as = 'rose-pine',
 
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -28,7 +27,6 @@ plugin.dark = function ()
 end
 
 plugin.setup = function (style)
-    vim.cmd("packadd rose-pine")
     if style == "light" then
         plugin.light()
     else

@@ -1,11 +1,10 @@
 local plugin = {}
 
 plugin.core = {
-    "kyazdani42/nvim-tree.lua",
-    as = "nvim-tree",
+    "nvim-tree/nvim-tree.lua",
     on = { "NvimTreeToggle" },
-    --requires = {"kyazdani42/nvim-web-devicons"},
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    dependencies = {"nvim-tree/nvim-web-devicons"},
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -15,7 +14,7 @@ plugin.core = {
         -- following options are the default
         require 'nvim-tree'.setup {
             disable_netrw = true,
-            --ignore_ft_on_setup = { 'startify', 'dashboard' },
+            --ignore_ft_on_    init = { 'startify', 'dashboard' },
             renderer = {
                 add_trailing = false,
                 group_empty = false,

@@ -2,20 +2,16 @@ local plugin = {}
 
 plugin.core = {
     "rcarriga/nvim-dap-ui",
-    requires = {
+    dependencies = {
         {"mfussenegger/nvim-dap"},
         {"theHamsta/nvim-dap-virtual-text"},
     },
-    --after = {'nvim-dap'},
 
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        --if not packer_plugins['nvim-dap'].loaded then
-        --vim.cmd [[packadd nvim-dap]]
-        --end
         local dap, dapui = require('dap'), require('dapui')
         vim.fn.sign_define('DapBreakpoint', { text = ' ', texthl = 'Error', linehl = '', numhl = '' })
         vim.fn.sign_define('DapStopped', { text = '➤', texthl = 'DiagnosticInfo', linehl = '', numhl = '' })

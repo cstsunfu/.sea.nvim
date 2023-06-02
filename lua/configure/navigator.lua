@@ -5,14 +5,14 @@ plugin.core = {
     "glepnir/lspsaga.nvim",
     branch = "main",
     event = "LspAttach",
-    requires = {
+    dependencies = {
         {"nvim-tree/nvim-web-devicons"},
         --Please make sure you install markdown and markdown_inline parser
         {"nvim-treesitter/nvim-treesitter"}
     },
 
 
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function()                                        -- Specifies code to run after this plugin is loaded

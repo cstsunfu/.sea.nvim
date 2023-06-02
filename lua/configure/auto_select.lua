@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "gcmt/wildfire.vim",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
         vim.g.wildfire_objects = {
             ["*"] = {"iw", "i'", 'i"', "i)", "i]", "i}", "ip", "it"},
             ["html,xml"] = {"at", "it"}

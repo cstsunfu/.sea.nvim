@@ -2,8 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "nvim-lualine/lualine.nvim",
-    as = "lualine",
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    event = "ColorScheme",
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -13,10 +13,6 @@ plugin.core = {
         -- Author: shadmansaleh
         -- Credit: glepnir
         -- modified: cstsunfu
-        if not packer_plugins['plenary.nvim'].loaded then
-            vim.cmd [[packadd plenary.nvim]]
-        end
-
         local lualine = require 'lualine'
         local Path = require 'plenary.path'
         local root = Path:new("/")

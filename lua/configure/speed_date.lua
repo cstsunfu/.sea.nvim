@@ -2,8 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "tpope/vim-speeddating",
-    --as = "vim-speeddating",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 

@@ -2,52 +2,33 @@ local plugin = {}
 
 plugin.core = {
     "nvim-telescope/telescope.nvim",
-    event = { "VimEnter" },
-    requires = {
+    dependencies = {
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
         {"tami5/sqlite.lua"},
-        { "tami5/sql.nvim", opt = true },
+        { "tami5/sql.nvim", lazy = true },
         { "nvim-telescope/telescope-file-browser.nvim" },
         {
             "nvim-telescope/telescope-frecency.nvim",
-            opt = true,
+            lazy = true,
             after = 'telescope.nvim',
         },
         {
             'nvim-telescope/telescope-project.nvim',
-            opt = true,
+            lazy = true,
             after = 'telescope.nvim',
         },
         {
             'nvim-telescope/telescope-fzf-native.nvim',
-            run = 'make'
+            build = 'make'
         }
     },
 
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        if not packer_plugins['popup.nvim'].loaded then
-            vim.cmd [[packadd popup.nvim]]
-        end
-        if not packer_plugins['plenary.nvim'].loaded then
-            vim.cmd [[packadd plenary.nvim]]
-        end
-        if not packer_plugins['telescope-frecency.nvim'].loaded then
-            vim.cmd [[packadd telescope-frecency.nvim]]
-        end
-        if not packer_plugins['telescope-project.nvim'].loaded then
-            vim.cmd [[packadd telescope-project.nvim]]
-        end
-        if not packer_plugins['sql.nvim'].loaded then
-            vim.cmd [[packadd sql.nvim]]
-        end
-        if not packer_plugins['telescope-file-browser.nvim'].loaded then
-            vim.cmd [[packadd telescope-file-browser.nvim]]
-        end
         local actions = require('telescope.actions')
         require 'telescope'.load_extension('project')
         local action_state = require("telescope.actions.state")
