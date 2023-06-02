@@ -44,6 +44,9 @@ plugin.core = {
                     }
                 }
             },
+            grammarly = {
+                filetypes = { 'markdown', 'vimwiki', 'vimwiki.markdown.pandoc', 'pandoc' },
+            },
             pyright = {
                 root_dir = function(fname)
                     local split_path = {}
@@ -95,35 +98,35 @@ plugin.core = {
                 single_file_support = true
 
             },
-            ltex = {
-                settings = {
-                    ltex = {
-                        enabled = { "latex", "tex", "bib", "markdown", "vimwiki" },
-                        language = "en",
-                        diagnosticSeverity = "information",
-                        setenceCacheSize = 2000,
-                        additionalRules = {
-                            enablePickyRules = true,
-                            motherTongue = "en",
-                        },
-                        trace = { server = "verbose" },
-                        dictionary = {},
-                        disabledRules = {
-                            ['en'] = {
-                                'WHITESPACE_RULE',
-                                "DASH_RULE",
-                                "EN_QUOTES",
-                                "NON_STANDARD_COMMA",
-                                "PUNCTUATION_PARAGRAPH_END",
-                                "EN_UNPAIRED_BRACKETS",
-                                "WORD_CONTAINS_UNDERSCORE",
-                                "COMMA_PARENTHESIS_WHITESPACE",
-                            }
-                        },
-                        hiddenFalsePositives = {},
-                    },
-                },
-            },
+            --ltex = {
+            --    settings = {
+            --        ltex = {
+            --            enabled = { "latex", "tex", "bib", "markdown", "vimwiki" },
+            --            language = "en",
+            --            diagnosticSeverity = "information",
+            --            setenceCacheSize = 2000,
+            --            additionalRules = {
+            --                enablePickyRules = true,
+            --                motherTongue = "en",
+            --            },
+            --            trace = { server = "verbose" },
+            --            dictionary = {},
+            --            disabledRules = {
+            --                ['en'] = {
+            --                    'WHITESPACE_RULE',
+            --                    "DASH_RULE",
+            --                    "EN_QUOTES",
+            --                    "NON_STANDARD_COMMA",
+            --                    "PUNCTUATION_PARAGRAPH_END",
+            --                    "EN_UNPAIRED_BRACKETS",
+            --                    "WORD_CONTAINS_UNDERSCORE",
+            --                    "COMMA_PARENTHESIS_WHITESPACE",
+            --                }
+            --            },
+            --            hiddenFalsePositives = {},
+            --        },
+            --    },
+            --},
             sqlls = {
             },
             clangd = {
@@ -292,18 +295,32 @@ plugin.mapping = function()
         silent = false
     })
 
-    mappings.register({
-        mode = "n",
-        key = { "K" },
-        action = '<cmd>lua vim.lsp.buf.hover()<cr>',
-        short_desc = "Displays Hover",
-        desc = "Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.",
-        silent = false
-    })
+    --mappings.register({
+    --    mode = "n",
+    --    key = { "K" },
+    --    action = '<cmd>lua vim.lsp.buf.hover()<cr>',
+    --    short_desc = "Displays Hover",
+    --    desc = "Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.",
+    --    silent = false
+    --})
     mappings.register({
         mode = "n",
         key = { "<leader>", "s", "n" },
         action = '<cmd>lua vim.diagnostic.goto_next()<cr>',
+        short_desc = "Prev Diagnostic",
+        silent = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = { "]", "e" },
+        action = '<cmd>lua vim.diagnostic.goto_next()<cr>',
+        short_desc = "Next Diagnostic",
+        silent = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = { "[", "e" },
+        action = '<cmd>lua vim.diagnostic.goto_prev()<cr>',
         short_desc = "Prev Diagnostic",
         silent = true,
     })
