@@ -2,8 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "folke/persistence.nvim",
-    --event = {"BufReadPre"},
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    event = {"BufReadPre"},
+    init = function()  -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded

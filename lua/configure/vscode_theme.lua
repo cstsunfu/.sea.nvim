@@ -2,8 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "Mofiqul/vscode.nvim",
-    --as = "vscode.nvim",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -28,7 +27,6 @@ plugin.dark = function ()
 end
 
 plugin.setup = function (style)
-    vim.cmd("packadd vscode.nvim")
     if style == "light" then
         plugin.light()
     else

@@ -2,8 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "navarasu/onedark.nvim",
-    as = 'onedark',
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -24,7 +23,6 @@ plugin.dark = {
 
 }
 plugin.setup = function (style)
-    vim.cmd("packadd onedark")
     local onedark = require('onedark')
     if vim.g.style == "light" then
         onedark.setup({

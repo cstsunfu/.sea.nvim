@@ -2,8 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "preservim/nerdcommenter",
-    --as = "nerdcommenter",
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.NERDCreateDefaultMappings = 0
         vim.g.NERDCustomDelimiters = {
             json = {

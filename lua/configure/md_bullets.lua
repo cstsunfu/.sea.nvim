@@ -2,10 +2,9 @@ local plugin = {}
 
 plugin.core = {
     "cstsunfu/md-bullets.nvim",
-    as = "md-bullets",
 
     ft = { "markdown", "vimwiki" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.disable_md_bullets_padding = true
     end,
 

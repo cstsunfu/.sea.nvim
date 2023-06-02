@@ -2,10 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "folke/which-key.nvim",
-    --opt = true,
-    as = "which-key",
     event = { "VimEnter" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

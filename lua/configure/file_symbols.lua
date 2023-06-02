@@ -1,10 +1,10 @@
 local plugin = {}
 
 plugin.core = {
-    "enddeadroyal/symbols-outline.nvim", --TODO: when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/176
+    "enddeadroyal/symbols-outline.nvim", --FIXME: when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/176
     branch = 'bugfix/symbol-hover-misplacement',
     --"simrat39/symbols-outline.nvim", -- when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/176
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded

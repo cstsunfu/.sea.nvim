@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "sainnhe/gruvbox-material",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
 
     end,
 
@@ -27,7 +27,6 @@ plugin.dark = function ()
 end
 
 plugin.setup = function (style)
-    vim.cmd("packadd gruvbox-material")
     if style == "light" then
         plugin.light()
     else

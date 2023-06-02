@@ -3,9 +3,8 @@ local plugin = {}
 plugin.core = {
     "mbbill/undotree",
     --'jiaoshijie/undotree',
-    --as = "undotree",
     cmd = 'UndotreeToggle',
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

@@ -2,8 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "lukas-reineke/indent-blankline.nvim",
-    as = "indent-blankline",
-    setup = function()  -- Specifies code to run before this plugin is loaded.
+    init = function()  -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded

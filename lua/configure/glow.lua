@@ -3,8 +3,10 @@ local plugin = {}
 plugin.core = {
 
     "ellisonleao/glow.nvim",
+    cmd = {"Glow"},
 
-    setup = function() -- Specifies code to run before this plugin is loaded.
+
+    init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.glow_border = "rounded"
         --vim.g.glow_width = 120
         --vim.g.glow_use_pager = true

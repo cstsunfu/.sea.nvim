@@ -2,10 +2,9 @@ local plugin = {}
 
 plugin.core = {
     "Pocco81/HighStr.nvim",
-    as = "HighStr",
     cmd = { "HSHighlight", "HSExport", "HSImport" },
 
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 

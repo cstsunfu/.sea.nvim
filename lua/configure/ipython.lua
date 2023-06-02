@@ -2,9 +2,9 @@ local plugin = {}
 
 plugin.core = {
     "jupyter-vim/jupyter-vim",
-    --as = "jupyter-vim",
     ft = { "python" },
-    setup = function() -- Specifies code to run before this plugin is loaded.
+    cmd = { "JupyterConnect" },
+    init = function() -- Specifies code to run before this plugin is loaded.
 
     end,
 
