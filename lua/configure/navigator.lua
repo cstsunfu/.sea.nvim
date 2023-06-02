@@ -93,7 +93,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "K" },
-        action = '<cmd>Lspasga hover_doc<cr>',
+        action = '<cmd>Lspsaga hover_doc<cr>',
         short_desc = "Displays Hover",
         desc = "Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.",
         silent = false
