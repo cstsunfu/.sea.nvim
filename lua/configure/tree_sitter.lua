@@ -21,6 +21,8 @@ plugin.core = {
                 "dockerfile",
                 "go",
                 "hjson",
+                "markdown",
+                "markdown_inline",
                 "html",
                 "java",
                 "javascript",

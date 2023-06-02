@@ -178,6 +178,10 @@ plugin.setup = function(style)
     local timer = vim.loop.new_timer()
     timer:start(vim.g.after_schedule_time_start + 100, 0, vim.schedule_wrap(function()
         vim.cmd("hi! default link WhichKeyFloat Pmenu")
+        vim.cmd("hi! Search guifg=#aaffff guibg=#000000")
+        vim.cmd("hi! CurSearch guifg=#00cccc guibg=#000000")
+        vim.cmd("hi! IncSearch guifg=#00cccc guibg=#000000")
+        vim.cmd("hi! FloatBorder guifg=#faa5f0 guibg=None")
         --vim.cmd("hi! default link NormalFloat Pmenu")
         vim.cmd("hi! StatusLine ctermfg=black guifg=black") --set HSplit color to black
         -- FIXED: FIXED: the VertSplit is renamed to WinSeparator https://github.com/marko-cerovac/material.nvim/issues/91 ,

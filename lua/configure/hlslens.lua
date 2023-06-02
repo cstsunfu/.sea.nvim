@@ -12,7 +12,9 @@ plugin.core = {
         local timer = vim.loop.new_timer()
         timer:start(vim.g.after_schedule_time_start+100, 0, vim.schedule_wrap(function()
             vim.cmd("hi clear HlSearchLens")
-            vim.cmd("hi default link HlSearchLens IncSearch")
+            vim.cmd("hi default link HlSearchLens Search")
+            vim.cmd("hi clear HlSearchLensNear")
+            vim.cmd("hi default link HlSearchLensNear CurSearch")
         end))
     end,
 }
