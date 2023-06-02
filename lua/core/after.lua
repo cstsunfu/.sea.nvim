@@ -23,6 +23,7 @@ timer:start(1000, 0, vim.schedule_wrap(function()
 
     vim.cmd("highlight! link TelescopeNormal DarkNormal")
     vim.cmd("highlight WhichKeyDesc guifg=#98be65")
+    vim.cmd("hi! link CodeActionNumber @keyword")
 end))
 
 

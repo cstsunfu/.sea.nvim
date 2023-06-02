@@ -89,7 +89,7 @@ global_func.augroup('smarter_cursorline', {
     {
         events = { 'InsertLeave', 'BufEnter' },
         targets = { '*' },
-        command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil then vim.o.relativenumber = true end ]]
+        command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and vim.api.nvim_win_get_config(0).relative == '' then vim.o.relativenumber = true vim.o.number = true end ]]
     },
 })
 
@@ -111,7 +111,7 @@ default_setting['opt'] = {
     fillchars = "fold:-,eob: ,vert:▕,diff: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
     history = 10000, -- undo file history
-    updatetime = 500, -- CursorHold
+    updatetime = 100, -- CursorHold
     undofile = true, -- use undo file
     swapfile = true, -- use swap file
     maxmempattern = 2000, -- max match pattern
@@ -193,12 +193,12 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
 
 local active_group = vim.api.nvim_create_augroup("active_group", { clear = false })
 vim.cmd('highlight link DarkNormal Normal')
-vim.api.nvim_create_autocmd({ "WinEnter" }, {
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     callback = function()
         -- if filetype in 
         if global_func.index(vim.g.side_filetypes, vim.bo.filetype) == nil then
             vim.cmd('setl winhighlight=Normal:Normal')
-            if vim.g.no_number_filetypes[vim.bo.filetype] == nil then
+            if vim.g.no_number_filetypes[vim.bo.filetype] == nil and vim.api.nvim_win_get_config(0).relative == '' then
                 vim.cmd('setl relativenumber')
             end
         end
