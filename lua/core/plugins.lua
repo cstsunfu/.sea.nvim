@@ -134,7 +134,9 @@ if vim.g.feature_groups['lsp'] then
         ['coc'] = { disable = vim.g.feature_groups.lsp ~= 'coc' },
         ["lsp_config"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["trouble"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
-        ["glance"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
+        ["glance"] = { disable = false },
+        ["navigator"] = { disable = false }, -- TODO: this plugin will be useful, but too beta
+        ["lsp_signature"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["null_ls"] = { disable =  vim.g.feature_groups.lsp ~= 'builtin' },
         ["nvim_cmp"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
         ["copilot"] = { disable = vim.g.feature_groups.lsp ~= 'builtin' },
@@ -148,7 +150,6 @@ end
 if vim.g.feature_groups['file_and_view'] == true then
     plugins_configure.plugins_groups['file_and_view'] = {
         ["telescope"] = { disable = false },
-        ["navigator"] = { disable = true }, -- TODO: this plugin will be useful, but too beta
         ['ctrlsf'] = { disable = false }, -- search the same token under cursor
         ['spectre'] = { disable = false }, -- search the and replace token by reg exp
         ["vista"] = { disable = vim.g.feature_groups.lsp ~= 'coc' }, -- only works for coc lsp, tree view
