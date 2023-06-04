@@ -6,16 +6,14 @@ plugin.core = {
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
         {"tami5/sqlite.lua"},
-        { "tami5/sql.nvim", lazy = true },
+        { "tami5/sql.nvim" },
         { "nvim-telescope/telescope-file-browser.nvim" },
         {
             "nvim-telescope/telescope-frecency.nvim",
-            lazy = true,
             after = 'telescope.nvim',
         },
         {
             'nvim-telescope/telescope-project.nvim',
-            lazy = true,
             after = 'telescope.nvim',
         },
         {
