@@ -26,4 +26,11 @@ timer:start(1000, 0, vim.schedule_wrap(function()
     vim.cmd("hi! link CodeActionNumber @keyword")
 end))
 
+-- empty the message
+local empty_message_timer = vim.loop.new_timer()
+empty_message_timer:start(1500, 1500, function()
+    print(" ")
+end)
+
+
 
