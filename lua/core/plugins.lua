@@ -79,13 +79,13 @@ if vim.g.feature_groups['enhance'] == true then
         ['jukit'] = { enable = true }, --for jupyter
         ['neogen'] = { enable = false }, -- generate annotations
         ['terminal'] = { enable = true },
-        ['remote'] = { enable = true, lazy = true },
+        ['remote'] = { enable = true },
         ['high_str'] = { enable = false },
         ['colorizer'] = { enable = true },
         ['pretty_print_json'] = { enable = true },
         ['hjson'] = { enable = true },
         ['json5'] = { enable = true },
-        ["files_tree"] = { enable = true, lazy = true },
+        ["files_tree"] = { enable = true },
         ["accelerate_jk"] = { enable = false },
         ["scroll"] = { enable = true },
     }
@@ -134,7 +134,7 @@ if vim.g.feature_groups['lsp'] then
         ['coc'] = { enable = vim.g.feature_groups.lsp == 'coc' },
         ["lsp_config"] = { enable = vim.g.feature_groups.lsp == 'builtin' },
         ["trouble"] = { enable = vim.g.feature_groups.lsp == 'builtin', lazy = true },
-        ["glance"] = { enable = true, lazy = true },
+        ["glance"] = { enable = true },
         ["navigator"] = { enable = true, lazy = true }, -- TODO: this plugin will be useful, but too beta
         ["lsp_signature"] = { enable = vim.g.feature_groups.lsp == 'builtin' },
         ["null_ls"] = { enable =  vim.g.feature_groups.lsp == 'builtin' },

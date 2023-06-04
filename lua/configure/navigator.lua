@@ -67,7 +67,7 @@ plugin.mapping = function()
         key = { "g", "f" },
         action = '<cmd>Lspsaga lsp_finder<cr>',
         short_desc = "Lsp Finder",
-        silent = false
+        silent = true
     })
     mappings.register({
         mode = "n",

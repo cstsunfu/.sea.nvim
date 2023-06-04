@@ -402,6 +402,7 @@ global_mapping.register({
     mode = "n",
     key = { "<leader>", "w", "L" },
     action = '<c-w><c-L>',
+    silent = true,
     short_desc = "Goto The Rightest Window"
 })
 
@@ -411,6 +412,7 @@ global_mapping.register({
     mode = "n",
     key = { "<leader>", "x" },
     action = ':close<cr>',
+    silent = true,
     short_desc = "Close Current Window"
 })
 

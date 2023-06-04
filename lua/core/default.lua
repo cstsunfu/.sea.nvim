@@ -94,14 +94,14 @@ global_func.augroup('smarter_cursorline', {
 })
 
 
-global_func.augroup('empty_message', {
-    {
-        events = { 'CursorHold' },
-        targets = { '*' },
-        command = ":echo "
-    },
+--global_func.augroup('empty_message', {
+--    {
+--        events = { 'CursorHold' },
+--        targets = { '*' },
+--        command = ":echo "
+--    },
 
-})
+--})
 
 default_setting['opt'] = {
     number = true,
@@ -111,7 +111,7 @@ default_setting['opt'] = {
     fillchars = "fold:-,eob: ,vert:▕,diff: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
     history = 10000, -- undo file history
-    updatetime = 100, -- CursorHold
+    updatetime = 30, -- CursorHold
     undofile = true, -- use undo file
     swapfile = true, -- use swap file
     maxmempattern = 2000, -- max match pattern
