@@ -696,8 +696,7 @@ global_mapping.setup = function()
         inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<tab>"
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
     ]])
-    if plugins_config.plugins_groups['default']['which_key'] and plugins_config.plugins_groups['default']['which_key']['disable'] == false then
-        vim.cmd("packadd which-key")
+    if plugins_config.plugins_groups['default']['which_key'] and plugins_config.plugins_groups['default']['which_key']['enable'] == true then
         local wk = require("which-key")
         wk.register(mapping_prefix)
     end
