@@ -37,7 +37,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {" ", " "},
-        action = ':lua require("specs").show_specs()<cr>',
+        action = ':echo |lua require("specs").show_specs()<cr>',
         short_desc = "Blink Cursor",
         silent = true
     })
