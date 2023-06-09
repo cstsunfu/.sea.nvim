@@ -88,6 +88,7 @@ if vim.g.feature_groups['enhance'] == true then
         ["files_tree"] = { enable = true },
         ["accelerate_jk"] = { enable = false },
         ["scroll"] = { enable = true },
+        ["animate"] = { enable = false },  -- TODO: interesting
     }
 end
 
@@ -149,7 +150,7 @@ end
 
 if vim.g.feature_groups['file_and_view'] == true then
     plugins_configure.plugins_groups['file_and_view'] = {
-        ["telescope"] = { enable = true, lazy=true },
+        ["telescope"] = { enable = true },
         ['ctrlsf'] = { enable = true }, -- search the same token under cursor
         ['spectre'] = { enable = true }, -- search the and replace token by reg exp
         ["vista"] = { enable = vim.g.feature_groups.lsp == 'coc' }, -- only works for coc lsp, tree view

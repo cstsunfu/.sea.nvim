@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "nvim-telescope/telescope.nvim",
+    cmd = { "Telescope" },
     dependencies = {
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
@@ -189,7 +190,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = {"<leader>", "f", "B"},
-        action = "Telescope file_browser",
+        action = "<cmd>Telescope file_browser<cr>",
         short_desc = "File Browser",
         silent = true
     })
