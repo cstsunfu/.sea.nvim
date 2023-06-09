@@ -23,15 +23,15 @@ plugin.core = {
 
         local t = {}
         -- Syntax: t[keys] = {function, {function arguments}}
-        t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '150', 'sine'}}
-        t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '150', 'quadratic'}}
-        t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '250'}}
-        t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '250'}}
-        t['<C-y>'] = {'scroll', {'-0.10', 'false', '50'}}
-        t['<C-e>'] = {'scroll', { '0.10', 'false', '50'}}
-        t['zt']    = {'zt', {'100'}}
-        t['zz']    = {'zz', {'100'}}
-        t['zb']    = {'zb', {'100'}}
+        t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '100', 'sine'}}
+        t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '100', 'quadratic'}}
+        t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '150'}}
+        t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '150'}}
+        t['<C-y>'] = {'scroll', {'-0.10', 'false', '30'}}
+        t['<C-e>'] = {'scroll', { '0.10', 'false', '30'}}
+        t['zt']    = {'zt', {'50'}}
+        t['zz']    = {'zz', {'50'}}
+        t['zb']    = {'zb', {'50'}}
         require('neoscroll.config').set_mappings(t)
     end,
 }

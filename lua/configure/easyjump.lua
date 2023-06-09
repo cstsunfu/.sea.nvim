@@ -7,7 +7,7 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         require'pounce'.setup{
-            accept_keys = "JFKDLHUMNOIPTVGBE",
+            accept_keys = "JFKDLSHGYTURIEOWPQBNVCMXZ102948576;',.",
             accept_best_key = "<enter>",
             multi_window = true,
             debug = false,
@@ -20,6 +20,13 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "<space>" },
+        action = '<cmd>Pounce<CR>',
+        short_desc = "Easy Jumpy",
+        silent = true
+    })
+    mappings.register({
+        mode = "n",
+        key = { "s" },
         action = '<cmd>Pounce<CR>',
         short_desc = "Easy Jumpy",
         silent = true

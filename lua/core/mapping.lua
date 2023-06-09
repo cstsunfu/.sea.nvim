@@ -124,7 +124,7 @@ global_mapping.register = function(new_map)
     end
     --local prefix = key_list[1]
     --if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['disable'] == false and key_list[1] == "<leader>" and new_map.mode == 'n' then
-    if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['disable'] == false and #key_list > 1 and new_map.mode == 'n' then
+    if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['enable'] == true and #key_list > 1 and new_map.mode == 'n' then
         local prefix = key_list[1]
         if #key_list > 1 then
             prefix = prefix .. key_list[2]
