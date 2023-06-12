@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = { { 'HiPhish/nvim-ts-rainbow2' } },
     build = ':TSUpdate',
 
     init = function()  -- Specifies code to run before this plugin is loaded.
@@ -9,7 +10,26 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+
+        local rainbow = require 'ts-rainbow'
         require'nvim-treesitter.configs'.setup {
+            rainbow = {  -- for rainbow pair
+                enable = false,
+                disable = {}, -- disable filetype
+                query = {
+                    'rainbow-parens'
+                },
+                strategy = rainbow.strategy.global,
+                hlgroups = {
+                    'TSRainbowGreen',
+                    'TSRainbowRed',
+                    'TSRainbowViolet',
+                    'TSRainbowOrange',
+                    'TSRainbowYellow',
+                    'TSRainbowCyan',
+                    'TSRainbowBlue',
+                },
+            },
             ensure_installed = {
                 "bash",
                 "bibtex",

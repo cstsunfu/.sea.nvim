@@ -235,6 +235,13 @@ global_mapping.register({
 -- quit
 global_mapping.register({
     mode = "n",
+    key = { "<leader>", "q", "A" },
+    action = ':qa!<cr>',
+    short_desc = "Directly Quit Without Save"
+})
+
+global_mapping.register({
+    mode = "n",
     key = { "<leader>", "q", "q" },
     action = ':qa<cr>',
     short_desc = "Directly Quit"
@@ -243,7 +250,7 @@ global_mapping.register({
 global_mapping.register({
     mode = "n",
     key = { "<leader>", "q", "w" },
-    action = ':qaw<cr>',
+    action = ':qa<cr>',
     short_desc = "Directly Quit After Write"
 })
 
@@ -665,7 +672,7 @@ global_mapping.register({
     short_desc = "Save"
 })
 global_mapping.register({
-    mode = "i",
+    mode = { "i", "n"},
     key = { "<C-Q>" },
     action = '<esc>:wq<CR>',
     short_desc = "Save & Quit"
