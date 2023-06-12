@@ -82,6 +82,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['remote'] = { enable = true },
         ['high_str'] = { enable = false },
         ['colorizer'] = { enable = true },
+        ['colortils'] = { enable = true },
         ['pretty_print_json'] = { enable = true },
         ['hjson'] = { enable = true },
         ['json5'] = { enable = true },

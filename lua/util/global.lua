@@ -6,6 +6,7 @@ local hl_fun = require('util.highlight')
 func.get_highlight_values = hl_fun.get_highlight_values
 func.highlight = hl_fun.highlight
 func.brighten = hl_fun.brighten
+func.colors = hl_fun.colors
 
 -- delete buffers
 func.delete_all_buffers_in_window = function ()
