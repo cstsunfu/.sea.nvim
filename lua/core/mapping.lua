@@ -196,7 +196,7 @@ global_mapping.register({
 })
 global_mapping.register({
     mode = "i",
-    key = { "j", "k" },
+    key = { "k", "j" },
     action = "<esc>",
     short_desc = "ESC"
 })
