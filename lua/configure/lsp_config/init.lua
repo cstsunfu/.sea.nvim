@@ -42,7 +42,8 @@ plugin.core = {
                         workspace = { checkThirdParty = false },
                         telemetry = { enable = false },
                     }
-                }
+                },
+                filetypes = { 'lua' },
             },
             grammarly = {
                 filetypes = { 'markdown', 'vimwiki', 'vimwiki.markdown.pandoc', 'pandoc' },
