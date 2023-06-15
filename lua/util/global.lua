@@ -20,6 +20,17 @@ func.delete_all_buffers_in_window = function ()
     end
 end
 
+-- list all files in current directory escape the hidden files
+func.scandir = function(directory)
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen('find '..directory..' -name "*" -not -path "*/.*" -print ')
+    for filename in pfile:lines() do
+        i = i + 1
+        t[i] = {filename, tostring(i)}
+    end
+    pfile:close()
+    return t
+end
 
 -- augroup
 func.augroup = function(name, commands)

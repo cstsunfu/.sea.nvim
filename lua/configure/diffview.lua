@@ -4,9 +4,9 @@ plugin.core = {
     "sindrets/diffview.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "plenary.nvim"
+        "telescope.nvim"
     },
-    cmd = { "DiffviewOpen" },
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
@@ -130,12 +130,104 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require('core.mapping')
+    _G.plugin_diffview__toggle_diffview = function()
+        local lib = require("diffview.lib")
+        local view = lib.get_current_view()
+        if view then
+            vim.cmd.DiffviewClose()
+        else
+            local pickers = require "telescope.pickers"
+            local finders = require "telescope.finders"
+            local conf = require("telescope.config").values
+            local actions = require "telescope.actions"
+            local action_state = require "telescope.actions.state"
+            -- our picker function: colors
+            local diff_branch = function(opts)
+                opts = opts or {}
+
+
+                local result = io.popen("git branch -a"):read("*a")
+                local branch = {}
+                for _, value in ipairs(vim.split(result, "\n")) do
+                    for k, _ in string.gmatch(value, "%*?%s*([/%w]+)%s*") do
+                        table.insert(branch, k)
+                    end
+                end
+                if #branch == 0 then
+                    table.insert(branch, " ")
+                end
+                pickers.new(opts, {
+                    prompt_title = "Branches",
+                    finder = finders.new_table {
+                        results = branch,
+                    },
+                    attach_mappings = function(prompt_bufnr, map)
+                        actions.select_default:replace(function()
+                            actions.close(prompt_bufnr)
+                            local selection = action_state.get_selected_entry()
+                            vim.cmd("DiffviewOpen "..selection[1])
+                        end)
+                        return true
+                    end,
+                    sorter = conf.generic_sorter(opts),
+                }):find()
+            end
+
+            -- to execute the function
+            diff_branch(require("telescope.themes").get_dropdown{})
+        end
+    end
+    _G.plugin_diffview__file_history = function()
+        local pickers = require "telescope.pickers"
+        local finders = require "telescope.finders"
+        local conf = require("telescope.config").values
+        local actions = require "telescope.actions"
+        local action_state = require "telescope.actions.state"
+        local global = require "util.global"
+        local dirs = global.scandir('.')
+        local file_git_history = function(opts)
+            opts = opts or {}
+            pickers.new(opts, {
+                prompt_title = "Git History Files",
+                finder = finders.new_table {
+                    results = dirs,
+                    entry_maker = function(entry)
+                        return {
+                            value = entry[1],
+                            display = entry[1],
+                            ordinal = entry[1],
+                        }
+                    end,
+                },
+                attach_mappings = function(prompt_bufnr, map)
+                    actions.select_default:replace(function()
+                        actions.close(prompt_bufnr)
+                        local selection = action_state.get_selected_entry()
+                        vim.cmd("DiffviewFileHistory "..selection.value)
+                    end)
+                    return true
+                end,
+                previewer = conf.file_previewer(opts),
+                sorter = conf.generic_sorter(opts),
+            }):find()
+        end
+        file_git_history()
+    end
+
     mappings.register({
         mode = "n",
         key = { "<leader>", "g", "v" },
-        action = ":DiffviewOpen<cr>",
+        action = ":lua _G.plugin_diffview__toggle_diffview()<cr>",
         short_desc = "Git Diff View",
         noremap = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "g", "h" },
+        action = ":lua _G.plugin_diffview__file_history()<cr>",
+        short_desc = "Git History",
+        noremap = true,
+        silent = true,
     })
 end
 return plugin
