@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "cstsunfu/pounce-zh.nvim",
+    cmd = { "Pounce" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
