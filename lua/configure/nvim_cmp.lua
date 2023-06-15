@@ -102,6 +102,7 @@ plugin.core = {
             },
             window = {
                 completion = {
+                    scrollbar = false,
                     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
                     --winhighlight = 'NormalFloat:NormalFloat,CompBorder:CompBorder',
                     winhighlight = 'NormalFloat:CompNormal,FloatBorder:CompBorder',

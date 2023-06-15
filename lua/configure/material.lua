@@ -59,10 +59,10 @@ plugin.setup = function(style)
             "gitsigns",
             -- "hop",
             -- "indent-blankline",
-            -- "lspsaga",
-            -- "mini",
+            "lspsaga",
+            "mini",
             -- "neogit",
-            -- "nvim-cmp",
+            "nvim-cmp",
             -- "nvim-navic",
             "nvim-tree",
             -- "sneak",
@@ -154,8 +154,6 @@ plugin.setup = function(style)
         } -- Overwrite highlights with your own
     })
 
-
-
     if vim.g.style == "light" then
         vim.g.material_style = 'lighter'
     elseif vim.g.style == "oceanic" then
@@ -172,6 +170,7 @@ plugin.setup = function(style)
 
     local timer = vim.loop.new_timer()
     timer:start(vim.g.after_schedule_time_start + 100, 0, vim.schedule_wrap(function()
+        vim.cmd("hi! link DiffviewNormal NormalContrast")
         vim.cmd("hi! default link WhichKeyFloat Pmenu")
         vim.cmd("hi! Search guifg=#aaffff guibg=#000000")
         vim.cmd("hi! CurSearch guifg=#00cccc guibg=#000000")
