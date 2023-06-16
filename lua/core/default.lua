@@ -60,6 +60,15 @@ end
 vim.g.no_number_filetypes_list = no_number_filetypes_list
 vim.g.no_number_filetypes_concat_list = table.concat(no_number_filetypes_list, ',')
 
+
+_G.check_zen_mode_start = function()
+    local loaded_module = require('core.plugins').all_loaded_module
+    if loaded_module.zen_mode ~= true then
+        return false
+    end
+    return require('zen-mode.view').is_open()
+end
+
 global_func.augroup('smarter_cursorline', {
     {
         events = { 'filetype' },
@@ -89,7 +98,8 @@ global_func.augroup('smarter_cursorline', {
     {
         events = { 'InsertLeave', 'BufEnter' },
         targets = { '*' },
-        command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and vim.api.nvim_win_get_config(0).relative == '' then vim.o.relativenumber = true vim.o.number = true end ]]
+        --command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and vim.api.nvim_win_get_config(0).relative == '' then vim.o.relativenumber = true vim.o.number = true end ]]
+        command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and (vim.api.nvim_win_get_config(0).relative == '' or _G.check_zen_mode_start()) then vim.o.relativenumber = true vim.o.number = true end ]]
     },
 })
 
