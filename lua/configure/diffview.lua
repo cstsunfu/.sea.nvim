@@ -149,7 +149,7 @@ plugin.mapping = function()
                 local result = io.popen("git branch -a"):read("*a")
                 local branch = {}
                 for _, value in ipairs(vim.split(result, "\n")) do
-                    for k, _ in string.gmatch(value, "%*?%s*([/%w]+)%s*") do
+                    for k, _ in string.gmatch(value, "%*?%s*([%w][_%-/%w]*[%w_])%s*") do
                         table.insert(branch, k)
                     end
                 end

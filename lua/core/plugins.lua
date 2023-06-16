@@ -196,9 +196,11 @@ plugins_configure.setup = function()
                 -- increase downloads a lot.
                 filter = true,
             },
+
+            lockfile = vim.g.CONFIG .. "/lazy-lock.json", -- lockfile generated after running update.
             dev = {
                 -- directory where you store your local plugin projects
-                path = "~/.sea.nvim/local_plugins",
+                path = vim.g.CONFIG .. "/local_plugins",
                 ---@type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
                 patterns = {}, -- For example {"folke"}
                 fallback = false, -- Fallback to git when local plugin doesn't exist
