@@ -231,7 +231,6 @@ plugins_configure.setup = function()
         }
     )
 end
-vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.g.CONFIG
 
 plugins_configure.create_mapping = function()
     for group_name, plugins_group in pairs(plugins_configure.plugins_groups) do
