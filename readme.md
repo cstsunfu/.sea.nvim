@@ -37,7 +37,7 @@
 
 ## Install
 
-1. Install `Neovim` >=0.9
+1. Install `Neovim` >=0.9, `git` >= 2.32
 
 2. Install `pynvim`
 ```

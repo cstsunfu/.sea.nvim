@@ -11,11 +11,11 @@ plugin.core = {
         { "nvim-telescope/telescope-file-browser.nvim" },
         {
             "nvim-telescope/telescope-frecency.nvim",
-            after = 'telescope.nvim',
+            dependencies = 'telescope.nvim',
         },
         {
             'nvim-telescope/telescope-project.nvim',
-            after = 'telescope.nvim',
+            dependencies = 'telescope.nvim',
         },
         {
             'nvim-telescope/telescope-fzf-native.nvim',
