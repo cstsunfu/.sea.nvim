@@ -17,9 +17,6 @@ _G.pomodoro.proj_complete = function(arg_lead)
 end
 
 local get_proj = function()
-    if not packer_plugins['plenary.nvim'].loaded then
-        vim.cmd [[packadd plenary.nvim]]
-    end
     local Path = require'plenary.path'
     local root = Path:new("/")
     local root_patterns = {".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt"}

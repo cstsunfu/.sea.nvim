@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "nvim-telescope/telescope.nvim",
-    cmd = { "Telescope" },
+    cmd = { "Telescope", "TelescopeFrecencyContent" },
     dependencies = {
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
@@ -180,6 +180,8 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require('core.mapping')
+
+
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "f" },
@@ -195,6 +197,13 @@ plugin.mapping = function()
         silent = true
     })
 
+    mappings.register({
+        mode = "n",
+        key = {"<leader>", "f", "R"},
+        action = ":lua _G.plugin_telescope__frecency_content(500)<CR>",
+        short_desc = "Find Recent Context",
+        silent = true
+    })
 
     mappings.register({
         mode = "n",
@@ -370,5 +379,46 @@ plugin.mapping = function()
         silent = true,
         noremap = true
     })
+
+    _G.plugin_telescope__frecency_content = function(top_n)
+        local fd = require('telescope').extensions.frecency.frecency -- for extensions setup
+        require('frecency.picker').update()
+        local results = vim.list_slice(require('frecency.picker').results, 1, tonumber(top_n) or 100)
+        local frecency_file_path = {}
+        for _, result in ipairs(results) do
+            table.insert(frecency_file_path, result.path)
+        end
+
+        local pickers = require "telescope.pickers"
+        local finders = require "telescope.finders"
+        local conf = require("telescope.config").values
+        local actions = require "telescope.actions"
+        local make_entry = require "telescope.make_entry"
+
+        local vimgrep_arguments = conf.vimgrep_arguments
+        local args = vim.tbl_flatten { vimgrep_arguments }
+        local live_grepper = finders.new_job(function(prompt)
+            if not prompt or prompt == "" then
+                return nil
+            end
+
+            return vim.tbl_flatten { args, "--", prompt, frecency_file_path }
+        end, make_entry.gen_from_vimgrep({}), 1000, '/')
+
+        pickers
+        .new({}, {
+            prompt_title = "Live Grep",
+            finder = live_grepper,
+            previewer = conf.grep_previewer({}),
+            -- TODO: It would be cool to use `--json` output for this
+            -- and then we could get the highlight positions directly.
+            sorter = require'telescope.sorters'.highlighter_only({}),
+            attach_mappings = function(_, map)
+                map("i", "<c-space>", actions.to_fuzzy_refine)
+                return true
+            end,
+        })
+        :find()
+    end
 end
 return plugin
