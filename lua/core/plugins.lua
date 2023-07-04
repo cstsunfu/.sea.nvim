@@ -6,157 +6,157 @@ plugins_configure["all_loaded_module"] = {}
 
 if vim.g.feature_groups['default'] == true then
     plugins_configure.plugins_groups['default'] = {
-        ["nerd_commenter"] = { enable = true }, -- for quick comment
-        ["better_escape"] = { enable = false }, -- for quick map jk to <esc>
-        ["ultisnips"] = { enable = true }, -- for snippets
-        ["snippets"] = { enable = true }, -- predefined snippets templete
-        ['linediff'] = { enable = true }, -- diff view for two lines
-        ['diffview'] = { enable = true }, -- diff view for git
-        ['multiple_cursor'] = { enable = true }, --  multiple cursor to change multi line in the same time
-        ['undotree'] = { enable = true }, -- record all the change history
-        ['repeat'] = { enable = true }, -- repeat some user defined commond
-        ['surround'] = { enable = true }, -- change, make or delete the surrounding
-        ['emacs_commandline'] = { enable = true }, -- use emacs key binding in commondline
-        ['auto_pairs'] = { enable = true }, -- auto complete pairs
-        ['bbye'] = { enable = true }, -- when you close the buffer the window could be reserve
-        ['indent_line'] = { enable = true }, -- display the indent line
-        ['better_fold'] = { enable = true }, -- display better fold
-        ['which_key'] = { enable = true }, -- key binding suggestion
-        ['asynctasks'] = { enable = true }, -- key binding suggestion
-        ['plenary'] = { enable = true }, -- key binding suggestion
-        ['tree_sitter'] = { enable = true },
-        ['popup'] = { enable = true },
-        ['easyjump'] = { enable = true },
-        ['non_latin_input'] = { enable = false },
-        ['boole'] = { enable = true },
-        ['nui'] = { enable = true },
+        ["nerd_commenter"] = { enabled = true }, -- for quick comment
+        ["better_escape"] = { enabled = false }, -- for quick map jk to <esc>
+        ["ultisnips"] = { enabled = true }, -- for snippets
+        ["snippets"] = { enabled = true }, -- predefined snippets templete
+        ['linediff'] = { enabled = true }, -- diff view for two lines
+        ['diffview'] = { enabled = true }, -- diff view for git
+        ['multiple_cursor'] = { enabled = true }, --  multiple cursor to change multi line in the same time
+        ['undotree'] = { enabled = true }, -- record all the change history
+        ['repeat'] = { enabled = true }, -- repeat some user defined commond
+        ['surround'] = { enabled = true }, -- change, make or delete the surrounding
+        ['emacs_commandline'] = { enabled = true }, -- use emacs key binding in commondline
+        ['auto_pairs'] = { enabled = true }, -- auto complete pairs
+        ['bbye'] = { enabled = true }, -- when you close the buffer the window could be reserve
+        ['indent_line'] = { enabled = true }, -- display the indent line
+        ['better_fold'] = { enabled = true }, -- display better fold
+        ['which_key'] = { enabled = true }, -- key binding suggestion
+        ['asynctasks'] = { enabled = true }, -- key binding suggestion
+        ['plenary'] = { enabled = true }, -- key binding suggestion
+        ['tree_sitter'] = { enabled = true },
+        ['popup'] = { enabled = true },
+        ['easyjump'] = { enabled = true },
+        ['non_latin_input'] = { enabled = false },
+        ['boole'] = { enabled = true },
+        ['nui'] = { enabled = true },
     }
 end
 
 
 if vim.g.feature_groups['org_my_life'] == true then
     plugins_configure.plugins_groups['org_my_life'] = {
-        ['calendar'] = { enable = true },
-        ['vimwiki'] = { enable = true },
-        ['vimtex'] = { enable = true },
-        ['obsidian'] = { enable = true },
-        ['glow'] = { enable = true }, -- preview markdown in terminal
-        ['markdown_code_edit'] = { enable = true },
-        ['markdown_preview'] = { enable = true },
-        ['present'] = { enable = true },
-        ['nabla'] = { enable = true }, -- for displya latex formulajbyuki/nabla.nvim
-        ['clipboard_images'] = { enable = true }, -- for displya latex formulajbyuki/nabla.nvim
-        ['table_mode'] = { enable = true },
-        ['md_bullets'] = { enable = true },
-        ['org_bullets'] = { enable = true },
-        ['headlines'] = { enable = false },
-        ['orgmode'] = { enable = true },
+        ['calendar'] = { enabled = true },
+        ['vimwiki'] = { enabled = true },
+        ['vimtex'] = { enabled = true },
+        ['obsidian'] = { enabled = true },
+        ['glow'] = { enabled = true }, -- preview markdown in terminal
+        ['markdown_code_edit'] = { enabled = true },
+        ['markdown_preview'] = { enabled = true },
+        ['present'] = { enabled = true },
+        ['nabla'] = { enabled = true }, -- for displya latex formulajbyuki/nabla.nvim
+        ['clipboard_images'] = { enabled = true }, -- for displya latex formulajbyuki/nabla.nvim
+        ['table_mode'] = { enabled = true },
+        ['md_bullets'] = { enabled = true },
+        ['org_bullets'] = { enabled = true },
+        ['headlines'] = { enabled = false },
+        ['orgmode'] = { enabled = true },
     }
 end
 
 if vim.g.feature_groups['git'] == true then
     plugins_configure.plugins_groups['git'] = {
-        ['gitsigns'] = { enable = true },
-        ['statuscol'] = { enable = true },
-        ['fugitive'] = { enable = true },
+        ['gitsigns'] = { enabled = true },
+        ['statuscol'] = { enabled = true },
+        ['fugitive'] = { enabled = true },
     }
 end
 
 if vim.g.feature_groups['enhance'] == true then
     plugins_configure.plugins_groups['enhance'] = {
-        ['session'] = { enable = true },
-        ['session_auto'] = { enable = true },
-        ['hlslens'] = { enable = true },
-        ['todo_comments'] = { enable = true },
-        ['zen_mode'] = { enable = true },
-        ['firenvim'] = { enable = false }, -- TODO:嵌入nvim到chrome，比较鸡肋
-        ['ts_text_object'] = { enable = false }, -- map v m is used frequence
-        ['speed_date'] = { enable = true },
-        ['translate'] = { enable = true },
-        ['notify'] = { enable = true },
-        ['auto_select'] = { enable = true },
-        ['ipython'] = { enable = true },
-        ['jukit'] = { enable = true }, --for jupyter
-        ['neogen'] = { enable = false }, -- generate annotations
-        ['terminal'] = { enable = true },
-        ['remote'] = { enable = true },
-        ['high_str'] = { enable = false },
-        ['colorizer'] = { enable = true },
-        ['colortils'] = { enable = true },
-        ['pretty_print_json'] = { enable = true },
-        ['hjson'] = { enable = true },
-        ['json5'] = { enable = true },
-        ["files_tree"] = { enable = true },
-        ["accelerate_jk"] = { enable = false },
-        ["scroll"] = { enable = true },
-        ["animate"] = { enable = false },  -- TODO: interesting
+        ['session'] = { enabled = true },
+        ['session_auto'] = { enabled = true },
+        ['hlslens'] = { enabled = true },
+        ['todo_comments'] = { enabled = true },
+        ['zen_mode'] = { enabled = true },
+        ['firenvim'] = { enabled = false }, -- TODO:嵌入nvim到chrome，比较鸡肋
+        ['ts_text_object'] = { enabled = false }, -- map v m is used frequence
+        ['speed_date'] = { enabled = true },
+        ['translate'] = { enabled = true },
+        ['notify'] = { enabled = true },
+        ['auto_select'] = { enabled = true },
+        ['ipython'] = { enabled = true },
+        ['jukit'] = { enabled = true }, --for jupyter
+        ['neogen'] = { enabled = false }, -- generate annotations
+        ['terminal'] = { enabled = true },
+        ['remote'] = { enabled = true },
+        ['high_str'] = { enabled = false },
+        ['colorizer'] = { enabled = true },
+        ['colortils'] = { enabled = true },
+        ['pretty_print_json'] = { enabled = true },
+        ['hjson'] = { enabled = true },
+        ['json5'] = { enabled = true },
+        ["files_tree"] = { enabled = true },
+        ["accelerate_jk"] = { enabled = false },
+        ["scroll"] = { enabled = true },
+        ["animate"] = { enabled = false },  -- TODO: interesting
     }
 end
 
 -- main language
 if vim.g.feature_groups['special_for_language'] == true then
     plugins_configure.plugins_groups['special_for_language'] = {
-        ['python_fold'] = { enable = false },
+        ['python_fold'] = { enabled = false },
     }
 end
 
 if vim.g.feature_groups['debug_adapter'] == true then
     plugins_configure.plugins_groups['debug_adapter'] = {
-        ['dap_python'] = { enable = true },
-        ['dap_ui'] = { enable = true }
+        ['dap_python'] = { enabled = true },
+        ['dap_ui'] = { enabled = true }
     }
 end
 
 if vim.g.feature_groups['colorschemes'] == true then
     plugins_configure.plugins_groups['colorschemes'] = {
-        ["nord"] = { enable = true, lazy = true },
-        ['gruvbox_material'] = { enable = true, lazy = true },
-        ['rose_pine'] = { enable = true, lazy = true },
-        ['material'] = { enable = true, lazy = false },
-        ['onedark'] = { enable = true, lazy = true },
-        ['onedarkpro'] = { enable = true, lazy = true },
-        ['vscode_theme'] = { enable = true, lazy = true }
+        ["nord"] = { enabled = true, lazy = true },
+        ['gruvbox_material'] = { enabled = true, lazy = true },
+        ['rose_pine'] = { enabled = true, lazy = true },
+        ['material'] = { enabled = true, lazy = false },
+        ['onedark'] = { enabled = true, lazy = true },
+        ['onedarkpro'] = { enabled = true, lazy = true },
+        ['vscode_theme'] = { enabled = true, lazy = true }
     }
 end
 
 
 if vim.g.feature_groups['beauty_vim'] == true then
     plugins_configure.plugins_groups['beauty_vim'] = {
-        ["lualine"] = { enable = true },
-        ["bufferline"] = { enable = true },
-        ["web_devicons"] = { enable = true },
-        ["dashboard"] = { enable = true },
-        ["specs"] = { enable = true },
+        ["lualine"] = { enabled = true },
+        ["bufferline"] = { enabled = true },
+        ["web_devicons"] = { enabled = true },
+        ["dashboard"] = { enabled = true },
+        ["specs"] = { enabled = true },
     }
 end
 
 
 if vim.g.feature_groups['lsp'] then
     plugins_configure.plugins_groups['lsp'] = {
-        ['coc'] = { enable = vim.g.feature_groups.lsp == 'coc' },
-        ["lsp_config"] = { enable = vim.g.feature_groups.lsp == 'builtin' },
-        ["trouble"] = { enable = vim.g.feature_groups.lsp == 'builtin', lazy = true },
-        ["glance"] = { enable = true },
-        ["navigator"] = { enable = true, lazy = true }, -- TODO: this plugin will be useful, but too beta
-        ["lsp_signature"] = { enable = vim.g.feature_groups.lsp == 'builtin' },
-        ["null_ls"] = { enable =  vim.g.feature_groups.lsp == 'builtin' },
-        ["nvim_cmp"] = { enable = vim.g.feature_groups.lsp == 'builtin' },
-        ["copilot"] = { enable = vim.g.feature_groups.lsp == 'builtin' },
-        ["copilot_cmp"] = { enable = vim.g.feature_groups.lsp == 'builtin' },
-        ["lsp_status"] = { enable = vim.g.feature_groups.lsp == 'builtin' },
-        --['lsp_icon'] = { enable = vim.g.feature_groups.lsp == 'builtin' }, -- directly setting in nvim_cmp
-        --['fold_expr'] = { enable = vim.g.feature_groups.lsp == 'builtin' }, -- may cause slow
+        ['coc'] = { enabled = vim.g.feature_groups.lsp == 'coc' },
+        ["lsp_config"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
+        ["trouble"] = { enabled = vim.g.feature_groups.lsp == 'builtin', lazy = true },
+        ["glance"] = { enabled = true },
+        ["navigator"] = { enabled = true, lazy = true }, -- TODO: this plugin will be useful, but too beta
+        ["lsp_signature"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
+        ["null_ls"] = { enabled =  vim.g.feature_groups.lsp == 'builtin' },
+        ["nvim_cmp"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
+        ["copilot"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
+        ["copilot_cmp"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
+        ["lsp_status"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
+        --['lsp_icon'] = { enabled = vim.g.feature_groups.lsp == 'builtin' }, -- directly setting in nvim_cmp
+        --['fold_expr'] = { enabled = vim.g.feature_groups.lsp == 'builtin' }, -- may cause slow
     }
 end
 
 if vim.g.feature_groups['file_and_view'] == true then
     plugins_configure.plugins_groups['file_and_view'] = {
-        ["telescope"] = { enable = true },
-        ['ctrlsf'] = { enable = true }, -- search the same token under cursor
-        ['spectre'] = { enable = true }, -- search the and replace token by reg exp
-        ["vista"] = { enable = vim.g.feature_groups.lsp == 'coc' }, -- only works for coc lsp, tree view
-        ["file_symbols"] = { enable = vim.g.feature_groups.lsp == 'builtin' }, -- only works for builtin lsp
-        ["aerial"] = { enable = false }, -- TODO: if the file_symbols plugin is not fix the bugs, will change to this plugin
+        ["telescope"] = { enabled = true },
+        ['ctrlsf'] = { enabled = true }, -- search the same token under cursor
+        ['spectre'] = { enabled = true }, -- search the and replace token by reg exp
+        ["vista"] = { enabled = vim.g.feature_groups.lsp == 'coc' }, -- only works for coc lsp, tree view
+        ["file_symbols"] = { enabled = vim.g.feature_groups.lsp == 'builtin' }, -- only works for builtin lsp
+        ["aerial"] = { enabled = false }, -- TODO: if the file_symbols plugin is not fix the bugs, will change to this plugin
     }
 end
 
@@ -175,7 +175,7 @@ plugins_configure.setup = function()
                 for key, value in pairs(is_active) do
                     core[key] = value
                 end
-                if core.enable == true then
+                if core.enabled == true then
                     plugins_configure.all_loaded_module[plugin_name] = true -- added to all_loaded_module
                     table.insert(plugins, core) -- add to 
                 end
@@ -231,13 +231,12 @@ plugins_configure.setup = function()
         }
     )
 end
-vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.g.CONFIG
 
 plugins_configure.create_mapping = function()
     for group_name, plugins_group in pairs(plugins_configure.plugins_groups) do
         if vim.g.feature_groups[group_name] then
             for plugin_name, is_active in pairs(plugins_group) do
-                if is_active['enable'] == true then
+                if is_active['enabled'] == true then
                     require(plugins_configure.plugin_configure_root .. plugin_name).mapping()
                 end
             end
