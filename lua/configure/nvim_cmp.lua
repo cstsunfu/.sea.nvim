@@ -6,45 +6,45 @@ plugin.core = {
         "nvim-lspconfig",
         {
             "quangnguyen30192/cmp-nvim-ultisnips",
-            disable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
             event = "BufEnter"
         }, -- ultisnips source
         {
             "hrsh7th/cmp-nvim-lsp",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
         }, --builtin lsp source
         {
             "hrsh7th/cmp-buffer",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
             event = "BufEnter"
         }, --buffer source
         {
             "hrsh7th/cmp-path",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
         }, --path source
         {
             "hrsh7th/cmp-cmdline",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
         }, -- for commandline complation
         {
             "dmitmel/cmp-cmdline-history",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
         }, -- for commandline complation
         {
             "hrsh7th/cmp-calc",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
         }, --for calc
         {
             "hrsh7th/cmp-emoji",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
         },
         {
             "rcarriga/cmp-dap",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
         },
         {
             "hrsh7th/cmp-nvim-lsp-signature-help",
-            enable = vim.g.feature_groups.lsp == "builtin",
+            enabled = vim.g.feature_groups.lsp == "builtin",
         },
     },
     init = function() -- Specifies code to run before this plugin is loaded.

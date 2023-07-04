@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "nvim-tree/nvim-tree.lua",
-    on = { "NvimTreeToggle" },
+    cmd = { "NvimTreeToggle", "NvimTreeClose" },
     dependencies = {"nvim-tree/nvim-web-devicons"},
     init = function() -- Specifies code to run before this plugin is loaded.
 

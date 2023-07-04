@@ -3,12 +3,11 @@ local plugin = {}
 plugin.core = {
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
-    after = { "plenary.nvim" },
     dependencies = {
         "plenary.nvim",
-        { "neovim/nvim-lspconfig", enable = vim.g.feature_groups.lsp == "builtin" },
-        { "williamboman/mason-lspconfig.nvim", enable = vim.g.feature_groups.lsp == "builtin" },
-        { "hrsh7th/nvim-cmp", enable = vim.g.feature_groups.lsp == "builtin" },
+        { "neovim/nvim-lspconfig", enabled = vim.g.feature_groups.lsp == "builtin" },
+        { "williamboman/mason-lspconfig.nvim", enabled = vim.g.feature_groups.lsp == "builtin" },
+        { "hrsh7th/nvim-cmp", enabled = vim.g.feature_groups.lsp == "builtin" },
     },
     init = function() -- Specifies code to run before this plugin is loaded.
 

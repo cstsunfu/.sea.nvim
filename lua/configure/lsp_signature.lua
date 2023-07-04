@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "ray-x/lsp_signature.nvim", --for signature placeholder
-    after = {
+    dependencies = {
         "nvim-lspconfig",
     },
     init = function() -- Specifies code to run before this plugin is loaded.
