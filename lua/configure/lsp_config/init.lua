@@ -91,7 +91,7 @@ plugin.core = {
                         linting = {
                             enabled = false
                         },
-                        pythonPath = "/Users/fu.sun/anaconda3/envs/dlkit/bin/python",
+                        pythonPath = "/home/sun/anaconda3/envs/dlkit/bin/python",
                         --venvPath = "/home/sun/anaconda3/envs/dlkit",
                     }
                 },
