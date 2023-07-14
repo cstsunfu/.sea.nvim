@@ -20,6 +20,20 @@ func.delete_all_buffers_in_window = function ()
     end
 end
 
+-- get the python path
+func.which_python = function()
+    local popen = io.popen
+    local pfile = popen('which python')
+    local python_path = '/usr/bin/python3'
+    for filename in pfile:lines() do
+        if filename ~= nil then
+            python_path = filename
+        end
+    end
+    pfile:close()
+    return python_path
+end
+
 -- list all files in current directory escape the hidden files
 func.scandir = function(directory)
     local i, t, popen = 0, {}, io.popen

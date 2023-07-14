@@ -18,6 +18,7 @@ plugin.core = {
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
         local Path = require('plenary.path')
+        local global_fun = require('util.global')
         -- Ensure the servers above are installed
         local mason_lspconfig = require 'mason-lspconfig'
         local util = require("lspconfig.util")
@@ -91,7 +92,7 @@ plugin.core = {
                         linting = {
                             enabled = false
                         },
-                        pythonPath = "/home/sun/anaconda3/envs/dlkit/bin/python",
+                        pythonPath = global_fun.which_python(),
                         --venvPath = "/home/sun/anaconda3/envs/dlkit",
                     }
                 },
@@ -101,6 +102,7 @@ plugin.core = {
             sqlls = {
             },
             clangd = {
+                capabilities = {offsetEncoding = { "utf-16" }},
             },
         }
         mason_lspconfig.setup {
