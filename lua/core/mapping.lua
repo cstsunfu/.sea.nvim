@@ -678,6 +678,25 @@ global_mapping.register({
     short_desc = "Save & Quit"
 })
 
+-- g
+--
+-- map helper
+if vim.fn.has("mac") == 1 then
+
+    global_mapping.register({
+        mode = { "v", "n"},
+        key = { "g", "x" },
+        action = '<Cmd>call jobstart(["open", expand("<cfile>")], {"detach": v:true})<CR>',
+        short_desc = "Open URL Link"
+    })
+elseif vim.fn.has("unix") == 1 then
+    global_mapping.register({
+        mode = { "v", "n"},
+        key = { "g", "x" },
+        action = '<Cmd>call jobstart(["xdg-open", expand("<cfile>")], {"detach": v:true})<CR>',
+        short_desc = "Open URL Link"
+    })
+end
 
 global_mapping.setup = function()
     local plugins_config = require('core.plugins')
