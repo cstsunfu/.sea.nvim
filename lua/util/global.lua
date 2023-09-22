@@ -20,6 +20,63 @@ func.delete_all_buffers_in_window = function ()
     end
 end
 
+
+func.enable_large_buf = function()
+    vim.b.large_buf = true
+    vim.cmd("syntax off")
+    --vim.cmd("IlluminatePauseBuf") -- disable vim-illuminate
+    vim.opt_local.foldmethod = "manual"
+    if vim.fn.exists(":TSBufDisable") then
+        vim.cmd('TSBufDisable autotag')
+        vim.cmd('TSBufDisable highlight')
+        vim.cmd('TSBufDisable incremental_selection')
+        vim.cmd('TSBufDisable indent')
+        vim.cmd('TSBufDisable playground')
+        vim.cmd('TSBufDisable query_linter')
+        vim.cmd('TSBufDisable rainbow')
+        vim.cmd('TSBufDisable refactor.highlight_definitions')
+        vim.cmd('TSBufDisable refactor.navigation')
+        vim.cmd('TSBufDisable refactor.smart_rename')
+        vim.cmd('TSBufDisable refactor.highlight_current_scope')
+        vim.cmd('TSBufDisable textobjects.swap')
+        vim.cmd('TSBufDisable textobjects.move')
+        vim.cmd('TSBufDisable textobjects.lsp_interop')
+        vim.cmd('TSBufDisable textobjects.select')
+    end
+    if vim.fn.exists(":TSBufDisable") then
+        vim.cmd('TSBufDisable textobjects.select')
+    end
+    vim.opt_local.spell = false
+end
+
+
+func.disable_large_buf = function()
+    vim.b.large_buf = false
+    vim.cmd("syntax on")
+    --vim.cmd("IlluminatePauseBuf") -- disable vim-illuminate
+    vim.opt_local.foldmethod = "manual"
+    if vim.fn.exists(":TSBufEnable") then
+        vim.cmd('TSBufEnable autotag')
+        vim.cmd('TSBufEnable highlight')
+        vim.cmd('TSBufEnable incremental_selection')
+        vim.cmd('TSBufEnable indent')
+        vim.cmd('TSBufEnable playground')
+        vim.cmd('TSBufEnable query_linter')
+        vim.cmd('TSBufEnable rainbow')
+        vim.cmd('TSBufEnable refactor.highlight_definitions')
+        vim.cmd('TSBufEnable refactor.navigation')
+        vim.cmd('TSBufEnable refactor.smart_rename')
+        vim.cmd('TSBufEnable refactor.highlight_current_scope')
+        vim.cmd('TSBufEnable textobjects.swap')
+        vim.cmd('TSBufEnable textobjects.move')
+        vim.cmd('TSBufEnable textobjects.lsp_interop')
+        vim.cmd('TSBufEnable textobjects.select')
+    end
+    if vim.fn.exists(":TSBufEnable") then
+        vim.cmd('TSBufEnable textobjects.select')
+    end
+end
+
 -- get the python path
 func.which_python = function()
     local popen = io.popen
