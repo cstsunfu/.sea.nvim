@@ -37,7 +37,8 @@ end
 if vim.g.feature_groups['org_my_life'] == true then
     plugins_configure.plugins_groups['org_my_life'] = {
         ['calendar'] = { enabled = true },
-        ['vimwiki'] = { enabled = true },
+        ['vimwiki'] = { enabled = false },
+        ['markdown'] = { enabled = true },
         ['vimtex'] = { enabled = true },
         ['obsidian'] = { enabled = true },
         ['glow'] = { enabled = true }, -- preview markdown in terminal
@@ -47,7 +48,7 @@ if vim.g.feature_groups['org_my_life'] == true then
         ['nabla'] = { enabled = true }, -- for displya latex formulajbyuki/nabla.nvim
         ['clipboard_images'] = { enabled = true }, -- for displya latex formulajbyuki/nabla.nvim
         ['table_mode'] = { enabled = true },
-        ['md_bullets'] = { enabled = true },
+        ['md_bullets'] = { enabled = false },
         ['org_bullets'] = { enabled = true },
         ['headlines'] = { enabled = false },
         ['orgmode'] = { enabled = true },
@@ -86,7 +87,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['pretty_print_json'] = { enabled = true },
         ['hjson'] = { enabled = true },
         ['json5'] = { enabled = true },
-        ["files_tree"] = { enabled = true },
+        ["nvim_tree"] = { enabled = true },
         ["accelerate_jk"] = { enabled = false },
         ["scroll"] = { enabled = true },
         ["animate"] = { enabled = false },  -- TODO: interesting
