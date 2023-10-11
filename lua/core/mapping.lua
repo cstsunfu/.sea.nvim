@@ -33,7 +33,7 @@ local mapping_prefix = {
     ["<leader>p"] = { name = "+ Paste" },
     ["<leader>q"] = { name = "+ Quit/QuickFix" },
     ["<leader>r"] = { name = "+ Read" },
-    ["<leader>s"] = { name = "+ Snip/Save/CtrlSF/Space/Sign" },
+    ["<leader>s"] = { name = "+ Snip/Save/CtrlSF/Space/Sign/Source File" },
     ["<leader>t"] = { name = "+ Table/Terminal/Translate/Tab" },
     ["<leader>v"] = { name = "+ Visual" },
     ["<leader>w"] = { name = "+ Window" },
@@ -305,7 +305,13 @@ global_mapping.register({
     short_desc = "Read FileTree"
 })
 
---save/space
+--save/space/source file
+global_mapping.register({
+    mode = "n",
+    key = { "<leader>", "s", "." },
+    action = ':source %<cr>',
+    short_desc = "Source Current File"
+})
 
 global_mapping.register({
     mode = "n",
