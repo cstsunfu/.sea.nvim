@@ -26,8 +26,16 @@ plugin.mapping = function()
         silent = true
     })
     mappings.register({
-        mode = {"n", 'v'},
+        mode = {'n'},
         key = { "s" },
+        action = '<cmd>Pounce<CR>',
+        short_desc = "Easy Jumpy",
+        silent = true
+    })
+
+    mappings.register({
+        mode = {'v'},
+        key = { "<C-s>" },
         action = '<cmd>Pounce<CR>',
         short_desc = "Easy Jumpy",
         silent = true

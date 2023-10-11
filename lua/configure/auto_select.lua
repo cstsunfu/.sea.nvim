@@ -27,7 +27,7 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = {"v"},
-        key = { "u" },
+        key = { "<C-S>" },
         action = '<Plug>(wildfire-water)',
         short_desc = "Auto Select Span Previous",
         noremap = true,
