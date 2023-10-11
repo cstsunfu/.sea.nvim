@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "epwalsh/obsidian.nvim",
-    ft = "markdown",
+    ft = { "vimwiki", "markdown" },
     cmd = { "ObsidianNew", "ObsidianSearch"},
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
