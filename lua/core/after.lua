@@ -8,7 +8,6 @@ timer:start(1000, 0, vim.schedule_wrap(function()
     vim.cmd("hi VertSplit ctermfg=black guifg=black")    --set VertSplit color to black
     vim.cmd("hi StatusLine ctermfg=black guifg=black")   --set HSplit color to black
 
-    vim.cmd("highlight IndentBlanklineContextChar guifg=#90c8d1 gui=nocombine")
     vim.cmd("highlight clear WhichKeyDesc")
     vim.cmd("highlight WhichKeyDesc guifg=#98be65")
 

@@ -206,6 +206,9 @@ plugins_configure.setup = function()
                 patterns = {}, -- For example {"folke"}
                 fallback = false, -- Fallback to git when local plugin doesn't exist
             },
+            ui = {
+                border = "rounded", -- rounded, double, single, none
+            },
             performance = {
                 cache = {
                     enabled = true,
