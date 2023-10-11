@@ -5,7 +5,7 @@ plugin.core = {
     ft = { "python" },
     cmd = { "JupyterConnect" },
     init = function() -- Specifies code to run before this plugin is loaded.
-
+        vim.g.jupyter_highlight_cells = 0
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
