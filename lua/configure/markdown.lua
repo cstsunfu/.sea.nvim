@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "plasticboy/vim-markdown",
-    require = {'godlygeek/tabular'},
+    --require = {'godlygeek/tabular'},
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
