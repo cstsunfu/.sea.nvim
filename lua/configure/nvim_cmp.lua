@@ -115,6 +115,7 @@ plugin.core = {
             },
 
             mapping = cmp.mapping.preset.insert({
+
                 ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 ['<C-x>'] = cmp.mapping.complete(),
@@ -136,11 +137,11 @@ plugin.core = {
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
                 }),
-                ["C-y"] = cmp.mapping.confirm({
+                ["<C-y>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
                 }),
-                ["C-l"] = cmp.mapping.confirm({
+                ["<C-l>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
                 }),
