@@ -136,11 +136,11 @@ plugin.core = {
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
                 }),
-                ["C-y"] = cmp.mapping.confirm({
+                ["<C-y>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
                 }),
-                ["C-l"] = cmp.mapping.confirm({
+                ["<C-l>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
                 }),

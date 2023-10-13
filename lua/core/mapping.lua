@@ -162,8 +162,6 @@ global_mapping.register = function(new_map)
             vim.api.nvim_set_keymap(new_map.mode, uni_key_string, new_map.action, option)
         end
     end
-
-
 end
 
 global_mapping.register({
@@ -451,6 +449,63 @@ else
     })
 end
 
+-- z fold
+
+global_mapping.register({
+    mode = "n",
+    key = { "<leader>", "<TAB>" },
+    action = "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>",
+    short_desc = "Smart toggle fold",
+    silent = true
+})
+
+global_mapping.register({
+    mode = "n",
+    key = {"z", "R"},
+    action = 'zR',
+    short_desc = "Unzip all",
+    silent = true
+})
+
+global_mapping.register({
+    mode = "n",
+    key = {"z", "r"},
+    action = 'zr',
+    short_desc = "Unzip",
+    silent = true
+})
+
+global_mapping.register({
+    mode = "n",
+    key = {"z", "a"},
+    action = 'za',
+    short_desc = "Zip toggle",
+    silent = true
+})
+
+global_mapping.register({
+    mode = "n",
+    key = {"z", "m"},
+    action = 'zm',
+    short_desc = "Zip current",
+    silent = true
+})
+
+global_mapping.register({
+    mode = "n",
+    key = {"z", "M"},
+    action = 'zM',
+    short_desc = "Zip all",
+    silent = true
+})
+
+global_mapping.register({
+    mode = "n",
+    key = {"z", "o"},
+    action = 'zo',
+    short_desc = "Unzip current",
+    silent = true
+})
 -- Alt
 if vim.fn.has('mac') == 1 then
     global_mapping.register({
@@ -706,23 +761,6 @@ end
 
 global_mapping.setup = function()
     local plugins_config = require('core.plugins')
-    if plugins_config.all_loaded_module['indent_line'] ~= nil then
-        global_mapping.register({
-            mode = "n",
-            key = { "<leader>", "<TAB>" },
-            action = "za:IndentBlanklineRefresh<CR>",
-            short_desc = "Smart toggle fold",
-            silent = true
-        })
-    else
-        global_mapping.register({
-            mode = "n",
-            key = { "<leader>", "<TAB>" },
-            action = "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>",
-            short_desc = "Smart toggle fold",
-            silent = true
-        })
-    end
 
     vim.cmd([[
         inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<tab>"
