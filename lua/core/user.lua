@@ -2,7 +2,7 @@ local themes = require('core.themes')
 themes.setting(themes.configs.material_dark)
 
 local user_setting = {
-    python3_host_prog = vim.g.HOME_PATH .. '/anaconda3/bin/python3', -- add to your own python3 path
+    python3_host_prog = vim.g.HOME_PATH .. '/miniconda3/bin/python3', -- add to your own python3 path
     snips_author = 'Sun Fu',
     snips_email = 'cstsunfu@gmail.com',
     snips_github = 'https://github.com/cstsunfu',

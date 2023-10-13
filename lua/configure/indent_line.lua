@@ -54,53 +54,6 @@ plugin.core = {
 plugin.mapping = function()
 
     local mappings = require('core.mapping')
-    mappings.register({
-        mode = "n",
-        key = {"z", "R"},
-        action = 'zR:IndentBlanklineRefresh<cr>',
-        short_desc = "Unzip all",
-        silent = true
-    })
-
-    mappings.register({
-        mode = "n",
-        key = {"z", "r"},
-        action = 'zr:IndentBlanklineRefresh<cr>',
-        short_desc = "Unzip",
-        silent = true
-    })
-
-    mappings.register({
-        mode = "n",
-        key = {"z", "a"},
-        action = 'za:IndentBlanklineRefresh<cr>',
-        short_desc = "Zip toggle",
-        silent = true
-    })
-
-    mappings.register({
-        mode = "n",
-        key = {"z", "m"},
-        action = 'zm:IndentBlanklineRefresh<cr>',
-        short_desc = "Zip current",
-        silent = true
-    })
-
-    mappings.register({
-        mode = "n",
-        key = {"z", "M"},
-        action = 'zM:IndentBlanklineRefresh<cr>',
-        short_desc = "Zip all",
-        silent = true
-    })
-
-    mappings.register({
-        mode = "n",
-        key = {"z", "o"},
-        action = 'zo:IndentBlanklineRefresh<cr>',
-        short_desc = "Unzip current",
-        silent = true
-    })
 
 end
 return plugin
