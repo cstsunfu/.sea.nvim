@@ -39,9 +39,12 @@
 
 1. Install `Neovim` >=0.9, `git` >= 2.32
 
-2. Install `pynvim`
+2. Install `pynvim` and `debugpy`(optional)
 ```
+  # pynvim for python based plugins
   pip install pynvim
+  # debugpy for python debug, just install it to your environment
+  pip install debugpy
 ```
 
 3. Install `node.js`, `npm`, and `yarn`
@@ -94,7 +97,7 @@ local themes = require('core.themes')
 themes.setting(themes.configs.material_oceanic)
 
 local user_setting = {
-    python3_host_prog = vim.g.HOME_PATH .. '/anaconda3/bin/python3', -- add to your own python3 path
+    python3_host_prog = vim.g.HOME_PATH .. '/miniconda3/bin/python3', -- add to your own python3 path
     snips_author = 'Sun Fu',
     snips_email = 'cstsunfu@gmail.com',
     snips_github = 'https://github.com/cstsunfu',
@@ -175,206 +178,206 @@ Each figure may display with different colorscheme.
 
 ## There are some shortcuts.
 
-    NOTE: leader == ;  localleader == , 
+    NOTE: Default set
+    
+    ```lua
+        vim.cmd("let maplocalleader=' '")
+        vim.cmd("let mapleader=';'")
+        vim.cmd("nnoremap ' ;")
+        vim.cmd("vnoremap ' ;")
+    ```
+       
 
     WARNING: We will remap some shortcuts but not update this table, just for reference.
 
 
-| Mode | ShortCut        | Short Description                            |
-|------|-----------------|----------------------------------------------|
-| i    | [C-Q]           | Save & Quit                                  |
-| i    | jk              | ESC                                   |
-| c    | jk              | ESC                                   |
-| t    | jk              | ESC                                   |
-| n    | gd              | Goto Definition                              |
-| n    | gD              | Goto Declaration                             |
-| n    | gr              | Goto References                              |
-| n    | gi              | Goto Implementation                          |
-| n    | [Leader]rn      | Refactor Name                                |
-| n    | K               | Displays hover information about the symbol. |
-| n    | [Leader]qf      | Quick fix the errors.                        |
-| n    | [Leader]sp      | goto prev diagnostic                         |
-| n    | [Leader]sn      | goto next diagnostic                         |
-| n    | [Leader]jf      | Json Format                                  |
-| v    | [Leader]jf      | Json Format                                  |
-| n    | [Leader]sk      | Session Keep                                 |
-| n    | [Leader]sl      | Last Session                                 |
-| n    | [Leader]sL      | Session List                                 |
-| n    | [Leader]fr      | Find History By Dashboard                    |
-| n    | [Leader]fc      | Change Color                                 |
-| n    | [Leader]fs      | Open Startify Page                           |
-| n    | [Leader]cf      | Create New File                              |
-| n    | [LocalLeader]1  | Goto 1 Window                                |
-| n    | [LocalLeader]2  | Goto 2 Window                                |
-| n    | [LocalLeader]3  | Goto 3 Window                                |
-| n    | [LocalLeader]4  | Goto 4 Window                                |
-| n    | [LocalLeader]5  | Goto 5 Window                                |
-| n    | [LocalLeader]6  | Goto 6 Window                                |
-| n    | [LocalLeader]7  | Goto 7 Window                                |
-| n    | [LocalLeader]8  | Goto 8 Window                                |
-| n    | [LocalLeader]9  | Goto 9 Window                                |
-| n    | [Leader]1       | Goto 1 Buffer                                |
-| n    | [Leader]2       | Goto 2 Buffer                                |
-| n    | [Leader]3       | Goto 3 Buffer                                |
-| n    | [Leader]4       | Goto 4 Buffer                                |
-| n    | [Leader]5       | Goto 5 Buffer                                |
-| n    | [Leader]6       | Goto 6 Buffer                                |
-| n    | [Leader]7       | Goto 7 Buffer                                |
-| n    | [Leader]8       | Goto 8 Buffer                                |
-| n    | [Leader]9       | Goto 9 Buffer                                |
-| n    | [Leader]bn      | Goto Next Buffer                             |
-| n    | [Leader]bp      | Goto Prev Buffer                             |
-| n    | [Leader]bd      | Delete Current Buffer                        |
-| n    | [Leader]bD      | Delete All Buffer Except Current             |
-| n    | [Leader]bR      | Delete All Right Buffers                     |
-| n    | [Leader]bL      | Delete All Left Buffers                      |
-| n    | [Leader]bs      | Buffer Sorted By Whether Modified            |
-| n    | [Leader]tc      | Tab Create                                   |
-| n    | [Leader]tx      | Tab Close                                    |
-| n    | [Leader]tn      | Tab Next                                     |
-| n    | [Leader]tp      | Tab Previous                                 |
-| n    | [Leader]ff      | Find files                                   |
-| n    | [Leader]fq      | Find Query                                   |
-| n    | [Leader]fb      | Find Buffers                                 |
-| n    | [Leader]fw      | Find Wiki                                    |
-| n    | [Leader]fj      | Find Wiki                                    |
-| n    | [Leader]fh      | Find Recent/History                          |
-| n    | [Leader]fp      | Find Project                                 |
-| n    | [Leader]fm      | Find All Mappings                            |
-| n    | [Leader]f;      | Find More                                    |
-| n    | [Leader]f;r     | Find Registers                               |
-| n    | [Leader]f;h     | Find Highlights                              |
-| n    | [Leader]f;t     | Find Themes                                  |
-| n    | [Leader]f;c     | Find Command History                         |
-| n    | [Leader]f;p     | Find Planets                                 |
-| n    | [Leader]f;g     | Find Git Commits                             |
-| n    | [Leader]f;G     | Find Git Commits(buffer)                     |
-| n    | [Leader]f;j     | Find Jump List                               |
-| n    | [Leader]f;m     | Find Marks                                   |
-| n    | [Leader]tl      | Tag List                                     |
-| n    | [Leader]tr      | Tag List Refresh                             |
-| n    | [Leader]sf      | Search Current Word                          |
-| n    | [Leader]sr      | Search By Reg Exp.                           |
-| n    | [Leader]mp      | Markdown Preview                             |
-| n    | [Leader]dq      | Debug Quit                                   |
-| n    | [F2]            | Debug Quit                                   |
-| n    | [Leader]dC      | Clear Breaks                                 |
-| n    | [F4]            | Clear Breaks                                 |
-| n    | [Leader]dc      | Run Continue                                 |
-| n    | [F5]            | Run Continue                                 |
-| n    | [Leader]dB      | Step Back                                    |
-| n    | [F6]            | Step Back                                    |
-| n    | [Leader]da      | Advanced Debug                               |
-| n    | [Leader]daw     | Advanced Break                               |
-| n    | [F7]            | Advanced Break                               |
-| n    | [Leader]dac     | Cond Break                                   |
-| n    | [F8]            | Cond Break                                   |
-| n    | [Leader]db      | Toggle Break                                 |
-| n    | [F9]            | Toggle Break                                 |
-| n    | [Leader]do      | Step Over                                    |
-| n    | [F10]           | Step Over                                    |
-| n    | [Leader]di      | Step Into                                    |
-| n    | [F11]           | Step Into                                    |
-| n    | [Leader]dO      | Step Out                                     |
-| n    | [F12]           | Step Out                                     |
-| n    | [Leader]dr      | Repl Open                                    |
-| n    | [Leader]oa      | Org Agenda                                   |
-| n    | [Leader]oc      | Org Capture                                  |
-| n    | [Leader]ox      | Org Clock                                    |
-| n    | [Leader]oxe     | Org Effort Estimate                          |
-| n    | [Leader]oxi     | Clock In                                     |
-| n    | [Leader]oxo     | Clock Out                                    |
-| n    | [Leader]oxq     | Clock Cancel                                 |
-| n    | [Leader]oxj     | Clock Goto                                   |
-| n    | cir             | Org Priority Down                            |
-| n    | ciR             | Org Priority Up                              |
-| x    | ciR             | Org Priority Up                              |
-| n    | cit             | Org Todo Status                              |
-| n    | ciT             | Org Todo Status                              |
-| n    | cid             | Org Change Date                              |
-| n    | [Leader]of      | Org Open File                                |
-| n    | [Leader]ot      | Org Tag                                      |
-| n    | [Leader]oi      | Org Insert                                   |
-| n    | [Leader]oid     | Org Insert DEADLINE                          |
-| n    | [Leader]oih     | Org Insert Headline                          |
-| n    | [Leader]ois     | Org Insert SCHEDULED                         |
-| n    | [Leader]oit     | Org Insert TODO                              |
-| n    | [Leader]oi.     | Org Insert Time Stamp                        |
-| n    | [Leader]oiT     | Org Inplace Insert TODO                      |
-| n    | [Leader]oi,     | Org Insert Inactive Time Stamp               |
-| n    | [Leader]oK      | Org Move Up                                  |
-| n    | [Leader]oJ      | Org Move Down                                |
-| n    | [Leader]o'      | Org Edit Source                              |
-| n    | [Leader]o$      | Org Archive Subtree                          |
-| n    | [Leader]oA      | Org Archive Tag                              |
-| n    | [Leader]or      | Org Refile To                                |
-| n    | [Leader]o*      | Org Toggle Headline                          |
-| n    | [Leader]o,      | Org Priority                                 |
-| n    | [Leader]oe      | Org Export(Emacs)                            |
-| n    | [Leader]oC      | Calendar                                     |
-| n    | [Leader]O       | Vimwiki                                      |
-| n    | [Leader]o;      | Vimwiki Make Note                            |
-| n    | [Leader]mt      | Quick Build                                  |
-| n    | [Leader]ce      | Code Edit(markdown)                          |
-| n    | [LocalLeader]f  | Display Formula                              |
-| n    | [LocalLeader]p  | Paste Image                                  |
-| n    | [Leader]tm      | Toggle Table Mode                            |
-| n    | [Leader]tt      | Toggle TODO List                             |
-| n    | [Leader]to      | Toggle Only Window(ZenMode)                  |
-| n    | [Leader]tw      | Translate Current Word.                      |
-| v    | [Leader]tw      | Translate Current Vision Word.               |
-| n    | [Leader]jr      | Jupyter Run                                  |
-| n    | [Leader]j.      | Jupyter Change Dir to Current                |
-| n    | [Leader]jc      | Jupyter Connect                              |
-| n    | [LocalLeader]je | Jupyter Run Visual                           |
-| v    | [LocalLeader]e  | Jupyter Run Visual                           |
-| n    | [Leader]ft      | File Tree                                    |
-| n    | [Leader]f.      | Current File Tree                            |
-| n    | [Leader]re      | Remote Edit                                  |
-| n    | [Leader]rc      | Remote Configure                             |
-| n    | [Leader]ga      | Git Add                                      |
-| n    | [Leader]gb      | Git Blame                                    |
-| n    | [Leader]gc      | Git Commits                                  |
-| n    | [Leader]gC      | Git Checkout                                 |
-| n    | [Leader]ge      | Git Edit Something                           |
-| n    | [Leader]gd      | Git Diff                                     |
-| n    | [Leader]gg      | Git Grep                                     |
-| n    | [Leader]gl      | Git Log For Current File                     |
-| n    | [Leader]gL      | Git Log                                      |
-| n    | [Leader]gm      | Git Move                                     |
-| n    | [Leader]gr      | Git Read                                     |
-| n    | [Leader]gs      | Git Status                                   |
-| n    | [Leader]gw      | Git Write                                    |
-| n    | [Leader]gu      | Git Pull                                     |
-| n    | [Leader]gp      | Git Push                                     |
-| n    | [Leader]gi      | Git Indicator Toggle                         |
-| n    | [Leader]cc      | Comment                                      |
-| v    | [Leader]cc      | Comment                                      |
-| n    | [Leader]ca      | Comment Alt Format                           |
-| v    | [Leader]ca      | Comment Alt Format                           |
-| n    | [Leader]cA      | Comment Append                               |
-| v    | [Leader]cA      | Comment Append                               |
-| n    | [Leader]cu      | UnComment                                    |
-| v    | [Leader]cu      | UnComment                                    |
-| n    | [Leader]se      | Test ot                                      |
-| v    | [Leader]ld      | Line Diff                                    |
-| n    | [Leader]gv      | Git Diff View                                |
-| n    | zR              | Unzip all                                    |
-| n    | zr              | Unzip                                        |
-| n    | za              | Zip toggle                                   |
-| n    | zm              | Zip current                                  |
-| n    | zM              | Zip all                                      |
-| n    | zo              | Unzip current                                |
-| n    | [Leader]qb      | Quick Build                                  |
-| n    | [Leader]qr      | Quick Run                                    |
-| n    | [Leader]qg      | Quick Grep                                   |
-| n    | [Leader]qgc     | Quick Grep Current Path                      |
-| n    | [Leader]qgp     | Quick Grep Project Path                      |
-| n    | [Leader]qgf     | Quick Grep Current Path File Types           |
-| n    | [Leader]ht      | History Tree                                 |
-| n    | [Leader]op      | Pomodoro Clock                               |
-| n    | [Leader]ops     | Start Pomodoro Clock                         |
-| n    | [Leader]opq     | Quit Pomodoro Clock                          |
-| n    | [Leader]opc     | Cancel Pomodoro Clock                        |
-| n    | [Leader][TAB]   | Smart toggle fold                            |
-| n    | [Leader]c[tab]  | ColorStyle Exchange                          |
+| Mode | Mapping        | Description                         |
+|------|----------------|-------------------------------------|
+| n    | ;cA            | Comment Append                      |
+| v    | ;cA            | Comment Append                      |
+| n    | ;cu            | UnComment                           |
+| v    | ;cu            | UnComment                           |
+| n    | ;gv            | Git Diff View                       |
+| n    | ;gh            | Git History                         |
+| n    | ;se            | Test ot                             |
+| v    | ;ld            | Line Diff                           |
+| n    | ;ht            | History Tree                        |
+| n    | ;dq            | Debug Quit     F2                   |
+| n    | ;dC            | Clear Breaks   F4                   |
+| n    | ;dc            | Run Continue   F5                   |
+| n    | ;dB            | Step Back      F6                   |
+| n    | ;da            | Advanced Debug                      |
+| n    | ;daw           | Advanced Break F7                   |
+| n    | ;dac           | Cond Break     F8                   |
+| n    | ;db            | Toggle Break   F9                   |
+| n    | ;do            | Step Over      F10                  |
+| n    | ;di            | Step Into      F11                  |
+| n    | ;dO            | Step Out       F12                  |
+| n    | ;dr            | Repl Open                           |
+| n    | ;mp            | Markdown Preview                    |
+| n    | \<SPACE\>f              | Display Formula                     |
+| n    | \<SPACE\>p              | Paste Image                         |
+| n    | ;tm            | Toggle Table Mode                   |
+| n    | ;tfe           | Table Fomule Eval                   |
+| n    | ;oC            | Calendar                            |
+| n    | ;oa            | Org Agenda                          |
+| n    | ;oc            | Org Capture                         |
+| n    | ;ox            | Org Clock                           |
+| n    | ;oxe           | Org Effort Estimate                 |
+| n    | ;oxi           | Clock In                            |
+| n    | ;oxo           | Clock Out                           |
+| n    | ;oxq           | Clock Cancel                        |
+| n    | ;oxj           | Clock Goto                          |
+| n    | cir            | Org Priority Down                   |
+| n    | ciR            | Org Priority Up                     |
+| x    | ciR            | Org Priority Up                     |
+| n    | cit            | Org Todo Status                     |
+| n    | ciT            | Org Todo Status                     |
+| n    | cid            | Org Change Date                     |
+| n    | ;of            | Org Open File                       |
+| n    | ;ot            | Org Tag                             |
+| n    | ;oi            | Org Insert                          |
+| n    | ;oid           | Org Insert DEADLINE                 |
+| n    | ;oih           | Org Insert Headline                 |
+| n    | ;ois           | Org Insert SCHEDULED                |
+| n    | ;oit           | Org Insert TODO                     |
+| n    | ;oi.           | Org Insert Time Stamp               |
+| n    | ;oiT           | Org Inplace Insert TODO             |
+| n    | ;oi,           | Org Insert Inactive Time Stamp      |
+| n    | ;oK            | Org Move Up                         |
+| n    | ;oJ            | Org Move Down                       |
+| n    | ;o'            | Org Edit Source                     |
+| n    | ;o$            | Org Archive Subtree                 |
+| n    | ;oA            | Org Archive Tag                     |
+| n    | ;or            | Org Refile To                       |
+| n    | ;o*            | Org Toggle Headline                 |
+| n    | ;o,            | Org Priority                        |
+| n    | ;oe            | Org Export(Emacs)                   |
+| n    | ;O             | Vimwiki                             |
+| n    | ;o;            | Vimwiki Make Note                   |
+| n    | ;fo            | ObsidianSearch                      |
+| n    | ;on            | New Draft Obsidian                  |
+| n    | ;mt            | Quick Build                         |
+| n    | ;ce            | Code Edit(markdown)                 |
+| n    | ;to            | Toggle Only Window(ZenMode)         |
+| n    | ;tw            | Translate Current Word.             |
+| v    | ;tw            | Translate Current Vision Word.      |
+| n    | \<cr\>           | Auto Select Span                    |
+| v    | \<cr\>           | Auto Select Span                    |
+| v    | \<C-S\>          | Auto Select Span Previous           |
+| n    | ;jr            | Jupyter Run                         |
+| n    | ;j.            | Jupyter Change Dir to Current       |
+| n    | ;jc            | Jupyter Connect                     |
+| n    | \<SPACE\>je             | Jupyter Run Visual                  |
+| v    | \<SPACE\>e              | Jupyter Run Visual                  |
+| n    | ;np            | Jupyter Convert                     |
+| t    | <esc>          | Back to Normal Mode                 |
+| t    | kj             | Back to Normal Mode                 |
+| v    | <C-s>          | Send Select Text to First Termianl  |
+| x    | <C-s>          | Send Select Text to First Termianl  |
+| n    | <C-s>          | Send Current Line to First Termianl |
+| n    | ;ti            | Terminal IPython                    |
+| n    | ;cn            | Color New                           |
+| n    | ;cp            | Color Picker                        |
+| n    | ;cs            | Color Select(CSS)                   |
+| n    | ;cg            | Color Gradient 2 Colors             |
+| n    | ;ft            | File Tree                           |
+| n    | ;f.            | Current File Tree                   |
+| n    | ;re            | Remote Edit                         |
+| n    | ;rc            | Remote Configure                    |
+| n    | ;sk            | Session Keep                        |
+| n    | ;sL            | Session List                        |
+| n    | ;sd            | Session Delete                      |
+| n    | ;sl            | Load Session(Dir)                   |
+| n    | ;tt            | Toggle TODO List                    |
+| n    | gT             | Goto Trouble Reference              |
+| n    | ;lt            | Trouble Toggle                      |
+| n    | ;lq            | Trouble Quickfix                    |
+| n    | ;lw            | Trouble Workspace                   |
+| n    | ;ll            | Trouble Loclist                     |
+| n    | ;ld            | Trouble Document                    |
+| n    | gG             | Glance Definitions                  |
+| n    | gf             | Lsp Finder                          |
+| n    | ga             | Lsp Code Action                     |
+| n    | gp             | Lsp Peek Definition                 |
+| n    | gR             | Lsp Rename                          |
+| n    | K              | Displays Hover                      |
+| n    | ;lc            | Lsp Config                          |
+| n    | gd             | Goto Definition                     |
+| n    | gr             | Goto References                     |
+| n    | gi             | Goto Implementation                 |
+| n    | ;sn            | Prev Diagnostic                     |
+| n    | ]e             | Next Diagnostic                     |
+| n    | [e             | Prev Diagnostic                     |
+| n    | \<C-p\>          | Next Diagnostic                     |
+| n    | ;=             | Code Format                         |
+| n    | ;s=            | Sql Format                          |
+| v    | ;s=            | Sql Format                          |
+| n    | ;gi            | Git Indicator Toggle                |
+| n    | ;ga            | Git Add                             |
+| n    | ;gb            | Git Blame                           |
+| n    | ;gc            | Git Commits                         |
+| n    | ;gC            | Git Checkout                        |
+| n    | ;ge            | Git Edit Something                  |
+| n    | ;gd            | Git Diff                            |
+| n    | ;gg            | Git Grep                            |
+| n    | ;gl            | Git Log For Current File            |
+| n    | ;gL            | Git Log                             |
+| n    | ;gm            | Git Move                            |
+| n    | ;gr            | Git Read                            |
+| n    | ;gs            | Git Status                          |
+| n    | ;gw            | Git Write                           |
+| n    | ;gu            | Git Pull                            |
+| n    | ;gp            | Git Push                            |
+| n    | ;f;s           | Open Startify Page                  |
+| n    | \<SPACE\>1              | Goto 1 Window                       |
+| n    | \<SPACE\>2              | Goto 2 Window                       |
+| n    | \<SPACE\>3              | Goto 3 Window                       |
+| n    | \<SPACE\>4              | Goto 4 Window                       |
+| n    | \<SPACE\>5              | Goto 5 Window                       |
+| n    | \<SPACE\>6              | Goto 6 Window                       |
+| n    | \<SPACE\>7              | Goto 7 Window                       |
+| n    | \<SPACE\>8              | Goto 8 Window                       |
+| n    | \<SPACE\>9              | Goto 9 Window                       |
+| n    | ;1             | Goto 1 Buffer                       |
+| n    | ;2             | Goto 2 Buffer                       |
+| n    | ;3             | Goto 3 Buffer                       |
+| n    | ;4             | Goto 4 Buffer                       |
+| n    | ;5             | Goto 5 Buffer                       |
+| n    | ;6             | Goto 6 Buffer                       |
+| n    | ;7             | Goto 7 Buffer                       |
+| n    | ;8             | Goto 8 Buffer                       |
+| n    | ;9             | Goto 9 Buffer                       |
+| n    | ;A             | Goto A Buffer                       |
+| n    | ;B             | Goto B Buffer                       |
+| n    | ;C             | Goto C Buffer                       |
+| n    | ;D             | Goto D Buffer                       |
+| n    | ;E             | Goto E Buffer                       |
+| n    | ;F             | Goto F Buffer                       |
+| n    | ;G             | Goto G Buffer                       |
+| n    | ;H             | Goto H Buffer                       |
+| n    | ;I             | Goto I Buffer                       |
+| n    | ;J             | Goto J Buffer                       |
+| n    | ;K             | Goto K Buffer                       |
+| n    | ;L             | Goto L Buffer                       |
+| n    | ;M             | Goto M Buffer                       |
+| n    | ;N             | Goto N Buffer                       |
+| n    | ;bn            | Goto Next Buffer                    |
+| n    | ;bp            | Goto Prev Buffer                    |
+| n    | ;bf            | Goto First Buffer                   |
+| n    | ;bl            | Goto Last Buffer                    |
+| n    | ;bd            | Delete Current Buffer               |
+| n    | ;bD            | Delete All Buffer Except Current    |
+| n    | ;bR            | Delete All Right Buffers            |
+| n    | ;bL            | Delete All Left Buffers             |
+| n    | ;bs            | Buffer Sorted By Whether Modified   |
+| n    | ;tc            | Tab Create                          |
+| n    | ;tx            | Tab Close                           |
+| n    | ;tn            | Tab Next                            |
+| n    | ;tp            | Tab Previous                        |
+| n    | \<SPACE\>\<SPACE\> | Blink Cursor                        |
+| n    | ;op            | Pomodoro Clock                      |
+| n    | ;ops           | Start Pomodoro Clock                |
+| n    | ;opq           | Quit Pomodoro Clock                 |
+| n    | ;opc           | Cancel Pomodoro Clock               |
+| n    | ;c<tab> | ColorStyle Exchange                 ||
