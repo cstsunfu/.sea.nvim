@@ -40,11 +40,11 @@ local mapping_prefix = {
     ["<leader>y"] = { name = "+ Yank" },
 }
 
-
+--local iomappings = io.open("/home/sun/a.md", "a")
 global_mapping.register = function(new_map)
     --  mode = "n", --string or list of string         default : "n" or {"n"}
     --  key = {"<leader>", "f"},     required
-    --  noremap = nil,               default : nil
+    --  noremap = true,               default : true
     --  action = "",                  required
     --  short_desc = "",              default : No DESC
     --  desc = "",                    default = short_desc
@@ -75,6 +75,7 @@ global_mapping.register = function(new_map)
     end
 
     local option = {}
+    option['noremap'] = true
     if new_map['noremap'] ~= nil then
         option['noremap'] = new_map.noremap
     end
@@ -104,7 +105,7 @@ global_mapping.register = function(new_map)
             table.insert(key_list, key)
         end
     end
-    --print(new_map['mode'] .. '     ' .. uni_key_string .. '     ' .. new_map['short_desc'])
+    --iomappings:write(new_map['mode'] .. '  |  ' .. uni_key_string .. '  |  ' .. new_map['short_desc']..'\n')
 
     if used[new_map['mode']][uni_key_string] then
         vim.print(used[new_map['mode']])
@@ -651,49 +652,58 @@ global_mapping.register({
 -- emacs key binding for insert mode
 global_mapping.register({
     mode = "i",
-    key = { "<C-w>" },
-    action = '<C-[>diwa',
+    key = { "<C-u>" },
+    noremap = true,
+    action = '<C-[>bdiwa',
+    short_desc = "Delete Prior Word"
+})
+
+global_mapping.register({
+    mode = "i",
+    key = { "<C-h>" },
+    noremap = true,
+    action = '<BS>',
     short_desc = "Delete Prior Word"
 })
 global_mapping.register({
     mode = "i",
-    key = { "<C-h>" },
-    action = '<BS>',
-    short_desc = "Delete Prior Char"
-})
-global_mapping.register({
-    mode = "i",
     key = { "<C-d>" },
+    noremap = true,
     action = '<Del>',
     short_desc = "Delete Next Char"
 })
 global_mapping.register({
     mode = "i",
     key = { "<C-k>" },
-    action = '<ESC>d$a',
+    noremap = true,
+    action = '<ESC>ld$a',
     short_desc = "Delete To The End"
 })
 global_mapping.register({
     mode = "i",
-    key = { "<C-u>" },
-    action = '<C-G>u<C-U>',
+    key = { "<C-j>" },
+    noremap = true,
+    action = '<esc>v0c',
     short_desc = "Delete To The Begin"
 })
 global_mapping.register({
     mode = "i",
     key = { "<C-b>" },
+    noremap = true,
     action = '<Left>',
     short_desc = "Go Left"
 })
 global_mapping.register({
     mode = "i",
     key = { "<C-f>" },
+    noremap = true,
     action = '<Right>',
     short_desc = "Go Right"
 })
 global_mapping.register({
     mode = "i",
     key = { "<C-a>" },
+    noremap = true,
     action = '<ESC>^i',
     short_desc = "Go To The Begin and Insert"
 })

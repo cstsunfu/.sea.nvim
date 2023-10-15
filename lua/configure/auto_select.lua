@@ -25,14 +25,6 @@ plugin.mapping = function()
         noremap = true,
         silent = true,
     })
-    mappings.register({
-        mode = {"v"},
-        key = { "<C-S>" },
-        action = '<Plug>(wildfire-water)',
-        short_desc = "Auto Select Span Previous",
-        noremap = true,
-        silent = true,
-    })
 
 end
 
