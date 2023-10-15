@@ -273,9 +273,9 @@ Each figure may display with different colorscheme.
 | n    | ;np            | Jupyter Convert                     |
 | t    | <esc>          | Back to Normal Mode                 |
 | t    | kj             | Back to Normal Mode                 |
-| v    | <C-s>          | Send Select Text to First Termianl  |
-| x    | <C-s>          | Send Select Text to First Termianl  |
-| n    | <C-s>          | Send Current Line to First Termianl |
+| v    | \<C-s\>        | Send Select Text to First Termianl  |
+| x    | \<C-s\>        | Send Select Text to First Termianl  |
+| n    | \<C-s\>        | Send Current Line to First Termianl |
 | n    | ;ti            | Terminal IPython                    |
 | n    | ;cn            | Color New                           |
 | n    | ;cp            | Color Picker                        |
