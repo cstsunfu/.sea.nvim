@@ -6,7 +6,7 @@ default_setting['global'] = {
 }
 
 -- setting map leader
-vim.cmd("let maplocalleader='\\'")
+vim.cmd("let maplocalleader=' '")
 vim.cmd("let mapleader=';'")
 vim.cmd("nnoremap ' ;")
 vim.cmd("vnoremap ' ;")

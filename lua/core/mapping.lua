@@ -23,7 +23,6 @@ local mapping_prefix = {
     ["<leader>e"] = { name = "+ Eval" },
     ["<leader>f"] = { name = "+ File" },
     ["<leader>g"] = { name = "+ Git/Generator" },
-    --["<leader>G"] = {name = "+ Git"},
     ["<leader>h"] = { name = "+ History" },
     ["<leader>j"] = { name = "+ Json/Jupyter" },
     ["<leader>l"] = { name = "+ Line" },
@@ -32,22 +31,13 @@ local mapping_prefix = {
     ["<leader>o"] = { name = "+ Org" },
     ["<leader>p"] = { name = "+ Paste" },
     ["<leader>q"] = { name = "+ Quit/QuickFix" },
-    ["<leader>r"] = { name = "+ Read" },
+    ["<leader>r"] = { name = "+ Read/Remote" },
     ["<leader>s"] = { name = "+ Snip/Save/CtrlSF/Space/Sign/Source File" },
     ["<leader>t"] = { name = "+ Table/Terminal/Translate/Tab" },
     ["<leader>v"] = { name = "+ Visual" },
     ["<leader>w"] = { name = "+ Window" },
     ["<leader>x"] = { name = "+ Quit" },
     ["<leader>y"] = { name = "+ Yank" },
-    ["<leader>1"] = { name = "+ Go buffer 1" },
-    ["<leader>2"] = { name = "+ Go buffer 2" },
-    ["<leader>3"] = { name = "+ Go buffer 3" },
-    ["<leader>4"] = { name = "+ Go buffer 4" },
-    ["<leader>5"] = { name = "+ Go buffer 5" },
-    ["<leader>6"] = { name = "+ Go buffer 6" },
-    ["<leader>7"] = { name = "+ Go buffer 7" },
-    ["<leader>8"] = { name = "+ Go buffer 8" },
-    ["<leader>9"] = { name = "+ Go buffer 9" }
 }
 
 
@@ -117,13 +107,13 @@ global_mapping.register = function(new_map)
     --print(new_map['mode'] .. '     ' .. uni_key_string .. '     ' .. new_map['short_desc'])
 
     if used[new_map['mode']][uni_key_string] then
+        vim.print(used[new_map['mode']])
         print("Mode " .. new_map['mode'] .. " " .. uni_key_string .. " has been used for " .. used[new_map['mode']][uni_key_string] .. ", you should change " .. new_map["short_desc"] .. " to another one.")
         return
     else
         used[new_map['mode']][uni_key_string] = new_map['short_desc']
     end
-    --local prefix = key_list[1]
-    --if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['disable'] == false and key_list[1] == "<leader>" and new_map.mode == 'n' then
+    --vim.print(new_map.mode..'   '..uni_key_string..'    |'..new_map['short_desc'])
     if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['enabled'] == true and #key_list > 1 and new_map.mode == 'n' then
         local prefix = key_list[1]
         if #key_list > 1 then
@@ -168,12 +158,14 @@ global_mapping.register({
     mode = "i",
     key = { vim.g.mapleader },
     action = vim.g.mapleader,
+    short_desc = "Leader Key"
 })
 
 global_mapping.register({
     mode = "i",
     key = { vim.g.maplocalleader },
     action = vim.g.maplocalleader,
+    short_desc = "LocalLeader Key"
 })
 
 -- common mappings
@@ -181,34 +173,25 @@ global_mapping.register({
     mode = "x",
     key = { "<" },
     action = "<gv",
+    short_desc = "Left Indent Selected"
 })
 global_mapping.register({
     mode = "x",
     key = { ">" },
     action = ">gv",
-})
-global_mapping.register({
-    mode = "t",
-    key = { "<esc>" },
-    action = "<C-\\><C-n>",
+    short_desc = "Right Indent Selected"
 })
 global_mapping.register({
     mode = "i",
     key = { "k", "j" },
     action = "<esc>",
-    short_desc = "ESC"
+    short_desc = "Back to Normal Mode"
 })
 global_mapping.register({
     mode = "c",
-    key = { "j", "k" },
+    key = { "k", "j" },
     action = "<esc>",
-    short_desc = "ESC"
-})
-global_mapping.register({
-    mode = "t",
-    key = { "j", "k" },
-    action = "<esc>",
-    short_desc = "ESC"
+    short_desc = "Back to Normal Mode"
 })
 
 

@@ -44,13 +44,61 @@ plugin.mapping = function()
     function _G.set_terminal_keymaps()
         local opts = {noremap = true}
         vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+        vim.api.nvim_buf_set_keymap(0, 't', 'kj', [[<C-\><C-n>]], opts)
     end
     vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
+    mappings.register({
+        mode = {"t"},
+        key = { '<esc>' },
+        action = nil,
+        short_desc = "Back to Normal Mode"
+    })
+    mappings.register({
+        mode = {"t"},
+        key = { 'k', 'j' },
+        action = nil,
+        short_desc = "Back to Normal Mode"
+    })
+    mappings.register({
+        mode = {"v", 'x'},
+        key = { '<C-s>' },
+        action = ":ToggleTermSendVisualSelection<cr>",
+        short_desc = "Send Select Text to First Termianl"
+    })
+    mappings.register({
+        mode = {"n"},
+        key = { '<C-s>' },
+        action = ":ToggleTermSendCurrentLine<cr>",
+        short_desc = "Send Current Line to First Termianl"
+    })
+
+
+    function _G._ipython_terminal_toggle()
+        local Terminal  = require('toggleterm.terminal').Terminal
+        local ipython = Terminal:new({
+          cmd = "ipython",
+          --dir = "git_dir",
+          direction = "vertical",
+          close_on_exit = false,
+          -- function to run on opening the terminal
+          on_open = function(term)
+            vim.cmd("startinsert!")
+            --vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+          end,
+          -- function to run on closing the terminal
+          on_close = function(term)
+            vim.cmd("startinsert!")
+          end,
+        })
+        ipython:toggle()
+    end
+
+    mappings.register({
+        mode = {"n"},
+        key = { '<leader>', 't', 'i' },
+        action = ":lua _G._ipython_terminal_toggle()<cr>",
+        short_desc = "Terminal IPython"
+    })
 end
 return plugin
