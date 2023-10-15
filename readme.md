@@ -191,193 +191,193 @@ Each figure may display with different colorscheme.
     WARNING: We will remap some shortcuts but not update this table, just for reference.
 
 
-| Mode | Mapping        | Description                         |
-|------|----------------|-------------------------------------|
-| n    | ;cA            | Comment Append                      |
-| v    | ;cA            | Comment Append                      |
-| n    | ;cu            | UnComment                           |
-| v    | ;cu            | UnComment                           |
-| n    | ;gv            | Git Diff View                       |
-| n    | ;gh            | Git History                         |
-| n    | ;se            | Test ot                             |
-| v    | ;ld            | Line Diff                           |
-| n    | ;ht            | History Tree                        |
-| n    | ;dq            | Debug Quit     F2                   |
-| n    | ;dC            | Clear Breaks   F4                   |
-| n    | ;dc            | Run Continue   F5                   |
-| n    | ;dB            | Step Back      F6                   |
-| n    | ;da            | Advanced Debug                      |
-| n    | ;daw           | Advanced Break F7                   |
-| n    | ;dac           | Cond Break     F8                   |
-| n    | ;db            | Toggle Break   F9                   |
-| n    | ;do            | Step Over      F10                  |
-| n    | ;di            | Step Into      F11                  |
-| n    | ;dO            | Step Out       F12                  |
-| n    | ;dr            | Repl Open                           |
-| n    | ;mp            | Markdown Preview                    |
-| n    | \<SPACE\>f              | Display Formula                     |
-| n    | \<SPACE\>p              | Paste Image                         |
-| n    | ;tm            | Toggle Table Mode                   |
-| n    | ;tfe           | Table Fomule Eval                   |
-| n    | ;oC            | Calendar                            |
-| n    | ;oa            | Org Agenda                          |
-| n    | ;oc            | Org Capture                         |
-| n    | ;ox            | Org Clock                           |
-| n    | ;oxe           | Org Effort Estimate                 |
-| n    | ;oxi           | Clock In                            |
-| n    | ;oxo           | Clock Out                           |
-| n    | ;oxq           | Clock Cancel                        |
-| n    | ;oxj           | Clock Goto                          |
-| n    | cir            | Org Priority Down                   |
-| n    | ciR            | Org Priority Up                     |
-| x    | ciR            | Org Priority Up                     |
-| n    | cit            | Org Todo Status                     |
-| n    | ciT            | Org Todo Status                     |
-| n    | cid            | Org Change Date                     |
-| n    | ;of            | Org Open File                       |
-| n    | ;ot            | Org Tag                             |
-| n    | ;oi            | Org Insert                          |
-| n    | ;oid           | Org Insert DEADLINE                 |
-| n    | ;oih           | Org Insert Headline                 |
-| n    | ;ois           | Org Insert SCHEDULED                |
-| n    | ;oit           | Org Insert TODO                     |
-| n    | ;oi.           | Org Insert Time Stamp               |
-| n    | ;oiT           | Org Inplace Insert TODO             |
-| n    | ;oi,           | Org Insert Inactive Time Stamp      |
-| n    | ;oK            | Org Move Up                         |
-| n    | ;oJ            | Org Move Down                       |
-| n    | ;o'            | Org Edit Source                     |
-| n    | ;o$            | Org Archive Subtree                 |
-| n    | ;oA            | Org Archive Tag                     |
-| n    | ;or            | Org Refile To                       |
-| n    | ;o*            | Org Toggle Headline                 |
-| n    | ;o,            | Org Priority                        |
-| n    | ;oe            | Org Export(Emacs)                   |
-| n    | ;O             | Vimwiki                             |
-| n    | ;o;            | Vimwiki Make Note                   |
-| n    | ;fo            | ObsidianSearch                      |
-| n    | ;on            | New Draft Obsidian                  |
-| n    | ;mt            | Quick Build                         |
-| n    | ;ce            | Code Edit(markdown)                 |
-| n    | ;to            | Toggle Only Window(ZenMode)         |
-| n    | ;tw            | Translate Current Word.             |
-| v    | ;tw            | Translate Current Vision Word.      |
-| n    | \<cr\>           | Auto Select Span                    |
-| v    | \<cr\>           | Auto Select Span                    |
-| v    | \<C-S\>          | Auto Select Span Previous           |
-| n    | ;jr            | Jupyter Run                         |
-| n    | ;j.            | Jupyter Change Dir to Current       |
-| n    | ;jc            | Jupyter Connect                     |
-| n    | \<SPACE\>je             | Jupyter Run Visual                  |
-| v    | \<SPACE\>e              | Jupyter Run Visual                  |
-| n    | ;np            | Jupyter Convert                     |
-| t    | <esc>          | Back to Normal Mode                 |
-| t    | kj             | Back to Normal Mode                 |
-| v    | \<C-s\>        | Send Select Text to First Termianl  |
-| x    | \<C-s\>        | Send Select Text to First Termianl  |
-| n    | \<C-s\>        | Send Current Line to First Termianl |
-| n    | ;ti            | Terminal IPython                    |
-| n    | ;cn            | Color New                           |
-| n    | ;cp            | Color Picker                        |
-| n    | ;cs            | Color Select(CSS)                   |
-| n    | ;cg            | Color Gradient 2 Colors             |
-| n    | ;ft            | File Tree                           |
-| n    | ;f.            | Current File Tree                   |
-| n    | ;re            | Remote Edit                         |
-| n    | ;rc            | Remote Configure                    |
-| n    | ;sk            | Session Keep                        |
-| n    | ;sL            | Session List                        |
-| n    | ;sd            | Session Delete                      |
-| n    | ;sl            | Load Session(Dir)                   |
-| n    | ;tt            | Toggle TODO List                    |
-| n    | gT             | Goto Trouble Reference              |
-| n    | ;lt            | Trouble Toggle                      |
-| n    | ;lq            | Trouble Quickfix                    |
-| n    | ;lw            | Trouble Workspace                   |
-| n    | ;ll            | Trouble Loclist                     |
-| n    | ;ld            | Trouble Document                    |
-| n    | gG             | Glance Definitions                  |
-| n    | gf             | Lsp Finder                          |
-| n    | ga             | Lsp Code Action                     |
-| n    | gp             | Lsp Peek Definition                 |
-| n    | gR             | Lsp Rename                          |
-| n    | K              | Displays Hover                      |
-| n    | ;lc            | Lsp Config                          |
-| n    | gd             | Goto Definition                     |
-| n    | gr             | Goto References                     |
-| n    | gi             | Goto Implementation                 |
-| n    | ;sn            | Prev Diagnostic                     |
-| n    | ]e             | Next Diagnostic                     |
-| n    | [e             | Prev Diagnostic                     |
-| n    | \<C-p\>          | Next Diagnostic                     |
-| n    | ;=             | Code Format                         |
-| n    | ;s=            | Sql Format                          |
-| v    | ;s=            | Sql Format                          |
-| n    | ;gi            | Git Indicator Toggle                |
-| n    | ;ga            | Git Add                             |
-| n    | ;gb            | Git Blame                           |
-| n    | ;gc            | Git Commits                         |
-| n    | ;gC            | Git Checkout                        |
-| n    | ;ge            | Git Edit Something                  |
-| n    | ;gd            | Git Diff                            |
-| n    | ;gg            | Git Grep                            |
-| n    | ;gl            | Git Log For Current File            |
-| n    | ;gL            | Git Log                             |
-| n    | ;gm            | Git Move                            |
-| n    | ;gr            | Git Read                            |
-| n    | ;gs            | Git Status                          |
-| n    | ;gw            | Git Write                           |
-| n    | ;gu            | Git Pull                            |
-| n    | ;gp            | Git Push                            |
-| n    | ;f;s           | Open Startify Page                  |
-| n    | \<SPACE\>1              | Goto 1 Window                       |
-| n    | \<SPACE\>2              | Goto 2 Window                       |
-| n    | \<SPACE\>3              | Goto 3 Window                       |
-| n    | \<SPACE\>4              | Goto 4 Window                       |
-| n    | \<SPACE\>5              | Goto 5 Window                       |
-| n    | \<SPACE\>6              | Goto 6 Window                       |
-| n    | \<SPACE\>7              | Goto 7 Window                       |
-| n    | \<SPACE\>8              | Goto 8 Window                       |
-| n    | \<SPACE\>9              | Goto 9 Window                       |
-| n    | ;1             | Goto 1 Buffer                       |
-| n    | ;2             | Goto 2 Buffer                       |
-| n    | ;3             | Goto 3 Buffer                       |
-| n    | ;4             | Goto 4 Buffer                       |
-| n    | ;5             | Goto 5 Buffer                       |
-| n    | ;6             | Goto 6 Buffer                       |
-| n    | ;7             | Goto 7 Buffer                       |
-| n    | ;8             | Goto 8 Buffer                       |
-| n    | ;9             | Goto 9 Buffer                       |
-| n    | ;A             | Goto A Buffer                       |
-| n    | ;B             | Goto B Buffer                       |
-| n    | ;C             | Goto C Buffer                       |
-| n    | ;D             | Goto D Buffer                       |
-| n    | ;E             | Goto E Buffer                       |
-| n    | ;F             | Goto F Buffer                       |
-| n    | ;G             | Goto G Buffer                       |
-| n    | ;H             | Goto H Buffer                       |
-| n    | ;I             | Goto I Buffer                       |
-| n    | ;J             | Goto J Buffer                       |
-| n    | ;K             | Goto K Buffer                       |
-| n    | ;L             | Goto L Buffer                       |
-| n    | ;M             | Goto M Buffer                       |
-| n    | ;N             | Goto N Buffer                       |
-| n    | ;bn            | Goto Next Buffer                    |
-| n    | ;bp            | Goto Prev Buffer                    |
-| n    | ;bf            | Goto First Buffer                   |
-| n    | ;bl            | Goto Last Buffer                    |
-| n    | ;bd            | Delete Current Buffer               |
-| n    | ;bD            | Delete All Buffer Except Current    |
-| n    | ;bR            | Delete All Right Buffers            |
-| n    | ;bL            | Delete All Left Buffers             |
-| n    | ;bs            | Buffer Sorted By Whether Modified   |
-| n    | ;tc            | Tab Create                          |
-| n    | ;tx            | Tab Close                           |
-| n    | ;tn            | Tab Next                            |
-| n    | ;tp            | Tab Previous                        |
+| Mode | Mapping            | Description                         |
+|------|--------------------|-------------------------------------|
+| n    | ;cA                | Comment Append                      |
+| v    | ;cA                | Comment Append                      |
+| n    | ;cu                | UnComment                           |
+| v    | ;cu                | UnComment                           |
+| n    | ;gv                | Git Diff View                       |
+| n    | ;gh                | Git History                         |
+| n    | ;se                | Test ot                             |
+| v    | ;ld                | Line Diff                           |
+| n    | ;ht                | History Tree                        |
+| n    | ;dq                | Debug Quit     F2                   |
+| n    | ;dC                | Clear Breaks   F4                   |
+| n    | ;dc                | Run Continue   F5                   |
+| n    | ;dB                | Step Back      F6                   |
+| n    | ;da                | Advanced Debug                      |
+| n    | ;daw               | Advanced Break F7                   |
+| n    | ;dac               | Cond Break     F8                   |
+| n    | ;db                | Toggle Break   F9                   |
+| n    | ;do                | Step Over      F10                  |
+| n    | ;di                | Step Into      F11                  |
+| n    | ;dO                | Step Out       F12                  |
+| n    | ;dr                | Repl Open                           |
+| n    | ;mp                | Markdown Preview                    |
+| n    | \<SPACE\>f         | Display Formula                     |
+| n    | \<SPACE\>p         | Paste Image                         |
+| n    | ;tm                | Toggle Table Mode                   |
+| n    | ;tfe               | Table Fomule Eval                   |
+| n    | ;oC                | Calendar                            |
+| n    | ;oa                | Org Agenda                          |
+| n    | ;oc                | Org Capture                         |
+| n    | ;ox                | Org Clock                           |
+| n    | ;oxe               | Org Effort Estimate                 |
+| n    | ;oxi               | Clock In                            |
+| n    | ;oxo               | Clock Out                           |
+| n    | ;oxq               | Clock Cancel                        |
+| n    | ;oxj               | Clock Goto                          |
+| n    | cir                | Org Priority Down                   |
+| n    | ciR                | Org Priority Up                     |
+| x    | ciR                | Org Priority Up                     |
+| n    | cit                | Org Todo Status                     |
+| n    | ciT                | Org Todo Status                     |
+| n    | cid                | Org Change Date                     |
+| n    | ;of                | Org Open File                       |
+| n    | ;ot                | Org Tag                             |
+| n    | ;oi                | Org Insert                          |
+| n    | ;oid               | Org Insert DEADLINE                 |
+| n    | ;oih               | Org Insert Headline                 |
+| n    | ;ois               | Org Insert SCHEDULED                |
+| n    | ;oit               | Org Insert TODO                     |
+| n    | ;oi.               | Org Insert Time Stamp               |
+| n    | ;oiT               | Org Inplace Insert TODO             |
+| n    | ;oi,               | Org Insert Inactive Time Stamp      |
+| n    | ;oK                | Org Move Up                         |
+| n    | ;oJ                | Org Move Down                       |
+| n    | ;o'                | Org Edit Source                     |
+| n    | ;o$                | Org Archive Subtree                 |
+| n    | ;oA                | Org Archive Tag                     |
+| n    | ;or                | Org Refile To                       |
+| n    | ;o*                | Org Toggle Headline                 |
+| n    | ;o,                | Org Priority                        |
+| n    | ;oe                | Org Export(Emacs)                   |
+| n    | ;O                 | Vimwiki                             |
+| n    | ;o;                | Vimwiki Make Note                   |
+| n    | ;fo                | ObsidianSearch                      |
+| n    | ;on                | New Draft Obsidian                  |
+| n    | ;mt                | Quick Build                         |
+| n    | ;ce                | Code Edit(markdown)                 |
+| n    | ;to                | Toggle Only Window(ZenMode)         |
+| n    | ;tw                | Translate Current Word.             |
+| v    | ;tw                | Translate Current Vision Word.      |
+| n    | \<cr\>             | Auto Select Span                    |
+| v    | \<cr\>             | Auto Select Span                    |
+| v    | \<C-S\>            | Auto Select Span Previous           |
+| n    | ;jr                | Jupyter Run                         |
+| n    | ;j.                | Jupyter Change Dir to Current       |
+| n    | ;jc                | Jupyter Connect                     |
+| n    | \<SPACE\>je        | Jupyter Run Visual                  |
+| v    | \<SPACE\>e         | Jupyter Run Visual                  |
+| n    | ;np                | Jupyter Convert                     |
+| t    | \<esc\>            | Back to Normal Mode                 |
+| t    | kj                 | Back to Normal Mode                 |
+| v    | \<C-s\>            | Send Select Text to First Termianl  |
+| x    | \<C-s\>            | Send Select Text to First Termianl  |
+| n    | \<C-s\>            | Send Current Line to First Termianl |
+| n    | ;ti                | Terminal IPython                    |
+| n    | ;cn                | Color New                           |
+| n    | ;cp                | Color Picker                        |
+| n    | ;cs                | Color Select(CSS)                   |
+| n    | ;cg                | Color Gradient 2 Colors             |
+| n    | ;ft                | File Tree                           |
+| n    | ;f.                | Current File Tree                   |
+| n    | ;re                | Remote Edit                         |
+| n    | ;rc                | Remote Configure                    |
+| n    | ;sk                | Session Keep                        |
+| n    | ;sL                | Session List                        |
+| n    | ;sd                | Session Delete                      |
+| n    | ;sl                | Load Session(Dir)                   |
+| n    | ;tt                | Toggle TODO List                    |
+| n    | gT                 | Goto Trouble Reference              |
+| n    | ;lt                | Trouble Toggle                      |
+| n    | ;lq                | Trouble Quickfix                    |
+| n    | ;lw                | Trouble Workspace                   |
+| n    | ;ll                | Trouble Loclist                     |
+| n    | ;ld                | Trouble Document                    |
+| n    | gG                 | Glance Definitions                  |
+| n    | gf                 | Lsp Finder                          |
+| n    | ga                 | Lsp Code Action                     |
+| n    | gp                 | Lsp Peek Definition                 |
+| n    | gR                 | Lsp Rename                          |
+| n    | K                  | Displays Hover                      |
+| n    | ;lc                | Lsp Config                          |
+| n    | gd                 | Goto Definition                     |
+| n    | gr                 | Goto References                     |
+| n    | gi                 | Goto Implementation                 |
+| n    | ;sn                | Prev Diagnostic                     |
+| n    | ]e                 | Next Diagnostic                     |
+| n    | [e                 | Prev Diagnostic                     |
+| n    | \<C-p\>            | Next Diagnostic                     |
+| n    | ;=                 | Code Format                         |
+| n    | ;s=                | Sql Format                          |
+| v    | ;s=                | Sql Format                          |
+| n    | ;gi                | Git Indicator Toggle                |
+| n    | ;ga                | Git Add                             |
+| n    | ;gb                | Git Blame                           |
+| n    | ;gc                | Git Commits                         |
+| n    | ;gC                | Git Checkout                        |
+| n    | ;ge                | Git Edit Something                  |
+| n    | ;gd                | Git Diff                            |
+| n    | ;gg                | Git Grep                            |
+| n    | ;gl                | Git Log For Current File            |
+| n    | ;gL                | Git Log                             |
+| n    | ;gm                | Git Move                            |
+| n    | ;gr                | Git Read                            |
+| n    | ;gs                | Git Status                          |
+| n    | ;gw                | Git Write                           |
+| n    | ;gu                | Git Pull                            |
+| n    | ;gp                | Git Push                            |
+| n    | ;f;s               | Open Startify Page                  |
+| n    | \<SPACE\>1         | Goto 1 Window                       |
+| n    | \<SPACE\>2         | Goto 2 Window                       |
+| n    | \<SPACE\>3         | Goto 3 Window                       |
+| n    | \<SPACE\>4         | Goto 4 Window                       |
+| n    | \<SPACE\>5         | Goto 5 Window                       |
+| n    | \<SPACE\>6         | Goto 6 Window                       |
+| n    | \<SPACE\>7         | Goto 7 Window                       |
+| n    | \<SPACE\>8         | Goto 8 Window                       |
+| n    | \<SPACE\>9         | Goto 9 Window                       |
+| n    | ;1                 | Goto 1 Buffer                       |
+| n    | ;2                 | Goto 2 Buffer                       |
+| n    | ;3                 | Goto 3 Buffer                       |
+| n    | ;4                 | Goto 4 Buffer                       |
+| n    | ;5                 | Goto 5 Buffer                       |
+| n    | ;6                 | Goto 6 Buffer                       |
+| n    | ;7                 | Goto 7 Buffer                       |
+| n    | ;8                 | Goto 8 Buffer                       |
+| n    | ;9                 | Goto 9 Buffer                       |
+| n    | ;A                 | Goto A Buffer                       |
+| n    | ;B                 | Goto B Buffer                       |
+| n    | ;C                 | Goto C Buffer                       |
+| n    | ;D                 | Goto D Buffer                       |
+| n    | ;E                 | Goto E Buffer                       |
+| n    | ;F                 | Goto F Buffer                       |
+| n    | ;G                 | Goto G Buffer                       |
+| n    | ;H                 | Goto H Buffer                       |
+| n    | ;I                 | Goto I Buffer                       |
+| n    | ;J                 | Goto J Buffer                       |
+| n    | ;K                 | Goto K Buffer                       |
+| n    | ;L                 | Goto L Buffer                       |
+| n    | ;M                 | Goto M Buffer                       |
+| n    | ;N                 | Goto N Buffer                       |
+| n    | ;bn                | Goto Next Buffer                    |
+| n    | ;bp                | Goto Prev Buffer                    |
+| n    | ;bf                | Goto First Buffer                   |
+| n    | ;bl                | Goto Last Buffer                    |
+| n    | ;bd                | Delete Current Buffer               |
+| n    | ;bD                | Delete All Buffer Except Current    |
+| n    | ;bR                | Delete All Right Buffers            |
+| n    | ;bL                | Delete All Left Buffers             |
+| n    | ;bs                | Buffer Sorted By Whether Modified   |
+| n    | ;tc                | Tab Create                          |
+| n    | ;tx                | Tab Close                           |
+| n    | ;tn                | Tab Next                            |
+| n    | ;tp                | Tab Previous                        |
 | n    | \<SPACE\>\<SPACE\> | Blink Cursor                        |
-| n    | ;op            | Pomodoro Clock                      |
-| n    | ;ops           | Start Pomodoro Clock                |
-| n    | ;opq           | Quit Pomodoro Clock                 |
-| n    | ;opc           | Cancel Pomodoro Clock               |
-| n    | ;c<tab> | ColorStyle Exchange                 ||
+| n    | ;op                | Pomodoro Clock                      |
+| n    | ;ops               | Start Pomodoro Clock                |
+| n    | ;opq               | Quit Pomodoro Clock                 |
+| n    | ;opc               | Cancel Pomodoro Clock               |
+| n    | ;c<tab>            | ColorStyle Exchange                 |  |
