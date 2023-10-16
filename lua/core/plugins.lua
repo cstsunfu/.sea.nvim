@@ -76,6 +76,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['translate'] = { enabled = true },
         ['notify'] = { enabled = true },
         ['auto_select'] = { enabled = true },
+        ['syntax_tree_surfer'] = { enabled = true },
         ['ipython'] = { enabled = true },
         ['jukit'] = { enabled = true }, --for jupyter
         ['neogen'] = { enabled = false }, -- generate annotations

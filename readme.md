@@ -232,16 +232,16 @@ Each figure may display with different colorscheme.
 | n       | zm                 | Zip current                         |
 | n       | zM                 | Zip all                             |
 | n       | zo                 | Unzip current                       |
-| n,v,i,t | \<A-L\>            | <alt-l>Goto Right Window            |
-| n,v,i,t | \<A-K\>            | <alt-k>Goto Above Window            |
-| n,v,i,t | \<A-H\>            | <alt-h>Goto Left Window             |
-| n,v,i,t | \<A-J\>            | <alt-j>Goto Below Window            |
-| n,v,i,t | \<A-F\>            | <alt-f>Go to Next Buffer            |
-| n,v,i,t | \<A-B\>            | <alt-b>Go to Previous Buffer        |
-| n,v,i,t | \<A-W\>            | <alt-w>Size +5                      |
-| n,v,i,t | \<A-S\>            | <alt-s>Size -5                      |
-| n,v,i,t | \<A-A\>            | <alt-a>Vertical Size -5             |
-| n,v,i,t | \<A-D\>            | <alt-d>Vertical Size +5             |
+| n       | \<A-L\>            | <alt-l>Goto Right Window            |
+| n       | \<A-K\>            | <alt-k>Goto Above Window            |
+| n       | \<A-H\>            | <alt-h>Goto Left Window             |
+| n       | \<A-J\>            | <alt-j>Goto Below Window            |
+| n       | \<A-F\>            | <alt-f>Go to Next Buffer            |
+| n       | \<A-B\>            | <alt-b>Go to Previous Buffer        |
+| n       | \<A-W\>            | <alt-w>Size +5                      |
+| n       | \<A-S\>            | <alt-s>Size -5                      |
+| n       | \<A-A\>            | <alt-a>Vertical Size -5             |
+| n       | \<A-D\>            | <alt-d>Vertical Size +5             |
 | n,v     | \<C-J\>            | 5j                                  |
 | n,v     | \<C-k\>            | 5k                                  |
 | n       | \<SPACE\>\<CR\>    | No Search Highlight                 |
