@@ -24,7 +24,7 @@ vim.g.side_filetypes = { -- Specify which filetypes get the contrasted (darker) 
     "ctrlsf",
     "calendar",
     "undotree",
-    "toggleterm",
+    --"toggleterm",
     "DiffviewFiles",
     "diff",
     "Outline",
@@ -42,6 +42,8 @@ vim.g.side_filetypes = { -- Specify which filetypes get the contrasted (darker) 
 local no_number_filetypes = {
     Telescope = true,
     dashboard = true,
+    toggleterm = true,
+    terminal = true,
     dapui_console = true,
     ['dap-repl'] = true,
     help = true,
