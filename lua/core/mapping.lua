@@ -493,124 +493,124 @@ global_mapping.register({
 -- Alt
 if vim.fn.has('mac') == 1 then
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "¬" },
-        action = '<esc>:wincmd l<cr>',
+        action = '<C-\\><C-N>:wincmd l<cr>',
         short_desc = "<alt-l>Goto Right Window"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "˚" },
-        action = '<esc>:wincmd k<cr>',
+        action = '<C-\\><C-N>:wincmd k<cr>',
         short_desc = "<alt-k>Goto Above Window"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "˙" },
-        action = '<esc>:wincmd h<cr>',
+        action = '<C-\\><C-N>:wincmd h<cr>',
         short_desc = "<alt-h>Goto Left Window"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "∆" },
-        action = '<esc>:wincmd j<cr>',
+        action = '<C-\\><C-N>:wincmd j<cr>',
         short_desc = "<alt-j>Goto Below Window"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "ƒ" },
-        action = '<esc>:bnext<cr>',
+        action = '<C-\\><C-N>:bnext<cr>',
         short_desc = "<alt-f>Go to Next Buffer"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "∫" },
-        action = '<esc>:bprevious<cr>',
+        action = '<C-\\><C-N>:bprevious<cr>',
         short_desc = "<alt-b>Go to Previous Buffer"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "∑" },
-        action = '<esc>:resize +5<cr>',
+        action = '<C-\\><C-N>:resize +5<cr>',
         short_desc = "<alt-w>Size +5"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "ß" },
-        action = '<esc>:resize -5<cr>',
+        action = '<C-\\><C-N>:resize -5<cr>',
         short_desc = "<alt-s>Size -5"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "å" },
-        action = '<esc>:vertical resize -5<cr>',
+        action = '<C-\\><C-N>:vertical resize -5<cr>',
         short_desc = "<alt-a>Vertical Size -5"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "∂" },
-        action = '<esc>:vertical resize +5<cr>',
+        action = '<C-\\><C-N>:vertical resize +5<cr>',
         short_desc = "<alt-d>Vertical Size +5"
     })
 else
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-l>" },
-        action = '<esc>:wincmd l<cr>',
+        action = '<C-\\><C-N>:wincmd l<cr>',
         short_desc = "<alt-l>Goto Right Window"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-k>" },
-        action = '<esc>:wincmd k<cr>',
+        action = '<C-\\><C-N>:wincmd k<cr>',
         short_desc = "<alt-k>Goto Above Window"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-h>" },
-        action = '<esc>:wincmd h<cr>',
+        action = '<C-\\><C-N>:wincmd h<cr>',
         short_desc = "<alt-h>Goto Left Window"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-j>" },
-        action = '<esc>:wincmd j<cr>',
+        action = '<C-\\><C-N>:wincmd j<cr>',
         short_desc = "<alt-j>Goto Below Window"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-f>" },
-        action = '<esc>:bnext<cr>',
+        action = '<C-\\><C-N>:bnext<cr>',
         short_desc = "<alt-f>Go to Next Buffer"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-b>" },
-        action = '<esc>:bprevious<cr>',
+        action = '<C-\\><C-N>:bprevious<cr>',
         short_desc = "<alt-b>Go to Previous Buffer"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-w>" },
-        action = '<esc>:resize +5<cr>',
+        action = '<C-\\><C-N>:resize +5<cr>',
         short_desc = "<alt-w>Size +5"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-s>" },
-        action = '<esc>:resize -5<cr>',
+        action = '<C-\\><C-N>:resize -5<cr>',
         short_desc = "<alt-s>Size -5"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-a>" },
-        action = '<esc>:vertical resize -5<cr>',
+        action = '<C-\\><C-N>:vertical resize -5<cr>',
         short_desc = "<alt-a>Vertical Size -5"
     })
     global_mapping.register({
-        mode = { "n" },
+        mode = { "n", 'v', 'i', 't' },
         key = { "<A-d>" },
-        action = '<esc>:vertical resize +5<cr>',
+        action = '<C-\\><C-N>:vertical resize +5<cr>',
         short_desc = "<alt-d>Vertical Size +5"
     })
 end

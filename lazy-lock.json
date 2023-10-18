@@ -73,6 +73,7 @@
   "popup.nvim": { "branch": "master", "commit": "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
   "pounce-zh.nvim": { "branch": "master", "commit": "b7ad206ff7d9d3c105925412c4fec8fbbb32b924" },
   "present.nvim": { "branch": "main", "commit": "891175bf340f6e7319939bab014f4f416e7736d0" },
+  "prettier.nvim": { "branch": "main", "commit": "d98e732cb73690b07c00c839c924be1d1d9ac5c2" },
   "specs.nvim": { "branch": "main", "commit": "2743e412bbe21c9d73954c403d01e8de7377890d" },
   "sql.nvim": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
   "sqlite.lua": { "branch": "master", "commit": "b7e28c8463254c46a8e61c52d27d6a2040492fc3" },
