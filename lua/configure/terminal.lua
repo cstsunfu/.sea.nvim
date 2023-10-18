@@ -147,14 +147,7 @@ plugin.mapping = function()
         end
     end
     mappings.register({
-        mode = { "n" },
-        key = { "<C-\\>" },
-        silent = true,
-        action = ":lua _G._side_terminal_toggle()<cr>",
-        short_desc = "Side Terminal"
-    })
-    mappings.register({
-        mode = { "t" },
+        mode = { "n", "t", "i" },
         key = { "<C-\\>" },
         silent = true,
         action = "<C-\\><C-n>:lua _G._side_terminal_toggle()<cr>",
@@ -190,14 +183,7 @@ plugin.mapping = function()
     end
 
     mappings.register({
-        mode = {"n"},
-        key = { '<leader>', 't', 'i' },
-        silent = true,
-        action = ":lua _G._ipython_terminal_toggle()<cr>",
-        short_desc = "Terminal IPython"
-    })
-    mappings.register({
-        mode = {"t"},
+        mode = { "n", "t", "i" },
         key = { '<leader>', 't', 'i' },
         silent = true,
         action = "<C-\\><C-n>:lua _G._ipython_terminal_toggle()<cr>",

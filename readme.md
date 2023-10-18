@@ -45,6 +45,8 @@
   pip install pynvim
   # debugpy for python debug, just install it to your environment
   pip install debugpy
+  # optional yapf for python format
+  pip install yapf 
 ```
 
 3. Install `node.js`, `npm`, and `yarn`
@@ -127,10 +129,10 @@ For my experience,  `coc.nvim` is more easy to configure to get all things work.
 
 ## Optional
 
-1. Install `sql-formatter` for sql format
+1. Install `pg_format` for sql format
 
 ```
-npm install sql-formatter
+see https://github.com/darold/pgFormatter#:~:text=following%20your%20distribution.-,INSTALLATION,-Following%20your%20Linux
 ```
 
 2. Install `sqlite3` for better frequence files display(<leader>fh)

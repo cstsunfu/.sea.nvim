@@ -100,6 +100,9 @@ plugin.core = {
 
             },
             sqlls = {
+                cmd = { "sql-language-server", "up", "--method", "stdio" },
+                filetypes = { "sql", "mysql" },
+                single_file_support = true
             },
             clangd = {
                 capabilities = {offsetEncoding = { "utf-16" }},
@@ -196,27 +199,6 @@ plugin.mapping = function()
         silent = false
     })
 
-    mappings.register({
-        mode = "n",
-        key = { "<leader>", "=" },
-        action = ":lua vim.lsp.buf.format()<cr>",
-        short_desc = "Code Format"
-    })
-
-
-    mappings.register({
-        mode = "n",
-        key = { "<leader>", "s", "=" },
-        action = ":% !npx sql-formatter --config='$HOME/.sea.nvim/sql_format.json'<cr>",
-        short_desc = "Sql Format"
-    })
-
-    mappings.register({
-        mode = "v",
-        key = { "<leader>", "s", "=" },
-        action = ": !npx sql-formatter --config='$HOME/.sea.nvim/sql_format.json'<cr>",
-        short_desc = "Sql Format"
-    })
 
 end
 return plugin

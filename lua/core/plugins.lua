@@ -75,6 +75,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['speed_date'] = { enabled = true },
         ['translate'] = { enabled = true },
         ['notify'] = { enabled = true },
+        ['formatter'] = { enabled = true },
         ['auto_select'] = { enabled = true },
         ['syntax_tree_surfer'] = { enabled = true },
         ['ipython'] = { enabled = true },
