@@ -10,6 +10,7 @@ plugin.core = {
         vim.api.nvim_exec("highlight! GitSignsChange guifg=#73cef4", false)
         vim.api.nvim_exec("highlight! GitSignsDelete guifg=#ffc24b", false)
         vim.api.nvim_exec("highlight! GitSignsUntracked guifg=#ca321b", false)
+        -- work with statuscol.lua
         require("gitsigns").setup {
             signs = {
                 add = {
@@ -50,13 +51,13 @@ plugin.core = {
                     linehl = "GitSignsUntrackedLn",
                 },
             },
-            --signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
-            --numhl = false,
-            --linehl = false,
-            --watch_gitdir = { interval = 1000 },
-            --sign_priority = 100,
-            --update_debounce = 200,
-            --status_formatter = nil, -- Use default
+            signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+            numhl = false,
+            linehl = false,
+            watch_gitdir = { interval = 1000 },
+            sign_priority = 6,
+            update_debounce = 100,
+            status_formatter = nil, -- Use default
         }
     end,
 }

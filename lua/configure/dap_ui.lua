@@ -6,6 +6,7 @@ plugin.core = {
         {"mfussenegger/nvim-dap"},
         {"theHamsta/nvim-dap-virtual-text"},
     },
+    event = 'VeryLazy',
 
     init = function() -- Specifies code to run before this plugin is loaded.
 
