@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "windwp/nvim-spectre",
+    event = "VeryLazy",
     dependencies = {
         "popup.nvim",
         "plenary.nvim"
