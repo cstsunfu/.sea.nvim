@@ -2,49 +2,58 @@ local plugin = {}
 
 plugin.core = {
     "hrsh7th/nvim-cmp",
+    event = 'InsertEnter',
     dependencies = {
         "nvim-lspconfig",
         {
             "quangnguyen30192/cmp-nvim-ultisnips",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "BufEnter"
+            event = "InsertEnter"
         }, -- ultisnips source
         {
             "hrsh7th/cmp-nvim-lsp",
             enabled = vim.g.feature_groups.lsp == "builtin",
+            event = "InsertEnter"
         }, --builtin lsp source
         {
             "hrsh7th/cmp-buffer",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "BufEnter"
+            event = "InsertEnter"
         }, --buffer source
         {
             "hrsh7th/cmp-path",
             enabled = vim.g.feature_groups.lsp == "builtin",
+            event = "InsertEnter"
         }, --path source
         {
             "hrsh7th/cmp-cmdline",
             enabled = vim.g.feature_groups.lsp == "builtin",
+            event = "InsertEnter"
         }, -- for commandline complation
         {
             "dmitmel/cmp-cmdline-history",
             enabled = vim.g.feature_groups.lsp == "builtin",
+            event = "InsertEnter"
         }, -- for commandline complation
         {
             "hrsh7th/cmp-calc",
             enabled = vim.g.feature_groups.lsp == "builtin",
+            event = "InsertEnter"
         }, --for calc
         {
             "hrsh7th/cmp-emoji",
             enabled = vim.g.feature_groups.lsp == "builtin",
+            event = "InsertEnter"
         },
         {
             "rcarriga/cmp-dap",
             enabled = vim.g.feature_groups.lsp == "builtin",
+            event = "InsertEnter"
         },
         {
             "hrsh7th/cmp-nvim-lsp-signature-help",
             enabled = vim.g.feature_groups.lsp == "builtin",
+            event = "InsertEnter"
         },
     },
     init = function() -- Specifies code to run before this plugin is loaded.

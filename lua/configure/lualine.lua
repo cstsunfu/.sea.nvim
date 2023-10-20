@@ -26,7 +26,7 @@ plugin.core = {
             custom_theme.inactive.c.bg = '#e7e7e8'
             custom_theme.inactive.c.fg = '#384653'
         else
-            custom_theme.normal.c.bg = global_fun.brighten(custom_theme.normal.c.bg, -20)
+            custom_theme.normal.c.bg = global_fun.brighten(custom_theme.normal.c.bg, -5)
         end
         --if vim.g.colorscheme == 'material' then
         --    custom_theme.normal.c.bg = global_fun.get_highlight_values("Pmenu").background
