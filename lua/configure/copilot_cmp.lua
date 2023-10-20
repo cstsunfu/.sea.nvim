@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "zbirenbaum/copilot-cmp",
-    dependencies = { "copilot.lua", event='VeryLazy',
+    dependencies = { "zbirenbaum/copilot.lua", event='VeryLazy',
         config = function()
             require("copilot").setup({
                 suggestion = { enabled = false },
