@@ -5,6 +5,7 @@ plugin.core = {
     dependencies = {
         "nvim-lspconfig",
     },
+    event = "InsertEnter",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
