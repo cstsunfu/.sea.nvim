@@ -24,6 +24,7 @@ if vim.g.feature_groups['default'] == true then
         ['which_key'] = { enabled = true }, -- key binding suggestion
         ['asynctasks'] = { enabled = true }, -- key binding suggestion
         ['plenary'] = { enabled = true }, -- key binding suggestion
+        ['mason'] = { enabled = true }, -- package auto install
         ['tree_sitter'] = { enabled = true },
         ['popup'] = { enabled = true },
         ['easyjump'] = { enabled = true },
@@ -75,6 +76,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['speed_date'] = { enabled = true },
         ['translate'] = { enabled = true },
         ['notify'] = { enabled = true },
+        ['noice'] = { enabled = false },
         ['formatter'] = { enabled = true },
         ['auto_select'] = { enabled = true },
         ['syntax_tree_surfer'] = { enabled = true },
@@ -91,7 +93,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['json5'] = { enabled = true },
         ["nvim_tree"] = { enabled = true },
         ["accelerate_jk"] = { enabled = false },
-        ["scroll"] = { enabled = true },
+        ["scroll"] = { enabled = true and not vim.g.neovide},
         ["animate"] = { enabled = false },  -- TODO: interesting
     }
 end
@@ -129,7 +131,7 @@ if vim.g.feature_groups['beauty_vim'] == true then
         ["bufferline"] = { enabled = true },
         ["web_devicons"] = { enabled = true },
         ["dashboard"] = { enabled = true },
-        ["specs"] = { enabled = true },
+        ["specs"] = { enabled = true and not vim.g.neovide },
     }
 end
 
@@ -144,7 +146,6 @@ if vim.g.feature_groups['lsp'] then
         ["lsp_signature"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
         ["null_ls"] = { enabled =  vim.g.feature_groups.lsp == 'builtin' },
         ["nvim_cmp"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
-        ["copilot"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
         ["copilot_cmp"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
         ["lsp_status"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
         --['lsp_icon'] = { enabled = vim.g.feature_groups.lsp == 'builtin' }, -- directly setting in nvim_cmp

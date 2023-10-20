@@ -1,11 +1,12 @@
 local plugin = {}
 
 plugin.core = {
-    "williamboman/mason.nvim",
+    "neovim/nvim-lspconfig",
+    event = 'VeryLazy',
     build = ":MasonUpdate",
     dependencies = {
         "plenary.nvim",
-        { "neovim/nvim-lspconfig", enabled = vim.g.feature_groups.lsp == "builtin" },
+        "williamboman/mason.nvim",
         { "williamboman/mason-lspconfig.nvim", enabled = vim.g.feature_groups.lsp == "builtin" },
         { "hrsh7th/nvim-cmp", enabled = vim.g.feature_groups.lsp == "builtin" },
     },

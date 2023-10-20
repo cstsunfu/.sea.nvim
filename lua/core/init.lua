@@ -23,5 +23,8 @@ require('core.plugins').create_mapping()
 require('hack').create_mapping()
 require('core.mapping').setup()
 require("configure." .. vim.g.colorscheme).setup(vim.g.style)
+if vim.g.neovide then
+    require('core.gui').setup()
+end
 
 require('core.after')
