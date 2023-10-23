@@ -20,7 +20,7 @@ if vim.g.feature_groups['default'] == true then
         ['auto_pairs'] = { enabled = true }, -- auto complete pairs
         ['bbye'] = { enabled = true }, -- when you close the buffer the window could be reserve
         ['indent_line'] = { enabled = true }, -- display the indent line
-        ['better_fold'] = { enabled = true }, -- display better fold
+        ['better_fold'] = { enabled = false }, -- display better fold
         ['which_key'] = { enabled = true }, -- key binding suggestion
         ['asynctasks'] = { enabled = true }, -- key binding suggestion
         ['plenary'] = { enabled = true }, -- key binding suggestion
@@ -73,6 +73,7 @@ if vim.g.feature_groups['enhance'] == true then
         ['zen_mode'] = { enabled = true },
         ['firenvim'] = { enabled = false }, -- TODO:嵌入nvim到chrome，比较鸡肋
         ['ts_text_object'] = { enabled = false }, -- map v m is used frequence
+        ['ultra_fold'] = { enabled = true },
         ['speed_date'] = { enabled = true },
         ['translate'] = { enabled = true },
         ['notify'] = { enabled = true },
@@ -149,7 +150,6 @@ if vim.g.feature_groups['lsp'] then
         ["copilot_cmp"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
         ["lsp_status"] = { enabled = vim.g.feature_groups.lsp == 'builtin' },
         --['lsp_icon'] = { enabled = vim.g.feature_groups.lsp == 'builtin' }, -- directly setting in nvim_cmp
-        --['fold_expr'] = { enabled = vim.g.feature_groups.lsp == 'builtin' }, -- may cause slow
     }
 end
 

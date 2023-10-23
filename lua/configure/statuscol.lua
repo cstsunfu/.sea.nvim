@@ -14,8 +14,9 @@ plugin.core = {
             thousands = ',',     -- or line number thousands separator string ("." / ",")
             relculright = true,   -- whether to right-align the cursor line number with 'relativenumber' set
             segments = {
+                --{ text = { " ", builtin.foldfunc, " "}, click = "v:lua.ScFa" },
                 {
-                    sign = { name = { "Diagnostic*" }, maxwidth = 1, auto = false, colwidth = 2 },
+                    sign = { name = { "Diagnostic*" }, maxwidth = 1, auto = false, colwidth = 2, fillchar=" " },
                     click = "v:lua.ScSa",
                 },
                 {
@@ -24,15 +25,10 @@ plugin.core = {
                     click = "v:lua.ScSa",
                 },
                 { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
-                --{
-                --    sign = { name = { "GitSigns*" }, maxwidth = 1, colwidth = 1, auto = false, fillchar = " " },
-                --    click = "v:lua.ScSa",
-                --},
                 {
                     sign = { namespace = { "gitsign*" }, maxwidth = 1, colwidth = 1, auto = false, fillchar = " " },
                     click = "v:lua.ScSa",
                 },
-                { text = { builtin.foldfunc, " " }, click = "v:lua.ScFa" },
                 {
                     sign = { name = { ".*" }, maxwidth = 1, colwidth = 1, auto = true },
                     click = "v:lua.ScSa",

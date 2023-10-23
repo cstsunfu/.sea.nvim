@@ -65,14 +65,6 @@ plugin.core = {
 
 plugin.mapping = function()
 
-    --local mappings = require('core.mapping')
-
-    --mappings.register({
-    --    mode = {"v", 'x', 'n'},
-    --    key = { '<leader>', '=' },
-    --    action = ':lua require("conform").format({ async = true, lsp_fallback = true })<cr>',
-    --    short_desc = "Auto Format"
-    --})
 end
 
 return plugin
