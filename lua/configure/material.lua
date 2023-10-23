@@ -179,7 +179,7 @@ plugin.setup = function(style)
         --vim.cmd("hi! default link NormalFloat Pmenu")
         vim.cmd("hi! StatusLine ctermfg=black guifg=black") --set HSplit color to black
         -- FIXED: FIXED: the VertSplit is renamed to WinSeparator https://github.com/marko-cerovac/material.nvim/issues/91 ,
-        vim.o.fillchars = "fold:-,eob: ,vert: ,diff: "   -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+        --vim.o.fillchars = "fold:-,eob: ,vert: ,diff: "   -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
         vim.cmd("hi! DiffDelete guibg=#A6647A")
     end))
     local mappings = require('core.mapping')
