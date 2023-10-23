@@ -9,7 +9,7 @@ plugin.core = {
         vim.api.nvim_exec("highlight! GitSignsAdd guifg=#00FF00", false)
         vim.api.nvim_exec("highlight! GitSignsChange guifg=#73cef4", false)
         vim.api.nvim_exec("highlight! GitSignsDelete guifg=#ffc24b", false)
-        vim.api.nvim_exec("highlight! GitSignsUntracked guifg=#ca321b", false)
+        vim.api.nvim_exec("highlight! GitSignsUntracked guifg=#555555", false)
         -- work with statuscol.lua
         require("gitsigns").setup {
             signs = {
