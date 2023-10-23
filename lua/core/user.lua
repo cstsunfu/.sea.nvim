@@ -1,5 +1,10 @@
 local themes = require('core.themes')
-themes.setting(themes.configs.material_dark)
+
+if os.getenv("GLOBAL_THEME") == 'light' then
+    themes.setting(themes.configs.material_light)
+else
+    themes.setting(themes.configs.material_dark)
+end
 
 local user_setting = {
     python3_host_prog = vim.g.HOME_PATH .. '/miniconda3/bin/python3', -- add to your own python3 path
