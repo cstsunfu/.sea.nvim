@@ -25,6 +25,7 @@ if vim.g.feature_groups['default'] == true then
         ['asynctasks'] = { enabled = true }, -- key binding suggestion
         ['plenary'] = { enabled = true }, -- key binding suggestion
         ['mason'] = { enabled = true }, -- package auto install
+        ['mason_install'] = { enabled = true }, -- package auto install
         ['tree_sitter'] = { enabled = true },
         ['popup'] = { enabled = true },
         ['easyjump'] = { enabled = true },

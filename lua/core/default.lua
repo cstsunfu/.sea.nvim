@@ -122,6 +122,8 @@ default_setting['opt'] = {
     --relativenumber = true, -- set in autocmd
     fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen:,foldsep: ,foldclose:", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
+    ignorecase = true,
+    smartcase = true,
     history = 10000, -- undo file history
     updatetime = 30, -- CursorHold
     undofile = true, -- use undo file
