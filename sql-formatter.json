@@ -1,0 +1,10 @@
+{
+    "language": "spark",
+    "tabWidth": 4,
+    "keywordCase": "upper",
+    "linesBetweenQueries": 2,
+    "logicalOperatorNewline": "after",
+    "expressionWidth": 40,
+    "denseOperators": false,
+    "newlineBeforeSemicolon": false
+}
