@@ -41,7 +41,7 @@ if vim.g.feature_groups['org_my_life'] == true then
     plugins_configure.plugins_groups['org_my_life'] = {
         ['calendar'] = { enabled = true },
         ['vimwiki'] = { enabled = true },
-        ['markdown'] = { enabled = false },
+        ['markdown'] = { enabled = true },
         ['vimtex'] = { enabled = true },
         ['obsidian'] = { enabled = true },
         ['glow'] = { enabled = true }, -- preview markdown in terminal

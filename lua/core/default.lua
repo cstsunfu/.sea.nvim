@@ -120,7 +120,8 @@ default_setting['opt'] = {
     number = true,
     guicursor = 'n-v:block-Cursor,i-ci-ve-c:ver25-Cursor', --block for normal visual mode, vertical for insert command mode. highlight set to Cursor
     --relativenumber = true, -- set in autocmd
-    fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen:,foldsep: ,foldclose:", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+    --fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen:,foldsep: ,foldclose:", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+    fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen: ,foldsep: ,foldclose: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
     ignorecase = true,
     smartcase = true,

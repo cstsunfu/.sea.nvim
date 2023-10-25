@@ -52,6 +52,7 @@
 3. Install `node.js`, `npm`, and `yarn`
 ```
 curl -sL install-node.vercel.app/lts | bash
+-- for grammarly-language-server, it requires the [node@16](https://github.com/znck/grammarly/issues/334)
 npm install --global yarn
 ```
 
