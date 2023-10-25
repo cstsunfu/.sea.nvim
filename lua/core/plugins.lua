@@ -27,6 +27,7 @@ if vim.g.feature_groups['default'] == true then
         ['mason'] = { enabled = true }, -- package auto install
         ['mason_install'] = { enabled = true }, -- package auto install
         ['tree_sitter'] = { enabled = true },
+        ['quick_fix'] = { enabled = true }, -- better quickfix
         ['popup'] = { enabled = true },
         ['easyjump'] = { enabled = true },
         ['non_latin_input'] = { enabled = false },
