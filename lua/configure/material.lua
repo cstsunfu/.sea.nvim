@@ -97,6 +97,7 @@ plugin.setup = function(style)
             DapUIFrameName = { link = "NormalContrast" },
             TSType        = { fg = s.type },
             TSTypeBuiltin = { fg = s.type },
+            Identifier = { fg = '#7cccfe' },
 
             TSVariableBuiltin = { link = "Identifier" },
             TSField           = { fg = e.fg_dark },

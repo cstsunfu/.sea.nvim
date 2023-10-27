@@ -65,7 +65,7 @@ vim.g.no_number_filetypes_concat_list = table.concat(no_number_filetypes_list, '
 
 
 _G.check_zen_mode_start = function()
-    local loaded_module = require('core.plugins').all_loaded_module
+    local loaded_module = require('core.plugins').loaded_plugins
     if loaded_module.zen_mode ~= true then
         return false
     end

@@ -2,7 +2,7 @@ local plugins_configure = {}
 
 plugins_configure.plugins_groups = {}
 plugins_configure.plugin_configure_root = 'configure.'
-plugins_configure["all_loaded_module"] = {}
+plugins_configure["loaded_plugins"] = {}
 
 if vim.g.feature_groups['default'] == true then
     plugins_configure.plugins_groups['default'] = {
@@ -182,7 +182,7 @@ plugins_configure.setup = function()
                     core[key] = value
                 end
                 if core.enabled == true then
-                    plugins_configure.all_loaded_module[plugin_name] = true -- added to all_loaded_module
+                    plugins_configure.loaded_plugins[plugin_name] = true -- added to loaded_plugins
                     table.insert(plugins, core) -- add to 
                 end
             end
