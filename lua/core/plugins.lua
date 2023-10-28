@@ -51,7 +51,7 @@ if vim.g.feature_groups['org_my_life'] == true then
         ['table_mode'] = { enabled = true },
         ['md_bullets'] = { enabled = false },
         ['org_bullets'] = { enabled = true },
-        ['headlines'] = { enabled = false },
+        ['headlines'] = { enabled = true },
         ['orgmode'] = { enabled = true },
     }
 end
