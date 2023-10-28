@@ -2,7 +2,6 @@ local plugin = {}
 
 plugin.core = {
     "neovim/nvim-lspconfig",
-    event = 'VeryLazy',
     build = ":MasonUpdate",
     dependencies = {
         "plenary.nvim",

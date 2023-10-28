@@ -1,11 +1,11 @@
 ### Always Work In Process
+---
 
 ![Startify](./pic/startify.png)
 
 # Neovim Configure
 
-
-```
+```sh
 .
 ├── compiler                  -- compiler related setting
 ├── coc-settings.json         -- for coc.nvim if you use coc.nvim as default complation framework, you can also select the builtin lsp
@@ -40,7 +40,7 @@
 1. Install `Neovim` >=0.9, `git` >= 2.32
 
 2. Install `pynvim` and `debugpy`(optional)
-```
+```sh
   # pynvim for python based plugins
   pip install pynvim
   # debugpy for python debug, just install it to your environment
@@ -50,13 +50,14 @@
 ```
 
 3. Install `node.js`, `npm`, and `yarn`
-```
+```sh
 curl -sL install-node.vercel.app/lts | bash
+-- for grammarly-language-server, it requires the [node@16](https://github.com/znck/grammarly/issues/334)
 npm install --global yarn
 ```
 
 4. Install `lolcat` for display the NEOVIM logo
-```
+```sh
 Ubuntu:
     sudo apt install lolcat
 OSX:
@@ -64,7 +65,7 @@ OSX:
 ```
 
 5. Install `ag` or `rg`
-```
+```sh
 OSX:
     brew install rg
 Ubuntu:
@@ -72,7 +73,7 @@ Ubuntu:
 ```
 
 6. Install Nerd Font
-```
+```sh
 Install Nerd Font Family: `DejaVuSansMono Nerd Font` or  what you want
 Download from https://www.nerdfonts.com/
 Install method depend on your os.
@@ -89,12 +90,12 @@ Install method depend on your os.
 Both `local.lua` and `user.lua` are bind to user. `user.lua` is more general for each user, and `local.lua` is special to each machine, and setting in `local.lua`  will not be indexed by git but `user.lua` will be.
 
 My own setting example in `local.lua` is:
-```
+```lua
 vim.g.global_proxy_port = 'http://127.0.0.1:7893' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
 ```
 And some setting personally but put to `local.lua` like:
 
-```
+```lua
 local themes = require('core.themes')
 themes.setting(themes.configs.material_oceanic)
 
@@ -112,7 +113,7 @@ end
 ```
 
 NOTE: The default leader is setting in `lua/core/default.lua`. The setting is 
-```
+```vim
 let maplocalleader=','
 let mapleader=';'
 nnoremap \\ ;
@@ -137,7 +138,7 @@ see https://github.com/darold/pgFormatter#:~:text=following%20your%20distributio
 
 2. Install `sqlite3` for better frequence files display(<leader>fh)
 
-```
+```sh
 sudo apt-get install sqlite3
 sudo apt-get install libsqlite3-dev
 ```
@@ -180,17 +181,17 @@ Each figure may display with different colorscheme.
 
 ## There are some shortcuts.
 
-    NOTE: Default set
-    
-    ```lua
-        vim.cmd("let maplocalleader=' '")
-        vim.cmd("let mapleader=';'")
-        vim.cmd("nnoremap ' ;")
-        vim.cmd("vnoremap ' ;")
-    ```
+NOTE: Default set
+
+```lua
+    vim.cmd("let maplocalleader=' '")
+    vim.cmd("let mapleader=';'")
+    vim.cmd("nnoremap ' ;")
+    vim.cmd("vnoremap ' ;")
+```
        
 
-    WARNING: We will remap some shortcuts but not update this table, just for reference.
+WARNING: We will remap some shortcuts but not update this table, just for reference.
 
 | Mode    | Mapping            | Description                         |
 | ------  | -------------      | ----------------------------        |

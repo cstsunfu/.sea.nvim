@@ -2,7 +2,7 @@ local plugins_configure = {}
 
 plugins_configure.plugins_groups = {}
 plugins_configure.plugin_configure_root = 'configure.'
-plugins_configure["all_loaded_module"] = {}
+plugins_configure["loaded_plugins"] = {}
 
 if vim.g.feature_groups['default'] == true then
     plugins_configure.plugins_groups['default'] = {
@@ -25,7 +25,9 @@ if vim.g.feature_groups['default'] == true then
         ['asynctasks'] = { enabled = true }, -- key binding suggestion
         ['plenary'] = { enabled = true }, -- key binding suggestion
         ['mason'] = { enabled = true }, -- package auto install
+        ['mason_install'] = { enabled = true }, -- package auto install
         ['tree_sitter'] = { enabled = true },
+        ['quick_fix'] = { enabled = true }, -- better quickfix
         ['popup'] = { enabled = true },
         ['easyjump'] = { enabled = true },
         ['non_latin_input'] = { enabled = false },
@@ -39,7 +41,7 @@ if vim.g.feature_groups['org_my_life'] == true then
     plugins_configure.plugins_groups['org_my_life'] = {
         ['calendar'] = { enabled = true },
         ['vimwiki'] = { enabled = true },
-        ['markdown'] = { enabled = false },
+        ['markdown'] = { enabled = true },
         ['vimtex'] = { enabled = true },
         ['obsidian'] = { enabled = true },
         ['glow'] = { enabled = true }, -- preview markdown in terminal
@@ -61,11 +63,13 @@ if vim.g.feature_groups['git'] == true then
         ['gitsigns'] = { enabled = true },
         ['statuscol'] = { enabled = true },
         ['fugitive'] = { enabled = true },
+        ['neogit'] = { enabled = true },
     }
 end
 
 if vim.g.feature_groups['enhance'] == true then
     plugins_configure.plugins_groups['enhance'] = {
+        ['chatgpt'] = { enabled = true },
         ['session'] = { enabled = true },
         ['session_auto'] = { enabled = true },
         ['hlslens'] = { enabled = true },
@@ -180,7 +184,7 @@ plugins_configure.setup = function()
                     core[key] = value
                 end
                 if core.enabled == true then
-                    plugins_configure.all_loaded_module[plugin_name] = true -- added to all_loaded_module
+                    plugins_configure.loaded_plugins[plugin_name] = true -- added to loaded_plugins
                     table.insert(plugins, core) -- add to 
                 end
             end

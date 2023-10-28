@@ -31,7 +31,7 @@ plugin.core = {
         end)
 
         require("ibl").setup {
-            indent = { char = "│" },
+            indent = { char = "│",  priority = 20,},
             whitespace = {
                 remove_blankline_trail = false,
             },
