@@ -13,10 +13,11 @@ local used = {
     t = {},
     [""] = {}
 }
-local plugins_groups = require('core.plugins').plugins_groups
+local loaded_plugins = require('core.plugins').loaded_plugins
 
 local mapping_prefix = {
     ["<leader><TAB>"] = { name = "+ Toggle fold" },
+    ["<leader>a"] = { name = "+ AI" },
     ["<leader>b"] = { name = "+ Buffer" },
     ["<leader>c"] = { name = "+ Comment/Change" },
     ["<leader>d"] = { name = "+ Debug" },
@@ -115,7 +116,7 @@ global_mapping.register = function(new_map)
         used[new_map['mode']][uni_key_string] = new_map['short_desc']
     end
     --vim.print(new_map.mode..'   '..uni_key_string..'    |'..new_map['short_desc'])
-    if plugins_groups['default']['which_key'] and plugins_groups['default']['which_key']['enabled'] == true and #key_list > 1 and new_map.mode == 'n' then
+    if loaded_plugins.which_key and #key_list > 1 and new_map.mode == 'n' then
         local prefix = key_list[1]
         if #key_list > 1 then
             prefix = prefix .. key_list[2]
@@ -753,13 +754,12 @@ elseif vim.fn.has("unix") == 1 then
 end
 
 global_mapping.setup = function()
-    local plugins_config = require('core.plugins')
 
     vim.cmd([[
         inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<tab>"
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
     ]])
-    if plugins_config.plugins_groups['default']['which_key'] and plugins_config.plugins_groups['default']['which_key']['enabled'] == true then
+    if loaded_plugins.which_key then
         local wk = require("which-key")
         wk.register(mapping_prefix)
     end

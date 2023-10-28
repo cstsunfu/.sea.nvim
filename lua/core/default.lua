@@ -47,6 +47,8 @@ local no_number_filetypes = {
     dapui_console = true,
     ['dap-repl'] = true,
     help = true,
+    NeogitGitCommandHistory = true,
+    NeogitStatus = true,
 }
 for _,filetype in ipairs(vim.g.side_filetypes) do
     no_number_filetypes[filetype] = true
@@ -65,7 +67,7 @@ vim.g.no_number_filetypes_concat_list = table.concat(no_number_filetypes_list, '
 
 
 _G.check_zen_mode_start = function()
-    local loaded_module = require('core.plugins').all_loaded_module
+    local loaded_module = require('core.plugins').loaded_plugins
     if loaded_module.zen_mode ~= true then
         return false
     end
@@ -120,8 +122,11 @@ default_setting['opt'] = {
     number = true,
     guicursor = 'n-v:block-Cursor,i-ci-ve-c:ver25-Cursor', --block for normal visual mode, vertical for insert command mode. highlight set to Cursor
     --relativenumber = true, -- set in autocmd
-    fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen:,foldsep: ,foldclose:", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+    --fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen:,foldsep: ,foldclose:", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+    fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen: ,foldsep: ,foldclose: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     --"│⎟⎜⎜⎢⎜▏▊▋▉▕   ref: https://unicode-table.com/en
+    ignorecase = true,
+    smartcase = true,
     history = 10000, -- undo file history
     updatetime = 30, -- CursorHold
     undofile = true, -- use undo file
