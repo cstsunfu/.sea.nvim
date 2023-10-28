@@ -99,7 +99,6 @@ plugin.setup = function(style)
             TSTypeBuiltin = { fg = s.type },
             Identifier = { fg = '#7cccfe' },
             Dash = { fg = '#eccc3e' },
-
             TSVariableBuiltin = { link = "Identifier" },
             TSField           = { fg = e.fg_dark },
             TSSymbol          = { fg = m.yellow },
