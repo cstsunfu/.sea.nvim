@@ -63,7 +63,7 @@ if vim.g.feature_groups['git'] == true then
         ['gitsigns'] = { enabled = true },
         ['statuscol'] = { enabled = true },
         ['fugitive'] = { enabled = true },
-        ['neogit'] = { enabled = true },
+        ['neogit'] = { enabled = false },
     }
 end
 

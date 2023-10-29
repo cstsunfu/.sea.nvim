@@ -3,7 +3,7 @@ local themes = require('core.themes')
 if os.getenv("GLOBAL_THEME") == 'light' then
     themes.setting(themes.configs.material_light)
 else
-    themes.setting(themes.configs.material_dark)
+    themes.setting(themes.configs.material_palenight)
 end
 
 local user_setting = {
