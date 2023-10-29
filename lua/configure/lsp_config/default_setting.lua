@@ -3,6 +3,8 @@ vim.cmd [[
     highlight! DiagnosticSignWarn guibg=None guifg=#FF8800 gui=bold
     highlight! DiagnosticSignInfo guibg=None guifg=#008080 gui=bold
     highlight! DiagnosticSignHint guibg=None guifg=#a9a1e1 gui=bold
+    highlight! DiagnosticHeader guibg=None guifg=#FF8800 gui=bold
+
     highlight FloatBorder guifg=#7B68EE guibg=#None
     autocmd! ColorScheme * highlight FloatBorder guifg=#7B68EE guibg=None
 ]]
@@ -22,7 +24,8 @@ vim.cmd [[
 local signs = { Error = " ", Warn = "", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    --vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    vim.fn.sign_define(hl, { text = icon, texthl = hl })
 end
 
 vim.diagnostic.config({
@@ -70,6 +73,13 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
 end
 
 --vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
+_G.diag_format = function(diagnostic)
+    if diagnostic.severity == vim.diagnostic.severity.ERROR then
+        return string.format("%s", diagnostic.message)
+    end
+    return diagnostic.message
+end
 
-vim.cmd [[autocmd! CursorHold * lua vim.diagnostic.open_float(nil, {focus=false, border = "rounded"})]]
+vim.cmd [[autocmd! CursorHold * lua vim.diagnostic.open_float(nil, {focus=false, border = "rounded", format=_G.diag_format, header = { " Diagnostics", "DiagnosticHeader"} })]]
+    
 

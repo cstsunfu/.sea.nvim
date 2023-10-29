@@ -289,10 +289,22 @@ global_mapping.register({
 })
 
 --save/space/source file
+_G.source_current_file = function()
+    local source_filetypes = {'lua', 'vim'}
+    for _, filetype in ipairs(source_filetypes) do
+        if vim.bo.filetype == filetype then
+            vim.cmd('source %')
+            return
+        end
+    end
+    vim.notify('You Can Only Source Lua/Vim File')
+end
+
 global_mapping.register({
     mode = "n",
     key = { "<leader>", "s", "." },
-    action = ':source %<cr>',
+    action = ':lua _G.source_current_file()<cr>',
+    silent = true,
     short_desc = "Source Current File"
 })
 
@@ -672,20 +684,6 @@ global_mapping.register({
     noremap = true,
     action = '<Del>',
     short_desc = "Delete Next Char"
-})
-global_mapping.register({
-    mode = "i",
-    key = { "<C-k>" },
-    noremap = true,
-    action = '<ESC>ld$a',
-    short_desc = "Delete To The End"
-})
-global_mapping.register({
-    mode = "i",
-    key = { "<C-j>" },
-    noremap = true,
-    action = '<esc>v0c',
-    short_desc = "Delete To The Begin"
 })
 global_mapping.register({
     mode = "i",

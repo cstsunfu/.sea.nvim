@@ -166,6 +166,12 @@ plugin.mapping = function()
 	local mappings = require("core.mapping")
     mappings.register({
         mode = {"n"},
+        key = { "<leader>", 'a', 'c' },
+        action = ":ChatGPTCompleteCode<cr>",
+        short_desc = "ChatGPT CompleteCode"
+    })
+    mappings.register({
+        mode = {"n"},
         key = { "<leader>", 'a', 'i' },
         action = ":ChatGPT<cr>",
         short_desc = "ChatGPT"

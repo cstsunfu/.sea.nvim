@@ -13,7 +13,7 @@
 ├── init.lua
 ├── install.sh
 ├── lua
-│   ├── configure            
+│   ├── configure
 │   │   ├── nvim_cmp.lua      -- builtin lsp complation config
 │   │   ├── lsp_config        -- builtin lsp config
 │   │   ├── ....              -- other plugin configs
@@ -21,14 +21,14 @@
 │   ├── core
 │   │   ├── after.lua         -- just eusure this will be setting after all plugin loaded
 │   │   ├── default.lua       -- some default setting
-│   │   ├── init.lua          -- 
+│   │   ├── init.lua          --
 │   │   ├── mapping.lua       -- mapping register module
 │   │   ├── plugins.lua       -- all plugin name and group center
 │   │   └── themes.lua        -- my favorite themes
-│   ├── hack                  -- something you want to hack 
+│   ├── hack                  -- something you want to hack
 │   │   ├── init.lua
 │   │   └── pomodoro.lua
-│   ├── local.lua             -- 
+│   ├── local.lua             --
 │   ├── user.lua              -- user related configure like email, name, etc.
 │   └── util                  -- some useful tools and functions
 └── tasks.ini                 -- asynctasks
@@ -46,7 +46,7 @@
   # debugpy for python debug, just install it to your environment
   pip install debugpy
   # optional yapf for python format
-  pip install yapf 
+  pip install yapf
 ```
 
 3. Install `node.js`, `npm`, and `yarn`
@@ -112,7 +112,7 @@ for key, value in pairs(user_setting) do
 end
 ```
 
-NOTE: The default leader is setting in `lua/core/default.lua`. The setting is 
+NOTE: The default leader is setting in `lua/core/default.lua`. The setting is
 ```vim
 let maplocalleader=','
 let mapleader=';'
@@ -172,10 +172,10 @@ Each figure may display with different colorscheme.
 ## Project TODO
 ![Project TODO](./pic/project_todo.png)
 
-## Debug Adapter Protocol 
+## Debug Adapter Protocol
 ![Debug Adapter Protocol](./pic/dap.png)
 
-## Pomodoro Clock 
+## Pomodoro Clock
 ![Pomodoro Clock](./pic/pomodoro.png)
 
 
@@ -189,7 +189,7 @@ NOTE: Default set
     vim.cmd("nnoremap ' ;")
     vim.cmd("vnoremap ' ;")
 ```
-       
+
 
 WARNING: We will remap some shortcuts but not update this table, just for reference.
 
