@@ -30,7 +30,8 @@ plugin.core = {
                 headline_highlights = { "Headline" },
                 codeblock_highlight = "CodeBlock",
                 dash_highlight = "Dash",
-                dash_string = "",
+                dash_string = "▔",--  󰝔 upper quarter block/ eight block
+                --__', '▁▁', '▂▂', '▃▃', '▄▄', '▅▅', '▆▆', '▇▇', '██
                 quote_highlight = "Quote",
                 quote_string = "┃",
                 fat_headlines = true,

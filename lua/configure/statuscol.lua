@@ -16,6 +16,12 @@ plugin.core = {
             segments = {
                 --{ text = { " ", builtin.foldfunc, " "}, click = "v:lua.ScFa" },
                 {
+                    --text = { " ", builtin.foldfunc, " " }, -- also impact by the default setting for fillchars && foldcolumn
+                    text = { "", builtin.foldfunc, "" }, -- also impact by the default setting for fillchars && foldcolumn
+                    condition = { builtin.not_empty, true, builtin.not_empty },
+                    click = "v:lua.ScFa"
+                },
+                {
                     sign = { name = { "Diagnostic*" }, maxwidth = 1, auto = false, colwidth = 2, fillchar=" " },
                     click = "v:lua.ScSa",
                 },

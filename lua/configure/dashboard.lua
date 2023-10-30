@@ -8,6 +8,10 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+        local cat_cmd = "cat | lolcat -F 0.3"
+        if os.getenv("NO_LOLCAT") then
+            cat_cmd = nil
+        end
         require('dashboard').setup {
               -- config
               theme = "doom",
@@ -17,12 +21,30 @@ plugin.core = {
                   winbar = true,       -- hide winbar
               },
               preview = {
-                  command = "cat | lolcat -F 0.3",
+                  command = cat_cmd,
                   file_path =  vim.g.CONFIG..'/lua/util/neovim.txt',  -- preview file path
                   file_height = 15,   -- preview file height
                   file_width = 70,   -- preview file width
               },
               config = {
+                  header = {
+                      [[                                                                       ]],
+                      [[                                                                       ]],
+                      [[                                                                       ]],
+                      [[                                                                       ]],
+                      [[                                                                       ]],
+                      [[     __      _    _____     ____     __    __    _____     __    __    ]],
+                      [[    /  \    / )  / ___/    / __ \    ) )  ( (   (_   _)    \ \  / /    ]],
+                      [[   / /\ \  / /  ( (__     / /  \ \  ( (    ) )    | |      () \/ ()    ]],
+                      [[   ) ) ) ) ) )   ) __)   ( ()  () )  \ \  / /     | |      / _  _ \    ]],
+                      [[  ( ( ( ( ( (   ( (      ( ()  () )   \ \/ /      | |     / / \/ \ \   ]],
+                      [[  / /  \ \/ /    \ \___   \ \__/ /     \  /      _| |__  /_/      \_\  ]],
+                      [[ (_/    \__/      \____\   \____/       \/      /_____( (/          \) ]],
+                      [[                                                                       ]],
+                      [[                                                                       ]],
+                      [[                                                                       ]],
+                      [[                                                                       ]],
+                  },
                   footer = {"🐬 Have A Good Day! "},
                   center = {
                       {
