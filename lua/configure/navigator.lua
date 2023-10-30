@@ -71,6 +71,13 @@ plugin.mapping = function()
     })
     mappings.register({
         mode = "n",
+        key = { "g", "F" },
+        action = '<cmd>e <cfile><cr>',
+        short_desc = "Goto File",
+        silent = true
+    })
+    mappings.register({
+        mode = "n",
         key = { "g", "a" },
         action = '<cmd>Lspsaga code_action<cr>',
         short_desc = "Lsp Code Action",
