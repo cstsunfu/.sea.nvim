@@ -80,6 +80,4 @@ _G.diag_format = function(diagnostic)
     return diagnostic.message
 end
 
-vim.cmd [[autocmd! CursorHold * lua vim.diagnostic.open_float(nil, {focus=false, border = "rounded", format=_G.diag_format, header = { " Diagnostics", "DiagnosticHeader"} })]]
-    
-
+vim.cmd [[autocmd! CursorHold * lua vim.diagnostic.open_float(nil, {focus=false, border = "rounded", format=_G.diag_format, header={ " Diagnostics", "DiagnosticHeader"}, suffix='' })]]

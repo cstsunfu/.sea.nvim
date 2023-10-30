@@ -57,19 +57,19 @@ plugin.core = {
             {
                 events = { 'Filetype' },
                 targets = { "markdown" },
-                command = "nnoremap <buffer><silent> <localleader>t :Toc<cr>"
+                command = "nnoremap <buffer><silent> <localleader>o :Toc<cr>"
             },
             {
                 events = { 'Filetype' },
                 targets = { "markdown" },
-                command = "nnoremap <buffer><silent> <localleader>T :TOC<cr>"
+                command = "nnoremap <buffer><silent> <localleader>O :TOC<cr>"
             },
 
 
             {
                 events = { 'Filetype' },
                 targets = { "markdown", "vimwiki" },
-                command = "nnoremap <buffer><silent> <localleader>o :lua require('markdown-togglecheck').toggle()<cr>"
+                command = "nnoremap <buffer><silent> <C-Enter> :lua require('markdown-togglecheck').toggle()<cr>"
             },
             {
                 events = { 'Filetype' },

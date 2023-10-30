@@ -53,7 +53,7 @@ plugin.core = {
 					cycle_modes = "<C-f>",
 					next_message = "<C-j>",
 					prev_message = "<C-k>",
-					select_session = "<C-l>",
+					select_session = "o",
 					rename_session = "r",
 					delete_session = "d",
 					draft_message = "<C-d>",
@@ -174,6 +174,12 @@ plugin.mapping = function()
         mode = {"n"},
         key = { "<leader>", 'a', 'i' },
         action = ":ChatGPT<cr>",
+        short_desc = "ChatGPT"
+    })
+    mappings.register({
+        mode = {"n", "i"},
+        key = { "<S-Enter>" },
+        action = "<esc>:ChatGPT<cr>",
         short_desc = "ChatGPT"
     })
     mappings.register({
