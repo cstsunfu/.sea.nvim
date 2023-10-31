@@ -304,7 +304,7 @@ global_mapping.register({
     mode = "n",
     key = { "<leader>", "s", "." },
     action = ':lua _G.source_current_file()<cr>',
-    silent = true,
+    silent = false,
     short_desc = "Source Current File"
 })
 

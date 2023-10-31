@@ -8,6 +8,19 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+
+        local function peekOrHover()
+            local winid = require('ufo').peekFoldedLinesUnderCursor()
+            local bufnr = vim.api.nvim_win_get_buf(winid)
+            local keys = {'a', 'i', 'o', 'A', 'I', 'O', 'gd', 'gr'}
+            for _, k in ipairs(keys) do
+                -- Add a prefix key to fire `trace` action,
+                -- if Neovim is 0.8.0 before, remap yourself
+                vim.keymap.set('n', k, '<CR>' .. k, {noremap = false, buffer = bufnr})
+            end
+        end
+
+        -- virtual fold text handler
         local handler = function(virtText, lnum, endLnum, width, truncate)
             local newVirtText = {}
             local suffix = (' %d '):format(endLnum - lnum)
@@ -35,22 +48,36 @@ plugin.core = {
             table.insert(newVirtText, {suffix, 'MoreMsg'})
             return newVirtText
         end
+        -- provider indent method for specific filetypes
         local ftMap = {
             vim = 'indent',
-            python = {'indent'},
+            python = 'indent',
             git = ''
         }
+        -- provider selector by chain lsp->treesitter->indent
+        ---@param bufnr number
+        ---@return Promise
+        local function customizeSelector(bufnr)
+            local function handleFallbackException(err, providerName)
+                if type(err) == 'string' and err:match('UfoFallbackException') then
+                    return require('ufo').getFolds(bufnr, providerName)
+                else
+                    return require('promise').reject(err)
+                end
+            end
 
-        -- global handler
-        -- `handler` is the 2nd parameter of `setFoldVirtTextHandler`,
-        -- check out `./lua/ufo.lua` and search `setFoldVirtTextHandler` for detail.
+            return require('ufo').getFolds(bufnr, 'lsp'):catch(function(err)
+                return handleFallbackException(err, 'treesitter')
+            end):catch(function(err)
+                return handleFallbackException(err, 'indent')
+            end)
+        end
+
         require('ufo').setup({
+            open_fold_hl_timeout = 0,
             fold_virt_text_handler = handler,
-            open_fold_hl_timeout = 150,
             provider_selector = function(bufnr, filetype, buftype)
-                -- if you prefer treesitter provider rather than lsp,
-                -- return ftMap[filetype] or {'treesitter', 'indent'}
-                return ftMap[filetype]
+                return ftMap[filetype] or customizeSelector
             end
         })
     end,

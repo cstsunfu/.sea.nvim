@@ -255,6 +255,105 @@ plugin.mapping = function()
         short_desc = "Code Readability Analysis"
     })
 
+    local navigate_chatgpt_window = function ()
+        local ai_win_id = {
+            input = nil,
+            output = nil,
+            session = nil,
+            setting = nil,
+        }
+        local windows = vim.api.nvim_list_wins()
+        local setting_height = 9999
+        local session_height = 9999
+        for _, win_id in ipairs(windows) do
+            local win_config = vim.api.nvim_win_get_config(win_id)
+            if win_config ~= nil and win_config['relative'] == 'win' and win_config['focusable'] == true and win_config['row'] ~= nil and win_config['row'][false] == 1 and win_config['row'][true] == 3 then
+                local buf_id = vim.api.nvim_win_get_buf(win_id)
+                local buftype = vim.api.nvim_buf_get_option(buf_id, 'buftype')
+                local filetype = vim.api.nvim_buf_get_option(buf_id, 'filetype')
+                if filetype == 'chatgpt-input' then
+                    ai_win_id['input'] = win_id
+                elseif filetype == 'markdown' and buftype == 'nofile' then
+                    ai_win_id['output'] = win_id
+                elseif buftype == 'nofile' then
+                    local win_height = win_config['height']
+                    if ai_win_id['session'] == nil then
+                        ai_win_id['session'] = win_id
+                        session_height = win_height
+                    else
+                        ai_win_id['setting'] = win_id
+                        setting_height = win_height
+                    end
+                end
+            end
+
+            if setting_height ~= 9999 and session_height ~=9999 and session_height < setting_height then
+                local session_id = ai_win_id['setting']
+                ai_win_id['setting'] = ai_win_id['session']
+                ai_win_id['session'] = session_id
+            end
+        end
+        return ai_win_id
+    end
+
+    _G.pick_chatgpt_window = function(window)
+        local ai_win_id = navigate_chatgpt_window()
+        if ai_win_id['input'] == nil then
+            vim.cmd("ChatGPT")
+        elseif ai_win_id[window] ~= nil then
+            local win_number = vim.api.nvim_win_get_number(ai_win_id[window])
+            vim.cmd('exe ' .. win_number .. ' . "wincmd w"')
+        else
+            vim.notify("No ChatGPT '" .. window .. "' Window Found")
+        end
+    end
+
+    _G.query_chatgpt_selection = function()
+
+        local current_buf = vim.api.nvim_get_current_buf()
+        local mode = vim.fn.visualmode()
+        local selected_text = ""
+        if mode == 'V' then
+            local start_pos = vim.fn.getpos("'<")
+            local end_pos = vim.fn.getpos("'>")
+            local start_line = start_pos[2] - 1
+            local end_line = end_pos[2]
+            selected_text = vim.api.nvim_buf_get_lines(current_buf, start_line, end_line, false)
+        end
+        if selected_text ~= '' then
+            local ai_win_id = navigate_chatgpt_window()
+            if ai_win_id['input'] == nil then
+                vim.cmd("ChatGPT")
+                ai_win_id = navigate_chatgpt_window()
+            end
+            local buf_id = vim.api.nvim_win_get_buf(ai_win_id['input'])
+            vim.api.nvim_buf_set_lines(buf_id, 0, 0, false, selected_text)
+        end
+    end
+    mappings.register({
+        mode = {"v"},
+        key = { "Q"},
+        action = ":lua _G.query_chatgpt_selection()<cr>",
+        short_desc = "Query ChatGPT Select Text"
+    })
+    mappings.register({
+        mode = {"n"},
+        key = { "<localleader>", 'i'},
+        action = ":lua _G.pick_chatgpt_window('input')<cr>",
+        short_desc = "GoTo ChatGPT Input Window"
+    })
+    mappings.register({
+        mode = {"n"},
+        key = { "<localleader>", 'o'},
+        action = ":lua _G.pick_chatgpt_window('output')<cr>",
+        short_desc = "GoTo ChatGPT Output Window"
+    })
+    mappings.register({
+        mode = {"n"},
+        key = { "<localleader>", 's'},
+        action = ":lua _G.pick_chatgpt_window('session')<cr>",
+        short_desc = "GoTo ChatGPT Session Window"
+    })
 end
 
 return plugin
