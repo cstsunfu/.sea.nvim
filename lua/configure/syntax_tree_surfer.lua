@@ -68,10 +68,6 @@ plugin.mapping = function()
     vim.keymap.set("x", "K", '<cmd>STSSelectPrevSiblingNode<cr>', opts)
     vim.keymap.set("x", "H", '<cmd>STSSelectParentNode<cr>', opts)
     vim.keymap.set("x", "L", '<cmd>STSSelectChildNode<cr>', opts)
-    vim.keymap.set("v", "J", '<cmd>STSSelectNextSiblingNode<cr>', opts)
-    vim.keymap.set("v", "K", '<cmd>STSSelectPrevSiblingNode<cr>', opts)
-    vim.keymap.set("v", "H", '<cmd>STSSelectParentNode<cr>', opts)
-    vim.keymap.set("v", "L", '<cmd>STSSelectChildNode<cr>', opts)
 
     -- Swapping Nodes in Visual Mode
     vim.keymap.set("x", "∆", '<cmd>STSSwapNextVisual<cr>', opts)
