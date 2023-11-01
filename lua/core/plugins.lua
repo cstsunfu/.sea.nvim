@@ -39,7 +39,7 @@ end
 
 if vim.g.feature_groups['org_my_life'] == true then
     plugins_configure.plugins_groups['org_my_life'] = {
-        ['calendar'] = { enabled = true },
+        ['calendar'] = { enabled = false }, -- use the obsidian now
         ['vimwiki'] = { enabled = true },
         ['markdown'] = { enabled = true },
         ['vimtex'] = { enabled = true },
@@ -47,14 +47,14 @@ if vim.g.feature_groups['org_my_life'] == true then
         ['glow'] = { enabled = true }, -- preview markdown in terminal
         ['markdown_code_edit'] = { enabled = true },
         ['markdown_preview'] = { enabled = true },
-        ['present'] = { enabled = true },
+        ['present'] = { enabled = false },
         ['nabla'] = { enabled = true }, -- for displya latex formulajbyuki/nabla.nvim
         ['clipboard_images'] = { enabled = true }, -- for displya latex formulajbyuki/nabla.nvim
         ['table_mode'] = { enabled = true },
         ['md_bullets'] = { enabled = false },
-        ['org_bullets'] = { enabled = true },
+        ['org_bullets'] = { enabled = false },
         ['headlines'] = { enabled = true },
-        ['orgmode'] = { enabled = true },
+        ['orgmode'] = { enabled = false }, -- currentlly use the obsidian
     }
 end
 
