@@ -1,8 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "enddeadroyal/symbols-outline.nvim", --FIXME: when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/176
-    branch = 'bugfix/symbol-hover-misplacement',
+    "hedyhli/symbols-outline.nvim", -- the fork version, casued by the original repo has some bugs and not active for a long time.
     --"simrat39/symbols-outline.nvim", -- when the original repo fix all the bugs, we will change back to the original repo. https://github.com/simrat39/symbols-outline.nvim/issues/176
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
@@ -13,6 +12,7 @@ plugin.core = {
             show_guides = true,
             border = "rounded",
             auto_preview = false,
+            auto_goto = true,
             position = 'left',
             relative_width = true,
             width = 18,
@@ -54,7 +54,7 @@ plugin.core = {
                 Constructor = { icon = "", hl = "@constructor" },
                 Enum = { icon = "ℰ", hl = "@type" },
                 Interface = { icon = "ﰮ", hl = "@type" },
-                Function = { icon = "", hl = "@function" },
+                Function = { icon = "ƒ", hl = "@function" },
                 Variable = { icon = "", hl = "@constant" },
                 Constant = { icon = "", hl = "@constant" },
                 String = { icon = "𝓐", hl = "@string" },
@@ -62,7 +62,7 @@ plugin.core = {
                 Boolean = { icon = "⊨", hl = "@boolean" },
                 Array = { icon = "", hl = "@constant" },
                 Object = { icon = "⦿", hl = "@type" },
-                Key = { icon = "🔐", hl = "@type" },
+                Key = { icon = "", hl = "@type" },
                 Null = { icon = "NULL", hl = "@type" },
                 EnumMember = { icon = "", hl = "@field" },
                 Struct = { icon = "𝓢", hl = "@type" },

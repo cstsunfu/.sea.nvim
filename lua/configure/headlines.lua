@@ -12,12 +12,12 @@ plugin.core = {
         require("headlines").setup {
             markdown = {
                 query = vim.treesitter.query.parse(
+                --(atx_heading [
+                --(atx_h1_marker)
+                --(atx_h2_marker)
+                --] @headline)
                 "markdown",
                 [[
-                (atx_heading [
-                (atx_h1_marker)
-                (atx_h2_marker)
-                ] @headline)
 
                 (thematic_break) @dash
 

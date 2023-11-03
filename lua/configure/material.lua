@@ -169,6 +169,7 @@ plugin.setup = function(style)
     vim.cmd 'colorscheme material'
     vim.cmd("hi clear Cursor")
 
+    local hl_fun = require('util.highlight')
     local timer = vim.loop.new_timer()
     timer:start(vim.g.after_schedule_time_start + 100, 0, vim.schedule_wrap(function()
         vim.cmd("hi! link DiffviewNormal NormalContrast")
@@ -182,7 +183,14 @@ plugin.setup = function(style)
         -- FIXED: FIXED: the VertSplit is renamed to WinSeparator https://github.com/marko-cerovac/material.nvim/issues/91 ,
         --vim.o.fillchars = "fold:-,eob: ,vert: ,diff: "   -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
         vim.cmd("hi! DiffDelete guibg=#A6647A")
+
+        if vim.g.style == 'oceanic' or vim.g.style == 'palenight'  or vim.g.style == 'dark' then
+            local code_block = hl_fun.get_highlight_values("ColorColumn")
+            local code_block_bg = hl_fun.brighten(code_block.background, -15) -- darken by 15%
+            hl_fun.highlight("CodeBlock", {bg = code_block_bg, fg=code_block.foreground})
+        end
     end))
+
     local mappings = require('core.mapping')
     mappings.register({
         mode = "n",

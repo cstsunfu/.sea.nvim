@@ -7,6 +7,7 @@ end
 
 M.setup = function()
     vim.o.guifont = "Source Code Pro:h14"
+    vim.o.noshowmode = true
     vim.opt.linespace = 0
     vim.g.neovide_scale_factor = 1.0
 
@@ -28,11 +29,18 @@ M.setup = function()
 
     -- animation
     vim.g.neovide_scroll_animation_length = 0.3
-    vim.g.neovide_cursor_vfx_mode = "railgun"
+    vim.g.neovide_cursor_vfx_mode = "" -- "railgun"
+    vim.g.neovide_scroll_animation_far_lines = true
+
+    vim.g.neovide_cursor_animate_command_line = false
 
     vim.g.neovide_hide_mouse_when_typing = false
 
-    vim.g.neovide_underline_automatic_scaling = false
+    vim.g.neovide_cursor_trail_size = 0
+
+    vim.g.neovide_cursor_antialiasing = false
+
+    vim.g.neovide_underline_automatic_scaling = true
     vim.g.neovide_theme = 'auto'
     vim.g.neovide_refresh_rate = 60
 
