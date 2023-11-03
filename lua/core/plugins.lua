@@ -135,7 +135,7 @@ if vim.g.feature_groups['beauty_vim'] == true then
         ["lualine"] = { enabled = true },
         ["bufferline"] = { enabled = true },
         ["web_devicons"] = { enabled = true },
-        ["dashboard"] = { enabled = true },
+        ["dashboard"] = { enabled = true and not vim.g.neovide },
         ["specs"] = { enabled = true and not vim.g.neovide },
     }
 end

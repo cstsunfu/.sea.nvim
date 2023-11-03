@@ -12,7 +12,7 @@ plugin.core = {
 
         vim.cmd('highlight SpecsH guibg=#c43963')
         require('specs').setup{
-            show_jumps  = true,
+            show_jumps  = false,
             min_jump = 3,
             popup = {
                 delay_ms = 0, -- delay before popup displays

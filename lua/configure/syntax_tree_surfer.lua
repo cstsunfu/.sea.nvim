@@ -55,31 +55,25 @@ plugin.mapping = function()
         return "g@l"
     end, { silent = true, expr = true })
 
-    --> If the mappings above don't work, use these instead (no dot repeatable)
-    --vim.keymap.set("n", "vd", '<cmd>STSSwapCurrentNodeNextNormal<cr>', opts)
-    --vim.keymap.set("n", "vu", '<cmd>STSSwapCurrentNodePrevNormal<cr>', opts)
-
     -- Visual Selection from Normal Mode
     vim.keymap.set("n", "vx", '<cmd>STSSelectMasterNode<cr>', opts)
     vim.keymap.set("n", "vn", '<cmd>STSSelectCurrentNode<cr>', opts)
 
     -- Select Nodes in Visual Mode
-    vim.keymap.set("x", "J", '<cmd>STSSelectNextSiblingNode<cr>', opts)
-    vim.keymap.set("x", "K", '<cmd>STSSelectPrevSiblingNode<cr>', opts)
+    vim.keymap.set("x", "gn", '<cmd>STSSelectNextSiblingNode<cr>', opts)
+    vim.keymap.set("x", "gp", '<cmd>STSSelectPrevSiblingNode<cr>', opts)
+    --
     vim.keymap.set("x", "H", '<cmd>STSSelectParentNode<cr>', opts)
     vim.keymap.set("x", "L", '<cmd>STSSelectChildNode<cr>', opts)
 
     -- Swapping Nodes in Visual Mode
-    vim.keymap.set("x", "∆", '<cmd>STSSwapNextVisual<cr>', opts)
-    vim.keymap.set("x", "˚", '<cmd>STSSwapPrevVisual<cr>', opts)
-    --mappings.register({
-    --    mode = {"n", "v"},
-    --    key = { "<cr>" },
-    --    action = '<Plug>(wildfire-fuel)',
-    --    short_desc = "Auto Select Span",
-    --    noremap = true,
-    --    silent = true,
-    --})
+    if vim.fn.has('mac') == 1 then
+        vim.keymap.set("x", "∆", '<cmd>STSSwapNextVisual<cr>', opts)
+        vim.keymap.set("x", "˚", '<cmd>STSSwapPrevVisual<cr>', opts)
+    else
+        vim.keymap.set("x", "<A-j>", '<cmd>STSSwapNextVisual<cr>', opts)
+        vim.keymap.set("x", "<A-k>", '<cmd>STSSwapPrevVisual<cr>', opts)
+    end
 
 end
 
