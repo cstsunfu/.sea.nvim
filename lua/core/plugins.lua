@@ -44,6 +44,7 @@ if vim.g.feature_groups['org_my_life'] == true then
         ['markdown'] = { enabled = true },
         ['vimtex'] = { enabled = true },
         ['obsidian'] = { enabled = true },
+        ['obsidian_bridge'] = { enabled = true },
         ['glow'] = { enabled = true }, -- preview markdown in terminal
         ['markdown_code_edit'] = { enabled = true },
         ['markdown_preview'] = { enabled = true },
