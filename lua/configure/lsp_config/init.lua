@@ -37,6 +37,11 @@ plugin.core = {
             },
         })
         local servers = {
+            bashls = {
+                cmd = { "bash-language-server", "start" },
+                filetypes = { "sh" },
+                single_file_support = true
+            },
             lua_ls = {
                 settings = {
                     Lua = {
