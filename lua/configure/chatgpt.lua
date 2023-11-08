@@ -138,7 +138,7 @@ plugin.core = {
 				},
 			},
 			openai_params = {
-				model = "gpt-3.5-turbo",
+				model = "gpt-3.5-turbo-16k",
 				frequency_penalty = 0,
 				presence_penalty = 0,
 				max_tokens = 800,
@@ -147,7 +147,7 @@ plugin.core = {
 				n = 1,
 			},
 			openai_edit_params = {
-				model = "gpt-3.5-turbo",
+				model = "gpt-3.5-turbo-16k",
 				frequency_penalty = 0,
 				presence_penalty = 0,
 				temperature = 0,
