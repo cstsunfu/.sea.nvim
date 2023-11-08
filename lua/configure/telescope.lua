@@ -258,8 +258,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "w" },
-        action = "<cmd>lua require 'telescope.builtin'.find_files{ cwd = vim.g.HOME_PATH .. '/org/wiki'}<cr>",
-        short_desc = "Find Wiki",
+        action = "<cmd>lua require 'telescope.builtin'.find_files{ cwd = vim.g.HOME_PATH .. '/MyKB'}<cr>",
+        short_desc = "Find Obsidian(wiki)",
         silent = true
     })
 
