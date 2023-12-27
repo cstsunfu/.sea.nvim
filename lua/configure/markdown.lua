@@ -94,7 +94,7 @@ plugin.mapping = function()
         end
     end
     mappings.register({
-        mode = {"v", "n"},
+        mode = { "n" },
         key = { 'g', 'e' },
         action = ":lua _G.markdown_follow_link()<cr>",
         short_desc = "Follow Link"
