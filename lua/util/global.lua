@@ -23,6 +23,7 @@ end
 
 func.enable_large_buf = function()
     vim.b.large_buf = true
+    vim.notify("Large buffer detected, syntax off, ts disabled, foldmethod set to manual", "info", { title = "Large buffer" })
     vim.cmd("syntax off")
     --vim.cmd("IlluminatePauseBuf") -- disable vim-illuminate
     vim.opt_local.foldmethod = "manual"

@@ -198,7 +198,18 @@ global_mapping.register({
 
 
 -- buffer configure at bufferline plugin
-
+global_mapping.register({
+    mode = "n",
+    key = { "<leader>", "b", "b" },
+    action = ":lua require('util.global').enable_large_buf()<cr>",
+    short_desc = "Enable Big Buffer(disable syntax)"
+})
+global_mapping.register({
+    mode = "n",
+    key = { "<leader>", "b", "B" },
+    action = ":lua require('util.global').disable_large_buf()<cr>",
+    short_desc = "Disable Big Buffer(enable syntax)"
+})
 
 -- paste
 
