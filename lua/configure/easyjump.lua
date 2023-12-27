@@ -8,7 +8,7 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         require'pounce'.setup{
-            accept_keys = "JFKDLSHGYTURIEOWPQBNVCMXZ102948576;',.",
+            accept_keys = "JFKDLSHGYTURIEOWPQBNVCMXZA",
             accept_best_key = "<enter>",
             multi_window = true,
             debug = false,
