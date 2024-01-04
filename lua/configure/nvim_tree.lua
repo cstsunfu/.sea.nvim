@@ -3,16 +3,14 @@ local plugin = {}
 plugin.core = {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeClose" },
-    dependencies = {"nvim-tree/nvim-web-devicons"},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-
         vim.cmd("highlight NvimTreeFolderIcon guifg=#0077aa")
         -- following options are the default
-        require 'nvim-tree'.setup {
+        require("nvim-tree").setup({
             disable_netrw = true,
             --ignore_ft_on_    init = { 'startify', 'dashboard' },
             renderer = {
@@ -71,8 +69,8 @@ plugin.core = {
                 -- width of the window, can be either a number (columns) or a string in `%`
                 width = "20%",
                 -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
-                side = 'right',
-                signcolumn = "yes"
+                side = "right",
+                signcolumn = "yes",
             },
             filters = {
                 dotfiles = false,
@@ -90,34 +88,37 @@ plugin.core = {
                     info = " ",
                     warning = " ",
                     error = " ",
-                }
-            }
-        }
-
-
+                },
+            },
+        })
     end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "t" },
-        action = ':NvimTreeToggle<cr>',
+        action = ":NvimTreeToggle<cr>",
         --action = ':lua require"nvim-tree".toggle(false, true)<cr>',
         short_desc = "File Tree",
-        silent = true
+        silent = true,
     })
+
+    _G.toggle_current_file_tree = function()
+        local cwd = vim.fn.getcwd()
+        vim.cmd("NvimTreeClose")
+        vim.cmd("botright vnew " .. cwd)
+    end
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "." },
-        --action = ':NvimTreeToggle<cr>',
-        action = ':NvimTreeClose<cr>:botright vnew %:~:h<cr>',
+        --action = ":NvimTreeClose<cr>:botright vnew %:~:h<cr>",
+        action = ":lua _G.toggle_current_file_tree()<cr>",
         short_desc = "Current File Tree",
-        silent = true
+        silent = true,
     })
-
 end
 
 return plugin
