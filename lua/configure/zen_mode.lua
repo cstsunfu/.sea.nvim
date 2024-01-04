@@ -4,15 +4,14 @@ plugin.core = {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        local util = require('zen-mode.util')
+        local util = require("zen-mode.util")
         local normal = util.get_hl("Normal")
         local line_nr = util.get_hl("LineNr")
         local backdrop = 0.85
-        require("zen-mode").setup {
+        require("zen-mode").setup({
             -- your configuration comes here
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
@@ -76,20 +75,19 @@ plugin.core = {
                 --    vim.cmd(("highlight LineNr guibg=%s guifg=%s"):format(line_nr.background, line_nr.foreground))
                 --end
             end,
-        }
+        })
     end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "t", "o" },
-        action = ':ZenMode<cr>',
+        action = ":ZenMode<cr>",
         short_desc = "Toggle Only Window(ZenMode)",
-        silent = true
+        silent = true,
     })
-
 end
 
 return plugin

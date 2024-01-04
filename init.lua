@@ -1,6 +1,6 @@
-if vim.fn.has('mac') == 1 then
-    vim.g.HOME_PATH = "/Users/" .. vim.fn.expand('$USER')
-elseif vim.fn.has('unix') == 1 then
+if vim.fn.has("mac") == 1 then
+    vim.g.HOME_PATH = "/Users/" .. vim.fn.expand("$USER")
+elseif vim.fn.has("unix") == 1 then
     vim.g.HOME_PATH = "/home/" .. vim.fn.expand("$USER")
 else
     print("configure is only for mac or linux or WSL !")

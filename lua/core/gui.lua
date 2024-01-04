@@ -2,7 +2,7 @@ M = {}
 
 -- Helper function for transparency formatting
 local alpha = function()
-  return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
+    return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
 end
 
 M.setup = function()
@@ -41,9 +41,8 @@ M.setup = function()
     vim.g.neovide_cursor_antialiasing = false
 
     vim.g.neovide_underline_automatic_scaling = true
-    vim.g.neovide_theme = 'auto'
+    vim.g.neovide_theme = "auto"
     vim.g.neovide_refresh_rate = 60
-
 end
 
 return M

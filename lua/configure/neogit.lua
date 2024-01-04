@@ -1,4 +1,3 @@
-
 local plugin = {}
 
 plugin.core = {
@@ -9,7 +8,7 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         local neogit = require("neogit")
 
-        neogit.setup {
+        neogit.setup({
             -- Hides the hints at the top of the status buffer
             disable_hint = false,
             -- Disables changing the buffer highlights based on where the cursor is.
@@ -227,13 +226,12 @@ plugin.core = {
                     ["}"] = "GoToNextHunkHeader",
                 },
             },
-        }
+        })
     end,
 }
 
 plugin.mapping = function()
-
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     --mappings.register({
     --    mode = "n",
     --    key = { "<leader>", "g", "i" },

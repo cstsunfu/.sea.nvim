@@ -14,42 +14,41 @@ plugin.core = {
 }
 
 plugin.mapping = function()
-
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "j", "r" },
-        action = ':!jupyter qtconsole&<cr>',
+        action = ":!jupyter qtconsole&<cr>",
         short_desc = "Jupyter Run",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "<leader>", "j", "." },
-        action = ':JupyterCd %:p:h<CR>',
+        action = ":JupyterCd %:p:h<CR>",
         short_desc = "Jupyter Change Dir to Current",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "<leader>", "j", "c" },
-        action = ':JupyterConnect<CR>',
+        action = ":JupyterConnect<CR>",
         short_desc = "Jupyter Connect",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "n",
-        key = { "<localleader>", "j", 'e' },
-        action = '<Plug>JupyterRunVisual',
+        key = { "<localleader>", "j", "e" },
+        action = "<Plug>JupyterRunVisual",
         short_desc = "Jupyter Run Visual",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "v",
         key = { "<localleader>", "e" },
-        action = ':JupyterRunVisual<cr>',
+        action = ":JupyterRunVisual<cr>",
         short_desc = "Jupyter Run Visual",
-        silent = true
+        silent = true,
     })
     --" Run current file
     --nnoremap <buffer> <silent> <localleader>R :JupyterRunFile<CR>

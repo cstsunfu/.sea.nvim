@@ -1,1 +1,1 @@
-vim.o['foldmethod'] = 'indent'
+vim.o["foldmethod"] = "indent"

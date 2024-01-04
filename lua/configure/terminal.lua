@@ -2,12 +2,11 @@ local plugin = {}
 
 plugin.core = {
     "akinsho/toggleterm.nvim",
-    init = function()  -- Specifies code to run before this plugin is loaded.
-
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require("toggleterm").setup{
+        require("toggleterm").setup({
             -- size can be a number or function which is passed the current terminal
             size = function(term)
                 if term.direction == "horizontal" then
@@ -23,10 +22,10 @@ plugin.core = {
                 --    guibg = "<VALUE-HERE>",
                 --},
                 NormalFloat = {
-                    link = 'DarkNormal'
+                    link = "DarkNormal",
                 },
                 FloatBorder = {
-                    link = "TelescopePromptBorder"
+                    link = "TelescopePromptBorder",
                 },
             },
             --open_mapping = [[<c-t>]],
@@ -38,7 +37,7 @@ plugin.core = {
             insert_mappings = false, -- whether or not the open mapping applies in insert mode
             persist_size = true,
             --direction = 'vertical',
-            direction = 'float',
+            direction = "float",
             close_on_exit = true, -- close the terminal window when the process exits
             shell = vim.o.shell, -- change the default shell
             -- This field is only relevant if direction is set to 'float'
@@ -47,7 +46,7 @@ plugin.core = {
                 -- see :h nvim_open_win for details on borders however
                 -- the 'curved' border is a custom border type
                 -- not natively supported but implemented in this plugin.
-                border = 'rounded',
+                border = "rounded",
                 -- like `size`, width and height can be a number or function which is passed the current terminal
                 width = math.floor(vim.o.columns * 0.7),
                 height = 30,
@@ -58,9 +57,9 @@ plugin.core = {
                 enabled = false,
                 name_formatter = function(term) --  term: Terminal
                     return term.name
-                end
+                end,
             },
-        }
+        })
         --vim.api.nvim_exec([[
         --    let g:toggleterm_terminal_mapping = '<C-t>'
         --    autocmd TermEnter term://*toggleterm#* tnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
@@ -68,73 +67,70 @@ plugin.core = {
         --    inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
         --]], false)
     end,
-
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     function _G.set_terminal_keymaps()
-        local opts = {noremap = true}
-        vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-        vim.api.nvim_buf_set_keymap(0, 't', 'kj', [[<C-\><C-n>]], opts)
+        local opts = { noremap = true }
+        vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "kj", [[<C-\><C-n>]], opts)
     end
-    vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+    vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
     mappings.register({
-        mode = {"t"},
-        key = { '<esc>' },
+        mode = { "t" },
+        key = { "<esc>" },
         action = nil,
-        short_desc = "Back to Normal Mode"
+        short_desc = "Back to Normal Mode",
     })
     mappings.register({
-        mode = {"t"},
-        key = { 'k', 'j' },
+        mode = { "t" },
+        key = { "k", "j" },
         action = nil,
-        short_desc = "Back to Normal Mode"
+        short_desc = "Back to Normal Mode",
     })
     vim.g._recent_terminal_id = 0
     function _G._terminal_send_selection(visual)
-
         local id = vim.g._recent_terminal_id
         if id == 0 then
             vim.notify("No Terminal Opened")
             return
         end
         if visual then
-            vim.cmd("ToggleTermSendVisualSelection "..id)
+            vim.cmd("ToggleTermSendVisualSelection " .. id)
         else
-            vim.cmd("ToggleTermSendCurrentLine "..id)
+            vim.cmd("ToggleTermSendCurrentLine " .. id)
         end
     end
     mappings.register({
-        mode = {"v", 'x'},
-        key = { '<C-s>' },
+        mode = { "v", "x" },
+        key = { "<C-s>" },
         action = ":lua _G._terminal_send_selection(true)<cr>",
-        short_desc = "Send Select Text to First Termianl"
+        short_desc = "Send Select Text to First Termianl",
     })
     mappings.register({
-        mode = {"n"},
-        key = { '<C-s>' },
+        mode = { "n" },
+        key = { "<C-s>" },
         action = ":lua _G._terminal_send_selection(false)<cr>",
-        short_desc = "Send Current Line to First Termianl"
+        short_desc = "Send Current Line to First Termianl",
     })
 
-
-    local terminal  = require('toggleterm.terminal').Terminal
+    local terminal = require("toggleterm.terminal").Terminal
     vim.g._side_terminal_opened = false
     -- Side Terminal
     local side_terminal = terminal:new({
-      direction = "vertical",
-      close_on_exit = true,
-      id = 6,
-      -- function to run on opening the terminal
-      on_open = function(term)
-        vim.cmd("startinsert!")
-      end,
-      -- function to run on closing the terminal
-      on_close = function(term)
-        vim.cmd("stopinsert!")
-      end,
+        direction = "vertical",
+        close_on_exit = true,
+        id = 6,
+        -- function to run on opening the terminal
+        on_open = function(term)
+            vim.cmd("startinsert!")
+        end,
+        -- function to run on closing the terminal
+        on_close = function(term)
+            vim.cmd("stopinsert!")
+        end,
     })
     vim.g._side_terminal_opened = false
     function _G._side_terminal_toggle()
@@ -151,26 +147,25 @@ plugin.mapping = function()
         key = { "<C-\\>" },
         silent = true,
         action = "<C-\\><C-n>:lua _G._side_terminal_toggle()<cr>",
-        short_desc = "Side Terminal"
+        short_desc = "Side Terminal",
     })
-
 
     -- IPython Terminal
     vim.g._ipython_terminal_opened = false
     local ipython = terminal:new({
-      cmd = "ipython",
-      direction = "vertical",
-      close_on_exit = false,
-      id = 8,
-      -- function to run on opening the terminal
-      on_open = function(term)
-        vim.cmd("stopinsert!")
-        --vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
-      end,
-      -- function to run on closing the terminal
-      on_close = function(term)
-        vim.cmd("stopinsert!")
-      end,
+        cmd = "ipython",
+        direction = "vertical",
+        close_on_exit = false,
+        id = 8,
+        -- function to run on opening the terminal
+        on_open = function(term)
+            vim.cmd("stopinsert!")
+            --vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
+        end,
+        -- function to run on closing the terminal
+        on_close = function(term)
+            vim.cmd("stopinsert!")
+        end,
     })
     function _G._ipython_terminal_toggle()
         ipython:toggle()
@@ -184,24 +179,23 @@ plugin.mapping = function()
 
     mappings.register({
         mode = { "n", "t", "i" },
-        key = { '<leader>', 't', 'i' },
+        key = { "<leader>", "t", "i" },
         silent = true,
         action = "<C-\\><C-n>:lua _G._ipython_terminal_toggle()<cr>",
-        short_desc = "Terminal IPython"
+        short_desc = "Terminal IPython",
     })
 
     -- Float Terminal
     local floatterm = terminal:new({
-      direction = "float",
-      id = 1,
-      close_on_exit = false,
-      -- function to run on opening the terminal
-      on_open = function(term)
-        vim.cmd("startinsert!")
-      end,
-      -- function to run on closing the terminal
-      on_close = function(term)
-      end,
+        direction = "float",
+        id = 1,
+        close_on_exit = false,
+        -- function to run on opening the terminal
+        on_open = function(term)
+            vim.cmd("startinsert!")
+        end,
+        -- function to run on closing the terminal
+        on_close = function(term) end,
     })
     function _G._float_terminal_toggle()
         floatterm:toggle()
@@ -209,17 +203,17 @@ plugin.mapping = function()
 
     mappings.register({
         mode = { "n" },
-        key = { '<C-t>' },
+        key = { "<C-t>" },
         action = ":lua _G._float_terminal_toggle()<cr>",
         silent = true,
-        short_desc = "Float Terminal"
+        short_desc = "Float Terminal",
     })
     mappings.register({
         mode = { "t" },
-        key = { '<C-t>' },
+        key = { "<C-t>" },
         silent = true,
         action = "<C-\\><C-n>:lua _G._float_terminal_toggle()<cr>",
-        short_desc = "Float Terminal"
+        short_desc = "Float Terminal",
     })
 end
 return plugin

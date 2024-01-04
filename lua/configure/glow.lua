@@ -3,19 +3,18 @@ local plugin = {}
 plugin.core = {
 
     "ellisonleao/glow.nvim",
-    cmd = {"Glow"}, -- should install glow binary like `brew install glow`
-
+    cmd = { "Glow" }, -- should install glow binary like `brew install glow`
 
     init = function() -- Specifies code to run before this plugin is loaded.
         local style = nil
-        if vim.g.style == 'light' then
+        if vim.g.style == "light" then
             style = "light"
         else
             style = "dark"
         end
-        require('glow').setup({
+        require("glow").setup({
             style = style,
-            border ='rounded',
+            border = "rounded",
             width = vim.fn.winwidth(0),
         })
     end,
@@ -25,7 +24,7 @@ plugin.core = {
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "m", "t" },
@@ -33,6 +32,5 @@ plugin.mapping = function()
         short_desc = "Glow Markdown Preview",
         silent = true,
     })
-
 end
 return plugin

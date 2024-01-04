@@ -11,12 +11,12 @@ plugin.core = {
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
-        key = { "<localleader>", 'f' },
+        key = { "<localleader>", "f" },
         action = ":lua require('nabla').popup({border='rounded'})<CR>",
-        short_desc = "Display Formula"
+        short_desc = "Display Formula",
     })
 end
 

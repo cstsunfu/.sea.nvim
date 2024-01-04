@@ -6,25 +6,23 @@ plugin.core = {
         vim.g.NERDCreateDefaultMappings = 0
         vim.g.NERDCustomDelimiters = {
             json = {
-                left='// '
+                left = "// ",
             },
             json5 = {
-                left='// '
+                left = "// ",
             },
             hjson = {
-                left='// '
+                left = "// ",
             },
-         }
+        }
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-
     end,
-
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = { "n", "v" },
         key = { "<leader>", "c", "c" },

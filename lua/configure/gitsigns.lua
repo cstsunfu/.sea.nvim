@@ -11,7 +11,7 @@ plugin.core = {
         vim.api.nvim_exec("highlight! GitSignsDelete guifg=#ffc24b", false)
         vim.api.nvim_exec("highlight! GitSignsUntracked guifg=#555555", false)
         -- work with statuscol.lua
-        require("gitsigns").setup {
+        require("gitsigns").setup({
             signs = {
                 add = {
                     hl = "GitSignsAdd",
@@ -44,7 +44,7 @@ plugin.core = {
                     numhl = "GitSignsChangeNr",
                     linehl = "GitSignsChangeLn",
                 },
-                untracked    = {
+                untracked = {
                     hl = "GitSignsUntracked",
                     text = "▎",
                     numhl = "GitSignsUntrackedNr",
@@ -58,13 +58,12 @@ plugin.core = {
             sign_priority = 6,
             update_debounce = 100,
             status_formatter = nil, -- Use default
-        }
+        })
     end,
 }
 
 plugin.mapping = function()
-
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "g", "i" },

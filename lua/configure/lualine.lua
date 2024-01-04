@@ -98,8 +98,7 @@ plugin.core = {
             local only_win_num_buffertype = {
                 ["terminal"] = true,
             }
-            return not only_win_num_filetyps[vim.bo.filetype]
-                and not only_win_num_buffertype[vim.bo.buftype]
+            return not only_win_num_filetyps[vim.bo.filetype] and not only_win_num_buffertype[vim.bo.buftype]
         end
 
         local buffer_not_empty = function()
@@ -161,9 +160,7 @@ plugin.core = {
                 return not_only_win_num() and vim.fn.winwidth(0) > 80
             end,
             buffer_not_empty_hide_size_in_width = function()
-                return not_only_win_num()
-                    and buffer_not_empty()
-                    and vim.fn.winwidth(vim.fn.winnr()) > 70
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 70
             end,
             hide_tmux_in_width = function()
                 return vim.g.tmux_ready and not_only_win_num() and vim.fn.winwidth(0) > 70
@@ -181,9 +178,7 @@ plugin.core = {
                 return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(0) > 55
             end,
             inactive_buffer_not_empty_hide_file_in_width = function()
-                return not_only_win_num()
-                    and buffer_not_empty()
-                    and vim.fn.winwidth(vim.fn.winnr()) > 45
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 45
             end,
             inactive_buffer_not_empty_nest_file_in_width = function()
                 return buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 60
@@ -276,9 +271,7 @@ plugin.core = {
                     ["!"] = colors.red,
                     t = colors.red,
                 }
-                vim.api.nvim_command(
-                    "hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg
-                )
+                vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
                 return "  "
                 --
             end,
@@ -545,10 +538,7 @@ plugin.core = {
                 if pomodoro.reserve then
                     display = display
                         .. "  "
-                        .. string.format(
-                            "%d",
-                            (pomodoro.pomo_minites - pomodoro.reserve) / pomodoro.pomo_minites * 100
-                        )
+                        .. string.format("%d", (pomodoro.pomo_minites - pomodoro.reserve) / pomodoro.pomo_minites * 100)
                         .. "%% "
                 end
                 return display
@@ -692,8 +682,7 @@ plugin.core = {
         ins_left_inactive({
             function()
                 local cur_winnr = vim.fn.winnr()
-                local win_display_list =
-                    { "❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾" }
+                local win_display_list = { "❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾" }
                 if cur_winnr > #win_display_list then
                     return " "
                 end

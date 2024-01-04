@@ -8,23 +8,20 @@ plugin.core = {
 
     dependencies = { {
         "skywind3000/asyncrun.vim",
-    }
-    },
+    } },
 
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        vim.g.asynctasks_extra_config = { vim.g.CONFIG .. 'tasks.ini' }
+        vim.g.asynctasks_extra_config = { vim.g.CONFIG .. "tasks.ini" }
         vim.g.asyncrun_open = 8
         vim.g.asyncrun_bell = 1
-
     end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "q", "b" },
@@ -67,7 +64,5 @@ plugin.mapping = function()
         action = "<cmd>AsyncTask quickfix-rg-grep-filetype<cr>",
         short_desc = "Quick Grep Current Path File Types",
     })
-
-
 end
 return plugin

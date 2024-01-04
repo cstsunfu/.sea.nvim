@@ -3,10 +3,10 @@
 --- Goal: Create objects that are extremely similar to Python's `Path` Objects.
 --- Reference: https://docs.python.org/3/library/pathlib.html
 
-local bit = require "plenary.bit"
+local bit = require("plenary.bit")
 local uv = vim.loop
 
-local F = require "plenary.functional"
+local F = require("plenary.functional")
 
 local S_IF = {
     -- S_IFDIR  = 0o040000  # directory
@@ -217,7 +217,7 @@ function Path:new(...)
 
         -- Cached values
         _absolute = uv.fs_realpath(path_string),
-        _cwd = uv.fs_realpath ".",
+        _cwd = uv.fs_realpath("."),
     }
 
     setmetatable(obj, Path)
@@ -286,7 +286,7 @@ function Path:expand()
     else
         expanded = self.filename
     end
-    return expanded and expanded or error "Path not valid"
+    return expanded and expanded or error("Path not valid")
 end
 
 function Path:make_relative(cwd)
@@ -347,11 +347,11 @@ end
 
 local shorten = (function()
     if jit and path.sep ~= "\\" then
-        local ffi = require "ffi"
-        ffi.cdef [[
+        local ffi = require("ffi")
+        ffi.cdef([[
     typedef unsigned char char_u;
     char_u *shorten_dir(char_u *str);
-    ]]
+    ]])
         return function(filename)
             if not filename or is_uri(filename) then
                 return filename
@@ -412,7 +412,7 @@ function Path:mkdir(opts)
                 end
             end
         else
-            error "FileNotFoundError"
+            error("FileNotFoundError")
         end
     end
 
@@ -430,11 +430,11 @@ end
 function Path:rename(opts)
     opts = opts or {}
     if not opts.new_name or opts.new_name == "" then
-        error "Please provide the new name!"
+        error("Please provide the new name!")
     end
 
     -- handles `.`, `..`, `./`, and `../`
-    if opts.new_name:match "^%.%.?/?\\?.+" then
+    if opts.new_name:match("^%.%.?/?\\?.+") then
         opts.new_name = {
             uv.fs_realpath(opts.new_name:sub(1, 3)),
             opts.new_name:sub(4, #opts.new_name),
@@ -444,7 +444,7 @@ function Path:rename(opts)
     local new_path = Path:new(opts.new_name)
 
     if new_path:exists() then
-        error "File or directory already exists!"
+        error("File or directory already exists!")
     end
 
     local status = uv.fs_rename(self:absolute(), new_path:absolute())
@@ -457,7 +457,7 @@ function Path:copy(opts)
     opts = opts or {}
 
     -- handles `.`, `..`, `./`, and `../`
-    if opts.destination:match "^%.%.?/?\\?.+" then
+    if opts.destination:match("^%.%.?/?\\?.+") then
         opts.destination = {
             uv.fs_realpath(opts.destination:sub(1, 3)),
             opts.destination:sub(4, #opts.destination),
@@ -482,7 +482,7 @@ function Path:touch(opts)
     end
 
     if parents then
-        Path:new(self:parent()):mkdir { parents = true }
+        Path:new(self:parent()):mkdir({ parents = true })
     end
 
     local fd = uv.fs_open(self:_fs_filename(), "w", mode)
@@ -499,7 +499,7 @@ function Path:rm(opts)
 
     local recursive = F.if_nil(opts.recursive, false, opts.recursive)
     if recursive then
-        local scan = require "plenary.scandir"
+        local scan = require("plenary.scandir")
         local abs = self:absolute()
 
         -- first unlink all files
@@ -610,7 +610,7 @@ function Path:_read_async(callback)
         vim.loop.fs_fstat(fd, function(err_fstat, stat)
             assert(not err_fstat, err_fstat)
             if stat.type ~= "file" then
-                return callback ""
+                return callback("")
             end
             vim.loop.fs_read(fd, stat.size, 0, function(err_read, data)
                 assert(not err_read, err_read)
@@ -651,7 +651,7 @@ function Path:head(lines)
         local read_chunk = assert(uv.fs_read(fd, chunk_size, index))
 
         local i = 0
-        for char in read_chunk:gmatch "." do
+        for char in read_chunk:gmatch(".") do
             if char == "\n" then
                 count = count + 1
                 if count >= lines then

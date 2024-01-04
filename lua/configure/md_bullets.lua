@@ -9,11 +9,11 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require("md-bullets").setup {
+        require("md-bullets").setup({
             --symbols = { "", "", "✸", "✿", "•" }
-            symbols = { " ", "##", "###", "####", "#####", "•" }
+            symbols = { " ", "##", "###", "####", "#####", "•" },
             ---- or a function that receives the defaults and returns a list
-        }
+        })
         vim.cmd("hi MdHeadlineLevel1 guifg=#FFFF87 guibg=#5f5fff")
         vim.cmd("hi MdHeadlineLevel2 guifg=#00afff")
         vim.cmd("hi MdHeadlineLevel3 guifg=#00afff")
@@ -23,7 +23,6 @@ plugin.core = {
     end,
 }
 
-plugin.mapping = function()
-end
+plugin.mapping = function() end
 
 return plugin

@@ -3,12 +3,12 @@ if vim.g.custom_filetype_vimwiki then
 end
 vim.g.custom_filetype_vimwiki = true
 -- default glow highlight
-    --hi VimwikiHeader1 guifg=#FFFF87 guibg=NONE ctermbg=NONE gui=bold cterm=bold
-    --hi VimwikiHeader2 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
-    --hi VimwikiHeader3 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
-    --hi VimwikiHeader4 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
-    --hi VimwikiHeader5 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
---vim.cmd[[ 
+--hi VimwikiHeader1 guifg=#FFFF87 guibg=NONE ctermbg=NONE gui=bold cterm=bold
+--hi VimwikiHeader2 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
+--hi VimwikiHeader3 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
+--hi VimwikiHeader4 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
+--hi VimwikiHeader5 guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
+--vim.cmd[[
 --    highlight VimwikiDelText gui=strikethrough guifg=#5c6370 guibg=background
 --    highlight link VimwikiCheckBoxDone VimwikiDelText
 --    hi MdList guifg=#00afff guibg=NONE ctermbg=NONE gui=bold cterm=bold
@@ -37,8 +37,7 @@ vim.g.custom_filetype_vimwiki = true
 --    endif
 --]]
 
-
-vim.cmd[[ 
+vim.cmd([[ 
 function! VVimwiki_create_dir() abort
 python3 << EOF
 import math
@@ -74,4 +73,4 @@ cword = f"[{cword}]({os.path.join(dir_name, file_name)})"
 vim.command("normal viwc%s" % cword)
 EOF
 endfunction
-]]
+]])

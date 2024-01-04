@@ -3,35 +3,27 @@ local plugin = {}
 plugin.core = {
     "marko-cerovac/material.nvim",
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
     end,
 }
 
-plugin.mapping = function()
+plugin.mapping = function() end
 
-end
+plugin.light = {}
 
-plugin.light = {
-
-}
-
-plugin.dark = {
-
-}
+plugin.dark = {}
 plugin.setup = function(style)
-
-    local colors   = require "material.colors"
-    colors = require "material.colors.conditionals"
+    local colors = require("material.colors")
+    colors = require("material.colors.conditionals")
     local m = colors.main
     local e = colors.editor
     local g = colors.git
     local l = colors.lsp
     local s = colors.syntax
     local b = colors.backgrounds
-    require('material').setup({
+    require("material").setup({
         contrast = {
             sidebars = true, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
             floating_windows = false, -- Enable contrast for floating windows
@@ -40,14 +32,17 @@ plugin.setup = function(style)
             cursor_line = false, -- Enable darker background for the cursor line
             non_current_windows = false, -- Enable darker background for non-current windows
             popup_menu = false, -- Enable lighter background for the popup menu
-            filetypes = vim.g.side_filetypes
+            filetypes = vim.g.side_filetypes,
         },
 
         styles = { -- Give comments style such as bold, italic, underline etc.
             comments = { italic = false },
-            strings = { --[[ bold = true ]] },
-            keywords = { --[[ underline = true ]] },
-            functions = { --[[ bold = true, undercurl = true ]] },
+            strings = { --[[ bold = true ]]
+            },
+            keywords = { --[[ underline = true ]]
+            },
+            functions = { --[[ bold = true, undercurl = true ]]
+            },
             variables = {},
             operators = {},
             types = {},
@@ -73,7 +68,7 @@ plugin.setup = function(style)
 
         high_visibility = {
             lighter = false, -- Enable higher contrast text for lighter style
-            darker = false -- Enable higher contrast text for darker style
+            darker = false, -- Enable higher contrast text for darker style
         },
 
         disable = {
@@ -81,7 +76,7 @@ plugin.setup = function(style)
             borders = true, -- Disable borders between verticaly split windows
             background = false, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
             term_colors = false, -- Prevent the theme from setting terminal colors
-            eob_lines = true -- Hide the end-of-buffer lines
+            eob_lines = true, -- Hide the end-of-buffer lines
         },
 
         --lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
@@ -95,46 +90,46 @@ plugin.setup = function(style)
             DapUIValue = { link = "NormalContrast" },
             DapUIVariable = { link = "NormalContrast" },
             DapUIFrameName = { link = "NormalContrast" },
-            TSType        = { fg = s.type },
+            TSType = { fg = s.type },
             TSTypeBuiltin = { fg = s.type },
-            Identifier = { fg = '#7cccfe' },
-            Dash = { fg = '#eccc3e' },
+            Identifier = { fg = "#7cccfe" },
+            Dash = { fg = "#eccc3e" },
             TSVariableBuiltin = { link = "Identifier" },
-            TSField           = { fg = e.fg_dark },
-            TSSymbol          = { fg = m.yellow },
+            TSField = { fg = e.fg_dark },
+            TSSymbol = { fg = m.yellow },
 
             TSFuncBuiltin = { fg = s.fn },
-            TSFuncMacro   = { link = "Function" },
+            TSFuncMacro = { link = "Function" },
             TSConstructor = { link = "Function" },
 
             TSKeyword = { fg = m.cyan },
 
-            TSConstant        = { fg = m.yellow },
+            TSConstant = { fg = m.yellow },
             TSConstantBuiltin = { fg = m.yellow },
-            TSConstantMacro   = { fg = m.cyan },
+            TSConstantMacro = { fg = m.cyan },
 
-            TSMacro     = { fg = m.cyan },
+            TSMacro = { fg = m.cyan },
             TSNamespace = { fg = m.yellow },
 
-            TSStringEscape  = { fg = e.fg_dark },
-            TSStringRegex   = { fg = m.yellow },
+            TSStringEscape = { fg = e.fg_dark },
+            TSStringRegex = { fg = m.yellow },
             TSStringSpecial = { fg = e.fg_dark },
 
-            TSPunct          = { fg = m.cyan },
+            TSPunct = { fg = m.cyan },
             TSPunctDelimiter = { fg = m.cyan },
-            TSPunctBracket   = { fg = e.title },
-            TSURI            = { fg = e.link },
-            TSTag            = { fg = m.red },
-            TSTagDelimiter   = { fg = m.cyan },
-            TSTagAttribute   = { fg = m.purple },
-            TSTodo           = { fg = colors.yellow },
-            TSString         = { link = "String" },
-            TSBoolean         = { link = "Boolean" },
-            TSMethod         = { link = "Function" },
-            TSFunction         = { link = "Function" },
-            TSProperty     = { fg = "#717cb4" },
-            TSNumber       = { fg = "#f78c6c" },
-            TSOperator     = { fg = "#89ddff" }
+            TSPunctBracket = { fg = e.title },
+            TSURI = { fg = e.link },
+            TSTag = { fg = m.red },
+            TSTagDelimiter = { fg = m.cyan },
+            TSTagAttribute = { fg = m.purple },
+            TSTodo = { fg = colors.yellow },
+            TSString = { link = "String" },
+            TSBoolean = { link = "Boolean" },
+            TSMethod = { link = "Function" },
+            TSFunction = { link = "Function" },
+            TSProperty = { fg = "#717cb4" },
+            TSNumber = { fg = "#f78c6c" },
+            TSOperator = { fg = "#89ddff" },
             --TSProperty     = { fg = "#717cb4" }
             --TSURI          xxx guifg=#80cbc4
             --TSType         xxx guifg=#c792ea
@@ -152,52 +147,56 @@ plugin.setup = function(style)
             --TSBoolean      xxx links to Boolean
             --Boolean        xxx guifg=#f78c6c
             --TSOperator     xxx guifg=#89ddff
-        } -- Overwrite highlights with your own
+        }, -- Overwrite highlights with your own
     })
 
     if vim.g.style == "light" then
-        vim.g.material_style = 'lighter'
+        vim.g.material_style = "lighter"
     elseif vim.g.style == "oceanic" then
-        vim.g.material_style = 'oceanic'
-    elseif vim.g.style == 'palenight' then
-        vim.g.material_style = 'palenight'
-    elseif vim.g.style == 'deep ocean' then
-        vim.g.material_style = 'deep ocean'
+        vim.g.material_style = "oceanic"
+    elseif vim.g.style == "palenight" then
+        vim.g.material_style = "palenight"
+    elseif vim.g.style == "deep ocean" then
+        vim.g.material_style = "deep ocean"
     else
-        vim.g.material_style = 'darker'
+        vim.g.material_style = "darker"
     end
-    vim.cmd 'colorscheme material'
+    vim.cmd("colorscheme material")
     vim.cmd("hi clear Cursor")
 
-    local hl_fun = require('util.highlight')
+    local hl_fun = require("util.highlight")
     local timer = vim.loop.new_timer()
-    timer:start(vim.g.after_schedule_time_start + 100, 0, vim.schedule_wrap(function()
-        vim.cmd("hi! link DiffviewNormal NormalContrast")
-        vim.cmd("hi! default link WhichKeyFloat Pmenu")
-        vim.cmd("hi! Search guifg=#aaffff guibg=#000000")
-        vim.cmd("hi! CurSearch guifg=#00cccc guibg=#000000")
-        vim.cmd("hi! IncSearch guifg=#00cccc guibg=#000000")
-        vim.cmd("hi! FloatBorder guifg=#faa5f0 guibg=None")
-        --vim.cmd("hi! default link NormalFloat Pmenu")
-        vim.cmd("hi! StatusLine ctermfg=black guifg=black") --set HSplit color to black
-        -- FIXED: FIXED: the VertSplit is renamed to WinSeparator https://github.com/marko-cerovac/material.nvim/issues/91 ,
-        --vim.o.fillchars = "fold:-,eob: ,vert: ,diff: "   -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
-        vim.cmd("hi! DiffDelete guibg=#A6647A")
+    timer:start(
+        vim.g.after_schedule_time_start + 100,
+        0,
+        vim.schedule_wrap(function()
+            vim.cmd("hi! link DiffviewNormal NormalContrast")
+            vim.cmd("hi! default link WhichKeyFloat Pmenu")
+            vim.cmd("hi! Search guifg=#aaffff guibg=#000000")
+            vim.cmd("hi! CurSearch guifg=#00cccc guibg=#000000")
+            vim.cmd("hi! IncSearch guifg=#00cccc guibg=#000000")
+            vim.cmd("hi! FloatBorder guifg=#faa5f0 guibg=None")
+            --vim.cmd("hi! default link NormalFloat Pmenu")
+            vim.cmd("hi! StatusLine ctermfg=black guifg=black") --set HSplit color to black
+            -- FIXED: FIXED: the VertSplit is renamed to WinSeparator https://github.com/marko-cerovac/material.nvim/issues/91 ,
+            --vim.o.fillchars = "fold:-,eob: ,vert: ,diff: "   -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
+            vim.cmd("hi! DiffDelete guibg=#A6647A")
 
-        if vim.g.style == 'oceanic' or vim.g.style == 'palenight'  or vim.g.style == 'dark' then
-            local code_block = hl_fun.get_highlight_values("ColorColumn")
-            local code_block_bg = hl_fun.brighten(code_block.background, -15) -- darken by 15%
-            hl_fun.highlight("CodeBlock", {bg = code_block_bg, fg=code_block.foreground})
-        end
-    end))
+            if vim.g.style == "oceanic" or vim.g.style == "palenight" or vim.g.style == "dark" then
+                local code_block = hl_fun.get_highlight_values("ColorColumn")
+                local code_block_bg = hl_fun.brighten(code_block.background, -15) -- darken by 15%
+                hl_fun.highlight("CodeBlock", { bg = code_block_bg, fg = code_block.foreground })
+            end
+        end)
+    )
 
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "c", "<tab>" },
         action = ":lua require('material.functions').toggle_style()<cr>",
         short_desc = "ColorStyle Exchange",
-        silent = true
+        silent = true,
     })
 end
 

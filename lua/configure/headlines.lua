@@ -5,19 +5,18 @@ plugin.core = {
     ft = { "markdown", "vimwiki", "org" },
     after = "nvim-treesitter",
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require("headlines").setup {
+        require("headlines").setup({
             markdown = {
                 query = vim.treesitter.query.parse(
-                --(atx_heading [
-                --(atx_h1_marker)
-                --(atx_h2_marker)
-                --] @headline)
-                "markdown",
-                [[
+                    --(atx_heading [
+                    --(atx_h1_marker)
+                    --(atx_h2_marker)
+                    --] @headline)
+                    "markdown",
+                    [[
 
                 (thematic_break) @dash
 
@@ -30,18 +29,18 @@ plugin.core = {
                 headline_highlights = { "Headline" },
                 codeblock_highlight = "CodeBlock",
                 dash_highlight = "Dash",
-                dash_string = "▔",--  󰝔 upper quarter block/ eight block
+                dash_string = "▔", --  󰝔 upper quarter block/ eight block
                 --__', '▁▁', '▂▂', '▃▃', '▄▄', '▅▅', '▆▆', '▇▇', '██
                 quote_highlight = "Quote",
                 quote_string = "┃",
                 fat_headlines = true,
                 fat_headline_upper_string = "▃",
-                fat_headline_lower_string = "▀"
+                fat_headline_lower_string = "▀",
             },
             org = {
                 query = vim.treesitter.query.parse(
-                "org",
-                [[
+                    "org",
+                    [[
                 (headline (stars) @headline)
 
                 (
@@ -67,13 +66,12 @@ plugin.core = {
                 quote_string = "┃",
                 fat_headlines = true,
                 fat_headline_upper_string = "▃",
-                fat_headline_lower_string = "▀"
+                fat_headline_lower_string = "▀",
             },
-        }
+        })
     end,
 }
 
-plugin.mapping = function()
-end
+plugin.mapping = function() end
 
 return plugin

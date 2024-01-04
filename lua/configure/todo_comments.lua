@@ -5,7 +5,6 @@ plugin.core = {
     dependencies = "nvim-lua/plenary.nvim",
     --cmd = { "TodoTelescope" },
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -18,7 +17,7 @@ plugin.core = {
             pcall(highlight_win, win, force)
         end
 
-        require("todo-comments").setup {
+        require("todo-comments").setup({
             -- your configuration comes here
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
@@ -79,21 +78,20 @@ plugin.core = {
                 -- don't replace the (KEYWORDS) placeholder
                 pattern = [[\b(KEYWORDS):]], -- ripgrep regex
                 -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
-            }
-        }
+            },
+        })
     end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "t", "t" },
-        action = ':TodoTelescope<cr>',
+        action = ":TodoTelescope<cr>",
         short_desc = "Toggle TODO List",
-        silent = true
+        silent = true,
     })
-
 end
 
 return plugin
