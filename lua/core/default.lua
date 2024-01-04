@@ -1,7 +1,6 @@
 local default_setting = {}
 
-
-default_setting['global'] = {
+default_setting["global"] = {
     after_schedule_time_start = 500,
 }
 
@@ -10,8 +9,7 @@ vim.cmd("let maplocalleader=' '")
 vim.cmd("let mapleader=';'")
 vim.cmd("nnoremap ' ;")
 vim.cmd("vnoremap ' ;")
-local global_func = require('util.global')
-
+local global_func = require("util.global")
 
 -- special setting
 
@@ -36,7 +34,7 @@ vim.g.side_filetypes = { -- Specify which filetypes get the contrasted (darker) 
     "dapui_scopes",
     "vista_markdown",
     "fugitiveblame",
-    "qf" -- Darker qf list background
+    "qf", -- Darker qf list background
 }
 
 local no_number_filetypes = {
@@ -45,15 +43,15 @@ local no_number_filetypes = {
     toggleterm = true,
     terminal = true,
     dapui_console = true,
-    ['dap-repl'] = true,
+    ["dap-repl"] = true,
     help = true,
     NeogitGitCommandHistory = true,
     NeogitStatus = true,
 }
-for _,filetype in ipairs(vim.g.side_filetypes) do
+for _, filetype in ipairs(vim.g.side_filetypes) do
     no_number_filetypes[filetype] = true
 end
-no_number_filetypes[''] = true
+no_number_filetypes[""] = true
 
 vim.g.no_number_filetypes = no_number_filetypes
 
@@ -63,51 +61,49 @@ for key, _ in pairs(vim.g.no_number_filetypes) do
 end
 
 vim.g.no_number_filetypes_list = no_number_filetypes_list
-vim.g.no_number_filetypes_concat_list = table.concat(no_number_filetypes_list, ',')
-
+vim.g.no_number_filetypes_concat_list = table.concat(no_number_filetypes_list, ",")
 
 _G.check_zen_mode_start = function()
-    local loaded_module = require('core.plugins').loaded_plugins
+    local loaded_module = require("core.plugins").loaded_plugins
     if loaded_module.zen_mode ~= true then
         return false
     end
-    return require('zen-mode.view').is_open()
+    return require("zen-mode.view").is_open()
 end
 
-global_func.augroup('smarter_cursorline', {
+global_func.augroup("smarter_cursorline", {
     {
-        events = { 'filetype' },
+        events = { "filetype" },
         targets = { vim.g.no_number_filetypes_concat_list },
-        command = "setlocal nonumber"
+        command = "setlocal nonumber",
     },
     {
-        events = { 'filetype' },
+        events = { "filetype" },
         targets = { vim.g.no_number_filetypes_concat_list },
-        command = "setlocal norelativenumber"
+        command = "setlocal norelativenumber",
     },
     {
-        events = { 'InsertLeave', 'WinEnter', 'VimEnter', 'BufEnter', 'BufWinEnter', 'BufNew' },
-        targets = { '*' },
-        command = "set cursorline"
+        events = { "InsertLeave", "WinEnter", "VimEnter", "BufEnter", "BufWinEnter", "BufNew" },
+        targets = { "*" },
+        command = "set cursorline",
     },
     {
-        events = { 'InsertEnter', 'WinLeave' },
-        targets = { '*' },
-        command = "set nocursorline"
+        events = { "InsertEnter", "WinLeave" },
+        targets = { "*" },
+        command = "set nocursorline",
     },
     {
-        events = { 'InsertEnter' },
-        targets = { '*' },
-        command = "set norelativenumber"
+        events = { "InsertEnter" },
+        targets = { "*" },
+        command = "set norelativenumber",
     },
     {
-        events = { 'InsertLeave', 'BufEnter' },
-        targets = { '*' },
+        events = { "InsertLeave", "BufEnter" },
+        targets = { "*" },
         --command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and vim.api.nvim_win_get_config(0).relative == '' then vim.o.relativenumber = true vim.o.number = true end ]]
-        command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and (vim.api.nvim_win_get_config(0).relative == '' or _G.check_zen_mode_start()) then vim.o.relativenumber = true vim.o.number = true end ]]
+        command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and (vim.api.nvim_win_get_config(0).relative == '' or _G.check_zen_mode_start()) then vim.o.relativenumber = true vim.o.number = true end ]],
     },
 })
-
 
 --global_func.augroup('empty_message', {
 --    {
@@ -118,9 +114,9 @@ global_func.augroup('smarter_cursorline', {
 
 --})
 
-default_setting['opt'] = {
+default_setting["opt"] = {
     number = true,
-    guicursor = 'n-v:block-Cursor,i-ci-ve-c:ver25-Cursor', --block for normal visual mode, vertical for insert command mode. highlight set to Cursor
+    guicursor = "n-v:block-Cursor,i-ci-ve-c:ver25-Cursor", --block for normal visual mode, vertical for insert command mode. highlight set to Cursor
     --relativenumber = true, -- set in autocmd
     --fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen:,foldsep: ,foldclose:", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
     fillchars = "fold: ,eob: ,vert:▕,diff: ,foldopen: ,foldsep: ,foldclose: ", -- fillchars , fold for fold fillchars, eob for the end file begin fillchars, vert for vert split
@@ -128,9 +124,9 @@ default_setting['opt'] = {
     foldenable = true, -- enable fold
     foldlevel = 99, -- disable fold for opened file
     foldminlines = 0, -- 0 means even the child is only one line, fold always works
-    foldmethod = 'indent', -- for most filetype, fold by indent
+    foldmethod = "indent", -- for most filetype, fold by indent
     foldnestmax = 5, -- max fold nest
-    foldcolumn = '0',
+    foldcolumn = "0",
     --foldexpr = "nvim_treesitter#foldexpr()",
     ignorecase = true,
     smartcase = true,
@@ -142,33 +138,32 @@ default_setting['opt'] = {
     autochdir = true, -- auto change directory to current file
     lazyredraw = false, -- true will speed up in macro repeat
     ttyfast = true, -- true maybe as lazyredraw ? TODO
-    mouse = 'a',
+    mouse = "a",
     hidden = true, -- permit of change buffer when the buffer is not been written
     fileencodings = "utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,latin1",
     encoding = "utf-8",
     path = vim.o.path .. ",./**",
-    omnifunc = 'v:lua.vim.lsp.omnifunc', -- for default lsp
+    omnifunc = "v:lua.vim.lsp.omnifunc", -- for default lsp
     tabstop = 4, -- replace tab as white space
     mousemoveevent = true,
     expandtab = true,
     shiftwidth = 4,
     conceallevel = 2,
-    concealcursor = '', -- if set to nc, char will always fold except in insert mode
+    concealcursor = "", -- if set to nc, char will always fold except in insert mode
     softtabstop = 4,
     completeopt = "menuone,noselect",
     --t_ut = " ",                               -- disable Backgroud color Erase（BCE）
     termguicolors = true, -- TODO
-    colorcolumn = "99999" -- FIXED: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+    colorcolumn = "99999", -- FIXED: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
 }
 
-for key, value in pairs(default_setting['opt']) do
+for key, value in pairs(default_setting["opt"]) do
     vim.o[key] = value
 end
 
-for key, value in pairs(default_setting['global']) do
+for key, value in pairs(default_setting["global"]) do
     vim.g[key] = value
 end
-
 
 local aug = vim.api.nvim_create_augroup("buf_large", { clear = true })
 
@@ -177,7 +172,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
         if ok and stats then
             -- if file size > 2M, enable large buf
-            if (stats.size > 2000000) then
+            if stats.size > 2000000 then
                 global_func.enable_large_buf()
             else
                 vim.g.large_buf = false
@@ -204,14 +199,14 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
 })
 
 local active_group = vim.api.nvim_create_augroup("active_group", { clear = false })
-vim.cmd('highlight link DarkNormal Normal')
+vim.cmd("highlight link DarkNormal Normal")
 vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     callback = function()
-        -- if filetype in 
+        -- if filetype in
         if global_func.index(vim.g.side_filetypes, vim.bo.filetype) == nil then
-            vim.cmd('setl winhighlight=Normal:Normal')
-            if vim.g.no_number_filetypes[vim.bo.filetype] == nil and vim.api.nvim_win_get_config(0).relative == '' then
-                vim.cmd('setl relativenumber')
+            vim.cmd("setl winhighlight=Normal:Normal")
+            if vim.g.no_number_filetypes[vim.bo.filetype] == nil and vim.api.nvim_win_get_config(0).relative == "" then
+                vim.cmd("setl relativenumber")
             end
         end
     end,
@@ -221,9 +216,9 @@ vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
     callback = function()
         if global_func.index(vim.g.side_filetypes, vim.bo.filetype) == nil then
-            vim.cmd('setl winhighlight=Normal:DarkNormal')
+            vim.cmd("setl winhighlight=Normal:DarkNormal")
             if vim.g.no_number_filetypes[vim.bo.filetype] == nil then
-                vim.cmd('setl norelativenumber')
+                vim.cmd("setl norelativenumber")
             end
         end
     end,
