@@ -9,7 +9,7 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         local cat_cmd = "cat | lolcat -F 0.3"
-        if os.getenv("NO_LOLCAT") then
+        if os.getenv("NO_LOLCAT") == "1" then
             cat_cmd = nil
         end
         require("dashboard").setup({
