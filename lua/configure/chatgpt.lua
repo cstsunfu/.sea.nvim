@@ -20,6 +20,7 @@ plugin.core = {
                     close = "<C-c>",
                     accept = "<C-y>",
                     toggle_diff = "<C-d>",
+                    toggle_help = "<C-i>",
                     toggle_settings = "<C-o>",
                     cycle_windows = "<Tab>",
                     use_output_as_input = "<C-r>",
@@ -46,6 +47,7 @@ plugin.core = {
                     yank_last = "<C-y>",
                     yank_last_code = "<C-k>",
                     scroll_up = "<C-u>",
+                    toggle_help = "<C-p>",
                     scroll_down = "<C-d>",
                     new_session = "<C-n>",
                     cycle_windows = "<Tab>",
@@ -156,13 +158,19 @@ plugin.core = {
             use_openai_functions_for_edits = false,
             actions_paths = {},
             show_quickfixes_cmd = "Trouble quickfix",
-            predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
+            predefined_chat_gpt_prompts = "file://" .. vim.g.CONFIG .. "/chatgpt-prompts.csv",
         })
     end,
 }
 
 plugin.mapping = function()
     local mappings = require("core.mapping")
+    mappings.register({
+        mode = { "n" },
+        key = { "<leader>", "f", "a" },
+        action = ":ChatGPTActAs<cr>",
+        short_desc = "ChatGPTActAs",
+    })
     mappings.register({
         mode = { "n" },
         key = { "<leader>", "a", "c" },
@@ -175,6 +183,7 @@ plugin.mapping = function()
         action = ":ChatGPT<cr>",
         short_desc = "ChatGPT",
     })
+
     mappings.register({
         mode = { "n", "i" },
         key = { "<S-Enter>" },

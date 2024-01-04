@@ -154,6 +154,9 @@ For getting the best performance, please use the GPU-based terminal:
 
 Each figure may display with different colorscheme.
 
+## ChatGPT
+![chatgpt](./pic/chatgpt.png)
+
 ## Complete/Nvim-Tree/Navigator(based `builtin lsp`)
 ![code_view_complete](./pic/builtin.png)
 
