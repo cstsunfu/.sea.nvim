@@ -11,18 +11,18 @@ plugin.core = {
             --ft_ignore = { "alpha", "neo-tree", "Trouble", "help" },
             ft_ignore = vim.g.no_number_filetypes_list,
             bt_ignore = { "terminal" },
-            thousands = ',',     -- or line number thousands separator string ("." / ",")
-            relculright = true,   -- whether to right-align the cursor line number with 'relativenumber' set
+            thousands = ",", -- or line number thousands separator string ("." / ",")
+            relculright = true, -- whether to right-align the cursor line number with 'relativenumber' set
             segments = {
                 --{ text = { " ", builtin.foldfunc, " "}, click = "v:lua.ScFa" },
                 {
                     --text = { " ", builtin.foldfunc, " " }, -- also impact by the default setting for fillchars && foldcolumn
                     text = { "", builtin.foldfunc, "" }, -- also impact by the default setting for fillchars && foldcolumn
                     condition = { builtin.not_empty, true, builtin.not_empty },
-                    click = "v:lua.ScFa"
+                    click = "v:lua.ScFa",
                 },
                 {
-                    sign = { name = { "Diagnostic*" }, maxwidth = 1, auto = false, colwidth = 2, fillchar=" " },
+                    sign = { name = { "Diagnostic*" }, maxwidth = 1, auto = false, colwidth = 2, fillchar = " " },
                     click = "v:lua.ScSa",
                 },
                 {
@@ -44,8 +44,6 @@ plugin.core = {
     end,
 }
 
-plugin.mapping = function()
-
-end
+plugin.mapping = function() end
 
 return plugin

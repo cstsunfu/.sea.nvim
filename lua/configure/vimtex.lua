@@ -11,7 +11,7 @@ plugin.core = {
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
 end
 
 return plugin

@@ -2,58 +2,58 @@ local plugin = {}
 
 plugin.core = {
     "hrsh7th/nvim-cmp",
-    event = 'InsertEnter',
+    event = "InsertEnter",
     dependencies = {
         "nvim-lspconfig",
         {
             "quangnguyen30192/cmp-nvim-ultisnips",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         }, -- ultisnips source
         {
             "hrsh7th/cmp-nvim-lsp",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         }, --builtin lsp source
         {
             "hrsh7th/cmp-buffer",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         }, --buffer source
         {
             "hrsh7th/cmp-path",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         }, --path source
         {
             "hrsh7th/cmp-cmdline",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         }, -- for commandline complation
         {
             "dmitmel/cmp-cmdline-history",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         }, -- for commandline complation
         {
             "hrsh7th/cmp-calc",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         }, --for calc
         {
             "hrsh7th/cmp-emoji",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         },
         {
             "rcarriga/cmp-dap",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         },
         {
             "hrsh7th/cmp-nvim-lsp-signature-help",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter"
+            event = "InsertEnter",
         },
     },
     init = function() -- Specifies code to run before this plugin is loaded.
@@ -86,19 +86,19 @@ plugin.core = {
             Struct = "",
             Event = "",
             Operator = "",
-            TypeParameter = " "
+            TypeParameter = " ",
         }
-        local cmp = require 'cmp'
-        vim.cmd [[
+        local cmp = require("cmp")
+        vim.cmd([[
             highlight CompNormal guibg=None guifg=None
 
             highlight CompBorder guifg=#ffaa55 guibg=#None
 
             autocmd! ColorScheme * highlight CompBorder guifg=#ffaa55 guibg=None
             autocmd FileType AerojumpFilter lua require('cmp').setup.buffer { enabled = false }
-        ]]
-        require("cmp_nvim_ultisnips").setup{}
-        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+        ]])
+        require("cmp_nvim_ultisnips").setup({})
+        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
         --highlight CompDocBorder guifg=# guibg=#None
         --autocmd! ColorScheme * highlight CompDocBorder guifg=#ffaa55 guibg=None
         local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
@@ -114,34 +114,34 @@ plugin.core = {
                     scrollbar = false,
                     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
                     --winhighlight = 'NormalFloat:NormalFloat,CompBorder:CompBorder',
-                    winhighlight = 'NormalFloat:CompNormal,FloatBorder:CompBorder',
+                    winhighlight = "NormalFloat:CompNormal,FloatBorder:CompBorder",
                 },
                 documentation = {
                     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
                     --winhighlight = 'NormalFloat:CompNormal,FloatBorder:CompDocBorder',
-                    winhighlight = 'NormalFloat:CompNormal,FloatBorder:FloatBorder',
+                    winhighlight = "NormalFloat:CompNormal,FloatBorder:FloatBorder",
                 },
             },
 
             mapping = cmp.mapping.preset.insert({
 
-                ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-x>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.abort(),
+                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                ["<C-x>"] = cmp.mapping.complete(),
+                ["<C-e>"] = cmp.mapping.abort(),
                 --['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                ["<C-j>"] = cmp.mapping(
-                    function(fallback)
-                        cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-                    end,
-                    { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
-                ),
-                ["<C-k>"] = cmp.mapping(
-                    function(fallback)
-                        cmp_ultisnips_mappings.jump_backwards(fallback)
-                    end,
-                    { "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
-                ),
+                ["<C-j>"] = cmp.mapping(function(fallback)
+                    cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+                end, {
+                    "i",
+                    "s", --[[ "c" (to enable the mapping in command mode) ]]
+                }),
+                ["<C-k>"] = cmp.mapping(function(fallback)
+                    cmp_ultisnips_mappings.jump_backwards(fallback)
+                end, {
+                    "i",
+                    "s", --[[ "c" (to enable the mapping in command mode) ]]
+                }),
                 ["<CR>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
@@ -156,20 +156,20 @@ plugin.core = {
                 }),
             }),
             sources = cmp.config.sources({
-                { name = "copilot"},
-                { name = 'nvim_lsp' },
-                { name = 'ultisnips' }, -- For ultisnips users.
-                { name = 'calc' },
-                { name = 'nvim_lsp_signature_help' },
-                { name = 'path' },
-                { name = 'buffer' },
-                { name = 'emoji', insert = true },
+                { name = "copilot" },
+                { name = "nvim_lsp" },
+                { name = "ultisnips" }, -- For ultisnips users.
+                { name = "calc" },
+                { name = "nvim_lsp_signature_help" },
+                { name = "path" },
+                { name = "buffer" },
+                { name = "emoji", insert = true },
             }),
 
             formatting = {
                 format = function(entry, vim_item)
                     -- Kind icons
-                    vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+                    vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
                     -- Source
                     vim_item.menu = ({
                         buffer = "[Buf]",
@@ -187,79 +187,75 @@ plugin.core = {
                         copilot = "[GIT]",
                     })[entry.source.name]
                     return vim_item
-                end
+                end,
             },
             enabled = function()
-                return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-                    or require("cmp_dap").is_dap_buffer()
+                return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
             end,
             preselect = true,
-
         })
 
         -- Set configuration for specific filetype.
-        cmp.setup.filetype('org', {
+        cmp.setup.filetype("org", {
             sources = cmp.config.sources({
-                { name = 'orgmode' },
-                { name = 'buffer' },
-                { name = 'path' },
-                { name = 'calc' },
-                { name = 'ultisnips' },
-                { name = 'emoji', insert = true }
-            })
+                { name = "orgmode" },
+                { name = "buffer" },
+                { name = "path" },
+                { name = "calc" },
+                { name = "ultisnips" },
+                { name = "emoji", insert = true },
+            }),
         })
-        cmp.setup.filetype('markdown', {
+        cmp.setup.filetype("markdown", {
             sources = cmp.config.sources({
-                { name = 'ultisnips' },
-                { name = 'buffer' },
-                { name = 'path' },
-                { name = 'calc' },
-                { name = 'emoji', insert = true }
-            })
+                { name = "ultisnips" },
+                { name = "buffer" },
+                { name = "path" },
+                { name = "calc" },
+                { name = "emoji", insert = true },
+            }),
         })
-        cmp.setup.filetype('dap-repl', {
+        cmp.setup.filetype("dap-repl", {
             sources = cmp.config.sources({
-                { name = 'dap' },
-                { name = 'path' },
-            })
+                { name = "dap" },
+                { name = "path" },
+            }),
         })
-        cmp.setup.filetype('gitcommit', {
+        cmp.setup.filetype("gitcommit", {
             sources = cmp.config.sources({
-                { name = 'cmp_git' },  -- You can specify the `cmp_git` source if you were installed it.
-                { name = 'buffer' },
-            }
-            )
+                { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+                { name = "buffer" },
+            }),
         })
 
         -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline('/', {
+        cmp.setup.cmdline("/", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = {
-                { name = 'buffer' }
-            }
+                { name = "buffer" },
+            },
         })
 
         -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline(':', {
+        cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
-                { name = 'path' }
+                { name = "path" },
             }, {
-                { name = 'cmdline' },
-                { name = 'cmdline_history' },
-            })
+                { name = "cmdline" },
+                { name = "cmdline_history" },
+            }),
         })
 
         -- Setup lspconfig.
-        local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
         capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-        require('lspconfig')['gopls'].setup {
-            capabilities = capabilities
-        }
-    end
+        require("lspconfig")["gopls"].setup({
+            capabilities = capabilities,
+        })
+    end,
 }
 
-plugin.mapping = function()
-end
+plugin.mapping = function() end
 return plugin

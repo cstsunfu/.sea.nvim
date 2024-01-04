@@ -2,12 +2,11 @@ local plugin = {}
 
 plugin.core = {
     "gcmt/wildfire.vim",
-    init = function()  -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.wildfire_objects = {
-            ["*"] = {"iw", "i'", 'i"', "i)", "i]", "i}", "ip", "it"},
-            ["html,xml"] = {"at", "it"}
+            ["*"] = { "iw", "i'", 'i"', "i)", "i]", "i}", "ip", "it" },
+            ["html,xml"] = { "at", "it" },
         }
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -16,16 +15,15 @@ plugin.core = {
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
-        mode = {"n", "v"},
+        mode = { "n", "v" },
         key = { "<cr>" },
-        action = '<Plug>(wildfire-fuel)',
+        action = "<Plug>(wildfire-fuel)",
         short_desc = "Auto Select Span",
         noremap = true,
         silent = true,
     })
-
 end
 
 return plugin

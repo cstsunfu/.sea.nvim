@@ -12,21 +12,19 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require("obsidian-bridge").setup(
-        {
-            scroll_sync = true
-        }
-        )
+        require("obsidian-bridge").setup({
+            scroll_sync = true,
+        })
     end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
-        key = { "<leader>", 'o', 'c' },
+        key = { "<leader>", "o", "c" },
         action = ":ObsidianBridgeTelescopeCommand<cr>",
-        short_desc = "ObsidianCommand"
+        short_desc = "ObsidianCommand",
     })
 end
 

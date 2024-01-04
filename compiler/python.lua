@@ -5,7 +5,7 @@ if vim.g.custom_python_compiler then
 end
 vim.g.custom_python_compiler = true
 
-vim.cmd[[
+vim.cmd([[
     let s:cpo_save = &cpo
     set cpo&vim
 
@@ -16,4 +16,4 @@ vim.cmd[[
 
     let &cpo = s:cpo_save
     unlet s:cpo_save
-]]
+]])

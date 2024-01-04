@@ -230,10 +230,9 @@ plugin.core = {
             },
         })
     end,
-
 }
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     --mappings.register({
     --    mode = "n",
     --    key = { "<leader>", "t", "l" },
@@ -241,6 +240,5 @@ plugin.mapping = function()
     --    short_desc = "Tag List",
     --    silent = true
     --})
-
 end
 return plugin

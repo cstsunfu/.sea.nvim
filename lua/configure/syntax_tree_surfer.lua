@@ -2,8 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "ziontee113/syntax-tree-surfer",
-    init = function()  -- Specifies code to run before this plugin is loaded.
-
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -43,8 +42,8 @@ plugin.core = {
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
-    local opts = {noremap = true, silent = true}
+    local mappings = require("core.mapping")
+    local opts = { noremap = true, silent = true }
     -- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
     vim.keymap.set("n", "vd", function()
         vim.opt.opfunc = "v:lua.STSSwapCurrentNodeNextNormal_Dot"
@@ -56,25 +55,24 @@ plugin.mapping = function()
     end, { silent = true, expr = true })
 
     -- Visual Selection from Normal Mode
-    vim.keymap.set("n", "vx", '<cmd>STSSelectMasterNode<cr>', opts)
-    vim.keymap.set("n", "vn", '<cmd>STSSelectCurrentNode<cr>', opts)
+    vim.keymap.set("n", "vx", "<cmd>STSSelectMasterNode<cr>", opts)
+    vim.keymap.set("n", "vn", "<cmd>STSSelectCurrentNode<cr>", opts)
 
     -- Select Nodes in Visual Mode
-    vim.keymap.set("x", "gn", '<cmd>STSSelectNextSiblingNode<cr>', opts)
-    vim.keymap.set("x", "gp", '<cmd>STSSelectPrevSiblingNode<cr>', opts)
+    vim.keymap.set("x", "gn", "<cmd>STSSelectNextSiblingNode<cr>", opts)
+    vim.keymap.set("x", "gp", "<cmd>STSSelectPrevSiblingNode<cr>", opts)
     --
-    vim.keymap.set("x", "H", '<cmd>STSSelectParentNode<cr>', opts)
-    vim.keymap.set("x", "L", '<cmd>STSSelectChildNode<cr>', opts)
+    vim.keymap.set("x", "H", "<cmd>STSSelectParentNode<cr>", opts)
+    vim.keymap.set("x", "L", "<cmd>STSSelectChildNode<cr>", opts)
 
     -- Swapping Nodes in Visual Mode
-    if vim.fn.has('mac') == 1 then
-        vim.keymap.set("x", "∆", '<cmd>STSSwapNextVisual<cr>', opts)
-        vim.keymap.set("x", "˚", '<cmd>STSSwapPrevVisual<cr>', opts)
+    if vim.fn.has("mac") == 1 then
+        vim.keymap.set("x", "∆", "<cmd>STSSwapNextVisual<cr>", opts)
+        vim.keymap.set("x", "˚", "<cmd>STSSwapPrevVisual<cr>", opts)
     else
-        vim.keymap.set("x", "<A-j>", '<cmd>STSSwapNextVisual<cr>', opts)
-        vim.keymap.set("x", "<A-k>", '<cmd>STSSwapPrevVisual<cr>', opts)
+        vim.keymap.set("x", "<A-j>", "<cmd>STSSwapNextVisual<cr>", opts)
+        vim.keymap.set("x", "<A-k>", "<cmd>STSSwapPrevVisual<cr>", opts)
     end
-
 end
 
 return plugin

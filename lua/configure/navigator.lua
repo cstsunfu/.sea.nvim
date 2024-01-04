@@ -6,16 +6,15 @@ plugin.core = {
     branch = "main",
     event = "LspAttach",
     dependencies = {
-        {"nvim-tree/nvim-web-devicons"},
+        { "nvim-tree/nvim-web-devicons" },
         --Please make sure you install markdown and markdown_inline parser
-        {"nvim-treesitter/nvim-treesitter"}
+        { "nvim-treesitter/nvim-treesitter" },
     },
-
 
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
-    config = function()                                        -- Specifies code to run after this plugin is loaded
+    config = function() -- Specifies code to run after this plugin is loaded
         require("lspsaga").setup({
             preview = {
                 lines_above = 0,
@@ -41,7 +40,7 @@ plugin.core = {
                 code_action = "💡",
                 incoming = " ",
                 outgoing = " ",
-                hover = ' ',
+                hover = " ",
                 kind = {},
             },
 
@@ -55,55 +54,53 @@ plugin.core = {
                 sign_priority = 40,
                 virtual_text = true,
             },
-
         })
     end,
-
 }
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "g", "f" },
-        action = '<cmd>Lspsaga lsp_finder<cr>',
+        action = "<cmd>Lspsaga lsp_finder<cr>",
         short_desc = "Lsp Finder",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "g", "F" },
-        action = '<cmd>e <cfile><cr>',
+        action = "<cmd>e <cfile><cr>",
         short_desc = "Goto File",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "g", "a" },
-        action = '<cmd>Lspsaga code_action<cr>',
+        action = "<cmd>Lspsaga code_action<cr>",
         short_desc = "Lsp Code Action",
-        silent = false
+        silent = false,
     })
     mappings.register({
         mode = "n",
         key = { "g", "p" },
-        action = '<cmd>Lspsaga peek_definition<cr>',
+        action = "<cmd>Lspsaga peek_definition<cr>",
         short_desc = "Lsp Peek Definition",
-        silent = false
+        silent = false,
     })
     mappings.register({
         mode = "n",
         key = { "g", "R" },
-        action = '<cmd>Lspsaga rename<cr>',
+        action = "<cmd>Lspsaga rename<cr>",
         short_desc = "Lsp Rename",
-        silent = false
+        silent = false,
     })
     mappings.register({
         mode = "n",
         key = { "K" },
-        action = '<cmd>Lspsaga hover_doc<cr>',
+        action = "<cmd>Lspsaga hover_doc<cr>",
         short_desc = "Displays Hover",
         desc = "Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.",
-        silent = false
+        silent = false,
     })
 end
 return plugin

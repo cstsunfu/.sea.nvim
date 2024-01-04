@@ -12,19 +12,18 @@ vim.g.feature_groups = {
     git = true,
 }
 
-
-require('core.default')
+require("core.default")
 pcall(require, "core.local") -- local maybe not exists
-require('core.user')
-require('core.plugins').setup()
-require('hack').setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. '/org/pomodoro/' } })
+require("core.user")
+require("core.plugins").setup()
+require("hack").setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. "/org/pomodoro/" } })
 
-require('core.plugins').create_mapping()
-require('hack').create_mapping()
-require('core.mapping').setup()
+require("core.plugins").create_mapping()
+require("hack").create_mapping()
+require("core.mapping").setup()
 require("configure." .. vim.g.colorscheme).setup(vim.g.style)
 if vim.g.neovide then
-    require('core.gui').setup()
+    require("core.gui").setup()
 end
 
-require('core.after')
+require("core.after")

@@ -8,10 +8,9 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-    end
+    end,
 }
 
-plugin.mapping = function()
-end
+plugin.mapping = function() end
 
 return plugin

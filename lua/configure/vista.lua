@@ -13,21 +13,21 @@ plugin.core = {
 
         -- Executive used when opening vista sidebar without specifying it.
         -- See all the avaliable executives via `:echo g:vista#executives`.
-        if vim.g.feature_groups.lsp == 'coc' then
-            vim.g.vista_default_executive = 'coc'
-        elseif vim.g.feature_groups.lsp == 'builtin' then
-            vim.g.vista_default_executive = 'nvim_lsp'
+        if vim.g.feature_groups.lsp == "coc" then
+            vim.g.vista_default_executive = "coc"
+        elseif vim.g.feature_groups.lsp == "builtin" then
+            vim.g.vista_default_executive = "nvim_lsp"
         end
         --vim.g.vista_default_executive = 'vim_lsc'
         vim.g.vista_executive_for = {
-            vimwiki = 'toc',
-            pandoc = 'toc',
-            markdown = 'toc'
+            vimwiki = "toc",
+            pandoc = "toc",
+            markdown = "toc",
         }
         vim.g.vista_stay_on_open = 0 -- keep cursor current window when opening the vista sidebar
         vim.g.vista_update_on_text_changed = 1
-        vim.g.vista_vimwiki_executive = 'markdown'
-        vim.g.vista_markdown_executive = 'toc'
+        vim.g.vista_vimwiki_executive = "markdown"
+        vim.g.vista_markdown_executive = "toc"
 
         -- Set the executive for some filetypes explicitly. Use the explicit executive
         -- instead of the default one for these filetypes when using `:Vista` without
@@ -46,32 +46,29 @@ plugin.core = {
             let g:vista#renderer#icons = { "function": "  ", "functions": "  ", "variable": "  ", "variables": "  ", "maps": "  ", "members ": "  ", "classes": "  ", "autocommand groups": " 祐 "}
         ]])
         --vim.cmd([[]])
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-
     end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "t", "l" },
-        action = ':Vista!!<cr>',
+        action = ":Vista!!<cr>",
         short_desc = "Tag List",
-        silent = true
+        silent = true,
     })
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "t", "r" },
-        action = ':Vista<cr>',
+        action = ":Vista<cr>",
         short_desc = "Tag List Refresh",
-        silent = true
+        silent = true,
     })
-
 end
 
 return plugin

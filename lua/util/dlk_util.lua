@@ -2,30 +2,29 @@
 -- most of you may not care this
 --
 _G.get_content = function(s_start, s_end)
-  local n_lines = math.abs(s_end[2] - s_start[2]) + 1
-  local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
-  lines[1] = string.sub(lines[1], s_start[3], -1)
-  if n_lines == 1 then
-    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
-  else
-    lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
-  end
-  return table.concat(lines, '\n')
+    local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+    local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+    lines[1] = string.sub(lines[1], s_start[3], -1)
+    if n_lines == 1 then
+        lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+    else
+        lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+    end
+    return table.concat(lines, "\n")
 end
-
 
 _G.dlk_goto_configure = function()
     --NOTE: local current_line = vim.fn.getpos('.') equal to vim.api.nvim_win_get_cursor()
     local current_line = vim.api.nvim_win_get_cursor(0)
-    vim.g._dlk_current_configure_line = (vim.api.nvim_buf_get_lines(0, current_line[1]-1, current_line[1], false)[1])
+    vim.g._dlk_current_configure_line = vim.api.nvim_buf_get_lines(0, current_line[1] - 1, current_line[1], false)[1]
     vim.api.nvim_input("<esc>")
     vim.cmd("normal viBo")
     vim.api.nvim_input("<esc>")
-    vim.fn.search(':', "bW")
-    local module_line = vim.fn.getpos('.')
-    vim.g._dlk_current_module_line = vim.api.nvim_buf_get_lines(0, module_line[2]-1, module_line[2], false)[1]
+    vim.fn.search(":", "bW")
+    local module_line = vim.fn.getpos(".")
+    vim.g._dlk_current_module_line = vim.api.nvim_buf_get_lines(0, module_line[2] - 1, module_line[2], false)[1]
     pcall(vim.api.nvim_win_set_cursor, 0, current_line)
-    vim.cmd[[ 
+    vim.cmd([[ 
 python3 << EOF
 import os
 import re
@@ -104,7 +103,7 @@ else:
 vim.vars["_dlk_get_configure_path"]  = config_path.replace("#", "\#")
 vim.vars["_dlk_get_configure_message"]  = message
 EOF
-    ]]
+    ]])
     if vim.g._dlk_get_configure_path_status == "Failed" then
         vim.notify(vim.g._dlk_get_configure_message, vim.lsp.log_levels.ERROR, {
             title = vim.g._dlk_get_configure_path_status,
@@ -112,38 +111,41 @@ EOF
             timeout = 2000,
         })
         local timer = vim.loop.new_timer()
-        timer:start(300, 0, vim.schedule_wrap(function()
-            vim.cmd("lua _G.dlk_goto_source()")   --set VertSplit color to black
-        end))
+        timer:start(
+            300,
+            0,
+            vim.schedule_wrap(function()
+                vim.cmd("lua _G.dlk_goto_source()") --set VertSplit color to black
+            end)
+        )
     else
         vim.notify(vim.g._dlk_get_configure_message, vim.lsp.log_levels.INFO, {
             title = vim.g._dlk_get_configure_path_status,
             icon = " DLK:",
             timeout = 3000,
         })
-        vim.cmd("e "..vim.g._dlk_get_configure_path)
+        vim.cmd("e " .. vim.g._dlk_get_configure_path)
     end
 end
 
-
 _G.dlk_goto_source = function()
     local current_line = vim.api.nvim_win_get_cursor(0)
-    vim.g._dlk_current_configure_line = (vim.api.nvim_buf_get_lines(0, current_line[1]-1, current_line[1], false)[1])
+    vim.g._dlk_current_configure_line = vim.api.nvim_buf_get_lines(0, current_line[1] - 1, current_line[1], false)[1]
     vim.api.nvim_input("<esc>")
     vim.api.nvim_input("<esc>")
     vim.cmd("normal viBo")
     vim.api.nvim_input("<esc>")
-    local module_name_line_pos = vim.fn.search(':', "bW")
+    local module_name_line_pos = vim.fn.search(":", "bW")
     vim.g._dlk_get_current_module_name_in_file = true
     if module_name_line_pos == 0 then
         vim.g._dlk_get_current_module_name_in_file = false
         vim.g._dlk_current_module_line = vim.fn.expand("%:p")
     else
-        local module_line = vim.fn.getpos('.')
-        vim.g._dlk_current_module_line = vim.api.nvim_buf_get_lines(0, module_line[2]-1, module_line[2], false)[1]
+        local module_line = vim.fn.getpos(".")
+        vim.g._dlk_current_module_line = vim.api.nvim_buf_get_lines(0, module_line[2] - 1, module_line[2], false)[1]
     end
     pcall(vim.api.nvim_win_set_cursor, 0, current_line)
-    vim.cmd[[ 
+    vim.cmd([[ 
 python3 << EOF
 import os
 import re
@@ -232,7 +234,7 @@ else:
 vim.vars["_dlk_get_source_path"]  = source_path.replace("#", "\#")
 vim.vars["_dlk_get_source_message"]  = message
 EOF
-    ]]
+    ]])
     if vim.g._dlk_get_source_path_status == "Failed" then
         vim.notify(vim.g._dlk_get_source_message, vim.lsp.log_levels.ERROR, {
             title = vim.g._dlk_get_source_path_status,
@@ -245,13 +247,13 @@ EOF
             icon = "DLK  :",
             timeout = 2000,
         })
-        vim.cmd("e "..vim.g._dlk_get_source_path)
+        vim.cmd("e " .. vim.g._dlk_get_source_path)
     end
 end
 
-vim.cmd[[ 
+vim.cmd([[ 
     autocmd FileType hjson nmap guc :lua _G.dlk_goto_configure()<cr>
-]]
-vim.cmd[[ 
+]])
+vim.cmd([[ 
     autocmd FileType hjson nmap gud :lua _G.dlk_goto_source()<cr>
-]]
+]])

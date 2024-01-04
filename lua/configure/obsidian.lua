@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "epwalsh/obsidian.nvim",
     ft = { "vimwiki", "markdown" },
-    cmd = { "ObsidianNew", "ObsidianSearch"},
+    cmd = { "ObsidianNew", "ObsidianSearch" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
@@ -22,7 +22,7 @@ plugin.core = {
 
                 -- Whether to add the output of the node_id_func to new notes in autocompletion.
                 -- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
-                prepend_note_id = true
+                prepend_note_id = true,
             },
             notes_subdir = "Draft",
             --note_frontmatter_func = nil, -- disable note note_frontmatter_func
@@ -45,22 +45,22 @@ plugin.core = {
                     end
                 end
                 return tostring(os.date("%Y%m%d%H%M")) .. "_" .. suffix
-            end
+            end,
         })
     end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
-        key = { "<leader>", 'f', 'o' },
+        key = { "<leader>", "f", "o" },
         action = ":ObsidianSearch<cr>",
-        short_desc = "ObsidianSearch"
+        short_desc = "ObsidianSearch",
     })
     mappings.register({
         mode = "n",
-        key = { "<leader>", 'o', 'n' },
+        key = { "<leader>", "o", "n" },
         action = ":ObsidianNew ",
         short_desc = "New Draft Obsidian",
         silent = false,

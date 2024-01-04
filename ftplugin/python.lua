@@ -1,2 +1,2 @@
-vim.o['foldmethod'] = 'indent'
+vim.o["foldmethod"] = "indent"
 vim.cmd("compiler python")

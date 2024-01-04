@@ -7,38 +7,38 @@ plugin.core = {
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require'pounce'.setup{
+        require("pounce").setup({
             accept_keys = "JFKDLSHGYTURIEOWPQBNVCMXZA",
             accept_best_key = "<enter>",
             multi_window = true,
             debug = false,
-        }
-    end
+        })
+    end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "<space>" },
-        action = '<cmd>Pounce<CR>',
+        action = "<cmd>Pounce<CR>",
         short_desc = "Easy Jumpy",
-        silent = true
+        silent = true,
     })
     mappings.register({
-        mode = {'n'},
+        mode = { "n" },
         key = { "s" },
-        action = '<cmd>Pounce<CR>',
+        action = "<cmd>Pounce<CR>",
         short_desc = "Easy Jumpy",
-        silent = true
+        silent = true,
     })
 
     mappings.register({
-        mode = {'v'},
+        mode = { "v" },
         key = { "<C-f>" },
-        action = '<cmd>Pounce<CR>',
+        action = "<cmd>Pounce<CR>",
         short_desc = "Easy Jumpy",
-        silent = true
+        silent = true,
     })
 end
 

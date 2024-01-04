@@ -2,12 +2,11 @@ local plugin = {}
 
 plugin.core = {
     "onsails/lspkind.nvim",
-    init = function()  -- Specifies code to run before this plugin is loaded.
-
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        require('lspkind').init({
+        require("lspkind").init({
             -- DEPRECATED (use mode instead): enables text annotations
             --
             -- default: true
@@ -17,14 +16,14 @@ plugin.core = {
             -- default: symbol
             -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
             --mode = 'symbol_text',
-            mode = 'symbol',
+            mode = "symbol",
 
             -- default symbol map
             -- can be either 'default' (requires nerd-fonts font) or
             -- 'codicons' for codicon preset (requires vscode-codicons font)
             --
             -- default: 'default'
-            preset = 'codicons',
+            preset = "codicons",
 
             -- override preset symbols
             --
@@ -55,14 +54,12 @@ plugin.core = {
                 Struct = "פּ",
                 Event = "",
                 Operator = "",
-                TypeParameter = ""
+                TypeParameter = "",
             },
         })
-        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+        vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
     end,
 }
 
-plugin.mapping = function()
-
-end
+plugin.mapping = function() end
 return plugin

@@ -4,16 +4,14 @@ plugin.core = {
     "max397574/colortils.nvim",
     cmd = "Colortils",
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-
         require("colortils").setup({
             -- Register in which color codes will be copied
             register = "+",
             -- Preview for colors, if it contains `%s` this will be replaced with a hex color code of the color
-            color_preview =  "█ %s",
+            color_preview = "█ %s",
             -- The default in which colors should be saved
             -- This can be hex, hsl or rgb
             default_format = "hex",
@@ -49,40 +47,40 @@ plugin.core = {
                 transparency = "T",
                 -- choose the background (for transparent colors)
                 choose_background = "B",
-            }
+            },
         })
     end,
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "c", "n" },
-        action = ':Colortils picker #777777<cr>',
+        action = ":Colortils picker #777777<cr>",
         short_desc = "Color New",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "<leader>", "c", "p" },
-        action = ':Colortils picker<cr>',
+        action = ":Colortils picker<cr>",
         short_desc = "Color Picker",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "<leader>", "c", "s" },
-        action = ':Colortils css list<cr>',
+        action = ":Colortils css list<cr>",
         short_desc = "Color Select(CSS)",
-        silent = true
+        silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "<leader>", "c", "g" },
-        action = ':Colortils gradient ',
+        action = ":Colortils gradient ",
         short_desc = "Color Gradient 2 Colors",
-        silent = true
+        silent = true,
     })
 end
 return plugin

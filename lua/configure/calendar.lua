@@ -4,7 +4,6 @@ plugin.core = {
     "itchyny/calendar.vim",
     cmd = { "Calendar" },
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -15,14 +14,13 @@ plugin.core = {
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
+    local mappings = require("core.mapping")
     mappings.register({
         mode = "n",
         key = { "<leader>", "o", "C" },
-        action = ':Calendar -view=week -first_day=monday -split=vertical -position=right <cr>',
+        action = ":Calendar -view=week -first_day=monday -split=vertical -position=right <cr>",
         short_desc = "Calendar",
-        silent = true
+        silent = true,
     })
-
 end
 return plugin

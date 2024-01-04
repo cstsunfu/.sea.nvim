@@ -7,9 +7,6 @@ plugin.core = {
     end,
 }
 
-plugin.mapping = function()
-
-end
-
+plugin.mapping = function() end
 
 return plugin

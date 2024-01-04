@@ -3,7 +3,6 @@ local plugin = {}
 plugin.core = {
     "williamboman/mason.nvim",
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -20,8 +19,6 @@ plugin.core = {
     end,
 }
 
-plugin.mapping = function()
-
-end
+plugin.mapping = function() end
 
 return plugin

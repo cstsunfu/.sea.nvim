@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    init = function()  -- Specifies code to run before this plugin is loaded.
+    init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -17,7 +17,7 @@ plugin.core = {
             "RainbowYellow",
         }
 
-        local hooks = require "ibl.hooks"
+        local hooks = require("ibl.hooks")
         -- create the highlight groups in the highlight setup hook, so they are reset
         -- every time the colorscheme changes
         hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
@@ -30,13 +30,27 @@ plugin.core = {
             vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
         end)
 
-        require("ibl").setup {
-            indent = { char = "│",  priority = 20,},
+        require("ibl").setup({
+            indent = { char = "│", priority = 20 },
             whitespace = {
                 remove_blankline_trail = false,
             },
             exclude = {
-                filetypes = {"translator", "dapui_breakpoints", "dapui_watches", "dapui_stacks", "dapui_scopes", "", 'help', 'packer', 'startify', 'dashboard', 'vimwiki', 'markdown', 'calendar'},
+                filetypes = {
+                    "translator",
+                    "dapui_breakpoints",
+                    "dapui_watches",
+                    "dapui_stacks",
+                    "dapui_scopes",
+                    "",
+                    "help",
+                    "packer",
+                    "startify",
+                    "dashboard",
+                    "vimwiki",
+                    "markdown",
+                    "calendar",
+                },
                 buftypes = { "terminal" },
             },
             scope = {
@@ -47,13 +61,10 @@ plugin.core = {
                 highlight = highlight,
                 priority = 500,
             },
-        }
+        })
     end,
-
 }
 plugin.mapping = function()
-
-    local mappings = require('core.mapping')
-
+    local mappings = require("core.mapping")
 end
 return plugin

@@ -1,13 +1,13 @@
 :root {
-    --color-text-tertiary: #777777;   
-    --color-text-link: #4078c0;       
+    --color-text-tertiary: #777777;
+    --color-text-link: #4078c0;
     --color-bg-primary: none;
-    --color-bg-secondary: #f0ffff;    
-    --color-bg-tertiary: #f0ffff;     
-    --color-border-primary: #ffffff;  
+    --color-bg-secondary: #f0ffff;
+    --color-bg-tertiary: #f0ffff;
+    --color-border-primary: #ffffff;
     --color-border-secondary: #ffffff;
-    --color-border-tertiary: #ffffff; 
-    --color-kbd-foreground: #444d56;  
+    --color-border-tertiary: #ffffff;
+    --color-kbd-foreground: #444d56;
     --select-text-bg-color: #fff0ff;
     --active-file-text-color: #262626;
     --active-file-border-color: #f22f27;
@@ -124,75 +124,75 @@
 
 
 h1 {
-  font-size: 1.3em; 
-  text-indent: 0px; 
-  border-radius: 4px; 
+  font-size: 1.3em;
+  text-indent: 0px;
+  border-radius: 4px;
   padding: 6px 15px;
   margin-bottom: 20px;
   margin-top: 5px;
   background:var(--header-bg-1);
   /*0px right, 5px botton, 5px fuzzy*/
   box-shadow: 0px 2px 2px var(--header-shadow-1);
-  border-left: 7px solid var(--header-1); 
+  border-left: 7px solid var(--header-1);
   position:relative;
 }
 
 h2 {
-  font-size: 1.2em; 
-  text-indent: 4px; 
-  border-radius: 4px; 
+  font-size: 1.2em;
+  text-indent: 4px;
+  border-radius: 4px;
   padding: 6px 15px;
   margin-bottom: 20px;
   margin-top: 5px;
   background:var(--header-bg-2);
   box-shadow: 0px 2px 2px var(--header-shadow-2);
-  border-left: 6px solid var(--header-2); 
+  border-left: 6px solid var(--header-2);
   position:relative;
 }
 
 h3 {
-    font-size: 1.2em; 
-    text-indent: 12px; 
-    border-radius: 4px; 
+    font-size: 1.2em;
+    text-indent: 12px;
+    border-radius: 4px;
     padding: 6px 15px;
     margin-bottom: 20px;
     margin-top: 5px;
     background:var(--header-bg-3);
     box-shadow: 0px 2px 2px var(--header-shadow-3);
     border-left: 8px solid var(--header-3);
-    line-height: 1.43;                     
-    margin: 1.4em auto 1.0em;              
-    padding-left: 7px;                     
+    line-height: 1.43;
+    margin: 1.4em auto 1.0em;
+    padding-left: 7px;
 }
 
 h4 {
-    font-size: 1.2em; 
-    text-indent: 12px; 
+    font-size: 1.2em;
+    text-indent: 12px;
     padding: 6px 15px;
-    border-radius: 4px; 
-    font-size: 1.3em;                      
-    line-height: 1.43;                     
-    margin: 1.4em auto 1.0em;              
+    border-radius: 4px;
+    font-size: 1.3em;
+    line-height: 1.43;
+    margin: 1.4em auto 1.0em;
     background:var(--header-bg-4);
     box-shadow: 0px 2px 2px var(--header-shadow-4);
-    padding-left: 7px;                     
+    padding-left: 7px;
     border-left: 6px solid var(--header-4)
 }
 
 h5 {
-    font-size: 1.2em; 
-    text-indent: 12px; 
+    font-size: 1.2em;
+    text-indent: 12px;
     padding: 6px 15px;
-    font-size: 1.3em;                      
-    border-radius: 4px; 
-    line-height: 1.43;                     
-    margin: 1.4em auto 1.0em;              
-    padding-left: 7px;                     
+    font-size: 1.3em;
+    border-radius: 4px;
+    line-height: 1.43;
+    margin: 1.4em auto 1.0em;
+    padding-left: 7px;
     border-left: 3px solid var(--header-4)
 }
 h6 {
-    font-size: 1.2em; 
-    color: var(--color-text-tertiary);     
+    font-size: 1.2em;
+    color: var(--color-text-tertiary);
 }
 
 .markdown-body ol,
@@ -379,7 +379,7 @@ h6 {
 .markdown-body img {
     /*max-width: 60%;*/
     /*max-height: 60%;*/
-    width: 60%; 
+    width: 60%;
     /*position: absolute; */
     padding-left: 20%;
 }

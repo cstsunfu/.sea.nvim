@@ -5,7 +5,6 @@ plugin.core = {
     cmd = { "HSHighlight", "HSExport", "HSImport" },
 
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
@@ -24,12 +23,10 @@ plugin.core = {
                 color_7 = { "#FFC0CB", "smart" }, -- Blush pink
                 color_8 = { "#FFF9E3", "smart" }, -- Cosmic latte
                 color_9 = { "#7d5c34", "smart" }, -- Fallow brown
-            }
+            },
         })
     end,
 }
 
-plugin.mapping = function()
-
-end
+plugin.mapping = function() end
 return plugin

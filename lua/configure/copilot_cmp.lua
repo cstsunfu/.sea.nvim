@@ -2,7 +2,9 @@ local plugin = {}
 
 plugin.core = {
     "zbirenbaum/copilot-cmp",
-    dependencies = { "zbirenbaum/copilot.lua", event='VeryLazy',
+    dependencies = {
+        "zbirenbaum/copilot.lua",
+        event = "VeryLazy",
         config = function()
             require("copilot").setup({
                 suggestion = { enabled = false },
@@ -19,26 +21,24 @@ plugin.core = {
                     ["."] = false,
                 },
             })
-        end
+        end,
     },
     event = "InsertEnter",
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
-    config = function ()
+    config = function()
         require("copilot_cmp").setup({
             formatters = {
                 label = require("copilot_cmp.format").format_label_text,
                 --insert_text = require("copilot_cmp.format").format_insert_text,
                 insert_text = require("copilot_cmp.format").remove_existing,
                 preview = require("copilot_cmp.format").deindent,
-            }
+            },
         })
-    end
+    end,
 }
 
-plugin.mapping = function()
-end
+plugin.mapping = function() end
 
 return plugin
