@@ -1,53 +1,75 @@
 local plugin = {}
 
-
 plugin.core = {
-    'akinsho/bufferline.nvim',
+    "akinsho/bufferline.nvim",
     event = "ColorScheme",
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
+    dependencies = { { "nvim-tree/nvim-web-devicons" } },
 
     init = function() -- Specifies code to run before this plugin is loaded.
-
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
         --vim.cmd("hi TAGBAR guifg=#009090")
         --vim.cmd("hi link TAGBAR Pmenu")
-        local hl_fun = require('util.highlight')
+        local hl_fun = require("util.highlight")
         local normal = hl_fun.get_highlight_values("Normal")
         local darkbg = hl_fun.brighten(normal.background, -15) -- darken by 5%
         --hl_fun.highlight("BufferLine", {bg = darkbg, fg=normal.foreground})
-        hl_fun.highlight("Tagbar", {bg = darkbg, fg="#009090"})
-        vim.cmd('highlight IndentBlanklineChar guifg=#808080 gui=nocombine')
+        hl_fun.highlight("Tagbar", { bg = darkbg, fg = "#009090" })
+        vim.cmd("highlight IndentBlanklineChar guifg=#808080 gui=nocombine")
         local padding_by_colorscheme = function()
-            if vim.g.colorscheme == 'material' then
+            if vim.g.colorscheme == "material" then
                 return 0
             end
             return 1
         end
-        require('bufferline').setup {
+        require("bufferline").setup({
             highlights = {
                 indicator_selected = {
                     --fg = "#ee71ee"
-                    fg = "#51afef"
+                    fg = "#51afef",
                 },
                 fill = {
-                    bg = darkbg
-                }
+                    bg = darkbg,
+                },
             },
             options = {
                 numbers = function(opts)
-                    local buffer_num_name_map = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"}
+                    local buffer_num_name_map = {
+                        "1",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "A",
+                        "B",
+                        "C",
+                        "D",
+                        "E",
+                        "F",
+                        "G",
+                        "H",
+                        "I",
+                        "J",
+                        "K",
+                        "L",
+                        "M",
+                        "N",
+                    }
                     local ordinal = tostring(opts.ordinal)
                     if opts.ordinal <= #buffer_num_name_map then
                         ordinal = buffer_num_name_map[tonumber(ordinal)]
                     end
-                    return string.format('%s.', ordinal)
+                    return string.format("%s.", ordinal)
                 end,
                 hover = {
                     enabled = true,
                     delay = 100,
-                    reveal = {'close'}
+                    reveal = { "close" },
                 },
                 themable = false,
                 --number_style = "superscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
@@ -61,23 +83,23 @@ plugin.core = {
                 -- as an escape hatch for people who cannot bear it for whatever reason
                 --"⎟⎜⎢⎜▏▊▋▉▎▍▋▍"
                 indicator = {
-                    icon = '▍',
-                    style = 'icon'
+                    icon = "▍",
+                    style = "icon",
                     --style = 'icon' | 'underline' | 'none',
                 },
-                buffer_close_icon = '',
-                modified_icon = '●',
-                close_icon = '⊠',
-                left_trunc_marker = ' ',
-                right_trunc_marker = ' ',
+                buffer_close_icon = "",
+                modified_icon = "●",
+                close_icon = "⊠",
+                left_trunc_marker = " ",
+                right_trunc_marker = " ",
                 --- name_formatter can be used to change the buffer's label in the bufferline.
                 --- Please note some names can/will break the
                 --- bufferline so use this at your discretion knowing that it has
                 --- some limitations that will *NOT* be fixed.
                 name_formatter = function(buf) -- buf contains a "name", "path" and "bufnr"
                     -- remove extension from markdown files for example
-                    if buf.name:match('%.md') then
-                        return vim.fn.fnamemodify(buf.name, ':t:r')
+                    if buf.name:match("%.md") then
+                        return vim.fn.fnamemodify(buf.name, ":t:r")
                     end
                 end,
 
@@ -110,91 +132,93 @@ plugin.core = {
                     {
                         filetype = "NvimTree",
                         text = "▌        ✯File Explorer✯",
-                        text_align = "left", highlight = 'Tagbar',
-                        padding = 1
+                        text_align = "left",
+                        highlight = "Tagbar",
+                        padding = 1,
                     },
                     {
                         filetype = "toggleterm",
                         text = "▌        ✯Terminal✯",
-                        text_align = "left", highlight = 'Tagbar',
-                        padding = 1
+                        text_align = "left",
+                        highlight = "Tagbar",
+                        padding = 1,
                     },
                     {
                         filetype = "vista",
                         text = "✶Code Navigator✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "Outline",
                         text = "✶Code Navigator✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "vista_kind",
                         text = "✶Markdown Outline✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "vista_markdown",
                         text = "✶Markdown Outline✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "undotree",
                         text = "✶History✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "ctrlsf",
                         text = "✶Finding Files✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "dapui_stacks",
                         text = "✶DEBUG✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "dapui_breakpoints",
                         text = "✶DEBUG✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "dapui_watches",
                         text = "✶DEBUG✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "dapui_scopes",
                         text = "✶DEBUG✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                     {
                         filetype = "DiffviewFiles",
                         text = "✶Diff View✶",
                         text_align = "center",
-                        highlight = 'Tagbar',
-                        padding = padding_by_colorscheme()
+                        highlight = "Tagbar",
+                        padding = padding_by_colorscheme(),
                     },
                 },
                 --show_buffer_icons = true | false, -- disable filetype icons for buffers
@@ -227,8 +251,8 @@ plugin.core = {
 
                 --return bool_to_number(buffer_a.modified, buffer_a.ordinal) > bool_to_number(buffer_b.modified, buffer_b.ordinal)
                 --end
-            }
-        }
+            },
+        })
         --local global_func = require('util.global')
         --global_func.augroup('Update Buffer Num', {
         --{
@@ -242,14 +266,53 @@ plugin.core = {
 }
 
 plugin.mapping = function()
-    local mappings = require('core.mapping')
-    local buffer_num_name_map = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"}
+    local mappings = require("core.mapping")
+    local buffer_num_name_map = {
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+    }
+
+    _G._bufferline_goto_buffer = function(buffer_num)
+        if vim.api.nvim_buf_get_option(0, "buftype") == "nofile" then
+            for _, w in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+                local b = vim.api.nvim_win_get_buf(w)
+                local bt = vim.api.nvim_buf_get_option(b, "buftype")
+                if bt ~= "nofile" then
+                    vim.api.nvim_set_current_win(w)
+                    vim.bo.bufhidden = ""
+                    break
+                end
+            end
+        end
+        require("bufferline").go_to(buffer_num, true)
+    end
     for key, value in pairs(buffer_num_name_map) do
         mappings.register({
             mode = "n",
             key = { "<leader>", tostring(value) },
             --action = "<Cmd>BufferLineGoToBuffer " .. tostring(i) .. '<cr>',
-            action = "<Cmd>lua require('bufferline').go_to(" .. tostring(key) .. ', true)<cr>',
+            action = "<Cmd>lua _G._bufferline_goto_buffer(" .. tostring(key) .. ")<cr>",
             short_desc = "Goto " .. tostring(value) .. " Buffer",
             noremap = true,
             silent = true,
@@ -291,29 +354,28 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "b", "d" },
         action = ":Bdelete<cr>",
-        short_desc = "Delete Current Buffer"
+        short_desc = "Delete Current Buffer",
     })
-
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "b", "D" },
         action = ":lua require('util.global').delete_all_buffers_in_window()<cr>",
-        short_desc = "Delete All Buffer Except Current"
+        short_desc = "Delete All Buffer Except Current",
     })
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "b", "R" },
         action = "<Cmd>BufferLineCloseRight<cr>",
-        short_desc = "Delete All Right Buffers"
+        short_desc = "Delete All Right Buffers",
     })
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "b", "L" },
         action = "<Cmd>BufferLineCloseLeft<cr>",
-        short_desc = "Delete All Left Buffers"
+        short_desc = "Delete All Left Buffers",
     })
     _G.buffer_sort_by_whether_modified = function(buffer_a, buffer_b)
         -- add custom logic
@@ -332,36 +394,35 @@ plugin.mapping = function()
         mode = "n",
         key = { "<leader>", "b", "s" },
         action = ":lua require'bufferline'.sort_buffers_by(_G.buffer_sort_by_whether_modified)<cr>",
-        short_desc = "Buffer Sorted By Whether Modified"
+        short_desc = "Buffer Sorted By Whether Modified",
     })
-
 
     -- tab
     mappings.register({
         mode = "n",
         key = { "<leader>", "t", "c" },
-        action = ':tabnew<cr>',
-        short_desc = "Tab Create"
+        action = ":tabnew<cr>",
+        short_desc = "Tab Create",
     })
     mappings.register({
         mode = "n",
         key = { "<leader>", "t", "x" },
-        action = ':tabclose<cr>',
-        short_desc = "Tab Close"
+        action = ":tabclose<cr>",
+        short_desc = "Tab Close",
     })
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "t", "n" },
-        action = ':tabnext<cr>',
-        short_desc = "Tab Next"
+        action = ":tabnext<cr>",
+        short_desc = "Tab Next",
     })
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "t", "p" },
-        action = ':tabpre<cr>',
-        short_desc = "Tab Previous"
+        action = ":tabpre<cr>",
+        short_desc = "Tab Previous",
     })
 end
 
