@@ -42,6 +42,7 @@ plugin.core = {
                 "markdown_inline",
                 "html",
                 "java",
+                "vimdoc",
                 "javascript",
                 "json",
                 "json5",
