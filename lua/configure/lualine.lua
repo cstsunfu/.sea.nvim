@@ -4,6 +4,7 @@ local pomodoro = require("hack.pomodoro")
 local lualine_file_name_cache = {}
 local lualine_proj_name_cache = {}
 local lualine_tmux_sess_cache = {}
+local lualine_buf_size_cache = {}
 
 plugin.core = {
     "nvim-lualine/lualine.nvim",
@@ -16,6 +17,7 @@ plugin.core = {
                 lualine_file_name_cache[cur_buf] = nil
                 lualine_proj_name_cache[cur_buf] = nil
                 lualine_tmux_sess_cache[cur_buf] = nil
+                lualine_buf_size_cache[cur_buf] = nil
             end,
             group = aug,
             pattern = "*",
@@ -220,6 +222,19 @@ plugin.core = {
                 lualine_x = {},
             },
         }
+        local function format_file_size(file)
+            local size = vim.fn.getfsize(file)
+            if size <= 0 then
+                return ""
+            end
+            local sufixes = { "b", "k", "m", "g" }
+            local i = 1
+            while size > 1024 do
+                size = size / 1024
+                i = i + 1
+            end
+            return string.format("%.1f%s", size, sufixes[i])
+        end
 
         local function insert_target(target, component)
             table.insert(target, component)
@@ -283,25 +298,19 @@ plugin.core = {
         ins_left_active({
             -- filesize component
             function()
-                local function format_file_size(file)
-                    local size = vim.fn.getfsize(file)
-                    if size <= 0 then
-                        return ""
-                    end
-                    local sufixes = { "b", "k", "m", "g" }
-                    local i = 1
-                    while size > 1024 do
-                        size = size / 1024
-                        i = i + 1
-                    end
-                    return string.format("%.1f%s", size, sufixes[i])
-                end
-
-                local file = vim.fn.expand("%:p")
-                if string.len(file) == 0 then
+                local cur_buf = vim.api.nvim_get_current_buf()
+                if cur_buf == nil then
                     return ""
                 end
-                return format_file_size(file)
+
+                if lualine_buf_size_cache[cur_buf] == nil then
+                    local file = vim.fn.expand("%:p")
+                    if string.len(file) == 0 then
+                        return ""
+                    end
+                    lualine_buf_size_cache[cur_buf] = format_file_size(file)
+                end
+                return lualine_buf_size_cache[cur_buf]
             end,
             cond = conditions.buffer_not_empty_hide_size_in_width,
         })
@@ -577,7 +586,6 @@ plugin.core = {
             cond = conditions.hide_clock_in_width,
         })
 
-        --▊ ▌▐,█
         ins_right_active({
             function()
                 return "▐"
@@ -607,25 +615,19 @@ plugin.core = {
         ins_left_inactive({
             -- filesize component
             function()
-                local function format_file_size(file)
-                    local size = vim.fn.getfsize(file)
-                    if size <= 0 then
-                        return ""
-                    end
-                    local sufixes = { "b", "k", "m", "g" }
-                    local i = 1
-                    while size > 1024 do
-                        size = size / 1024
-                        i = i + 1
-                    end
-                    return string.format("%.1f%s", size, sufixes[i])
-                end
-
-                local file = vim.fn.expand("%:p", nil, nil)
-                if string.len(file) == 0 then
+                local cur_buf = vim.api.nvim_get_current_buf()
+                if cur_buf == nil then
                     return ""
                 end
-                return format_file_size(file)
+
+                if lualine_buf_size_cache[cur_buf] == nil then
+                    local file = vim.fn.expand("%:p")
+                    if string.len(file) == 0 then
+                        return ""
+                    end
+                    lualine_buf_size_cache[cur_buf] = format_file_size(file)
+                end
+                return lualine_buf_size_cache[cur_buf]
             end,
             cond = conditions.buffer_not_empty_hide_size_in_width,
             color = { fg = colors.inactive }, -- Sets highlighting of component
@@ -633,24 +635,30 @@ plugin.core = {
 
         ins_left_inactive({
             function()
-                local fname = vim.fn.getcwd()
-                local path = Path:new(fname)
-                local split_path = path:_split()
-                if not conditions.inactive_buffer_not_empty_nest_file_in_width() then
-                    fname = vim.fn.expand("%")
-                    if string.len(fname) > 30 then
-                        fname = string.sub(fname, 1, 28) .. ".."
-                    end
-                    return fname
-                else
-                    fname = table.concat({ split_path[#split_path], vim.fn.expand("%") }, "/")
-                    if string.len(fname) > 55 then
-                        --fname = string.sub(fname, 1, 28) .. "..."
-                        local fname_len = string.len(fname)
-                        fname = ".." .. string.sub(fname, fname_len - 53, fname_len) -- Keep the name except the folder
-                    end
-                    return fname
+                local cur_buf = vim.api.nvim_get_current_buf()
+                if cur_buf == nil then
+                    return ""
                 end
+                if lualine_file_name_cache[cur_buf] == nil then
+                    local fname = vim.fn.getcwd()
+                    local path = Path:new(fname)
+                    local split_path = path:_split()
+                    if not conditions.inactive_buffer_not_empty_nest_file_in_width() then
+                        fname = vim.fn.expand("%")
+                        if string.len(fname) > 30 then
+                            fname = string.sub(fname, 1, 28) .. ".."
+                        end
+                    else
+                        fname = table.concat({ split_path[#split_path], vim.fn.expand("%") }, "/")
+                        if string.len(fname) > 55 then
+                            --fname = string.sub(fname, 1, 28) .. "..."
+                            local fname_len = string.len(fname)
+                            fname = ".." .. string.sub(fname, fname_len - 53, fname_len) -- Keep the name except the folder
+                        end
+                    end
+                    lualine_file_name_cache[cur_buf] = fname
+                end
+                return lualine_file_name_cache[cur_buf]
             end,
             cond = conditions.inactive_buffer_not_empty_hide_file_in_width,
             color = { fg = colors.inactive, gui = "bold" },
@@ -709,7 +717,7 @@ plugin.core = {
         ins_right_inactive({
             function()
                 return "▐"
-            end, --█
+            end,
             color = { fg = colors.gray },
             padding = { right = -1 },
             cond = conditions.hide_bound_in_width,
