@@ -2,10 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "oflisback/obsidian-bridge.nvim",
-    event = {
-        "BufReadPre *.md",
-        "BufNewFile *.md",
-    },
+    cmd = "ObsidianBridgeTelescopeCommand",
     lazy = true,
 
     init = function() -- Specifies code to run before this plugin is loaded.

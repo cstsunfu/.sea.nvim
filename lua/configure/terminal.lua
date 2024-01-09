@@ -41,18 +41,6 @@ plugin.core = {
             close_on_exit = true, -- close the terminal window when the process exits
             shell = vim.o.shell, -- change the default shell
             -- This field is only relevant if direction is set to 'float'
-            float_opts = {
-                -- The border key is *almost* the same as 'nvim_open_win'
-                -- see :h nvim_open_win for details on borders however
-                -- the 'curved' border is a custom border type
-                -- not natively supported but implemented in this plugin.
-                border = "rounded",
-                -- like `size`, width and height can be a number or function which is passed the current terminal
-                width = math.floor(vim.o.columns * 0.7),
-                height = 30,
-                winblend = 0,
-                --zindex = <value>,
-            },
             winbar = {
                 enabled = false,
                 name_formatter = function(term) --  term: Terminal
@@ -71,25 +59,13 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require("core.mapping")
-    function _G.set_terminal_keymaps()
-        local opts = { noremap = true }
-        vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-        vim.api.nvim_buf_set_keymap(0, "t", "kj", [[<C-\><C-n>]], opts)
-    end
-    vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+    --function _G.set_terminal_keymaps()
+    --    local opts = { noremap = true }
+    --    vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+    --    vim.api.nvim_buf_set_keymap(0, "t", "kj", [[<C-\><C-n>]], opts)
+    --end
+    --vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
-    mappings.register({
-        mode = { "t" },
-        key = { "<esc>" },
-        action = nil,
-        short_desc = "Back to Normal Mode",
-    })
-    mappings.register({
-        mode = { "t" },
-        key = { "k", "j" },
-        action = nil,
-        short_desc = "Back to Normal Mode",
-    })
     vim.g._recent_terminal_id = 0
     function _G._terminal_send_selection(visual)
         local id = vim.g._recent_terminal_id
@@ -107,13 +83,13 @@ plugin.mapping = function()
         mode = { "v", "x" },
         key = { "<C-s>" },
         action = ":lua _G._terminal_send_selection(true)<cr>",
-        short_desc = "Send Select Text to First Termianl",
+        short_desc = "Send Select Text to First Terminal",
     })
     mappings.register({
         mode = { "n" },
         key = { "<C-s>" },
         action = ":lua _G._terminal_send_selection(false)<cr>",
-        short_desc = "Send Current Line to First Termianl",
+        short_desc = "Send Current Line to First Terminal",
     })
 
     local terminal = require("toggleterm.terminal").Terminal
@@ -194,12 +170,53 @@ plugin.mapping = function()
         on_open = function(term)
             vim.cmd("startinsert!")
         end,
+        float_opts = {
+            -- The border key is *almost* the same as 'nvim_open_win'
+            -- see :h nvim_open_win for details on borders however
+            -- the 'curved' border is a custom border type
+            -- not natively supported but implemented in this plugin.
+            border = "rounded",
+            -- like `size`, width and height can be a number or function which is passed the current terminal
+            width = math.floor(vim.o.columns * 0.7),
+            height = math.floor(vim.o.lines * 0.7),
+            winblend = 0,
+            --zindex = <value>,
+        },
         -- function to run on closing the terminal
         on_close = function(term) end,
     })
     function _G._float_terminal_toggle()
         floatterm:toggle()
     end
+
+    local lazygit = terminal:new({
+        cmd = "lazygit",
+        hidden = true,
+        float_opts = {
+            -- The border key is *almost* the same as 'nvim_open_win'
+            -- see :h nvim_open_win for details on borders however
+            -- the 'curved' border is a custom border type
+            -- not natively supported but implemented in this plugin.
+            border = "rounded",
+            -- like `size`, width and height can be a number or function which is passed the current terminal
+            width = math.floor(vim.o.columns * 0.90),
+            height = math.floor(vim.o.lines * 0.90),
+            winblend = 0,
+            --zindex = <value>,
+        },
+    })
+
+    function _G._lazygit_toggle()
+        lazygit:toggle()
+    end
+
+    mappings.register({
+        mode = { "n" },
+        key = { "<C-g>" },
+        action = ":lua _G._lazygit_toggle()<cr>",
+        silent = true,
+        short_desc = "Float Terminal",
+    })
 
     mappings.register({
         mode = { "n" },

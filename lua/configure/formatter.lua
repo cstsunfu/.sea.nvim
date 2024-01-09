@@ -31,7 +31,7 @@ plugin.core = {
             },
             format_on_save = function(bufnr)
                 -- Disable autoformat on certain filetypes
-                local ignore_filetypes = { "sql" }
+                local ignore_filetypes = { "sql", "python.markdown" }
                 if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
                     return
                 end

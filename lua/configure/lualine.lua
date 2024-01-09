@@ -129,13 +129,13 @@ plugin.core = {
                 return dap_ui_map[vim.bo.filetype] ~= nil and vim.fn.winwidth(vim.fn.winnr()) > 30
             end,
             limit_active_file_name_in_width = function()
-                return vim.fn.winwidth(0) > 160
+                return vim.fn.winwidth(0) > 175
             end,
             nest_active_file_name_in_width = function()
-                return vim.fn.winwidth(0) > 140
+                return vim.fn.winwidth(0) > 155
             end,
             hide_encoding_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(vim.fn.winnr()) > 120
+                return not_only_win_num() and vim.fn.winwidth(vim.fn.winnr()) > 135
             end,
             check_git_workspace_hide_in_width = function()
                 local filepath = vim.fn.expand("%:p:h", nil, nil)
@@ -144,25 +144,25 @@ plugin.core = {
                     and gitdir
                     and #gitdir > 0
                     and #gitdir < #filepath
-                    and vim.fn.winwidth(0) > 110
+                    and vim.fn.winwidth(0) > 125
             end,
             hide_diagnostics_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 115
+                return not_only_win_num() and vim.fn.winwidth(0) > 130
             end,
             nest_project_prefix_in_width = function()
-                return vim.fn.winwidth(0) > 110
+                return vim.fn.winwidth(0) > 125
             end,
             hide_project_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 90
+                return not_only_win_num() and vim.fn.winwidth(0) > 105
             end,
             active_add_wind_in_width = function()
-                return not not_only_win_num() or vim.fn.winwidth(0) <= 90
+                return not not_only_win_num() or vim.fn.winwidth(0) <= 105
             end,
             hide_location_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 80
+                return not_only_win_num() and vim.fn.winwidth(0) > 95
             end,
             buffer_not_empty_hide_size_in_width = function()
-                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 70
+                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 85
             end,
             hide_tmux_in_width = function()
                 return vim.g.tmux_ready and not_only_win_num() and vim.fn.winwidth(0) > 70
@@ -517,11 +517,17 @@ plugin.core = {
                     local handle = io.popen("tmux display-message -p '#S' 2>&1")
                     local result = handle:read("*a")
                     local prefix = " "
+
                     result = result:gsub("%s+", "")
-                    if result == "" then
-                        lualine_tmux_sess_cache[cur_buf] = prefix .. "NOTMUX"
+                    if result ~= nil and result ~= "" then
+                        if string.len(result) > 12 then
+                            result = string.sub(result, 1, 10) .. "..."
+                        end
+                        result = prefix .. result
+                    else
+                        result = prefix .. "NOTMUX"
                     end
-                    lualine_tmux_sess_cache[cur_buf] = prefix .. result
+                    lualine_tmux_sess_cache[cur_buf] = result
                 end
                 return lualine_tmux_sess_cache[cur_buf]
             end,

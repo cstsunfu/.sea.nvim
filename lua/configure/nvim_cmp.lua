@@ -89,6 +89,7 @@ plugin.core = {
             TypeParameter = " ",
         }
         local cmp = require("cmp")
+        local compare = cmp.config.compare
         vim.cmd([[
             highlight CompNormal guibg=None guifg=None
 
@@ -156,20 +157,29 @@ plugin.core = {
                 }),
             }),
             sources = cmp.config.sources({
-                { name = "copilot" },
-                { name = "nvim_lsp" },
-                { name = "ultisnips" }, -- For ultisnips users.
-                { name = "calc" },
-                { name = "nvim_lsp_signature_help" },
-                { name = "path" },
-                { name = "buffer" },
-                { name = "emoji", insert = true },
+                { name = "jupynium", priority = 60 }, -- consider higher priority than LSP
+                { name = "copilot", priority = 200 },
+                { name = "nvim_lsp", priority = 100 },
+                { name = "ultisnips", priority = 80 }, -- For ultisnips users.
+                { name = "calc", priority = 100 },
+                { name = "nvim_lsp_signature_help", priority = 100 },
+                { name = "path", priority = 100 },
+                { name = "buffer", priority = 100 },
+                { name = "emoji", insert = true, priority = 100 },
             }),
-
+            sorting = {
+                priority_weight = 1.0,
+                comparators = {
+                    compare.score, -- Jupyter kernel completion shows prior to LSP
+                    compare.recently_used,
+                    compare.locality,
+                    -- ...
+                },
+            },
             formatting = {
                 format = function(entry, vim_item)
                     -- Kind icons
-                    vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+                    vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatenates the icons with the name of the item kind
                     -- Source
                     vim_item.menu = ({
                         buffer = "[Buf]",
