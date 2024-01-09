@@ -3,7 +3,6 @@ local plugin = {}
 plugin.core = {
     "jupyter-vim/jupyter-vim",
     ft = { "python" },
-    cmd = { "JupyterConnect" },
     init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.jupyter_highlight_cells = 0
         vim.g.jupyter_mapkeys = 0
@@ -37,36 +36,19 @@ plugin.mapping = function()
         silent = true,
     })
     mappings.register({
-        mode = "n",
-        key = { "<localleader>", "j", "e" },
-        action = "<Plug>JupyterRunVisual",
+        mode = "v",
+        key = { "<localleader>", "e" },
+        action = ":JupyterSendRange<cr>",
         short_desc = "Jupyter Run Visual",
         silent = true,
     })
     mappings.register({
-        mode = "v",
+        mode = "n",
         key = { "<localleader>", "e" },
-        action = ":JupyterRunVisual<cr>",
-        short_desc = "Jupyter Run Visual",
+        action = ":JupyterSendCount<cr>",
+        short_desc = "Jupyter Run Current Line",
         silent = true,
     })
-    --" Run current file
-    --nnoremap <buffer> <silent> <localleader>R :JupyterRunFile<CR>
-    --nnoremap <buffer> <silent> <localleader>I :PythonImportThisFile<CR>
-
-    --" Change to directory of current file
-    --nnoremap <buffer> <silent> <localleader>d :JupyterCd %:p:h<CR>
-
-    --" Send a selection of lines
-    --nnoremap <buffer> <silent> <localleader>X :JupyterSendCell<CR>
-    --nnoremap <buffer> <silent> <localleader>E :JupyterSendRange<CR>
-    --nmap     <buffer> <silent> <localleader>e <Plug>JupyterRunTextObj
-    --vmap     <buffer> <silent> <localleader>e <Plug>JupyterRunVisual
-
-    --nnoremap <buffer> <silent> <localleader>U :JupyterUpdateShell<CR>
-
-    --" Debugging maps
-    --nnoremap <buffer> <silent> <localleader>b :PythonSetBreak<CR>
 end
 
 return plugin

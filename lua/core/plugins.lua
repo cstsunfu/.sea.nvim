@@ -9,7 +9,7 @@ if vim.g.feature_groups["default"] == true then
         ["nerd_commenter"] = { enabled = true }, -- for quick comment
         ["better_escape"] = { enabled = false }, -- for quick map jk to <esc>
         ["ultisnips"] = { enabled = true }, -- for snippets
-        ["snippets"] = { enabled = true }, -- predefined snippets templete
+        ["snippets"] = { enabled = true }, -- predefined snippets template
         ["linediff"] = { enabled = true }, -- diff view for two lines
         ["diffview"] = { enabled = true }, -- diff view for git
         ["multiple_cursor"] = { enabled = true }, --  multiple cursor to change multi line in the same time
@@ -54,7 +54,7 @@ if vim.g.feature_groups["org_my_life"] == true then
         ["md_bullets"] = { enabled = false },
         ["org_bullets"] = { enabled = false },
         ["headlines"] = { enabled = true },
-        ["orgmode"] = { enabled = false }, -- currentlly use the obsidian
+        ["orgmode"] = { enabled = false }, -- currently use the obsidian
     }
 end
 
@@ -76,7 +76,7 @@ if vim.g.feature_groups["enhance"] == true then
         ["todo_comments"] = { enabled = true },
         ["zen_mode"] = { enabled = true },
         ["firenvim"] = { enabled = false }, -- TODO:嵌入nvim到chrome，比较鸡肋
-        ["ts_text_object"] = { enabled = false }, -- map v m is used frequence
+        ["ts_text_object"] = { enabled = false }, -- map v m is used frequency
         ["ultra_fold"] = { enabled = true },
         ["speed_date"] = { enabled = true },
         ["translate"] = { enabled = true },
@@ -85,7 +85,8 @@ if vim.g.feature_groups["enhance"] == true then
         ["formatter"] = { enabled = true },
         ["auto_select"] = { enabled = true },
         ["syntax_tree_surfer"] = { enabled = true },
-        ["ipython"] = { enabled = true },
+        ["ipython"] = { enabled = false },
+        ["jupyter"] = { enabled = true },
         ["jukit"] = { enabled = true }, --for jupyter
         ["neogen"] = { enabled = false }, -- generate annotations
         ["terminal"] = { enabled = true },
@@ -175,7 +176,7 @@ plugins_configure.setup = function()
                 icon = "",
                 timeout = 3000,
             })
-        else -- true or string for some special taget
+        else -- true or string for some special target
             for plugin_name, is_active in pairs(plugins_group) do
                 local core = require(plugins_configure.plugin_configure_root .. plugin_name).core
                 for key, value in pairs(is_active) do
