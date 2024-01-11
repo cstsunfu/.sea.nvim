@@ -7,6 +7,7 @@ plugin.core = {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope.nvim",
     },
+    cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTCompleteCode", "ChatGPTEditWithInstruction", "ChatGPTRun" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
