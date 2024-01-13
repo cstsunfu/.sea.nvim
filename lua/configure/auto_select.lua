@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "gcmt/wildfire.vim",
+    event = "BufEnter",
     init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.wildfire_objects = {
             ["*"] = { "iw", "i'", 'i"', "i)", "i]", "i}", "ip", "it" },

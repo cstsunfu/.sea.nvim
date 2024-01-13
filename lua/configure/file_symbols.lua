@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "hedyhli/outline.nvim", -- the fork version, caused by the original repo has some bugs and not active for a long time.
+    cmd = { "Outline" },
     init = function() -- Specifies code to run before this plugin is loaded.
         local get_reserve_outline_buf = function()
             local wins = vim.api.nvim_tabpage_list_wins(0)

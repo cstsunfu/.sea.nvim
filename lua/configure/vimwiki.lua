@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "vimwiki/vimwiki",
+    ft = { "markdown", "vimwiki" },
     init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.vimwiki_filetypes = { "markdown" }
         vim.g.vimwiki_map_prefix = "<leader>O"

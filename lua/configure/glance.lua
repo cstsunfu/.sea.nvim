@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "dnlhc/glance.nvim",
+    cmd = { "Glance" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "kevinhwang91/nvim-ufo",
+    event = "BufRead",
     dependencies = "kevinhwang91/promise-async",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,

@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "j-hui/fidget.nvim",
+    event = "BufEnter",
     tag = "legacy", -- FIXME: check the status of the rewrite plugin
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
