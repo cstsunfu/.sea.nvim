@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = "VeryLazy",
     dependencies = {
         "nvim-lspconfig",
         {

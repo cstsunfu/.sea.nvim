@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "scr1pt0r/crease.vim",
+    event = "BufEnter",
     --    dependencies = {{'airblade/vim-gitgutter'}},
     init = function() -- Specifies code to run before this plugin is loaded.
     end,

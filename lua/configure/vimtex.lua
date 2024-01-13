@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "lervag/vimtex",
+    ft = { "tex", "bib", "markdown", "vimwiki" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "jose-elias-alvarez/null-ls.nvim", -- TODO: currently, this plugin is WIP, so will update this when this plugin provide more sources
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

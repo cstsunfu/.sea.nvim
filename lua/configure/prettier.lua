@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "MunifTanjim/prettier.nvim",
+    event = "VeryLazy",
     dependencies = {
         { "neovim/nvim-lspconfig", enabled = vim.g.feature_groups.lsp == "builtin" },
         { "jose-elias-alvarez/null-ls.nvim", enabled = vim.g.feature_groups.lsp == "builtin" },

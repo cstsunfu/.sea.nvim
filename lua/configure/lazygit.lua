@@ -3,6 +3,7 @@ local plugin = {}
 plugin.core = {
     -- DO NOT USE IT IN VIM. USE IN TERMINAL INSTEAD
     "kdheepak/lazygit.nvim",
+    cmd = "LazyGit",
     dependencies = {
         "nvim-telescope/telescope.nvim",
         "nvim-lua/plenary.nvim",
