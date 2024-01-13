@@ -47,9 +47,6 @@ func.enable_large_buf = function()
         vim.cmd("TSBufDisable textobjects.lsp_interop")
         vim.cmd("TSBufDisable textobjects.select")
     end
-    if vim.fn.exists(":TSBufDisable") then
-        vim.cmd("TSBufDisable textobjects.select")
-    end
     vim.opt_local.spell = false
 end
 
@@ -73,9 +70,6 @@ func.disable_large_buf = function()
         vim.cmd("TSBufEnable textobjects.swap")
         vim.cmd("TSBufEnable textobjects.move")
         vim.cmd("TSBufEnable textobjects.lsp_interop")
-        vim.cmd("TSBufEnable textobjects.select")
-    end
-    if vim.fn.exists(":TSBufEnable") then
         vim.cmd("TSBufEnable textobjects.select")
     end
 end

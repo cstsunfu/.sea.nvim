@@ -3,6 +3,7 @@ local plugin = {}
 plugin.core = {
     --"ekickx/clipboard-image.nvim",
     "postfen/clipboard-image.nvim", -- FIXME: Temporary health check copy
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

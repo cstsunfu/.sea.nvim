@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "folke/todo-comments.nvim",
+    lazy = true,
     dependencies = "nvim-lua/plenary.nvim",
     --cmd = { "TodoTelescope" },
     init = function() -- Specifies code to run before this plugin is loaded.

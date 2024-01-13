@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
