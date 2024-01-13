@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "kiyoon/jupynium.nvim",
+    event = "BufEnter",
     build = "pip3 install --user .",
 
     dependencies = {

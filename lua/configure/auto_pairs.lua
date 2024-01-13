@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "windwp/nvim-autopairs",
+    event = "InsertEnter",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

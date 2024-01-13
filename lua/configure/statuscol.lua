@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "luukvbaal/statuscol.nvim",
+    event = "BufEnter",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "preservim/nerdcommenter",
+    event = "BufEnter",
     init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.NERDCreateDefaultMappings = 0
         vim.g.NERDCustomDelimiters = {
