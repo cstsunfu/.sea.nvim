@@ -4,6 +4,7 @@ plugin.core = {
     "nvim-treesitter/nvim-treesitter",
     dependencies = { { "HiPhish/nvim-ts-rainbow2" } },
     build = ":TSUpdate",
+    event = "VeryLazy",
 
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
