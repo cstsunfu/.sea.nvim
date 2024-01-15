@@ -2,6 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "nvim-lua/plenary.nvim",
+    lazy = true,
+
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

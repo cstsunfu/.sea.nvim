@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "edluffy/specs.nvim",
+    event = "VeryLazy",
     dependencies = {},
     init = function() -- Specifies code to run before this plugin is loaded.
     end,

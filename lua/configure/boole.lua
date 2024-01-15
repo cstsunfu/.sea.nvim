@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "monaqa/dial.nvim",
-    event = "BufRead",
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

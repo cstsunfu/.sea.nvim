@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "akinsho/toggleterm.nvim",
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

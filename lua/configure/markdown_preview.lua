@@ -6,7 +6,7 @@ plugin.core = {
     build = function()
         vim.fn["mkdp#util#install"]()
     end,
-    --cmd = "MarkdownPreviewToggle",
+    cmd = "MarkdownPreviewToggle",
 
     init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.mkdp_filetypes = { "markdown", "vimwiki", "vimwiki.markdown.pandoc" }

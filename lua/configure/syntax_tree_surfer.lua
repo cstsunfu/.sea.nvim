@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "ziontee113/syntax-tree-surfer",
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

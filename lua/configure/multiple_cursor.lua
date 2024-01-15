@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "mg979/vim-visual-multi",
-    event = "BufEnter",
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.VM_default_mappings = 0
     end,

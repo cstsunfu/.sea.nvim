@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "nvim-tree/nvim-web-devicons",
+    lazy = true,
     --opt = true,
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
