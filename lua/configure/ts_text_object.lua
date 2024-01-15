@@ -1,7 +1,7 @@
 local plugin = {}
 plugin.core = {
     "mfussenegger/nvim-ts-hint-textobject",
-    event = "BufEnter",
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

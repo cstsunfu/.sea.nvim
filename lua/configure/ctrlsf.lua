@@ -8,25 +8,15 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         vim.g.ctrlsf_mapping = {
-            chgmode = "M",
-            fzf = "",
-            loclist = "",
-            next = { "n", "N", "gn" },
-            nfile = "gN",
             open = { "<CR>", "<2-LeftMouse>" },
-            pfile = "gP",
-            openb = "o",
-            popen = "O",
-            popenf = "gO",
-            pquit = "q",
-            prev = { "P", "gp" },
-            quit = "q",
-            split = "<C-O>",
-            stop = "<C-C>",
-            tab = "t",
-            tabb = "T",
-            vsplit = "",
         }
+        vim.api.nvim_create_autocmd({ "FileType" }, {
+            callback = function()
+                -- There is an unkonwn bug in CtrlSF
+                vim.notify("Do not edit the CtrlSF file.", "warn", { title = "CtrlSF" })
+            end,
+            pattern = "ctrlsf",
+        })
     end,
 }
 

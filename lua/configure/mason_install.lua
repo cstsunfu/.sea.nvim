@@ -2,6 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    event = "VeryLazy",
     dependencies = { "williamboman/mason.nvim" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
