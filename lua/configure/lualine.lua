@@ -62,6 +62,7 @@ plugin.core = {
             custom_theme.inactive.c.fg = "#384653"
         else
             custom_theme.normal.c.bg = global_fun.brighten(custom_theme.normal.c.bg, -5)
+            custom_theme.inactive.c.bg = custom_theme.normal.c.bg
         end
         -- Color table for highlights
         local colors = {
@@ -75,6 +76,7 @@ plugin.core = {
             violet = "#a9a1e1",
             magenta = "#c678dd",
             blue = "#51afef",
+            dark_blue = global_fun.brighten("#51afef", -5),
             red = "#ec5f67",
             inactive = "#808080",
             gray = "#808080",
@@ -122,7 +124,7 @@ plugin.core = {
             vim.g.tmux_ready = true
         end
         local conditions = {
-            terminal_condition = function() -- dapui
+            terminal_condition = function()
                 return vim.bo.buftype == "terminal" and vim.fn.winwidth(vim.fn.winnr()) > 30
             end,
             dapui_condition = function() -- dapui
@@ -614,7 +616,7 @@ plugin.core = {
             function()
                 return "▌"
             end, --'▌▊'
-            color = { fg = colors.gray }, -- Sets highlighting of component
+            color = { fg = colors.blue }, -- Sets highlighting of component
             padding = { left = 0 },
             cond = conditions.hide_bound_in_width,
         })
@@ -649,17 +651,24 @@ plugin.core = {
                     local fname = vim.fn.getcwd()
                     local path = Path:new(fname)
                     local split_path = path:_split()
-                    if not conditions.inactive_buffer_not_empty_nest_file_in_width() then
+                    if not conditions.nest_active_file_name_in_width() then
                         fname = vim.fn.expand("%")
+                        if string.len(fname) > 25 then
+                            fname = string.sub(fname, 1, 23) .. ".."
+                        end
+                    elseif not conditions.limit_active_file_name_in_width() then
+                        fname = table.concat({ split_path[#split_path], vim.fn.expand("%") }, "/")
                         if string.len(fname) > 30 then
-                            fname = string.sub(fname, 1, 28) .. ".."
+                            --fname = string.sub(fname, 1, 28) .. "..."
+                            local fname_len = string.len(fname)
+                            fname = ".." .. string.sub(fname, fname_len - 28, fname_len) -- Keep the name except the folder
                         end
                     else
                         fname = table.concat({ split_path[#split_path], vim.fn.expand("%") }, "/")
-                        if string.len(fname) > 55 then
+                        if string.len(fname) > 45 then
                             --fname = string.sub(fname, 1, 28) .. "..."
                             local fname_len = string.len(fname)
-                            fname = ".." .. string.sub(fname, fname_len - 53, fname_len) -- Keep the name except the folder
+                            fname = ".." .. string.sub(fname, fname_len - 43, fname_len) -- Keep the name except the folder
                         end
                     end
                     lualine_file_name_cache[cur_buf] = fname
@@ -696,7 +705,17 @@ plugin.core = {
         ins_left_inactive({
             function()
                 local cur_winnr = vim.fn.winnr()
-                local win_display_list = { "❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾" }
+                local win_display_list = {
+                    " ❶ ",
+                    " ❷ ",
+                    " ❸ ",
+                    " ❹ ",
+                    " ❺ ",
+                    " ❻ ",
+                    " ❼ ",
+                    " ❽ ",
+                    " ❾ ",
+                }
                 if cur_winnr > #win_display_list then
                     return " "
                 end
@@ -704,6 +723,7 @@ plugin.core = {
             end,
             color = { fg = colors.blue, gui = "bold" }, -- Sets highlighting of component
             padding = { left = 0 },
+            cond = conditions.active_add_wind_in_width,
         })
         -- Add components to right sections
         ins_right_inactive({
@@ -724,7 +744,7 @@ plugin.core = {
             function()
                 return "▐"
             end,
-            color = { fg = colors.gray },
+            color = { fg = colors.blue },
             padding = { right = -1 },
             cond = conditions.hide_bound_in_width,
         })
