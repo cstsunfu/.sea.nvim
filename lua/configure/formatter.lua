@@ -45,6 +45,9 @@ plugin.core = {
                 if bufname:match("/node_modules/") then
                     return
                 end
+                if bufname:match("/spu/") then
+                    return
+                end
                 -- ...additional logic...
                 return { timeout_ms = 1200, lsp_fallback = true }
             end,
