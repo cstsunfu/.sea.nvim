@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "monaqa/dial.nvim",
-    event = "VeryLazy",
+    --event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
@@ -57,34 +57,19 @@ plugin.core = {
                 }),
             },
         })
+        vim.cmd([[
+        nmap  <C-a>  <Plug>(dial-increment)
+        nmap  <C-x>  <Plug>(dial-decrement)
+        nmap g<C-a> g<Plug>(dial-increment)
+        nmap g<C-x> g<Plug>(dial-decrement)
+        vmap  <C-a>  <Plug>(dial-increment)
+        vmap  <C-x>  <Plug>(dial-decrement)
+        vmap g<C-a> g<Plug>(dial-increment)
+        vmap g<C-x> g<Plug>(dial-decrement)
+        ]])
     end,
 }
 
-plugin.mapping = function()
-    vim.keymap.set("n", "<C-a>", function()
-        require("dial.map").manipulate("increment", "normal")
-    end)
-    vim.keymap.set("n", "<C-x>", function()
-        require("dial.map").manipulate("decrement", "normal")
-    end)
-    vim.keymap.set("n", "g<C-a>", function()
-        require("dial.map").manipulate("increment", "gnormal")
-    end)
-    vim.keymap.set("n", "g<C-x>", function()
-        require("dial.map").manipulate("decrement", "gnormal")
-    end)
-    vim.keymap.set("v", "<C-a>", function()
-        require("dial.map").manipulate("increment", "visual")
-    end)
-    vim.keymap.set("v", "<C-x>", function()
-        require("dial.map").manipulate("decrement", "visual")
-    end)
-    vim.keymap.set("v", "g<C-a>", function()
-        require("dial.map").manipulate("increment", "gvisual")
-    end)
-    vim.keymap.set("v", "g<C-x>", function()
-        require("dial.map").manipulate("decrement", "gvisual")
-    end)
-end
+plugin.mapping = function() end
 
 return plugin

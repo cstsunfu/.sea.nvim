@@ -2,22 +2,26 @@ local plugin = {}
 
 local pomodoro = require("hack.pomodoro")
 local lualine_file_name_cache = {}
+local lualine_inactive_file_name_cache = {}
 local lualine_proj_name_cache = {}
 local lualine_tmux_sess_cache = {}
 local lualine_buf_size_cache = {}
+
+local lualine_win_display_condition_cache = {}
 
 plugin.core = {
     "nvim-lualine/lualine.nvim",
     event = "ColorScheme",
     init = function() -- Specifies code to run before this plugin is loaded.
         local aug = vim.api.nvim_create_augroup("lualine_new_file", { clear = true })
-        vim.api.nvim_create_autocmd({ "BufEnter" }, {
+        vim.api.nvim_create_autocmd({ "BufEnter", "VimResized", "WinNew", "WinClosed" }, {
             callback = function()
-                local cur_buf = vim.api.nvim_get_current_buf()
-                lualine_file_name_cache[cur_buf] = nil
-                lualine_proj_name_cache[cur_buf] = nil
-                lualine_tmux_sess_cache[cur_buf] = nil
-                lualine_buf_size_cache[cur_buf] = nil
+                lualine_file_name_cache = {}
+                lualine_inactive_file_name_cache = {}
+                lualine_proj_name_cache = {}
+                lualine_tmux_sess_cache = {}
+                lualine_buf_size_cache = {}
+                lualine_win_display_condition_cache = {}
             end,
             group = aug,
             pattern = "*",
@@ -125,73 +129,292 @@ plugin.core = {
         end
         local conditions = {
             terminal_condition = function()
-                return vim.bo.buftype == "terminal" and vim.fn.winwidth(vim.fn.winnr()) > 30
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache["terminal_condition"] == nil then
+                    lualine_win_display_condition_cache["terminal_condition"] = vim.bo.buftype == "terminal"
+                        and vim.fn.winwidth(vim.fn.winnr()) > 30
+                end
+                return lualine_win_display_condition_cache["terminal_condition"]
             end,
             dapui_condition = function() -- dapui
-                return dap_ui_map[vim.bo.filetype] ~= nil and vim.fn.winwidth(vim.fn.winnr()) > 30
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["dapui_condition"] == nil then
+                    lualine_win_display_condition_cache[win_id]["dapui_condition"] = dap_ui_map[vim.bo.filetype] ~= nil
+                        and vim.fn.winwidth(vim.fn.winnr()) > 30
+                end
+                return lualine_win_display_condition_cache[win_id]["dapui_condition"]
             end,
             limit_active_file_name_in_width = function()
-                return vim.fn.winwidth(0) > 175
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["limit_active_file_name_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["limit_active_file_name_in_width"] = vim.fn.winwidth(0)
+                        > 185
+                end
+                return lualine_win_display_condition_cache[win_id]["limit_active_file_name_in_width"]
             end,
             nest_active_file_name_in_width = function()
-                return vim.fn.winwidth(0) > 155
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["nest_active_file_name_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["nest_active_file_name_in_width"] = vim.fn.winwidth(0)
+                        > 165
+                end
+                return lualine_win_display_condition_cache[win_id]["nest_active_file_name_in_width"]
+            end,
+            limit_inactive_file_name_in_width = function()
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["limit_inactive_file_name_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["limit_inactive_file_name_in_width"] = vim.fn.winwidth(
+                        0
+                    ) > 150
+                end
+                return lualine_win_display_condition_cache[win_id]["limit_inactive_file_name_in_width"]
+            end,
+            nest_inactive_file_name_in_width = function()
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["nest_inactive_file_name_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["nest_inactive_file_name_in_width"] = vim.fn.winwidth(0)
+                        > 120
+                end
+                return lualine_win_display_condition_cache[win_id]["nest_inactive_file_name_in_width"]
             end,
             hide_encoding_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(vim.fn.winnr()) > 135
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_encoding_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_encoding_in_width"] = not_only_win_num()
+                        and vim.fn.winwidth(vim.fn.winnr()) > 140
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_encoding_in_width"]
             end,
             check_git_workspace_hide_in_width = function()
-                local filepath = vim.fn.expand("%:p:h", nil, nil)
-                local gitdir = vim.fn.finddir(".git", filepath .. ";")
-                return not_only_win_num()
-                    and gitdir
-                    and #gitdir > 0
-                    and #gitdir < #filepath
-                    and vim.fn.winwidth(0) > 125
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["check_git_workspace_hide_in_width"] == nil then
+                    local filepath = vim.fn.expand("%:p:h", nil, nil)
+                    local gitdir = vim.fn.finddir(".git", filepath .. ";")
+                    lualine_win_display_condition_cache[win_id]["check_git_workspace_hide_in_width"] = not_only_win_num()
+                        and gitdir
+                        and #gitdir > 0
+                        and #gitdir < #filepath
+                        and vim.fn.winwidth(0) > 145
+                end
+                return lualine_win_display_condition_cache[win_id]["check_git_workspace_hide_in_width"]
             end,
             hide_diagnostics_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 130
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_diagnostics_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_diagnostics_in_width"] = vim.fn.winwidth(0) > 150
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_diagnostics_in_width"]
             end,
             nest_project_prefix_in_width = function()
-                return vim.fn.winwidth(0) > 125
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["nest_project_prefix_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["nest_project_prefix_in_width"] = vim.fn.winwidth(0)
+                        > 145
+                end
+                return lualine_win_display_condition_cache[win_id]["nest_project_prefix_in_width"]
             end,
             hide_project_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 105
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_project_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_project_in_width"] = not_only_win_num()
+                        and vim.fn.winwidth(0) > 125
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_project_in_width"]
             end,
             active_add_wind_in_width = function()
-                return not not_only_win_num() or vim.fn.winwidth(0) <= 105
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["active_add_wind_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["active_add_wind_in_width"] = not not_only_win_num()
+                        or vim.fn.winwidth(0) <= 125
+                end
+                return lualine_win_display_condition_cache[win_id]["active_add_wind_in_width"]
             end,
             hide_location_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 95
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_location_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_location_in_width"] = not_only_win_num()
+                        and vim.fn.winwidth(0) > 115
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_location_in_width"]
             end,
             buffer_not_empty_hide_size_in_width = function()
-                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 85
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["buffer_not_empty_hide_size_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["buffer_not_empty_hide_size_in_width"] = not_only_win_num()
+                        and buffer_not_empty()
+                        and vim.fn.winwidth(vim.fn.winnr()) > 105
+                end
+                return lualine_win_display_condition_cache[win_id]["buffer_not_empty_hide_size_in_width"]
             end,
             hide_tmux_in_width = function()
-                return vim.g.tmux_ready and not_only_win_num() and vim.fn.winwidth(0) > 70
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_tmux_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_tmux_in_width"] = vim.g.tmux_ready
+                        and not_only_win_num()
+                        and vim.fn.winwidth(0) > 90
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_tmux_in_width"]
             end,
             hide_progress_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 60
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_progress_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_progress_in_width"] = not_only_win_num()
+                        and vim.fn.winwidth(0) > 80
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_progress_in_width"]
             end,
             hide_pomodoro_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 55
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_pomodoro_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_pomodoro_in_width"] = not_only_win_num()
+                        and vim.fn.winwidth(0) > 65
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_pomodoro_in_width"]
             end,
             hide_clock_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 28
-            end,
-            buffer_not_empty_hide_file_in_width = function()
-                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(0) > 55
-            end,
-            inactive_buffer_not_empty_hide_file_in_width = function()
-                return not_only_win_num() and buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 45
-            end,
-            inactive_buffer_not_empty_nest_file_in_width = function()
-                return buffer_not_empty() and vim.fn.winwidth(vim.fn.winnr()) > 60
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_clock_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_clock_in_width"] = not_only_win_num()
+                        and vim.fn.winwidth(0) > 38
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_clock_in_width"]
             end,
             hide_status_active_in_width = function()
-                return not_only_win_num() and vim.fn.winwidth(0) > 20
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_status_active_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_status_active_in_width"] = not_only_win_num()
+                        and vim.fn.winwidth(0) > 38
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_status_active_in_width"]
+            end,
+            buffer_not_empty_hide_file_in_width = function()
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["buffer_not_empty_hide_file_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["buffer_not_empty_hide_file_in_width"] = not_only_win_num()
+                        and buffer_not_empty()
+                        and vim.fn.winwidth(0) > 80
+                end
+                return lualine_win_display_condition_cache[win_id]["buffer_not_empty_hide_file_in_width"]
+            end,
+            inactive_buffer_not_empty_nest_file_in_width = function()
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if
+                    lualine_win_display_condition_cache[win_id]["inactive_buffer_not_empty_nest_file_in_width"] == nil
+                then
+                    lualine_win_display_condition_cache[win_id]["inactive_buffer_not_empty_nest_file_in_width"] = buffer_not_empty()
+                        and vim.fn.winwidth(vim.fn.winnr()) > 80
+                end
+                return lualine_win_display_condition_cache[win_id]["inactive_buffer_not_empty_nest_file_in_width"]
+            end,
+            inactive_buffer_not_empty_hide_file_in_width = function()
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if
+                    lualine_win_display_condition_cache[win_id]["inactive_buffer_not_empty_hide_file_in_width"] == nil
+                then
+                    lualine_win_display_condition_cache[win_id]["inactive_buffer_not_empty_hide_file_in_width"] = not_only_win_num()
+                        and buffer_not_empty()
+                        and vim.fn.winwidth(vim.fn.winnr()) > 60
+                end
+                return lualine_win_display_condition_cache[win_id]["inactive_buffer_not_empty_hide_file_in_width"]
+            end,
+            inactive_hide_encoding_in_width = function()
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["inactive_hide_encoding_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["inactive_hide_encoding_in_width"] = not_only_win_num()
+                        and vim.fn.winwidth(vim.fn.winnr()) > 60
+                end
+                return lualine_win_display_condition_cache[win_id]["inactive_hide_encoding_in_width"]
+            end,
+            inactive_hide_wind_in_width = function()
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["inactive_hide_wind_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["inactive_hide_wind_in_width"] = vim.fn.winwidth(0)
+                        >= 15
+                end
+                return lualine_win_display_condition_cache[win_id]["inactive_hide_wind_in_width"]
             end,
             hide_bound_in_width = function()
-                return vim.fn.winwidth(vim.fn.winnr()) > 10
+                local win_id = vim.fn.winnr()
+                if lualine_win_display_condition_cache[win_id] == nil then
+                    lualine_win_display_condition_cache[win_id] = {}
+                end
+                if lualine_win_display_condition_cache[win_id]["hide_bound_in_width"] == nil then
+                    lualine_win_display_condition_cache[win_id]["hide_bound_in_width"] = vim.fn.winwidth(vim.fn.winnr())
+                        > 20
+                end
+                return lualine_win_display_condition_cache[win_id]["hide_bound_in_width"]
             end,
         }
 
@@ -647,33 +870,33 @@ plugin.core = {
                 if cur_buf == nil then
                     return ""
                 end
-                if lualine_file_name_cache[cur_buf] == nil then
+                if lualine_inactive_file_name_cache[cur_buf] == nil then
                     local fname = vim.fn.getcwd()
                     local path = Path:new(fname)
                     local split_path = path:_split()
-                    if not conditions.nest_active_file_name_in_width() then
+                    if not conditions.nest_inactive_file_name_in_width() then
                         fname = vim.fn.expand("%")
-                        if string.len(fname) > 25 then
-                            fname = string.sub(fname, 1, 23) .. ".."
+                        if string.len(fname) > 12 then
+                            fname = string.sub(fname, 1, 10) .. ".."
                         end
-                    elseif not conditions.limit_active_file_name_in_width() then
+                    elseif not conditions.limit_inactive_file_name_in_width() then
                         fname = table.concat({ split_path[#split_path], vim.fn.expand("%") }, "/")
-                        if string.len(fname) > 30 then
+                        if string.len(fname) > 17 then
                             --fname = string.sub(fname, 1, 28) .. "..."
                             local fname_len = string.len(fname)
-                            fname = ".." .. string.sub(fname, fname_len - 28, fname_len) -- Keep the name except the folder
+                            fname = ".." .. string.sub(fname, fname_len - 15, fname_len) -- Keep the name except the folder
                         end
                     else
                         fname = table.concat({ split_path[#split_path], vim.fn.expand("%") }, "/")
-                        if string.len(fname) > 45 then
+                        if string.len(fname) > 32 then
                             --fname = string.sub(fname, 1, 28) .. "..."
                             local fname_len = string.len(fname)
-                            fname = ".." .. string.sub(fname, fname_len - 43, fname_len) -- Keep the name except the folder
+                            fname = ".." .. string.sub(fname, fname_len - 30, fname_len) -- Keep the name except the folder
                         end
                     end
-                    lualine_file_name_cache[cur_buf] = fname
+                    lualine_inactive_file_name_cache[cur_buf] = fname
                 end
-                return lualine_file_name_cache[cur_buf]
+                return lualine_inactive_file_name_cache[cur_buf]
             end,
             cond = conditions.inactive_buffer_not_empty_hide_file_in_width,
             color = { fg = colors.inactive, gui = "bold" },
@@ -723,13 +946,13 @@ plugin.core = {
             end,
             color = { fg = colors.blue, gui = "bold" }, -- Sets highlighting of component
             padding = { left = 0 },
-            cond = conditions.active_add_wind_in_width,
+            cond = conditions.inactive_hide_wind_in_width,
         })
         -- Add components to right sections
         ins_right_inactive({
             "o:encoding", -- option component same as &encoding in viml
             fmt = string.upper, -- I'm not sure why it's upper case either ;)
-            cond = conditions.hide_encoding_in_width,
+            cond = conditions.inactive_hide_encoding_in_width,
             color = { fg = colors.inactive, gui = "bold" },
         })
 
