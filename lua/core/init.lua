@@ -13,9 +13,13 @@ vim.g.feature_groups = {
 }
 
 require("core.default")
-pcall(require, "core.local") -- local maybe not exists
+
+local local_setup = function()
+    require("core.local").setup()
+end
 require("core.user")
 require("core.plugins").setup()
+pcall(local_setup)
 require("hack").setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. "/org/pomodoro/" } })
 
 require("core.plugins").create_mapping()
@@ -27,3 +31,7 @@ if vim.g.neovide then
 end
 
 require("core.after")
+local local_after = function()
+    require("core.local").after()
+end
+pcall(local_after)
