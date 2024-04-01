@@ -12,14 +12,18 @@ plugin.core = {
         -- After add a formatter should update the mason.lua file to install the formatter
         require("conform").setup({
             formatters = {
-                sqlformatter = {
+                sqlformatter_with_config = {
                     command = "sql-formatter",
-                    args = { "--config", "/Users/fu.sun/.sea.nvim/sql-formatter.json" },
+                    args = { "--config", vim.g.CONFIG .. "/sql-formatter.json" },
+                },
+                pg_format_with_config = {
+                    command = "pg_format",
+                    args = {},
                 },
             },
             formatters_by_ft = {
                 lua = { "stylua" },
-                sql = { "pg_format" },
+                sql = { "sqlformatter_with_config" },
                 --sql = { "pg_format" },
                 -- Conform will run multiple formatters sequentially
                 python = { "isort", "black" },

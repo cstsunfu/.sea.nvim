@@ -75,13 +75,13 @@ plugin.mapping = function()
             return
         end
         if visual then
-            vim.cmd("ToggleTermSendVisualSelection " .. id)
+            vim.cmd("ToggleTermSendVisualLines " .. id)
         else
             vim.cmd("ToggleTermSendCurrentLine " .. id)
         end
     end
     mappings.register({
-        mode = { "v", "x" },
+        mode = { "v" },
         key = { "<C-s>" },
         action = ":lua _G._terminal_send_selection(true)<cr>",
         short_desc = "Send Select Text to First Terminal",
