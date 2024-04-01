@@ -85,6 +85,8 @@ plugin.core = {
             end)
         end
 
+        local project_actions = require("telescope._extensions.project.actions")
+
         require("telescope").setup({
             defaults = {
                 vimgrep_arguments = {
@@ -162,6 +164,12 @@ plugin.core = {
                         { "~/workspace", max_depth = 4 },
                     },
                     hidden_files = true, -- default: false
+                    sync_with_nvim_tree = false, -- default false
+                    on_project_selected = function(prompt_bufnr)
+                        -- Do anything you want in here. For example:
+                        --project_actions.change_working_directory(prompt_bufnr, false)
+                        --require("harpoon.ui").nav_file(1)
+                    end,
                 },
                 -- TODO: switch fuzzy and exact, currently use the telescope-fzf-native
                 -- https://github.com/nvim-telescope/telescope.nvim/issues/930

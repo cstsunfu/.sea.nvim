@@ -55,6 +55,7 @@ plugin.core = {
                 },
                 filetypes = { "lua" },
             },
+            jsonls = {},
             grammarly = {
                 filetypes = { "markdown", "vimwiki", "vimwiki.markdown.pandoc", "pandoc" },
             },
@@ -131,7 +132,13 @@ plugin.core = {
                 on_attach = function(_, _) end,
             }
             server_config = vim.tbl_deep_extend("force", common_config, server_config)
-            require("lspconfig")[server_name].setup(server_config)
+            if server_name == "grammarly" and os.getenv("GRAMMARLY_PATH") ~= nil then
+                require("lspconfig").grammarly.setup({
+                    cmd = { "n", "run", "16", os.getenv("GRAMMARLY_PATH"), "--stdio" },
+                })
+            else
+                require("lspconfig")[server_name].setup(server_config)
+            end
         end
         require("configure.lsp_config.default_setting")
     end,

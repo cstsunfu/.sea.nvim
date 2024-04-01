@@ -52,9 +52,21 @@
 3. Install `node.js`, `npm`, and `yarn`
 ```sh
 curl -sL install-node.vercel.app/lts | bash
--- for grammarly-language-server, it requires the [node@16](https://github.com/znck/grammarly/issues/334)
 npm install --global yarn
 ```
+
+Optional:
+
+for grammarly-language-server, it requires the [node@16](https://github.com/znck/grammarly/issues/334)
+```bash
+# install node@16
+npm install -g n
+n -d 16
+
+# export the GRAMMARLY_PATH in you .bashrc or .zshrce or what shell you use
+export GRAMMARLY_PATH="$HOME/.local/share/nvim/mason/packages/grammarly-languageserver/node_modules/grammarly-languageserver"
+```
+
 
 4. Install `lolcat` for display the NEOVIM logo
 ```sh

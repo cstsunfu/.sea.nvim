@@ -135,7 +135,7 @@ default_setting["opt"] = {
     undofile = true, -- use undo file
     swapfile = true, -- use swap file
     maxmempattern = 2000, -- max match pattern
-    autochdir = true, -- auto change directory to current file
+    autochdir = false, -- WARN: auto change directory to current file, conflict to some plugin like telescope-project
     lazyredraw = false, -- true will speed up in macro repeat
     ttyfast = true, -- true maybe as lazyredraw ? TODO
     mouse = "a",
@@ -165,8 +165,23 @@ for key, value in pairs(default_setting["global"]) do
     vim.g[key] = value
 end
 
-local aug = vim.api.nvim_create_augroup("buf_large", { clear = true })
+vim.api.nvim_create_augroup("autochdir", { clear = true })
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWritePre" }, {
+    group = "autochdir",
+    pattern = "?*",
+    callback = function()
+        if
+            not vim.bo.modifiable
+            or vim.tbl_contains(no_number_filetypes_list, vim.bo.filetype)
+            or not (vim.fn.expand("%:p"):find("^/"))
+        then
+            return
+        end
+        vim.fn.execute("cd " .. vim.fn.expand("%:p:h"))
+    end,
+})
 
+vim.api.nvim_create_augroup("buf_large", { clear = true })
 vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
     callback = function()
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
