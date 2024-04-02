@@ -22,11 +22,7 @@ end
 
 func.enable_large_buf = function()
     vim.b.large_buf = true
-    vim.notify(
-        "Large buffer detected, syntax off, ts disabled, foldmethod set to manual",
-        "info",
-        { title = "Large buffer" }
-    )
+    vim.notify("Large buffer.", "info", { title = "Large buffer" })
     vim.cmd("syntax off")
     --vim.cmd("IlluminatePauseBuf") -- disable vim-illuminate
     vim.opt_local.foldmethod = "manual"
@@ -53,7 +49,7 @@ end
 func.disable_large_buf = function()
     vim.b.large_buf = false
     vim.cmd("syntax on")
-    --vim.cmd("IlluminatePauseBuf") -- disable vim-illuminate
+
     vim.opt_local.foldmethod = "indent"
     if vim.fn.exists(":TSBufEnable") then
         vim.cmd("TSBufEnable autotag")

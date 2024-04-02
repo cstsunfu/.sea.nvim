@@ -20,12 +20,12 @@ plugin.core = {
 
                 (thematic_break) @dash
 
-                (fenced_code_block) @codeblock
 
                 (block_quote_marker) @quote
                 (block_quote (paragraph (inline (block_continuation) @quote)))
                 ]]
                 ),
+                --(fenced_code_block) @codeblock -- ignore the code block highlight
                 headline_highlights = { "Headline" },
                 codeblock_highlight = "CodeBlock",
                 dash_highlight = "Dash",

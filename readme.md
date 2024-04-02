@@ -97,31 +97,39 @@ Install method depend on your os.
 ./install.sh
 ```
 
-9. User related setting in `lua/core/local.lua` and `lua/core/user.lua`.
+9. User related setting in `lua/core/user.lua`.
 
 Both `local.lua` and `user.lua` are bind to user. `user.lua` is more general for each user, and `local.lua` is special to each machine, and setting in `local.lua`  will not be indexed by git but `user.lua` will be.
 
 My own setting example in `local.lua` is:
 ```lua
-vim.g.global_proxy_port = 'http://127.0.0.1:7893' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
+local M = {}
+
+M.setup = function()
+    vim.g.global_proxy_port = 'http://127.0.0.1:7893' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
+end
+
+M.after = function()
+...your code
+end
+return M
+
 ```
-And some setting personally but put to `local.lua` like:
+
+In the `user.lua` you must provide the `setup` and `after` method in the module
 
 ```lua
-local themes = require('core.themes')
-themes.setting(themes.configs.material_oceanic)
-
-local user_setting = {
-    python3_host_prog = vim.g.HOME_PATH .. '/miniconda3/bin/python3', -- add to your own python3 path
-    snips_author = 'Sun Fu',
-    snips_email = 'cstsunfu@gmail.com',
-    snips_github = 'https://github.com/cstsunfu',
-    snips_wechat = 'cstsunfu',
-}
-
-for key, value in pairs(user_setting) do
-    vim.g[key] = value
+local M = {}
+M.setup = function()
+-- call the local setup
+-- require('core.local').setup()
+...your code
 end
+M.after = function() ... end
+-- call the local after
+-- require('core.local').after()
+...your code
+return M
 ```
 
 NOTE: The default leader is setting in `lua/core/default.lua`. The setting is
