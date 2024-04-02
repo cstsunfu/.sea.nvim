@@ -125,7 +125,11 @@ plugin.core = {
         if string.find(result, "not found") then
             vim.g.tmux_ready = false
         else
-            vim.g.tmux_ready = true
+            if string.find(result, "no server running") then
+                vim.g.tmux_ready = false
+            else
+                vim.g.tmux_ready = true
+            end
         end
         local conditions = {
             terminal_condition = function()
