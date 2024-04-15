@@ -7,7 +7,7 @@ plugin.core = {
         { "nfrid/markdown-togglecheck" },
         { "nfrid/treesitter-utils" },
         -- add table of content
-        { "richardbizik/nvim-toc" },
+        { "mzlogin/vim-markdown-toc" },
     },
     ft = { "markdown", "vimwiki" },
     init = function() -- Specifies code to run before this plugin is loaded.
@@ -20,7 +20,6 @@ plugin.core = {
             -- remove checked checkbox instead of unckecking it while toggling
             remove = true,
         })
-        require("nvim-toc").setup({})
 
         vim.g.vim_markdown_conceal = 1
         vim.g.vim_markdown_frontmatter = 1
