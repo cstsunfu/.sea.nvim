@@ -8,6 +8,7 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         require("notify").setup({
             background_colour = "#000000",
+            top_down = false,
         })
         local banned_messages = { "No information available" }
         vim.notify = function(msg, ...)
