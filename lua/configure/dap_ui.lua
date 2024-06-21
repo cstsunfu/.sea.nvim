@@ -5,6 +5,7 @@ plugin.core = {
     dependencies = {
         { "mfussenegger/nvim-dap" },
         { "theHamsta/nvim-dap-virtual-text" },
+        { "nvim-neotest/nvim-nio" },
     },
     event = "VeryLazy",
 
@@ -69,7 +70,7 @@ plugin.core = {
                     -- You can change the order of elements in the sidebar
                     elements = {
                         -- Provide as ID strings or tables with "id" and "size" keys
-                        { id = "stacks", size = 0.20 },
+                        { id = "stacks",      size = 0.20 },
                         { id = "breakpoints", size = 0.20 },
                         {
                             id = "scopes",
@@ -97,7 +98,7 @@ plugin.core = {
             },
             floating = {
                 max_height = nil, -- These can be integers or a float between 0 and 1.
-                max_width = nil, -- Floats will be treated as percentage of your screen.
+                max_width = nil,  -- Floats will be treated as percentage of your screen.
                 mappings = {
                     close = { "q", "<Esc>" },
                 },
@@ -106,20 +107,20 @@ plugin.core = {
         })
 
         require("nvim-dap-virtual-text").setup({
-            enabled = true, -- enable this plugin (the default)
-            enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
-            highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-            highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
-            show_stop_reason = true, -- show stop reason when stopped for exceptions
-            commented = false, -- prefix virtual text with comment string
-            only_first_definition = true, -- only show virtual text at first definition (if there are multiple)
-            all_references = false, -- show virtual text on all all references of the variable (not only definitions)
+            enabled = true,                        -- enable this plugin (the default)
+            enabled_commands = true,               -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
+            highlight_changed_variables = true,    -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
+            highlight_new_as_changed = false,      -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
+            show_stop_reason = true,               -- show stop reason when stopped for exceptions
+            commented = false,                     -- prefix virtual text with comment string
+            only_first_definition = true,          -- only show virtual text at first definition (if there are multiple)
+            all_references = false,                -- show virtual text on all all references of the variable (not only definitions)
             filter_references_pattern = "<module", -- filter references (not definitions) pattern when all_references is activated (Lua gmatch pattern, default filters out Python modules)
             -- experimental features:
-            virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-            all_frames = false, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-            virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
-            virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
+            virt_text_pos = "eol",                 -- position of virtual text, see `:h nvim_buf_set_extmark()`
+            all_frames = false,                    -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+            virt_lines = false,                    -- show virtual lines instead of virtual text (will flicker!)
+            virt_text_win_col = nil,               -- position the virtual text at a fixed window column (starting from the first text column) ,
             -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
         })
     end,
@@ -131,7 +132,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "d", "q" },
-        action = ":lua require'dapui'.close()<cr> :lua require('dap').disconnect()<cr> :lua require('dap').close()<cr><cr> :lua require('dap').repl.close()<cr>",
+        action =
+        ":lua require'dapui'.close()<cr> :lua require('dap').disconnect()<cr> :lua require('dap').close()<cr><cr> :lua require('dap').repl.close()<cr>",
         short_desc = string.format("%-15s", "Debug Quit") .. "F2",
         silent = true,
     })
@@ -139,7 +141,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<F2>" },
-        action = ":lua require'dapui'.close()<cr> :lua require('dap').disconnect()<cr> :lua require('dap').close()<cr><cr> :lua require('dap').repl.close()<cr>",
+        action =
+        ":lua require'dapui'.close()<cr> :lua require('dap').disconnect()<cr> :lua require('dap').close()<cr><cr> :lua require('dap').repl.close()<cr>",
         short_desc = "Debug Quit",
         silent = true,
     })
@@ -206,7 +209,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "d", "a", "w" },
-        action = ":lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '), vim.fn.input('Hit Condition: '), vim.fn.input('Log Message: '))<cr>",
+        action =
+        ":lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '), vim.fn.input('Hit Condition: '), vim.fn.input('Log Message: '))<cr>",
         short_desc = string.format("%-15s", "Advanced Break") .. "F7",
         silent = true,
     })
@@ -214,7 +218,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<F7>" },
-        action = ":lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '), vim.fn.input('Hit Condition: '), vim.fn.input('Log Message: '))<cr>",
+        action =
+        ":lua require'dap'.toggle_breakpoint(vim.fn.input('Breakpoint condition: '), vim.fn.input('Hit Condition: '), vim.fn.input('Log Message: '))<cr>",
         short_desc = "Advanced Break",
         silent = true,
     })
