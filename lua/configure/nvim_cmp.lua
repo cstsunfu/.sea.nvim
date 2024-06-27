@@ -8,7 +8,10 @@ plugin.core = {
         {
             "quangnguyen30192/cmp-nvim-ultisnips",
             enabled = vim.g.feature_groups.lsp == "builtin",
-            event = "InsertEnter",
+            config = function()
+                -- optional call to setup (see customization section)
+                require("cmp_nvim_ultisnips").setup {}
+            end,
         }, -- ultisnips source
         {
             "hrsh7th/cmp-nvim-lsp",
@@ -98,7 +101,6 @@ plugin.core = {
             autocmd! ColorScheme * highlight CompBorder guifg=#ffaa55 guibg=None
             autocmd FileType AerojumpFilter lua require('cmp').setup.buffer { enabled = false }
         ]])
-        require("cmp_nvim_ultisnips").setup({})
         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
         --highlight CompDocBorder guifg=# guibg=#None
         --autocmd! ColorScheme * highlight CompDocBorder guifg=#ffaa55 guibg=None
@@ -157,15 +159,15 @@ plugin.core = {
                 }),
             }),
             sources = cmp.config.sources({
-                { name = "jupynium", priority = 60 }, -- consider higher priority than LSP
-                { name = "copilot", priority = 200 },
-                { name = "nvim_lsp", priority = 100 },
-                { name = "ultisnips", priority = 80 }, -- For ultisnips users.
-                { name = "calc", priority = 100 },
+                { name = "jupynium",                priority = 60 }, -- consider higher priority than LSP
+                { name = "copilot",                 priority = 200 },
+                { name = "nvim_lsp",                priority = 100 },
+                { name = "ultisnips",               priority = 80 }, -- For ultisnips users.
+                { name = "calc",                    priority = 100 },
                 { name = "nvim_lsp_signature_help", priority = 100 },
-                { name = "path", priority = 100 },
-                { name = "buffer", priority = 100 },
-                { name = "emoji", insert = true, priority = 100 },
+                { name = "path",                    priority = 100 },
+                { name = "buffer",                  priority = 100 },
+                { name = "emoji",                   insert = true, priority = 100 },
             }),
             sorting = {
                 priority_weight = 1.0,
@@ -213,7 +215,7 @@ plugin.core = {
                 { name = "path" },
                 { name = "calc" },
                 { name = "ultisnips" },
-                { name = "emoji", insert = true },
+                { name = "emoji",    insert = true },
             }),
         })
         cmp.setup.filetype("markdown", {
@@ -222,7 +224,7 @@ plugin.core = {
                 { name = "buffer" },
                 { name = "path" },
                 { name = "calc" },
-                { name = "emoji", insert = true },
+                { name = "emoji",    insert = true },
             }),
         })
         cmp.setup.filetype("dap-repl", {

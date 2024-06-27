@@ -1,7 +1,7 @@
 local plugin = {}
 plugin.core = {
     "SirVer/ultisnips",
-    event = "InsertEnter",
+    event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
         vim.g.UltiSnipsExpandTrigger = "<C-j>"
         vim.g.UltiSnipsEditSplit = "vertical"

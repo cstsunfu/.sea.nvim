@@ -3,26 +3,19 @@ local plugin = {}
 plugin.core = {
     "epwalsh/obsidian.nvim",
     ft = { "vimwiki", "markdown" },
-    cmd = { "ObsidianNew", "ObsidianSearch" },
+    cmd = { "ObsidianNew", "ObsidianSearch", "ObsidianToday", "ObsidianDailies" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
         require("obsidian").setup({
             dir = "~/MyKB",
+            new_notes_location = "current_dir",
             completion = {
                 -- If using nvim-cmp, otherwise set to false
                 nvim_cmp = true,
                 -- Trigger completion at 0 chars
                 min_chars = 0,
-                -- Where to put new notes created from completion. Valid options are
-                --  * "current_dir" - put new notes in same directory as the current buffer.
-                --  * "notes_subdir" - put new notes in the default notes subdirectory.
-                new_notes_location = "current_dir",
-
-                -- Whether to add the output of the node_id_func to new notes in autocompletion.
-                -- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
-                prepend_note_id = true,
             },
             notes_subdir = "Draft",
             --note_frontmatter_func = nil, -- disable note note_frontmatter_func
@@ -63,6 +56,20 @@ plugin.mapping = function()
         key = { "<leader>", "o", "n" },
         action = ":ObsidianNew ",
         short_desc = "New Draft Obsidian",
+        silent = false,
+    })
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "o", "a" },
+        action = ":ObsidianToday<CR>",
+        short_desc = "Obsidian Today ",
+        silent = false,
+    })
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "o", "d" },
+        action = ":ObsidianDailies<CR>",
+        short_desc = "Obsidian Daily List",
         silent = false,
     })
 end

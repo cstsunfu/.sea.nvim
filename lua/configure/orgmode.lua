@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "kristijanhusak/orgmode.nvim",
-    event = "VeryLazy",
+    --event = "VeryLazy",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
@@ -13,15 +13,15 @@ plugin.core = {
             org_default_notes_file = "~/org/agenda/refile.org",
             org_todo_keywords = { "TODO(t)", "WAIT", "|", "DONE", "ASSIGN", "CANCEL" },
             org_todo_keyword_faces = {
-                TODO = ":foreground #FA7F08 :weight bold", -- overrides builtin color for `TODO` keyword
+                TODO = ":foreground #FA7F08 :weight bold",   -- overrides builtin color for `TODO` keyword
                 WAIT = ":foreground #F24405 :weight bold",
-                DONE = ":foreground #9EF8EE :weight bold", -- overrides builtin color for `TODO` keyword
+                DONE = ":foreground #9EF8EE :weight bold",   -- overrides builtin color for `TODO` keyword
                 ASSIGN = ":foreground #22BABB :weight bold",
                 CANCEL = ":foreground #348888 :weight bold", -- overrides builtin color for `TODO` keyword
             },
             org_deadline_warning_days = 7,
             org_agenda_min_height = 16,
-            org_agenda_span = "week", -- day/week/month/year/number of days
+            org_agenda_span = "week",   -- day/week/month/year/number of days
             org_agenda_start_on_weekday = 1,
             org_agenda_start_day = nil, -- start from today + this modifier
             org_capture_templates = {
@@ -32,7 +32,8 @@ plugin.core = {
                 },
                 w = {
                     description = "Work Weekly Plan",
-                    template = "** TODO %?\n   SCHEDULED: %T\n   [[file:~/org/work/weekly/%<%Y>/%<%Y>_%<%W>.md][%<%Y>_%<%W>]]",
+                    template =
+                    "** TODO %?\n   SCHEDULED: %T\n   [[file:~/org/work/weekly/%<%Y>/%<%Y>_%<%W>.md][%<%Y>_%<%W>]]",
                     target = "~/org/work/weekly/todo.org",
                 },
             },
@@ -169,9 +170,9 @@ plugin.core = {
                     org_do_demote = ">>",
                     org_promote_subtree = "<s",
                     org_demote_subtree = ">s",
-                    org_meta_return = "<leader><CR>", -- Add headling, item or row
-                    org_insert_heading_respect_content = "<leader>oih", -- Add new headling after current heading block with same level
-                    org_insert_todo_heading = "<leader>oiT", -- Add new todo headling right after current heading with same level
+                    org_meta_return = "<leader><CR>",                        -- Add headling, item or row
+                    org_insert_heading_respect_content = "<leader>oih",      -- Add new headling after current heading block with same level
+                    org_insert_todo_heading = "<leader>oiT",                 -- Add new todo headling right after current heading with same level
                     org_insert_todo_heading_respect_content = "<leader>oit", -- Add new todo headling after current heading block on same level
                     org_move_subtree_up = "<leader>oK",
                     org_move_subtree_down = "<leader>oJ",
