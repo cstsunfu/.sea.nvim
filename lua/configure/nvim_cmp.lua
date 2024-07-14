@@ -5,14 +5,14 @@ plugin.core = {
     event = "VeryLazy",
     dependencies = {
         "nvim-lspconfig",
-        {
-            "quangnguyen30192/cmp-nvim-ultisnips",
-            enabled = vim.g.feature_groups.lsp == "builtin",
-            config = function()
-                -- optional call to setup (see customization section)
-                require("cmp_nvim_ultisnips").setup {}
-            end,
-        }, -- ultisnips source
+        --{
+        --    "quangnguyen30192/cmp-nvim-ultisnips",
+        --    enabled = vim.g.feature_groups.lsp == "builtin",
+        --    config = function()
+        --        -- optional call to setup (see customization section)
+        --        require("cmp_nvim_ultisnips").setup {}
+        --    end,
+        --}, -- ultisnips source
         {
             "hrsh7th/cmp-nvim-lsp",
             enabled = vim.g.feature_groups.lsp == "builtin",
@@ -104,7 +104,7 @@ plugin.core = {
         vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
         --highlight CompDocBorder guifg=# guibg=#None
         --autocmd! ColorScheme * highlight CompDocBorder guifg=#ffaa55 guibg=None
-        local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
+        --local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
         cmp.setup({
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
@@ -133,18 +133,18 @@ plugin.core = {
                 ["<C-x>"] = cmp.mapping.complete(),
                 ["<C-e>"] = cmp.mapping.abort(),
                 --['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                ["<C-j>"] = cmp.mapping(function(fallback)
-                    cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-                end, {
-                    "i",
-                    "s", --[[ "c" (to enable the mapping in command mode) ]]
-                }),
-                ["<C-k>"] = cmp.mapping(function(fallback)
-                    cmp_ultisnips_mappings.jump_backwards(fallback)
-                end, {
-                    "i",
-                    "s", --[[ "c" (to enable the mapping in command mode) ]]
-                }),
+                --["<C-j>"] = cmp.mapping(function(fallback)
+                --    cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+                --end, {
+                --    "i",
+                --    "s", [> "c" (to enable the mapping in command mode) <]
+                --}),
+                --["<C-k>"] = cmp.mapping(function(fallback)
+                --    cmp_ultisnips_mappings.jump_backwards(fallback)
+                --end, {
+                --    "i",
+                --    "s", [> "c" (to enable the mapping in command mode) <]
+                --}),
                 ["<CR>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Replace,
                     select = false,
@@ -159,15 +159,15 @@ plugin.core = {
                 }),
             }),
             sources = cmp.config.sources({
-                { name = "jupynium",                priority = 60 }, -- consider higher priority than LSP
-                { name = "copilot",                 priority = 200 },
-                { name = "nvim_lsp",                priority = 100 },
-                { name = "ultisnips",               priority = 80 }, -- For ultisnips users.
-                { name = "calc",                    priority = 100 },
+                { name = "jupynium", priority = 60 }, -- consider higher priority than LSP
+                { name = "copilot", priority = 200 },
+                { name = "nvim_lsp", priority = 100 },
+                --{ name = "ultisnips",               priority = 80 }, -- For ultisnips users.
+                { name = "calc", priority = 100 },
                 { name = "nvim_lsp_signature_help", priority = 100 },
-                { name = "path",                    priority = 100 },
-                { name = "buffer",                  priority = 100 },
-                { name = "emoji",                   insert = true, priority = 100 },
+                { name = "path", priority = 100 },
+                { name = "buffer", priority = 100 },
+                { name = "emoji", insert = true, priority = 100 },
             }),
             sorting = {
                 priority_weight = 1.0,
@@ -215,7 +215,7 @@ plugin.core = {
                 { name = "path" },
                 { name = "calc" },
                 { name = "ultisnips" },
-                { name = "emoji",    insert = true },
+                { name = "emoji", insert = true },
             }),
         })
         cmp.setup.filetype("markdown", {
@@ -224,7 +224,7 @@ plugin.core = {
                 { name = "buffer" },
                 { name = "path" },
                 { name = "calc" },
-                { name = "emoji",    insert = true },
+                { name = "emoji", insert = true },
             }),
         })
         cmp.setup.filetype("dap-repl", {
