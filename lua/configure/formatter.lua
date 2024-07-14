@@ -3,6 +3,7 @@ local plugin = {}
 plugin.core = {
     "stevearc/conform.nvim",
     event = "BufWritePre",
+    tag = "v5.8.0",
     dependencies = { "williamboman/mason.nvim" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,

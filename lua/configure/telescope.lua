@@ -390,50 +390,24 @@ plugin.mapping = function()
     })
 
     _G.plugin_telescope__frecency_content = function(top_n)
-        local actions = require("telescope.actions")
         local pickers = require("telescope.pickers")
-        local make_entry = require("telescope.make_entry")
         local finders = require("telescope.finders")
+        local make_entry = require("telescope.make_entry")
+
+        local files = require("telescope").extensions.frecency.query({
+            limit = top_n,
+            order_by = "score",
+        })
+        local actions = require("telescope.actions")
         local conf = require("telescope.config").values
         local vimgrep_arguments = conf.vimgrep_arguments
         local args = vim.tbl_flatten({ vimgrep_arguments })
-
-        local frecency = require("frecency.frecency").new({})
-        local frecency_picker =
-            require("frecency.picker").new(frecency.database, frecency.entry_maker, frecency.fs, frecency.recency, {
-                default_workspace_tag = frecency.config.default_workspace,
-                editing_bufnr = vim.api.nvim_get_current_buf(),
-                filter_delimiter = frecency.config.filter_delimiter,
-                initial_workspace_tag = nil,
-                show_unindexed = frecency.config.show_unindexed,
-                workspaces = frecency.config.workspaces,
-            })
-        local filepath_formatter = frecency_picker.filepath_formatter(frecency_picker, {})
-        local entry_maker = frecency_picker.entry_maker:create(
-            filepath_formatter,
-            frecency_picker.workspace,
-            frecency_picker.workspace_tag
-        )
-        local need_scandir = not not (frecency_picker.workspace and frecency_picker.config.show_unindexed)
-        local find = require("frecency.finder").new(
-            frecency_picker.database,
-            entry_maker,
-            frecency_picker.fs,
-            need_scandir,
-            frecency_picker.workspace,
-            frecency_picker.recency,
-            frecency_picker.state
-        )
-        local frecency_file_path = {}
-        for _, result in ipairs(find.get_results(find, find.workspace)) do
-            table.insert(frecency_file_path, result.path)
-        end
         local live_grepper = finders.new_job(function(prompt)
             if not prompt or prompt == "" then
                 return nil
             end
 
-            return vim.tbl_flatten({ args, "--", prompt, frecency_file_path })
+            return vim.tbl_flatten({ args, "--", prompt, files })
         end, make_entry.gen_from_vimgrep({}), 1000, "/")
 
         pickers
@@ -441,8 +415,6 @@ plugin.mapping = function()
                 prompt_title = "Live Grep Frecency",
                 finder = live_grepper,
                 previewer = conf.grep_previewer({}),
-                -- TODO: It would be cool to use `--json` output for this
-                -- and then we could get the highlight positions directly.
                 sorter = require("telescope.sorters").highlighter_only({}),
                 attach_mappings = function(_, map)
                     map("i", "<c-space>", actions.to_fuzzy_refine)

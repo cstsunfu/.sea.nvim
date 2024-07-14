@@ -3,6 +3,7 @@ local plugin = {}
 plugin.core = {
     "folke/which-key.nvim",
     event = "VeryLazy",
+    tag = "v1.6.0",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
