@@ -196,7 +196,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
                     local file = io.open(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()), "r")
                     if file then
                         for line in file:lines() do
-                            if #line > 1000 then
+                            if #line > 2000 then
                                 global_func.enable_large_buf()
                                 break
                             end
