@@ -6,8 +6,8 @@ local alpha = function()
 end
 
 M.setup = function()
-    vim.o.guifont = "Source Code Pro:h14"
-    vim.o.noshowmode = true
+    --vim.o.guifont = "Source Code Pro:h14"
+    vim.o.showmode = false
     vim.opt.linespace = 0
     vim.g.neovide_scale_factor = 1.0
 
@@ -41,8 +41,17 @@ M.setup = function()
     vim.g.neovide_cursor_antialiasing = false
 
     vim.g.neovide_underline_automatic_scaling = true
-    vim.g.neovide_theme = "auto"
+    --vim.g.neovide_theme = "auto"
     vim.g.neovide_refresh_rate = 60
+
+    -- if the system is osx, use the following setting
+    if vim.fn.has("mac") == 1 then
+        vim.keymap.set("i", "<D-v>", "<C-r><C-o>+") -- paste (insert)
+        vim.keymap.set("n", "<D-v>", "i<C-r><C-o>+<Esc>l") -- paste (normal)
+        vim.keymap.set("x", "<D-v>", '"+P') -- paste (visual)
+        vim.keymap.set("c", "<D-v>", "<C-r>+") -- paste (command)
+        vim.keymap.set("t", "<D-v>", [[<C-\><C-N>"+P]]) -- Paste terminal mode
+    end
 end
 
 return M
