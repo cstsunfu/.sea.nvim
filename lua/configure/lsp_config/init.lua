@@ -121,7 +121,7 @@ plugin.core = {
             clangd = {
                 capabilities = { offsetEncoding = { "utf-16" } },
             },
-            tsserver = {},
+            ts_ls = {},
         }
         mason_lspconfig.setup({
             ensure_installed = vim.tbl_keys(servers),
