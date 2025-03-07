@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    tag = "v5.8.0",
+    tag = "v9.0.0",
     dependencies = { "williamboman/mason.nvim" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
@@ -25,6 +25,7 @@ plugin.core = {
             formatters_by_ft = {
                 lua = { "stylua" },
                 sql = { "sqlformatter_with_config" },
+                --sql = { "sqlfmt" },
                 --sql = { "pg_format" },
                 -- Conform will run multiple formatters sequentially
                 python = { "isort", "black" },
@@ -57,16 +58,24 @@ plugin.core = {
                 return { timeout_ms = 1200, lsp_fallback = true }
             end,
         })
-        --require("conform").formatters.sql_formatter.args = { "--config", vim.g.CONFIG .. "/sql-formmater.sql" }
-        --require("conform.formatters.sql_formatter").args = { "--config", "/Users/fu.sun/.sea.nvim/sql-formatter.json" }
-        --require("conform.formatters.sql_formatter").args = function(ctx)
-        --    local args = { "--stdin-filepath", "$FILENAME" }
-        --    local found = vim.fs.find(".custom-config.json", { upward = true, path = ctx.dirname })[1]
-        --    if found then
-        --        vim.list_extend(args, { "--config", found })
-        --    end
-        --    return args
-        --end
+
+        vim.api.nvim_create_user_command("FormatDisable", function(args)
+            if args.bang then
+                -- FormatDisable! will disable formatting just for this buffer
+                vim.b.disable_autoformat = true
+            else
+                vim.g.disable_autoformat = true
+            end
+        end, {
+            desc = "Disable autoformat-on-save",
+            bang = true,
+        })
+        vim.api.nvim_create_user_command("FormatEnable", function()
+            vim.b.disable_autoformat = false
+            vim.g.disable_autoformat = false
+        end, {
+            desc = "Re-enable autoformat-on-save",
+        })
     end,
 }
 
