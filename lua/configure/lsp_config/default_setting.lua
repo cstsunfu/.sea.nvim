@@ -8,8 +8,8 @@ vim.cmd [[
     highlight FloatBorder guifg=#7B68EE guibg=#None
     autocmd! ColorScheme * highlight FloatBorder guifg=#7B68EE guibg=None
 ]]
-    --autocmd! ColorScheme * highlight NormalFloat guifg=#00cccc guibg=None
-    --highlight NormalFloat guifg=#00cccc guibg=None
+--autocmd! ColorScheme * highlight NormalFloat guifg=#00cccc guibg=None
+--highlight NormalFloat guifg=#00cccc guibg=None
 --local border = {
 --      {"🭽", "FloatBorder"},
 --      {"▔", "FloatBorder"},
@@ -21,7 +21,7 @@ vim.cmd [[
 --      {"▏", "FloatBorder"},
 --}
 
-local signs = { Error = " ", Warn = "", Hint = " ", Info = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     --vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -29,13 +29,17 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config({
-    signs = true,
-    underline = true,
-    update_in_insert = true,
-    severity_sort = false,
-    float = {
-        source = "always",  -- Or "if_many"
-    },
+    --signs = false,
+    --underline = true,
+    --update_in_insert = false,
+    --on_insert = false,
+    --severity_sort = false,
+    --float = {
+    --    source = "always", -- Or "if_many"
+    --    update_in_insert = false,
+    --    on_insert = false,
+    --    virtual_text = false
+    --},
     virtual_text = false
     --    {
     --    prefix = '  ', -- Could be '●', '▎', 'x'
@@ -56,7 +60,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 function PrintDiagnostics(opts, bufnr, line_nr, client_id)
     bufnr = bufnr or 0
     line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
-    opts = opts or {['lnum'] = line_nr}
+    opts = opts or { ['lnum'] = line_nr }
 
     local line_diagnostics = vim.diagnostic.get(bufnr, opts)
     if vim.tbl_isempty(line_diagnostics) then return end
@@ -69,7 +73,7 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
             diagnostic_message = diagnostic_message .. "\n"
         end
     end
-    vim.api.nvim_echo({{diagnostic_message, "Normal"}}, false, {})
+    vim.api.nvim_echo({ { diagnostic_message, "Normal" } }, false, {})
 end
 
 --vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]

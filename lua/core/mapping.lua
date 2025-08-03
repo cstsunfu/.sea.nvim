@@ -112,14 +112,14 @@ global_mapping.register = function(new_map)
         vim.print(used[new_map["mode"]])
         print(
             "Mode "
-                .. new_map["mode"]
-                .. " "
-                .. uni_key_string
-                .. " has been used for "
-                .. used[new_map["mode"]][uni_key_string]
-                .. ", you should change "
-                .. new_map["short_desc"]
-                .. " to another one."
+            .. new_map["mode"]
+            .. " "
+            .. uni_key_string
+            .. " has been used for "
+            .. used[new_map["mode"]][uni_key_string]
+            .. ", you should change "
+            .. new_map["short_desc"]
+            .. " to another one."
         )
         return
     else
@@ -193,18 +193,18 @@ global_mapping.register({
     action = ">gv",
     short_desc = "Right Indent Selected",
 })
-global_mapping.register({
-    mode = "i",
-    key = { "k", "j" },
-    action = "<esc>",
-    short_desc = "Back to Normal Mode",
-})
-global_mapping.register({
-    mode = "c",
-    key = { "k", "j" },
-    action = "<esc>",
-    short_desc = "Back to Normal Mode",
-})
+--global_mapping.register({
+--    mode = "i",
+--    key = { "k", "j" },
+--    action = "<esc>",
+--    short_desc = "Back to Normal Mode",
+--})
+--global_mapping.register({
+--    mode = "c",
+--    key = { "k", "j" },
+--    action = "<esc>",
+--    short_desc = "Back to Normal Mode",
+--})
 
 -- buffer configure at bufferline plugin
 global_mapping.register({
@@ -218,6 +218,14 @@ global_mapping.register({
     key = { "<leader>", "b", "B" },
     action = ":lua require('util.global').disable_large_buf()<cr>",
     short_desc = "Disable Big Buffer(enable syntax)",
+})
+
+-- edit
+global_mapping.register({
+    mode = "n",
+    key = { "<leader>", "e", "." },
+    action = ":e %<cr>",
+    short_desc = "Reload Current File",
 })
 
 -- paste

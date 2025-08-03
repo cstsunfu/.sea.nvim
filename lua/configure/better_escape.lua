@@ -7,16 +7,39 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         -- lua, default settings
-        require("better_escape").setup({
-            mapping = { "jk" }, -- a table with mappings to use
-            timeout = vim.o.timeoutlen, -- the time in which the keys must be hit in ms. Use option timeoutlen by default
-            clear_empty_lines = false, -- clear line after escaping if there is only whitespace
-            keys = "<Esc>", -- keys used for escaping, if it is a function will use the result everytime
-            -- example(recommended)
-            -- keys = function()
-            --   return vim.api.nvim_win_get_cursor(0)[2] > 1 and '<esc>l' or '<esc>'
-            -- end,
-        })
+        require("better_escape").setup {
+            timeout = vim.o.timeoutlen, -- after `timeout` passes, you can press the escape key and the plugin will ignore it
+            default_mappings = false,   -- setting this to false removes all the default mappings
+            mappings = {
+                -- i for insert
+                i = {
+                    k = {
+                        -- These can all also be functions
+                        j = "<Esc>"
+                    },
+                },
+                --c = {
+                --    k = {
+                --        j = "<C-c>",
+                --    },
+                --},
+                t = {
+                    k = {
+                        j = "<C-\\><C-n>",
+                    },
+                },
+                --v = {
+                --    k = {
+                --        j = "<Esc>",
+                --    },
+                --},
+                s = {
+                    k = {
+                        j = "<Esc>",
+                    },
+                },
+            },
+        }
     end,
 }
 

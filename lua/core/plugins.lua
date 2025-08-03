@@ -7,7 +7,7 @@ plugins_configure["loaded_plugins"] = {}
 if vim.g.feature_groups["default"] == true then
     plugins_configure.plugins_groups["default"] = {
         ["nerd_commenter"] = { enabled = true },    -- for quick comment
-        ["better_escape"] = { enabled = false },    -- for quick map jk to <esc>
+        ["better_escape"] = { enabled = true },     -- for quick map jk to <esc>
         ["ultisnips"] = { enabled = true },         -- for snippets
         ["snippets"] = { enabled = true },          -- predefined snippets template
         ["linediff"] = { enabled = true },          -- diff view for two lines
@@ -39,7 +39,7 @@ end
 if vim.g.feature_groups["org_my_life"] == true then
     plugins_configure.plugins_groups["org_my_life"] = {
         ["calendar"] = { enabled = false }, -- use the obsidian now
-        ["vimwiki"] = { enabled = false },
+        ["vimwiki"] = { enabled = true },
         ["markdown"] = { enabled = false },
         ["vimtex"] = { enabled = true },
         ["obsidian"] = { enabled = true },
@@ -69,9 +69,11 @@ end
 
 if vim.g.feature_groups["enhance"] == true then
     plugins_configure.plugins_groups["enhance"] = {
-        ["chatgpt"] = { enabled = true },
+        ["chatgpt"] = { enabled = false },
+        ["assistant"] = { enabled = true },
         ["session"] = { enabled = true },
         ["session_auto"] = { enabled = true },
+        ["kitty"] = { enabled = true },
         ["hlslens"] = { enabled = true },
         ["todo_comments"] = { enabled = true },
         ["zen_mode"] = { enabled = true },
@@ -136,7 +138,7 @@ if vim.g.feature_groups["beauty_vim"] == true then
         ["bufferline"] = { enabled = true },
         ["web_devicons"] = { enabled = true },
         ["dashboard"] = { enabled = true and not vim.g.neovide },
-        ["specs"] = { enabled = true and not vim.g.neovide },
+        ["specs"] = { enabled = false and not vim.g.neovide },
     }
 end
 

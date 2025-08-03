@@ -33,14 +33,14 @@ plugin.core = {
             hide_numbers = true, -- hide the number column in toggleterm buffers
             shade_filetypes = {},
             shade_terminals = false,
-            shading_factor = 2, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+            shading_factor = 2,      -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
             start_in_insert = true,
             insert_mappings = false, -- whether or not the open mapping applies in insert mode
             persist_size = true,
             --direction = 'vertical',
             direction = "float",
             close_on_exit = true, -- close the terminal window when the process exits
-            shell = vim.o.shell, -- change the default shell
+            shell = vim.o.shell,  -- change the default shell
             -- This field is only relevant if direction is set to 'float'
             winbar = {
                 enabled = false,
@@ -80,6 +80,7 @@ plugin.mapping = function()
             vim.cmd("ToggleTermSendCurrentLine " .. id)
         end
     end
+
     mappings.register({
         mode = { "v" },
         key = { "<C-s>" },
@@ -119,6 +120,7 @@ plugin.mapping = function()
             vim.g._side_terminal_opened = false
         end
     end
+
     mappings.register({
         mode = { "n", "t", "i" },
         key = { "<C-\\>" },
@@ -162,52 +164,51 @@ plugin.mapping = function()
         short_desc = "Terminal IPython",
     })
 
-    -- Float Terminal
-    local floatterm = terminal:new({
-        direction = "float",
-        id = 1,
-        close_on_exit = false,
-        -- function to run on opening the terminal
-        on_open = function(term)
-            vim.cmd("startinsert!")
-        end,
-        float_opts = {
-            -- The border key is *almost* the same as 'nvim_open_win'
-            -- see :h nvim_open_win for details on borders however
-            -- the 'curved' border is a custom border type
-            -- not natively supported but implemented in this plugin.
-            border = "rounded",
-            -- like `size`, width and height can be a number or function which is passed the current terminal
-            width = math.floor(vim.o.columns * 0.7),
-            height = math.floor(vim.o.lines * 0.7),
-            winblend = 0,
-            --zindex = <value>,
-        },
-        -- function to run on closing the terminal
-        on_close = function(term) end,
-    })
     function _G._float_terminal_toggle()
+        -- Float Terminal
+        local floatterm = terminal:new({
+            direction = "float",
+            id = 1,
+            close_on_exit = false,
+            -- function to run on opening the terminal
+            on_open = function(term)
+                vim.cmd("startinsert!")
+            end,
+            float_opts = {
+                -- The border key is *almost* the same as 'nvim_open_win'
+                -- see :h nvim_open_win for details on borders however
+                -- the 'curved' border is a custom border type
+                -- not natively supported but implemented in this plugin.
+                border = "rounded",
+                -- like `size`, width and height can be a number or function which is passed the current terminal
+                width = math.floor(vim.o.columns * 0.7),
+                height = math.floor(vim.o.lines * 0.7),
+                winblend = 0,
+                --zindex = <value>,
+            },
+            -- function to run on closing the terminal
+            on_close = function(term) end,
+        })
         floatterm:toggle()
     end
 
-    local lazygit = terminal:new({
-        cmd = "lazygit",
-        hidden = true,
-        float_opts = {
-            -- The border key is *almost* the same as 'nvim_open_win'
-            -- see :h nvim_open_win for details on borders however
-            -- the 'curved' border is a custom border type
-            -- not natively supported but implemented in this plugin.
-            border = "rounded",
-            -- like `size`, width and height can be a number or function which is passed the current terminal
-            width = math.floor(vim.o.columns * 0.90),
-            height = math.floor(vim.o.lines * 0.90),
-            winblend = 0,
-            --zindex = <value>,
-        },
-    })
-
     function _G._lazygit_toggle()
+        local lazygit = terminal:new({
+            cmd = "lazygit",
+            hidden = true,
+            float_opts = {
+                -- The border key is *almost* the same as 'nvim_open_win'
+                -- see :h nvim_open_win for details on borders however
+                -- the 'curved' border is a custom border type
+                -- not natively supported but implemented in this plugin.
+                border = "rounded",
+                -- like `size`, width and height can be a number or function which is passed the current terminal
+                width = math.floor(vim.o.columns * 0.90),
+                height = math.floor(vim.o.lines * 0.90),
+                winblend = 0,
+                --zindex = <value>,
+            },
+        })
         lazygit:toggle()
     end
 
