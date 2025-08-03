@@ -14,6 +14,17 @@ plugin.core = {
         --    end,
         --}, -- ultisnips source
         {
+            "folke/lazydev.nvim",
+            ft = "lua", -- only load on lua files
+            opts = {
+                library = {
+                    -- See the configuration section for more details
+                    -- Load luvit types when the `vim.uv` word is found
+                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                },
+            }
+        },
+        {
             "hrsh7th/cmp-nvim-lsp",
             enabled = vim.g.feature_groups.lsp == "builtin",
             event = "InsertEnter",
@@ -62,34 +73,42 @@ plugin.core = {
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
+    opts = function(_, opts)
+        opts.sources = opts.sources or {}
+        table.insert(opts.sources, {
+            name = "lazydev",
+            group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+        })
+    end,
+
     config = function() -- Specifies code to run after this plugin is loaded
         local kind_icons = {
             Copilot = "",
-            Text = " ",
-            Method = "",
-            Function = "",
-            Constructor = "",
-            Field = "",
-            Variable = "",
-            Class = "ﴯ",
-            Interface = "",
-            Module = "",
-            Property = " ",
-            Unit = "",
-            Value = "",
+            Text = "󰉿",
+            Method = "󰆧",
+            Function = "󰊕",
+            Constructor = "",
+            Field = "󰜢",
+            Variable = "󰀫",
+            Class = "󰠱",
+            Interface = "",
+            Module = "",
+            Property = "󰜢",
+            Unit = "󰑭",
+            Value = "󰎠",
             Enum = "",
-            Keyword = "",
+            Keyword = "󰌋",
             Snippet = "",
-            Color = "",
-            File = "",
-            Reference = "",
-            Folder = "",
+            Color = "󰏘",
+            File = "󰈙",
+            Reference = "󰈇",
+            Folder = "󰉋",
             EnumMember = "",
-            Constant = "",
-            Struct = "",
+            Constant = "󰏿",
+            Struct = "󰙅",
             Event = "",
-            Operator = "",
-            TypeParameter = " ",
+            Operator = "󰆕",
+            TypeParameter = "",
         }
         local cmp = require("cmp")
         local compare = cmp.config.compare
@@ -108,9 +127,9 @@ plugin.core = {
         cmp.setup({
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
-                expand = function(args)
-                    vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-                end,
+                --expand = function(args)
+                --    vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                --end,
             },
             window = {
                 completion = {
@@ -159,15 +178,15 @@ plugin.core = {
                 }),
             }),
             sources = cmp.config.sources({
-                { name = "jupynium", priority = 60 }, -- consider higher priority than LSP
-                { name = "copilot", priority = 200 },
-                { name = "nvim_lsp", priority = 100 },
-                --{ name = "ultisnips",               priority = 80 }, -- For ultisnips users.
-                { name = "calc", priority = 100 },
+                { name = "jupynium",                priority = 60 }, -- consider higher priority than LSP
+                { name = "copilot",                 priority = 200 },
+                { name = "nvim_lsp",                priority = 100 },
+                { name = "ultisnips",               priority = 300 }, -- For ultisnips users.
+                { name = "calc",                    priority = 100 },
                 { name = "nvim_lsp_signature_help", priority = 100 },
-                { name = "path", priority = 100 },
-                { name = "buffer", priority = 100 },
-                { name = "emoji", insert = true, priority = 100 },
+                { name = "path",                    priority = 100 },
+                { name = "buffer",                  priority = 100 },
+                { name = "emoji",                   insert = true, priority = 100 },
             }),
             sorting = {
                 priority_weight = 1.0,
@@ -215,7 +234,7 @@ plugin.core = {
                 { name = "path" },
                 { name = "calc" },
                 { name = "ultisnips" },
-                { name = "emoji", insert = true },
+                { name = "emoji",    insert = true },
             }),
         })
         cmp.setup.filetype("markdown", {
@@ -224,7 +243,7 @@ plugin.core = {
                 { name = "buffer" },
                 { name = "path" },
                 { name = "calc" },
-                { name = "emoji", insert = true },
+                { name = "emoji",    insert = true },
             }),
         })
         cmp.setup.filetype("dap-repl", {

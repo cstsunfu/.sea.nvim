@@ -4,6 +4,12 @@ plugin.core = {
     "epwalsh/obsidian.nvim",
     ft = { "vimwiki", "markdown" },
     cmd = { "ObsidianNew", "ObsidianSearch", "ObsidianToday", "ObsidianDailies" },
+    dependencies = {
+        -- Required.
+        "nvim-lua/plenary.nvim",
+        "hrsh7th/nvim-cmp",
+        -- see below for full list of optional dependencies 👇
+    },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
@@ -14,8 +20,8 @@ plugin.core = {
             completion = {
                 -- If using nvim-cmp, otherwise set to false
                 nvim_cmp = true,
-                -- Trigger completion at 0 chars
-                min_chars = 0,
+                -- Trigger completion at 1 chars
+                min_chars = 1,
             },
             notes_subdir = "Draft",
             --note_frontmatter_func = nil, -- disable note note_frontmatter_func
@@ -37,8 +43,33 @@ plugin.core = {
                         suffix = suffix .. string.char(math.random(65, 90))
                     end
                 end
-                return tostring(os.date("%Y%m%d%H%M")) .. "_" .. suffix
+                return tostring(os.date("%y%m%d")) .. "_" .. suffix
             end,
+            -- Optional, customize how wiki links are formatted. You can set this to one of:
+            --  * "use_alias_only", e.g. '[[Foo Bar]]'
+            --  * "prepend_note_id", e.g. '[[foo-bar|Foo Bar]]'
+            --  * "prepend_note_path", e.g. '[[foo-bar.md|Foo Bar]]'
+            --  * "use_path_only", e.g. '[[foo-bar.md]]'
+            -- Or you can set it to a function that takes a table of options and returns a string, like this:
+            wiki_link_func = function(opts)
+                return require("obsidian.util").wiki_link_id_prefix(opts)
+            end,
+
+            -- Optional, customize how markdown links are formatted.
+            markdown_link_func = function(opts)
+                return require("obsidian.util").markdown_link(opts)
+            end,
+
+            -- Either 'wiki' or 'markdown'.
+            preferred_link_style = "wiki",
+            -- Specify how to handle attachments.
+            attachments = {
+                -- The default folder to place images in via `:ObsidianPasteImg`.
+                -- If this is a relative path it will be interpreted as relative to the vault root.
+                -- You can always override this per image by passing a full path to the command instead of just a filename.
+                img_folder = "Images" -- This is the default
+
+            }
         })
     end,
 }

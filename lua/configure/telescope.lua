@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     "nvim-telescope/telescope.nvim",
-    cmd = { "Telescope", "TelescopeFrecencyContent" },
+    --event = "VeryLazy",
     dependencies = {
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
@@ -154,6 +154,8 @@ plugin.core = {
                     show_scores = false,
                     show_unindexed = true,
                     ignore_patterns = { "*.git/*" },
+                    db_safe_mode = false,
+                    db_version = "v2",
                     workspaces = {},
                 },
                 project = {
@@ -163,7 +165,7 @@ plugin.core = {
                         "~/.dotfiles",
                         { "~/workspace", max_depth = 4 },
                     },
-                    hidden_files = true, -- default: false
+                    hidden_files = true,         -- default: false
                     sync_with_nvim_tree = false, -- default false
                     on_project_selected = function(prompt_bufnr)
                         -- Do anything you want in here. For example:
@@ -174,10 +176,10 @@ plugin.core = {
                 -- TODO: switch fuzzy and exact, currently use the telescope-fzf-native
                 -- https://github.com/nvim-telescope/telescope.nvim/issues/930
                 fzf = {
-                    fuzzy = true, -- false will only do exact matching
+                    fuzzy = true,                   -- false will only do exact matching
                     override_generic_sorter = true, -- override the generic sorter
-                    override_file_sorter = true, -- override the file sorter
-                    case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                    override_file_sorter = true,    -- override the file sorter
+                    case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
                     -- the default case_mode is "smart_case"
                 },
             },
@@ -217,7 +219,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "r" },
-        action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
+        action =
+        "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
         short_desc = "Find Recent/History",
         silent = true,
     })
@@ -282,7 +285,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "h" },
-        action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
+        action =
+        "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
         short_desc = "Find Recent/History",
         silent = true,
         noremap = true,

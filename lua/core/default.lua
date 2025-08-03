@@ -17,6 +17,9 @@ local global_func = require("util.global")
 
 vim.g.side_filetypes = { -- Specify which filetypes get the contrasted (darker) background
     --"terminal", -- Darker terminal background
+    "Avante",
+    "AvanteInput",
+    "AvanteSelectedFiles",
     "packer", -- Darker packer background
     "NvimTree",
     "ctrlsf",
@@ -101,7 +104,8 @@ global_func.augroup("smarter_cursorline", {
         events = { "InsertLeave", "BufEnter" },
         targets = { "*" },
         --command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and vim.api.nvim_win_get_config(0).relative == '' then vim.o.relativenumber = true vim.o.number = true end ]]
-        command = [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and (vim.api.nvim_win_get_config(0).relative == '' or _G.check_zen_mode_start()) then vim.o.relativenumber = true vim.o.number = true end ]],
+        command =
+        [[ lua if vim.g.no_number_filetypes[vim.bo.filetype] == nil and (vim.api.nvim_win_get_config(0).relative == '' or _G.check_zen_mode_start()) then vim.o.relativenumber = true vim.o.number = true end ]],
     },
 })
 
@@ -130,21 +134,21 @@ default_setting["opt"] = {
     --foldexpr = "nvim_treesitter#foldexpr()",
     ignorecase = true,
     smartcase = true,
-    history = 10000, -- undo file history
-    updatetime = 30, -- CursorHold
-    undofile = true, -- use undo file
-    swapfile = true, -- use swap file
+    history = 10000,      -- undo file history
+    updatetime = 30,      -- CursorHold
+    undofile = true,      -- use undo file
+    swapfile = true,      -- use swap file
     maxmempattern = 2000, -- max match pattern
-    autochdir = false, -- WARN: auto change directory to current file, conflict to some plugin like telescope-project
-    lazyredraw = false, -- true will speed up in macro repeat
-    ttyfast = true, -- true maybe as lazyredraw ? TODO
+    autochdir = false,    -- WARN: auto change directory to current file, conflict to some plugin like telescope-project
+    lazyredraw = false,   -- true will speed up in macro repeat
+    ttyfast = true,       -- true maybe as lazyredraw ? TODO
     mouse = "a",
-    hidden = true, -- permit of change buffer when the buffer is not been written
+    hidden = true,        -- permit of change buffer when the buffer is not been written
     fileencodings = "utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,latin1",
     encoding = "utf-8",
     path = vim.o.path .. ",./**",
-    omnifunc = "v:lua.vim.lsp.omnifunc", -- for default lsp
-    tabstop = 4, -- replace tab as white space
+    --omnifunc = "v:lua.vim.lsp.omnifunc", -- for default lsp
+    tabstop = 4,                         -- replace tab as white space
     mousemoveevent = true,
     expandtab = true,
     shiftwidth = 4,
@@ -153,9 +157,13 @@ default_setting["opt"] = {
     softtabstop = 4,
     completeopt = "menuone,noselect",
     --t_ut = " ",                               -- disable Backgroud color Erase（BCE）
-    termguicolors = true, -- TODO
+    termguicolors = true,  -- TODO
     colorcolumn = "99999", -- FIXED: for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+    cursorlineopt = "number",
+    cursorline = true,
+    cursorcolumn = false,
 }
+
 
 for key, value in pairs(default_setting["opt"]) do
     vim.o[key] = value

@@ -9,7 +9,7 @@ plugin.core = {
         "plenary.nvim",
         "williamboman/mason.nvim",
         { "williamboman/mason-lspconfig.nvim", enabled = vim.g.feature_groups.lsp == "builtin" },
-        { "hrsh7th/nvim-cmp", enabled = vim.g.feature_groups.lsp == "builtin" },
+        { "hrsh7th/nvim-cmp",                  enabled = vim.g.feature_groups.lsp == "builtin" },
     },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
@@ -54,11 +54,27 @@ plugin.core = {
                     },
                 },
                 filetypes = { "lua" },
+                autostart = false,
             },
             jsonls = {},
-            grammarly = {
-                filetypes = { "markdown", "vimwiki", "vimwiki.markdown.pandoc", "pandoc" },
-            },
+            --grammarly = {
+            --    filetypes = { "markdown", "vimwiki", "vimwiki.markdown.pandoc", "pandoc" },
+            --},
+            --ruff = {
+            --    cmd = { 'ruff', 'server' },
+            --    filetypes = { 'python' },
+            --    root_dir = function(fname)
+            --        return util.root_pattern('pyproject.toml', 'ruff.toml', '.ruff.toml')(fname)
+            --            or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
+            --    end,
+            --    single_file_support = true,
+            --    settings = {
+
+            --        args = {},
+
+            --    },
+            --},
+            --pylsp = {},
             pyright = {
                 root_dir = function(fname)
                     local split_path = {}
@@ -94,13 +110,14 @@ plugin.core = {
                 flags = {
                     debounce_text_changes = 150,
                 },
+                autostart = false,
                 settings = {
                     python = {
                         analysis = {
                             autoImportCompletions = true,
                             autoSearchPaths = true,
                             diagnosticMode = "openFilesOnly", -- or "workspace"
-                            stubPath = "typings", --or ""
+                            stubPath = "typings",             --or ""
                             typeshedPaths = {},
                             useLibraryCodeForTypes = true,
                         },
@@ -111,7 +128,7 @@ plugin.core = {
                         --venvPath = "/home/sun/anaconda3/envs/dlkit",
                     },
                 },
-                single_file_support = true,
+                --single_file_support = true,
             },
             sqlls = {
                 cmd = { "sql-language-server", "up", "--method", "stdio" },
@@ -132,13 +149,14 @@ plugin.core = {
                 on_attach = function(_, _) end,
             }
             server_config = vim.tbl_deep_extend("force", common_config, server_config)
-            if server_name == "grammarly" and os.getenv("GRAMMARLY_PATH") ~= nil then
-                require("lspconfig").grammarly.setup({
-                    cmd = { "n", "run", "16", os.getenv("GRAMMARLY_PATH"), "--stdio" },
-                })
-            else
-                require("lspconfig")[server_name].setup(server_config)
-            end
+            require("lspconfig")[server_name].setup(server_config)
+            --if server_name == "grammarly" and os.getenv("GRAMMARLY_PATH") ~= nil then
+            --    require("lspconfig").grammarly.setup({
+            --        cmd = { "n", "run", "16", os.getenv("GRAMMARLY_PATH"), "--stdio" },
+            --    })
+            --else
+            --    require("lspconfig")[server_name].setup(server_config)
+            --end
         end
         require("configure.lsp_config.default_setting")
     end,

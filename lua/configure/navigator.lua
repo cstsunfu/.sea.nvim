@@ -2,7 +2,7 @@ local plugin = {}
 
 plugin.core = {
     --"ray-x/navigator.lua", -- this plugin
-    "glepnir/lspsaga.nvim",
+    "nvimdev/lspsaga.nvim",
     branch = "main",
     event = "LspAttach",
     dependencies = {
@@ -99,7 +99,8 @@ plugin.mapping = function()
         key = { "K" },
         action = "<cmd>Lspsaga hover_doc<cr>",
         short_desc = "Displays Hover",
-        desc = "Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.",
+        desc =
+        "Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.",
         silent = false,
     })
 end

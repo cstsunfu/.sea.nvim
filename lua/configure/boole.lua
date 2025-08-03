@@ -22,8 +22,23 @@ plugin.core = {
                 augend.date.alias["%Y年%-m月%-d日"],
                 augend.constant.new({
                     elements = { "and", "or" },
-                    word = true, -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
+                    word = true,   -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
                     cyclic = true, -- "or" is incremented into "and".
+                }),
+                augend.constant.new({
+                    elements = { "AND", "OR" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "yes", "no" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "Yes", "No" },
+                    word = true,
+                    cyclic = true,
                 }),
                 augend.constant.new({
                     elements = { "&&", "||" },
@@ -32,6 +47,11 @@ plugin.core = {
                 }),
                 augend.constant.new({
                     elements = { "True", "False" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "true", "false" },
                     word = true,
                     cyclic = true,
                 }),
@@ -52,6 +72,36 @@ plugin.core = {
                 }),
                 augend.constant.new({
                     elements = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" },
+                    word = true,
+                    cyclic = true,
+                }),
+                augend.constant.new({
+                    elements = { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" },
                     word = true,
                     cyclic = true,
                 }),

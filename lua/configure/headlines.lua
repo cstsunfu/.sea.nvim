@@ -41,7 +41,7 @@ plugin.core = {
                     "@text.title.5.marker.markdown",
                     "@text.title.6.marker.markdown",
                 },
-                bullets = { "◉", "○", "✸", "✿" },
+                bullets = { "", "󰻂", "✸", "✿" },
                 codeblock_highlight = "CodeBlock",
                 dash_highlight = "Dash",
                 dash_string = "▔", --  󰝔 upper quarter block/ eight block

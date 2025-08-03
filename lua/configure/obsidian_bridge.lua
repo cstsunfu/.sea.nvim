@@ -2,8 +2,8 @@ local plugin = {}
 
 plugin.core = {
     "oflisback/obsidian-bridge.nvim",
-    cmd = "ObsidianBridgeTelescopeCommand",
     lazy = true,
+    ft = { "vimwiki", "markdown" },
 
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
@@ -11,6 +11,9 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         require("obsidian-bridge").setup({
             scroll_sync = true,
+            obsidian_server_address = "http://localhost:27123",
+            warnings = true, -- Show misconfiguration warnings
+            cert_path = nil, -- See "SSL configuration" section below
         })
     end,
 }

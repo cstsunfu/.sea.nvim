@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "kevinhwang91/nvim-ufo",
     event = "VeryLazy",
-    tag = "v1.4.0",
+    tag = "v1.5.0",
     --commit = "a57e088487f099197246fd24be7423c6c4dedcef",
     dependencies = "kevinhwang91/promise-async",
     init = function() -- Specifies code to run before this plugin is loaded.

@@ -4,6 +4,12 @@ plugin.core = {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
     main = "ibl",
+    dependencies = {
+        {
+            'echasnovski/mini.indentscope',
+            version = '*',
+        },
+    },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
@@ -17,6 +23,25 @@ plugin.core = {
             "RainbowRed",
             "RainbowYellow",
         }
+        vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { fg = "#69BFFF", bold = true })
+        require('mini.indentscope').setup({
+            draw = {
+                priority = 50,
+                animation = function(s, n)
+                    if n < 5 then
+                        return 30
+                    elseif n < 10 then
+                        return 20
+                    elseif n < 25 then
+                        return 10
+                    end
+                    return math.min(s * 1, 8)
+                end,
+                delay = 50,
+
+            },
+            symbol = '│',
+        })
 
         local hooks = require("ibl.hooks")
         -- create the highlight groups in the highlight setup hook, so they are reset
@@ -32,7 +57,11 @@ plugin.core = {
         end)
 
         require("ibl").setup({
-            indent = { char = "│", priority = 20 },
+            --indent = { char = "│", priority = 20 },
+            --indent = { char = "╎", priority = 20 },
+            --indent = { char = "┆", priority = 20 },
+            indent = { char = "┊", priority = 20 },
+            --indent = { char = "┋", priority = 20 },
             whitespace = {
                 remove_blankline_trail = false,
             },
@@ -55,12 +84,12 @@ plugin.core = {
                 buftypes = { "terminal" },
             },
             scope = {
-                enabled = true,
+                enabled = false,
                 show_start = false,
                 show_end = false,
                 injected_languages = false,
                 highlight = highlight,
-                priority = 500,
+                priority = 30,
             },
         })
     end,

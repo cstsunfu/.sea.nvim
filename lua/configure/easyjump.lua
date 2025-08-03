@@ -10,7 +10,9 @@ plugin.core = {
         require("pounce").setup({
             accept_keys = "JFKDLSHGYTURIEOWPQBNVCMXZA",
             accept_best_key = "<enter>",
-            multi_window = true,
+            multi_window = false,
+            just_preview = false,
+            increase_cmd_height_if_zero = false,
             debug = false,
         })
     end,

@@ -22,7 +22,7 @@ plugin.core = {
             -- your configuration comes here
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
-            signs = true, -- show icons in the signs column
+            signs = true,      -- show icons in the signs column
             sign_priority = 8, -- sign priority
             -- keywords recognized as todo comments
             keywords = {
@@ -33,13 +33,14 @@ plugin.core = {
                     -- signs = false, -- configure signs for some keywords individually
                 },
                 TODO = { icon = " ", color = "info" },
-                FIXED = { icon = " ", color = "fixed" },
+                FIXED = { icon = " ", color = "fixed" },
+                DONE = { icon = " ", color = "hint" },
                 WAIT = { icon = " ", color = "warning" },
                 ASSIGN = { icon = " ", color = "info" },
                 TALK = { icon = " ", color = "hint", alt = { "DISCUSS", "CALL", "MEET", "ALIGH" } },
                 HACK = { icon = " ", color = "warning" },
                 WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-                PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+                PERF = { icon = "  ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
                 NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
             },
             merge_keywords = true, -- when true, custom keywords will be merged with the defaults
@@ -48,13 +49,13 @@ plugin.core = {
             -- * keyword: highlights of the keyword
             -- * after: highlights after the keyword (todo text)
             highlight = {
-                before = "", -- "fg" or "bg" or empty
-                keyword = "wide", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
-                after = "fg", -- "fg" or "bg" or empty
+                before = "",                     -- "fg" or "bg" or empty
+                keyword = "wide",                -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+                after = "fg",                    -- "fg" or "bg" or empty
                 pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlightng (vim regex)
-                comments_only = true, -- uses treesitter to match keywords in comments only
-                max_line_len = 400, -- ignore lines longer than this
-                exclude = {}, -- list of file types to exclude highlighting
+                comments_only = true,            -- uses treesitter to match keywords in comments only
+                max_line_len = 400,              -- ignore lines longer than this
+                exclude = {},                    -- list of file types to exclude highlighting
             },
             -- list of named colors where we try to extract the guifg from the
             -- list of hilight groups or use the hex color if hl not found as a fallback
