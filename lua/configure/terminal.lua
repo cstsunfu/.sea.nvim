@@ -217,7 +217,7 @@ plugin.mapping = function()
         key = { "<C-g>" },
         action = ":lua _G._lazygit_toggle()<cr>",
         silent = true,
-        short_desc = "Float Terminal",
+        short_desc = "Git Terminal",
     })
 
     mappings.register({

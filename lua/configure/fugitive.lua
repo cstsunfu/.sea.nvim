@@ -37,32 +37,32 @@ plugin.mapping = function()
         noremap = true,
     })
 
-    mappings.register({
-        mode = "n",
-        key = { "<leader>", "g", "C" },
-        action = ":Git checkout ",
-        short_desc = "Git Checkout",
-        silent = false,
-        noremap = true,
-    })
+    --mappings.register({
+    --    mode = "n",
+    --    key = { "<leader>", "g", "C" },
+    --    action = ":Git checkout ",
+    --    short_desc = "Git Checkout",
+    --    silent = false,
+    --    noremap = true,
+    --})
 
-    mappings.register({
-        mode = "n",
-        key = { "<leader>", "g", "e" },
-        action = ":Gedit ",
-        short_desc = "Git Edit Something",
-        silent = false,
-        noremap = true,
-    })
+    --mappings.register({
+    --    mode = "n",
+    --    key = { "<leader>", "g", "e" },
+    --    action = ":Gedit ",
+    --    short_desc = "Git Edit Something",
+    --    silent = false,
+    --    noremap = true,
+    --})
 
-    mappings.register({
-        mode = "n",
-        key = { "<leader>", "g", "d" },
-        action = ":Gdiff<cr>",
-        short_desc = "Git Diff",
-        silent = true,
-        noremap = true,
-    })
+    --mappings.register({
+    --    mode = "n",
+    --    key = { "<leader>", "g", "d" },
+    --    action = ":Gdiff<cr>",
+    --    short_desc = "Git Diff",
+    --    silent = true,
+    --    noremap = true,
+    --})
 
     mappings.register({
         mode = "n",

@@ -3,24 +3,13 @@ local plugin = {}
 plugin.core = {
     "kevinhwang91/nvim-ufo",
     event = "VeryLazy",
-    tag = "v1.5.0",
+    --tag = "v1.5.0",
     --commit = "a57e088487f099197246fd24be7423c6c4dedcef",
     dependencies = "kevinhwang91/promise-async",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        local function peekOrHover()
-            local winid = require("ufo").peekFoldedLinesUnderCursor()
-            local bufnr = vim.api.nvim_win_get_buf(winid)
-            local keys = { "a", "i", "o", "A", "I", "O", "gd", "gr" }
-            for _, k in ipairs(keys) do
-                -- Add a prefix key to fire `trace` action,
-                -- if Neovim is 0.8.0 before, remap yourself
-                vim.keymap.set("n", k, "<CR>" .. k, { noremap = false, buffer = bufnr })
-            end
-        end
-
         -- virtual fold text handler
         local handler = function(virtText, lnum, endLnum, width, truncate)
             local newVirtText = {}
@@ -78,7 +67,7 @@ plugin.core = {
         end
 
         require("ufo").setup({
-            open_fold_hl_timeout = 0,
+            open_fold_hl_timeout = 150,
             fold_virt_text_handler = handler,
             provider_selector = function(bufnr, filetype, buftype)
                 return ftMap[filetype] or customizeSelector

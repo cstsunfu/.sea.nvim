@@ -19,9 +19,8 @@ M.setup = function()
 
     vim.g.neovide_fullscreen = true
 
-    -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
-    vim.g.neovide_transparency = 1.0
-    vim.g.transparency = 1.0
+    vim.g.neovide_opacity = 1.0
+    --vim.g.transparency = 1.0
     --vim.g.neovide_background_color = "#0f1117" .. alpha()
 
     vim.g.neovide_floating_blur_amount_x = 2.0

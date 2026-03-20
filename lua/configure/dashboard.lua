@@ -1,7 +1,7 @@
 local plugin = {}
 
 plugin.core = {
-    "glepnir/dashboard-nvim",
+    "nvimdev/dashboard-nvim",
     event = "VimEnter",
 
     init = function() -- Specifies code to run before this plugin is loaded.

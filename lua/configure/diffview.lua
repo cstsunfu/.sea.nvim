@@ -136,7 +136,7 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require("core.mapping")
-    _G.plugin_diffview__toggle_diffview = function()
+    _G.plugin_diffview__toggle_diffview_branch = function()
         local lib = require("diffview.lib")
         local view = lib.get_current_view()
         if view then
@@ -223,11 +223,21 @@ plugin.mapping = function()
         file_git_history()
     end
 
+    _G.plugin_diffview__toggle_diffview = function()
+        local lib = require("diffview.lib")
+        local view = lib.get_current_view()
+        if view then
+            vim.cmd.DiffviewClose()
+        else
+            vim.cmd.DiffviewOpen()
+        end
+    end
+
     mappings.register({
         mode = "n",
         key = { "<leader>", "g", "v" },
-        action = ":lua _G.plugin_diffview__toggle_diffview()<cr>",
-        short_desc = "Git Diff View",
+        action = ":lua _G.plugin_diffview__toggle_diffview_branch()<cr>",
+        short_desc = "Git Diff View(Branch)",
         noremap = true,
     })
     mappings.register({
@@ -237,6 +247,15 @@ plugin.mapping = function()
         short_desc = "Git History",
         noremap = true,
         silent = true,
+    })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "g", "d" },
+        action = ":lua _G.plugin_diffview__toggle_diffview()<cr>",
+        short_desc = "Git Diff View",
+        silent = true,
+        noremap = true,
     })
 end
 return plugin

@@ -108,7 +108,7 @@ plugin.mapping = function()
     _G.toggle_current_file_tree = function()
         local cwd = vim.fn.getcwd()
         vim.cmd("NvimTreeClose")
-        vim.cmd("botright vnew " .. cwd)
+        vim.cmd("NvimTreeOpen " .. cwd)
     end
 
     mappings.register({

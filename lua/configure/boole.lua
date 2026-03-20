@@ -22,7 +22,7 @@ plugin.core = {
                 augend.date.alias["%Y年%-m月%-d日"],
                 augend.constant.new({
                     elements = { "and", "or" },
-                    word = true,   -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
+                    word = true, -- if false, "sand" is incremented into "sor", "doctor" into "doctand", etc.
                     cyclic = true, -- "or" is incremented into "and".
                 }),
                 augend.constant.new({
@@ -71,6 +71,11 @@ plugin.core = {
                     cyclic = true,
                 }),
                 augend.constant.new({
+                    elements = { "一", "二", "三", "四", "五", "六", "七", "八", "九", "零" },
+                    word = false,
+                    cyclic = true,
+                }),
+                augend.constant.new({
                     elements = { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" },
                     word = true,
                     cyclic = true,
@@ -96,7 +101,20 @@ plugin.core = {
                     cyclic = true,
                 }),
                 augend.constant.new({
-                    elements = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" },
+                    elements = {
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December",
+                    },
                     word = true,
                     cyclic = true,
                 }),
