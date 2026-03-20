@@ -62,7 +62,7 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "g", "f" },
-        action = "<cmd>Lspsaga lsp_finder<cr>",
+        action = "<cmd>Lspsaga finder<cr>",
         short_desc = "Lsp Finder",
         silent = true,
     })
@@ -99,8 +99,7 @@ plugin.mapping = function()
         key = { "K" },
         action = "<cmd>Lspsaga hover_doc<cr>",
         short_desc = "Displays Hover",
-        desc =
-        "Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.",
+        desc = "Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.",
         silent = false,
     })
 end

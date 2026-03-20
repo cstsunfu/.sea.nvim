@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
     highlight! DiagnosticSignError guibg=None guifg=#ec5f67 gui=bold
     highlight! DiagnosticSignWarn guibg=None guifg=#FF8800 gui=bold
     highlight! DiagnosticSignInfo guibg=None guifg=#008080 gui=bold
@@ -7,7 +7,7 @@ vim.cmd [[
 
     highlight FloatBorder guifg=#7B68EE guibg=#None
     autocmd! ColorScheme * highlight FloatBorder guifg=#7B68EE guibg=None
-]]
+]])
 --autocmd! ColorScheme * highlight NormalFloat guifg=#00cccc guibg=None
 --highlight NormalFloat guifg=#00cccc guibg=None
 --local border = {
@@ -40,14 +40,14 @@ vim.diagnostic.config({
     --    on_insert = false,
     --    virtual_text = false
     --},
-    virtual_text = false
+    virtual_text = false,
     --    {
     --    prefix = '  ', -- Could be '●', '▎', 'x'
     --    source = "if_many",  -- Or "if_many"
     --}
 })
 
-require('lspconfig.ui.windows').default_options.border = 'rounded'
+require("lspconfig.ui.windows").default_options.border = "rounded"
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
     --border = border,
@@ -57,13 +57,27 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
     border = "rounded",
 })
 
+_G.diag_format = function(diagnostic)
+    if diagnostic.severity == vim.diagnostic.severity.ERROR then
+        return string.format("%s", diagnostic.message)
+    end
+    return diagnostic.message
+end
+
+vim.cmd(
+    [[autocmd! CursorHold * lua vim.diagnostic.open_float(nil, {focus=false, border = "rounded", format=_G.diag_format, header={ " Diagnostics", "DiagnosticHeader"}, suffix='' })]]
+)
+
+-- just for debug
 function PrintDiagnostics(opts, bufnr, line_nr, client_id)
     bufnr = bufnr or 0
     line_nr = line_nr or (vim.api.nvim_win_get_cursor(0)[1] - 1)
-    opts = opts or { ['lnum'] = line_nr }
+    opts = opts or { ["lnum"] = line_nr }
 
     local line_diagnostics = vim.diagnostic.get(bufnr, opts)
-    if vim.tbl_isempty(line_diagnostics) then return end
+    if vim.tbl_isempty(line_diagnostics) then
+        return
+    end
 
     local diagnostic_message = ""
     for i, diagnostic in ipairs(line_diagnostics) do
@@ -75,13 +89,4 @@ function PrintDiagnostics(opts, bufnr, line_nr, client_id)
     end
     vim.api.nvim_echo({ { diagnostic_message, "Normal" } }, false, {})
 end
-
 --vim.cmd [[ autocmd! CursorHold * lua PrintDiagnostics() ]]
-_G.diag_format = function(diagnostic)
-    if diagnostic.severity == vim.diagnostic.severity.ERROR then
-        return string.format("%s", diagnostic.message)
-    end
-    return diagnostic.message
-end
-
-vim.cmd [[autocmd! CursorHold * lua vim.diagnostic.open_float(nil, {focus=false, border = "rounded", format=_G.diag_format, header={ " Diagnostics", "DiagnosticHeader"}, suffix='' })]]
