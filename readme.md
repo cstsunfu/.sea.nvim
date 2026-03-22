@@ -218,26 +218,6 @@ WARNING: We will remap some shortcuts but not update this table, just for refere
 
 | Mode    | Mapping            | Description                         |
 | ------  | -------------      | ----------------------------        |
-
-## Performance tips for multi-instance workflow
-
-When you open many independent Neovim instances, memory usage is usually dominated by background services.
-
-- Builtin LSP servers are configured with `autostart=false` to avoid automatic process spawn.
-- Use manual LSP lifecycle commands:
-  - `:LspStartCurrent` start LSP for current buffer.
-  - `:LspStopAll` stop active LSP clients attached to current buffer.
-  - `:LspStopInactive` stop clients that are not attached to any loaded buffer.
-- Idle optimization:
-  - Inactive clients are automatically stopped after an idle timeout.
-  - On focus lost, inactive clients are also stopped.
-
-Recommended key mappings:
-
-- `;ls` -> `:LspStartCurrent`
-- `;lS` -> `:LspStopAll`
-- `;li` -> `:LspStopInactive`
-
 | x       | <                  | Left Indent Selected                |
 | x       | >                  | Right Indent Selected               |
 | i,c     | kj                 | Back to Normal Mode                 |
