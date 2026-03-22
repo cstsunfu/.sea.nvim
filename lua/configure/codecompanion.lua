@@ -7,11 +7,7 @@ plugin.core = {
         "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
     },
-
-    opts = {},
-
-    init = function() -- Specifies code to run before this plugin is loaded.
-    end,
+    event = "CmdlineEnter",
 
     config = function() -- Specifies code to run after this plugin is loaded
         require("codecompanion").setup({
