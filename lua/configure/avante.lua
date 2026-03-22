@@ -41,8 +41,8 @@ plugin.core = {
         require("avante").setup({
             -- add any opts here
             -- for example
-            --provider = "openai",
-            provider = "copilot",
+            provider = "openai",
+            --provider = "copilot",
             --auto_suggestions_provider = "openai",
             --cursor_applying_provider = "openai",
             providers = {
