@@ -197,6 +197,10 @@ plugins_configure.setup = function()
         end
     end
     require("lazy").setup(plugins, {
+        rocks = {
+            enabled = false,
+            hererocks = false,
+        },
         git = {
             -- defaults for the `Lazy log` command
             -- log = { "-10" }, -- show the last 10 commits

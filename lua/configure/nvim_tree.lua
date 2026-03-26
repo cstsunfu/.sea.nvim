@@ -96,7 +96,8 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require("core.mapping")
-    _G.toggle_nvim_tree_smart = function()
+
+    local function pre_set_nvim_tree()
         local ai_win_id = _G.navigate_avante_window()
         local is_avante_open = ai_win_id.input or ai_win_id.output or ai_win_id.file
 
@@ -134,7 +135,10 @@ plugin.mapping = function()
         else
             nvim_tree_view.View.side = "right"
         end
-
+    end
+    _G.toggle_nvim_tree_smart = function()
+        pre_set_nvim_tree()
+        local nvim_tree_api = require("nvim-tree.api")
         if nvim_tree_api.tree.is_visible() then
             nvim_tree_api.tree.close()
         else
@@ -152,6 +156,7 @@ plugin.mapping = function()
 
     _G.toggle_current_file_tree = function()
         local cwd = vim.fn.getcwd()
+        pre_set_nvim_tree()
         vim.cmd("NvimTreeClose")
         vim.cmd("NvimTreeOpen " .. cwd)
     end
