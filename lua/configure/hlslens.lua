@@ -3,7 +3,6 @@ local plugin = {}
 plugin.core = {
     "kevinhwang91/nvim-hlslens",
     event = "VeryLazy",
-    tag = "v1.0.0",
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 

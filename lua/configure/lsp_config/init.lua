@@ -21,10 +21,8 @@ plugin.core = {
             lineFoldingOnly = true,
         }
 
-        local Path = require("plenary.path")
-        local global_fun = require("util.global")
         local mason_lspconfig = require("mason-lspconfig")
-        local lspconfig = require("lspconfig")
+        -- local lspconfig = require("lspconfig") -- DEPRECATED in 0.11+
         local configs = require("lspconfig.configs")
         local util = require("lspconfig.util")
 
@@ -39,13 +37,18 @@ plugin.core = {
             },
         })
 
+        -- Define custom intc_lsp using Neovim 0.11+ async root_dir pattern.
         if not configs.intc_lsp then
             configs.intc_lsp = {
                 default_config = {
                     cmd = { "intc-lsp" },
                     filetypes = { "json", "jsonc", "hjson" },
-                    root_dir = function(fname)
-                        return util.root_pattern(".intc.json", ".intc.jsonc")(fname)
+                    root_dir = function(bufnr, on_dir)
+                        local fname = vim.api.nvim_buf_get_name(bufnr)
+                        local root = util.root_pattern(".intc.json", ".intc.jsonc")(fname)
+                        if root then
+                            on_dir(root)
+                        end
                     end,
                     single_file_support = false,
                 },
@@ -66,7 +69,9 @@ plugin.core = {
                 settings = {
                     Lua = {
                         diagnostics = { globals = { "vim" } },
-                        workspace = { checkThirdParty = false },
+                        workspace = {
+                            checkThirdParty = false,
+                        },
                         telemetry = { enable = false },
                     },
                 },
@@ -74,11 +79,12 @@ plugin.core = {
                 autostart = false,
             },
             jsonls = {
-                autostart = false,
+                autostart = true,
             },
             pyright = {
                 autostart = true,
-                root_dir = function(fname)
+                root_dir = function(bufnr, on_dir)
+                    local fname = vim.api.nvim_buf_get_name(bufnr)
                     local root = util.root_pattern(
                         "pyproject.toml",
                         "setup.py",
@@ -88,13 +94,15 @@ plugin.core = {
                         ".git"
                     )(fname)
                     if root then
-                        return root
+                        on_dir(root)
+                        return
                     end
                     local file_dir = vim.fs.dirname(fname)
                     if file_dir and file_dir ~= "" then
-                        return file_dir
+                        on_dir(file_dir)
+                        return
                     end
-                    return vim.loop.cwd()
+                    on_dir(vim.uv.cwd())
                 end,
                 settings = {
                     python = {
@@ -112,13 +120,13 @@ plugin.core = {
                 cmd = { "sql-language-server", "up", "--method", "stdio" },
                 filetypes = { "sql", "mysql" },
                 single_file_support = true,
-                autostart = false,
+                autostart = true,
             },
             clangd = {
-                autostart = false,
+                autostart = true,
             },
             ts_ls = {
-                autostart = false,
+                autostart = true,
             },
             --gopls = {
             --    autostart = false,
@@ -127,7 +135,7 @@ plugin.core = {
 
         mason_lspconfig.setup({
             ensure_installed = vim.tbl_keys(mason_servers),
-            automatic_enable = false,
+            automatic_enable = true,
         })
 
         local common_config = {
@@ -135,12 +143,14 @@ plugin.core = {
             on_attach = function(_, _) end,
         }
 
+        -- Register all servers using native vim.lsp.config.
         for server_name, server_config in pairs(mason_servers) do
             server_config = vim.tbl_deep_extend("force", common_config, server_config)
-            lspconfig[server_name].setup(server_config)
+            vim.lsp.config(server_name, server_config)
         end
 
-        lspconfig.intc_lsp.setup(common_config)
+        vim.lsp.config("intc_lsp", common_config)
+        -- Manual start only based on strategy.
 
         require("configure.lsp_config.default_setting")
     end,
@@ -169,17 +179,27 @@ plugin.mapping = function()
         go = { "gopls" },
     }
 
-    -- Commands and keymaps for manual LSP lifecycle control in multi-instance workflow.
+    -- Helper to stop all active LSP clients.
     local function stop_all_lsp_clients(silent)
         local clients = vim.lsp.get_clients()
         for _, client in ipairs(clients) do
             vim.lsp.stop_client(client.id)
         end
+
+        -- Gracefully disable Copilot using its command API.
+        pcall(function()
+            local cmd_ok, copilot_cmd = pcall(require, "copilot.command")
+            if cmd_ok and copilot_cmd.disable then
+                copilot_cmd.disable()
+            end
+        end)
+
         if not silent then
-            vim.notify("Stopped all active LSP clients.", vim.log.levels.INFO)
+            vim.notify("Stopped all active LSP clients (including Copilot).", vim.log.levels.INFO)
         end
     end
 
+    -- Helper to stop inactive LSP clients.
     local function stop_inactive_lsp_clients()
         local attached = {}
         for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -197,131 +217,54 @@ plugin.mapping = function()
         vim.notify("Stopped all inactive LSP clients.", vim.log.levels.INFO)
     end
 
+    -- Helper to start LSP for a specific buffer using Neovim 0.11+ native methods.
+    local function start_lsp_for_buffer(bufnr)
+        local ft = vim.bo[bufnr].filetype
+        local server_names = filetype_servers[ft] or {}
+        local started = false
+
+        for _, server_name in ipairs(server_names) do
+            -- Trigger the server for the current buffer context.
+            -- vim.lsp.enable(name, true) will enable the server and attach to the buffer.
+            vim.lsp.enable(server_name, true)
+            started = true
+        end
+        return started
+    end
+
+    -- Helper to start Copilot globally.
+    local function start_copilot_globally()
+        local copilot_ok, copilot_cmd = pcall(require, "copilot.command")
+        if copilot_ok and copilot_cmd.enable then
+            copilot_cmd.enable()
+            return true
+        end
+        return false
+    end
+
+    -- Commands for manual LSP lifecycle control.
     vim.api.nvim_create_user_command("LspStopAll", function()
         stop_all_lsp_clients()
-    end, { desc = "Stop all active LSP clients in current buffer" })
+    end, { desc = "Stop all active LSP clients" })
 
     vim.api.nvim_create_user_command("LspStopInactive", function()
         stop_inactive_lsp_clients()
     end, { desc = "Stop all inactive LSP clients" })
 
-    mappings.register({
-        mode = { "n" },
-        key = { ";", "l", "s" },
-        action = ":LspStartCurrent<cr>",
-        short_desc = "LSP Start Current",
-    })
-
-    mappings.register({
-        mode = { "n" },
-        key = { ";", "l", "S" },
-        action = ":LspStopAll<cr>",
-        short_desc = "LSP Stop Current Buffer",
-    })
-
     vim.api.nvim_create_user_command("LspStartCurrent", function()
-        local ft = vim.bo.filetype
-        local filetype_servers = {
-            sh = { "bashls" },
-            lua = { "lua_ls" },
-            json = { "jsonls", "intc_lsp" },
-            jsonc = { "jsonls", "intc_lsp" },
-            hjson = { "intc_lsp" },
-            python = { "pyright" },
-            sql = { "sqlls" },
-            mysql = { "sqlls" },
-            c = { "clangd" },
-            cpp = { "clangd" },
-            objc = { "clangd" },
-            objcpp = { "clangd" },
-            javascript = { "ts_ls" },
-            javascriptreact = { "ts_ls" },
-            typescript = { "ts_ls" },
-            typescriptreact = { "ts_ls" },
-            go = { "gopls" },
-        }
-
-        local server_names = filetype_servers[ft] or {}
-        if #server_names == 0 then
-            vim.notify("No configured LSP server for current filetype: " .. ft, vim.log.levels.WARN)
-            return
-        end
-
-        local lspconfig = require("lspconfig")
-        local started_count = 0
-
-        for _, server_name in ipairs(server_names) do
-            local server = lspconfig[server_name]
-            if server and server.manager and server.manager.try_add then
-                server.manager:try_add(0)
-                started_count = started_count + 1
-            end
-        end
-
-        if started_count == 0 then
-            vim.notify("Failed to start LSP for current buffer.", vim.log.levels.ERROR)
-            return
-        end
-
-        vim.notify("LSP start requested for filetype: " .. ft, vim.log.levels.INFO)
-    end, { desc = "Start configured LSP clients for current buffer" })
-
-    local idle_ms = 30 * 60 * 1000
-    local idle_timer = vim.uv.new_timer()
-    local lsp_suspended_by_idle = false
-
-    local function stop_all_lsp_clients(silent)
-        local clients = vim.lsp.get_clients()
-        for _, client in ipairs(clients) do
-            vim.lsp.stop_client(client.id)
-        end
-        if not silent then
-            vim.notify("Stopped all active LSP clients.", vim.log.levels.INFO)
-        end
-    end
-
-    -- Function to start LSP for a specific buffer.
-    local function start_lsp_for_buffer(bufnr)
-        local ft = vim.bo[bufnr].filetype
-        local server_names = filetype_servers[ft] or {}
-        local success = false
-
-        local lspconfig = require("lspconfig")
-        for _, server_name in ipairs(server_names) do
-            local server = lspconfig[server_name]
-            if server and server.manager and server.manager.try_add then
-                server.manager:try_add(bufnr)
-                success = true
-            end
-        end
-
-        -- Explicitly restart Copilot for the buffer using its internal API.
-        local copilot_ok, copilot_client = pcall(require, "copilot.client")
-        if copilot_ok and copilot_client then
-            -- Make sure Copilot is globally enabled before trying to attach.
-            pcall(function()
-                local cmd_ok, copilot_cmd = pcall(require, "copilot.command")
-                if cmd_ok and copilot_cmd.enable then
-                    copilot_cmd.enable()
-                end
-            end)
-            if type(copilot_client.buf_attach) == "function" then
-                -- Use force=true to ensure it re-attaches even if it was previously stopped.
-                copilot_client.buf_attach(true, bufnr)
-                success = true
-            end
-        end
-
-        return success
-    end
-
-    vim.api.nvim_create_user_command("LspStartCurrent", function()
-        if start_lsp_for_buffer(0) then
+        local lsp_success = start_lsp_for_buffer(0)
+        local copilot_success = start_copilot_globally()
+        if lsp_success or copilot_success then
             vim.notify("LSP start requested for current buffer (including Copilot).", vim.log.levels.INFO)
         else
             vim.notify("No configured LSP server for current filetype.", vim.log.levels.WARN)
         end
     end, { desc = "Start configured LSP clients for current buffer" })
+
+    -- Automatic LSP management based on idle time and focus.
+    local idle_ms = 30 * 60 * 1000
+    local idle_timer = vim.uv.new_timer()
+    local lsp_suspended_by_idle = false
 
     local function start_lsp_for_loaded_buffers(silent)
         local started_any = false
@@ -331,6 +274,10 @@ plugin.mapping = function()
                     started_any = true
                 end
             end
+        end
+
+        if start_copilot_globally() then
+            started_any = true
         end
 
         if not silent then
@@ -357,7 +304,6 @@ plugin.mapping = function()
         if not idle_timer then
             return
         end
-        vim.notify("Resetting LSP idle timer.", vim.log.levels.DEBUG)
         idle_timer:stop()
         idle_timer:start(
             idle_ms,
@@ -370,7 +316,7 @@ plugin.mapping = function()
         )
     end
 
-    vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+    vim.api.nvim_create_autocmd({ "InsertEnter", "BufEnter", "FocusGained" }, {
         callback = function()
             maybe_resume_lsp_after_idle()
             reset_idle_timer()
@@ -395,6 +341,21 @@ plugin.mapping = function()
     })
 
     reset_idle_timer()
+
+    mappings.register({
+        mode = { "n" },
+        key = { ";", "l", "s" },
+        action = ":LspStartCurrent<cr>",
+        short_desc = "LSP Start Current",
+    })
+
+    mappings.register({
+        mode = { "n" },
+        key = { ";", "l", "S" },
+        action = ":LspStopAll<cr>",
+        short_desc = "LSP Stop Current Buffer",
+    })
+
     mappings.register({
         mode = "n",
         key = { "<leader>", "l", "c" },
