@@ -96,10 +96,55 @@ plugin.core = {
 
 plugin.mapping = function()
     local mappings = require("core.mapping")
+    _G.toggle_nvim_tree_smart = function()
+        local ai_win_id = _G.navigate_avante_window()
+        local is_avante_open = ai_win_id.input or ai_win_id.output or ai_win_id.file
+
+        local nvim_tree_view = require("nvim-tree.view")
+        local nvim_tree_api = require("nvim-tree.api")
+
+        local curr_win = vim.api.nvim_get_current_win()
+        local curr_buf = vim.api.nvim_get_current_buf()
+        local curr_ft = vim.api.nvim_get_option_value("filetype", { buf = curr_buf })
+
+        local is_curr_avante = curr_ft == "Avante" or curr_ft == "AvanteInput" or curr_ft == "AvanteSelectedFiles"
+        local is_curr_tree = curr_ft == "NvimTree"
+
+        if is_curr_avante or is_curr_tree then
+            local wins = vim.api.nvim_tabpage_list_wins(0)
+            local safe_win = nil
+            for _, win in ipairs(wins) do
+                local b = vim.api.nvim_win_get_buf(win)
+                local ft = vim.api.nvim_get_option_value("filetype", { buf = b })
+                if ft ~= "NvimTree" and not string.find(ft, "Avante") and ft ~= "qf" then
+                    safe_win = win
+                    break
+                end
+            end
+
+            if safe_win then
+                vim.api.nvim_set_current_win(safe_win)
+            else
+                return
+            end
+        end
+
+        if is_avante_open then
+            nvim_tree_view.View.side = "left"
+        else
+            nvim_tree_view.View.side = "right"
+        end
+
+        if nvim_tree_api.tree.is_visible() then
+            nvim_tree_api.tree.close()
+        else
+            nvim_tree_api.tree.open()
+        end
+    end
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "t" },
-        action = ":NvimTreeToggle<cr>",
+        action = ":lua toggle_nvim_tree_smart()<cr>",
         --action = ':lua require"nvim-tree".toggle(false, true)<cr>',
         short_desc = "File Tree",
         silent = true,

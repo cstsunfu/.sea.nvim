@@ -31,47 +31,100 @@ plugin.core = {
         },
     },
 
+    keys = {
+        {
+            "<leader>a+",
+            function()
+                local tree_ext = require("avante.extensions.nvim_tree")
+                tree_ext.add_file()
+            end,
+            desc = "Select file in NvimTree",
+            ft = "NvimTree",
+        },
+        {
+            "<leader>a-",
+            function()
+                local tree_ext = require("avante.extensions.nvim_tree")
+                tree_ext.remove_file()
+            end,
+            desc = "Deselect file in NvimTree",
+            ft = "NvimTree",
+        },
+    },
+
     opts = {},
 
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
 
     config = function() -- Specifies code to run after this plugin is loaded
+        -- Monkeypatch vim.ui.select to handle cases where items might not be a list-like table
+        -- which causes dressing.nvim to throw an error (validate items: expected list-like table)
+        local original_select = vim.ui.select
+        vim.ui.select = function(items, opts, on_choice)
+            -- Handle call signature vim.ui.select(items, on_choice)
+            if type(opts) == "function" then
+                on_choice = opts
+                opts = {}
+            end
+
+            if items == nil or type(items) ~= "table" then
+                return original_select(items, opts, on_choice)
+            end
+
+            -- Check if it's a list-like table (has index 1)
+            -- If not, convert it or pass an empty list to prevent dressing crash
+            if #items == 0 and next(items) ~= nil then
+                local list = {}
+                for _, v in pairs(items) do
+                    table.insert(list, v)
+                end
+                return original_select(list, opts, on_choice)
+            end
+
+            return original_select(items, opts, on_choice)
+        end
+
         require("avante_lib").load()
         require("avante").setup({
             -- add any opts here
             -- for example
-            provider = "openai",
+            system_prompt = "注意: 你需要使用中文回复用户的问题, 并且使用google风格的英文注释生成代码, 注释应该清晰完备. ",
+            provider = "gemini_flash",
             --provider = "copilot",
             --auto_suggestions_provider = "openai",
             --cursor_applying_provider = "openai",
             providers = {
                 copilot = {
                     endpoint = "https://api.githubcopilot.com",
-                    model = "gpt-5.3-codex",
-                    proxy = nil, -- [protocol://]host[:port] Use this proxy
+                    --model = "gpt-5.3-codex",
+                    --model = "gpt-5-mini",
+                    model = "gpt-4.1",
+                    proxy = "http://127.0.0.1:7893", -- [protocol://]host[:port] Use this proxy
                     allow_insecure = false, -- Allow insecure server connections
                     timeout = 30000, -- Timeout in milliseconds
                     context_window = 64000, -- Number of tokens to send to the model for context
-                    --use_response_api = copilot_use_response_api, -- Automatically switch to Response API for GPT-5 Codex models
-                    support_previous_response_id = false, -- Copilot doesn't support previous_response_id, must send full history
-                    -- NOTE: Copilot doesn't support previous_response_id, always sends full conversation history including tool_calls
-                    -- NOTE: Response API doesn't support some parameters like top_p, frequency_penalty, presence_penalty
+                    use_response_api = false, -- Automatically switch to Response API for GPT-5 Codex models
+                    disable_tools = false,
+                    use_ReAct_prompt = false,
+                    support_previous_response_id = false,
                     extra_request_body = {
                         -- temperature is not supported by Response API for reasoning models
                         max_tokens = 20480,
                     },
                 },
-                openai = {
+                gemini_flash = {
                     __inherited_from = "openai",
                     endpoint = os.getenv("AVANTE_ENDPOINT") or "http://llmapi.bilibili.co/v1",
                     model = os.getenv("AVANTE_MODEL") or "gemini-3.0-flash",
-                    timeout = 30000, -- timeout in milliseconds
+                    max_tokens = 102400,
+                    timeout = 30000,
+                    use_ReAct_prompt = false,
                     api_key_name = os.getenv("AVANTE_API_KEY_NAME") or "BSK_KEY",
                     disable_tools = false,
                     extra_request_body = {
-                        max_tokens = 4096,
-                        temperature = 0.7,
+                        max_tokens = 10240,
+                        temperature = 1.0,
                         stream = true,
                     },
                 },
@@ -108,7 +161,7 @@ plugin.core = {
                 },
                 submit = {
                     normal = "<CR>",
-                    insert = "<CR>",
+                    insert = "<C-s>",
                 },
                 cancel = {
                     normal = { "<C-c>", "<Esc>", "q" },
@@ -190,32 +243,14 @@ plugin.mapping = function()
     end
 
     _G.restart_avante = function()
-        -- Use pcall to ignore error if Avante is not initialized (AvanteClear will fail)
+        -- Use pcall to ignore error if Avante is not initialized
         pcall(function()
             vim.cmd("AvanteClear")
         end)
 
         vim.cmd("AvanteRefresh")
         vim.cmd("AvanteFocus")
-
-        -- wait for 200ms to ensure the window is ready
-        vim.defer_fn(function()
-            -- Send the initial prompt to set the language and response style
-            vim.cmd(
-                "AvanteAsk 注意: 你需要使用中文回答后续所有问题, 并且生成的代码使用google风格的英文注释. 对于本条消息只需要回答收到就可以."
-            )
-
-            -- Wait another bit to ensure the input window is focused
-            vim.defer_fn(function()
-                local ai_win_id = navigate_avante_window()
-                if ai_win_id.input then
-                    vim.api.nvim_set_current_win(ai_win_id.input)
-                    vim.cmd("startinsert")
-                end
-            end, 200)
-        end, 200)
     end
-
     mappings.register({
         mode = { "n" },
         key = { "<leader>", "a", "a" },
@@ -228,13 +263,6 @@ plugin.mapping = function()
         key = { "<leader>", "a", "i" },
         action = ":lua restart_avante()<cr>",
         short_desc = "AvanteRestart",
-    })
-
-    mappings.register({
-        mode = { "n", "v" },
-        key = { "<leader>", "a", "q" },
-        action = ":AvanteAsk<cr>",
-        short_desc = "AvanteAsk",
     })
 end
 
