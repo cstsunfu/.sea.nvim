@@ -125,7 +125,7 @@ plugin.core = {
                     extra_request_body = {
                         max_tokens = 10240,
                         temperature = 1.0,
-                        stream = true,
+                        --stream = true,
                     },
                 },
             },
@@ -133,8 +133,8 @@ plugin.core = {
                 auto_suggestions = false, -- Experimental stage
                 auto_set_highlight_group = true,
                 auto_set_keymaps = true,
-                auto_apply_diff_after_generation = false,
-                auto_approve_tool_permissions = false,
+                auto_apply_diff_after_generation = true,
+                auto_approve_tool_permissions = true,
                 support_paste_from_clipboard = false,
                 minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
                 enable_token_counting = false, -- Whether to enable token counting. Default to true.
