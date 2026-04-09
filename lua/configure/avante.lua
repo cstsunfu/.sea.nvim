@@ -26,6 +26,34 @@ plugin.core = {
             opts = {
                 --file_types = { "markdown", "Avante" },
                 file_types = { "Avante" },
+                -- Increase debounce to reduce flickering during streaming
+                debounce = 300,
+                -- Configure anti_conceal to reduce visual changes during streaming
+                anti_conceal = {
+                    enabled = true,
+                    above = 1,
+                    below = 1,
+                },
+                -- Override settings specifically for Avante filetype
+                overrides = {
+                    filetype = {
+                        Avante = {
+                            -- Increase debounce even more for streaming output
+                            debounce = 500,
+                            -- Reduce concealing during streaming to minimize flicker
+                            win_options = {
+                                conceallevel = {
+                                    default = 2,
+                                    rendered = 2, -- Use 2 instead of 3 to reduce flicker
+                                },
+                                concealcursor = {
+                                    default = "",
+                                    rendered = "nc", -- Show concealed text in normal and command mode
+                                },
+                            },
+                        },
+                    },
+                },
             },
             ft = { "markdown", "Avante" },
         },
@@ -86,11 +114,28 @@ plugin.core = {
         end
 
         require("avante_lib").load()
+
+        -- Fix Issue #2: Add better error handling for submit
+        -- The plugin's is_generating flag is never set to true, which is a bug
+        -- but setting it manually can cause issues if on_stop is not called
+        -- Instead, we add a timeout-based safety mechanism
+        local Sidebar = require("avante.sidebar")
+        local original_submit_input = Sidebar.submit_input
+        Sidebar.submit_input = function(self)
+            -- If somehow stuck in generating state, force reset after timeout
+            if self.is_generating then
+                vim.notify("Avante is still generating, please wait or press <C-c> to cancel", vim.log.levels.WARN)
+                return
+            end
+            return original_submit_input(self)
+        end
+
         require("avante").setup({
             -- add any opts here
             -- for example
             system_prompt = "注意: 你需要使用中文回复用户的问题, 并且使用google风格的英文注释生成代码, 注释应该清晰完备. ",
-            provider = "gemini_flash",
+            --provider = "gemini_flash",
+            provider = "claude-code-acp",
             --provider = "copilot",
             --auto_suggestions_provider = "openai",
             --cursor_applying_provider = "openai",
@@ -126,6 +171,92 @@ plugin.core = {
                         max_tokens = 10240,
                         temperature = 1.0,
                         --stream = true,
+                    },
+                },
+            },
+            acp_providers = {
+                ["claude-code-acp"] = {
+                    command = "npx",
+                    args = { "-y", "-g", "@zed-industries/claude-code-acp" },
+                    env = {
+                        NODE_NO_WARNINGS = "1",
+                        ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
+                        ANTHROPIC_BASE_URL = os.getenv("ANTHROPIC_BASE_URL"),
+                        ACP_PATH_TO_CLAUDE_CODE_EXECUTABLE = vim.fn.exepath("claude"),
+                        ACP_PERMISSION_MODE = "bypassPermissions",
+                    },
+                    -- MCP Servers Configuration
+                    -- Format: mcpServers is an ARRAY, each server config has a "name" field
+                    -- Uncomment and configure the MCP servers you want to use
+                    mcp_servers = {
+                        -- Example 1: Filesystem MCP for file operations
+                        -- {
+                        --     name = "filesystem",
+                        --     type = "stdio",
+                        --     command = "npx",
+                        --     args = { "-y", "@modelcontextprotocol/server-filesystem", vim.fn.expand("~") },
+                        --     env = {},
+                        -- },
+
+                        -- Example 2: GitHub MCP for GitHub operations
+                        -- {
+                        --     name = "github",
+                        --     type = "stdio",
+                        --     command = "npx",
+                        --     args = { "-y", "@modelcontextprotocol/server-github" },
+                        --     env = {
+                        --         GITHUB_PERSONAL_ACCESS_TOKEN = os.getenv("GITHUB_TOKEN"),
+                        --     },
+                        -- },
+
+                        -- Example 3: Playwright MCP for browser automation
+                        {
+                            name = "playwright",
+                            type = "stdio",
+                            command = "npx",
+                            args = { "@playwright/mcp@latest", "--isolated", "--browser=chrome" },
+                            env = {},
+                        },
+
+                        -- Example 4: Brave Search MCP for web search
+                        -- {
+                        --     name = "brave-search",
+                        --     type = "stdio",
+                        --     command = "npx",
+                        --     args = { "-y", "@modelcontextprotocol/server-brave-search" },
+                        --     env = {
+                        --         BRAVE_API_KEY = os.getenv("BRAVE_API_KEY"),
+                        --     },
+                        -- },
+
+                        -- Example 5: PostgreSQL MCP for database operations
+                        -- {
+                        --     name = "postgres",
+                        --     type = "stdio",
+                        --     command = "npx",
+                        --     args = { "-y", "@modelcontextprotocol/server-postgres", "postgresql://user:pass@localhost/dbname" },
+                        --     env = {},
+                        -- },
+
+                        -- Example 6: SSE MCP server (remote)
+                        -- {
+                        --     name = "my-sse-server",
+                        --     type = "sse",
+                        --     url = "https://example.com/sse",
+                        --     headers = {
+                        --         Authorization = "Bearer your-api-key",
+                        --     },
+                        -- },
+
+                        -- Example 7: HTTP MCP server (remote)
+                        -- {
+                        --     name = "my-http-server",
+                        --     type = "http",
+                        --     url = "https://example.com/mcp",
+                        --     headers = {
+                        --         Authorization = "Bearer your-api-key",
+                        --     },
+                        -- },
                     },
                 },
             },

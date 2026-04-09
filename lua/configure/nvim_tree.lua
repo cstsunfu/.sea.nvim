@@ -131,9 +131,20 @@ plugin.mapping = function()
         end
 
         if is_avante_open then
-            nvim_tree_view.View.side = "left"
+            -- Dynamically change tree side to left when Avante is open
+            local ok, view = pcall(function()
+                return nvim_tree_view.View
+            end)
+            if ok and view then
+                view.side = "left"
+            end
         else
-            nvim_tree_view.View.side = "right"
+            local ok, view = pcall(function()
+                return nvim_tree_view.View
+            end)
+            if ok and view then
+                view.side = "right"
+            end
         end
     end
     _G.toggle_nvim_tree_smart = function()

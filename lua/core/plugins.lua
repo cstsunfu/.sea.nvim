@@ -73,6 +73,7 @@ if vim.g.feature_groups["enhance"] == true then
     plugins_configure.plugins_groups["enhance"] = {
         ["chatgpt"] = { enabled = false },
         ["avante"] = { enabled = true },
+        ["claude_code"] = { enabled = false },
         ["codecompanion"] = { enabled = true },
         ["session"] = { enabled = true },
         ["session_auto"] = { enabled = true },
