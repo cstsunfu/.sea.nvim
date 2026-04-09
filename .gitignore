@@ -1,2 +1,3 @@
 lua/core/local.lua
 lazy-lock.json
+.claude/*
