@@ -134,8 +134,8 @@ plugin.core = {
             -- add any opts here
             -- for example
             system_prompt = "注意: 你需要使用中文回复用户的问题, 并且使用google风格的英文注释生成代码, 注释应该清晰完备. ",
-            --provider = "gemini_flash",
-            provider = "claude-code-acp",
+            provider = "gemini_flash",
+            --provider = "claude-code-acp",
             --provider = "copilot",
             --auto_suggestions_provider = "openai",
             --cursor_applying_provider = "openai",
