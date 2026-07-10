@@ -25,6 +25,8 @@ plugin.core = {
             formatters_by_ft = {
                 lua = { "stylua" },
                 sql = { "sqlformatter_with_config" },
+                c = { "clang-format" },
+                cpp = { "clang-format" },
                 --sql = { "sqlfmt" },
                 --sql = { "pg_format" },
                 -- Conform will run multiple formatters sequentially

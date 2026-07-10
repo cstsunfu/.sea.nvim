@@ -23,6 +23,7 @@ plugin.core = {
                 "prettierd",
                 "isort",
                 "black",
+                "clang-format",
             },
 
             auto_update = false,
