@@ -128,6 +128,12 @@ plugin.core = {
             ts_ls = {
                 autostart = true,
             },
+            eslint = {
+                autostart = true,
+                settings = {
+                    workingDirectory = { mode = "auto" },
+                },
+            },
             --gopls = {
             --    autostart = false,
             --},
@@ -140,7 +146,6 @@ plugin.core = {
 
         local common_config = {
             capabilities = capabilities,
-            on_attach = function(_, _) end,
         }
 
         -- Register all servers using native vim.lsp.config.
@@ -172,10 +177,10 @@ plugin.mapping = function()
         cpp = { "clangd" },
         objc = { "clangd" },
         objcpp = { "clangd" },
-        javascript = { "ts_ls" },
-        javascriptreact = { "ts_ls" },
-        typescript = { "ts_ls" },
-        typescriptreact = { "ts_ls" },
+        javascript = { "ts_ls", "eslint" },
+        javascriptreact = { "ts_ls", "eslint" },
+        typescript = { "ts_ls", "eslint" },
+        typescriptreact = { "ts_ls", "eslint" },
         go = { "gopls" },
     }
 
@@ -343,6 +348,20 @@ plugin.mapping = function()
     reset_idle_timer()
 
     mappings.register({
+        mode = "n",
+        key = { "<leader>", "l", "a" },
+        action = "<cmd>lua vim.lsp.buf.code_action()<cr>",
+        short_desc = "Code Action",
+        silent = true,
+    })
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "l", "r" },
+        action = "<cmd>lua vim.lsp.buf.rename()<cr>",
+        short_desc = "Rename Symbol",
+        silent = true,
+    })
+    mappings.register({
         mode = { "n" },
         key = { ";", "l", "s" },
         action = ":LspStartCurrent<cr>",
@@ -404,29 +423,29 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "s", "n" },
-        action = "<cmd>lua vim.diagnostic.goto_next()<cr>",
-        short_desc = "Prev Diagnostic",
+        action = "<cmd>lua vim.diagnostic.jump({ count = 1 })<cr>",
+        short_desc = "Next Diagnostic",
         silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "]", "e" },
-        action = "<cmd>lua vim.diagnostic.goto_next()<cr>",
+        action = "<cmd>lua vim.diagnostic.jump({ count = 1 })<cr>",
         short_desc = "Next Diagnostic",
         silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "[", "e" },
-        action = "<cmd>lua vim.diagnostic.goto_prev()<cr>",
+        action = "<cmd>lua vim.diagnostic.jump({ count = -1 })<cr>",
         short_desc = "Prev Diagnostic",
         silent = true,
     })
     mappings.register({
         mode = "n",
         key = { "<C-p>" },
-        action = "<cmd>lua vim.diagnostic.goto_prev()<cr>",
-        short_desc = "Next Diagnostic",
+        action = "<cmd>lua vim.diagnostic.jump({ count = -1 })<cr>",
+        short_desc = "Prev Diagnostic",
         silent = false,
     })
 end

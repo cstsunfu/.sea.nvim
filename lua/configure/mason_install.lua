@@ -24,6 +24,7 @@ plugin.core = {
                 "isort",
                 "black",
                 "clang-format",
+                "eslint-lsp",
             },
 
             auto_update = false,

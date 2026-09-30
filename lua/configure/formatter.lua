@@ -3,7 +3,7 @@ local plugin = {}
 plugin.core = {
     "stevearc/conform.nvim",
     event = "BufWritePre",
-    tag = "v9.0.0",
+    tag = "v9.1.0",
     dependencies = { "williamboman/mason.nvim" },
     init = function() -- Specifies code to run before this plugin is loaded.
     end,
@@ -27,6 +27,17 @@ plugin.core = {
                 sql = { "sqlformatter_with_config" },
                 c = { "clang-format" },
                 cpp = { "clang-format" },
+                javascript = { "prettierd" },
+                javascriptreact = { "prettierd" },
+                typescript = { "prettierd" },
+                typescriptreact = { "prettierd" },
+                json = { "prettierd" },
+                jsonc = { "prettierd" },
+                css = { "prettierd" },
+                scss = { "prettierd" },
+                html = { "prettierd" },
+                yaml = { "prettierd" },
+                markdown = { "prettierd" },
                 --sql = { "sqlfmt" },
                 --sql = { "pg_format" },
                 -- Conform will run multiple formatters sequentially
@@ -57,7 +68,7 @@ plugin.core = {
                     return
                 end
                 -- ...additional logic...
-                return { timeout_ms = 1200, lsp_fallback = true }
+                return { timeout_ms = 1200, lsp_format = "fallback" }
             end,
         })
 
@@ -87,7 +98,7 @@ plugin.mapping = function()
     mappings.register({
         mode = { "v", "x", "n" },
         key = { "<leader>", "=" },
-        action = ':lua require("conform").format({ async = true, lsp_fallback = true })<cr>',
+        action = ':lua require("conform").format({ async = true, lsp_format = "fallback" })<cr>',
         short_desc = "Auto Format",
     })
 end

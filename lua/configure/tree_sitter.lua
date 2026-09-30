@@ -12,7 +12,7 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         local rainbow = require("ts-rainbow")
         require("nvim-treesitter.configs").setup({
-            rainbow = {       -- for rainbow pair
+            rainbow = { -- for rainbow pair
                 enable = false,
                 disable = {}, -- disable filetype
                 query = {
@@ -56,15 +56,16 @@ plugin.core = {
                 "python",
                 "rust",
                 "typescript",
+                "tsx",
                 "scheme",
                 "scss",
                 "toml",
                 "vim",
                 "yaml",
-            },                   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+            }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
             ignore_install = {}, -- List of parsers to ignore installing
             highlight = {
-                enable = true,   -- false will disable the whole extension
+                enable = true, -- false will disable the whole extension
                 --disable = {'org', "tex", "latex", 'markdown'},  -- list of language that will be disabled
                 --disable = function(lang, bufnr) return (lang == 'markdown') or vim.b.large_buf end,
                 disable = function(lang, bufnr)

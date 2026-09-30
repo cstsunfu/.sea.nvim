@@ -1,5 +1,10 @@
 local default_setting = {}
 
+-- Prefer the supported Homebrew Node.js LTS over legacy /usr/local installs.
+if vim.fn.has("mac") == 1 and vim.fn.isdirectory("/opt/homebrew/opt/node@22/bin") == 1 then
+    vim.env.PATH = "/opt/homebrew/opt/node@22/bin:" .. vim.env.PATH
+end
+
 default_setting["global"] = {
     after_schedule_time_start = 500,
 }
