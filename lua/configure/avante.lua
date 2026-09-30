@@ -134,7 +134,7 @@ plugin.core = {
             -- add any opts here
             -- for example
             system_prompt = "注意: 你需要使用中文回复用户的问题, 并且使用google风格的英文注释生成代码, 注释应该清晰完备. ",
-            provider = "gemini_flash",
+            provider = "ds41f",
             --provider = "claude-code-acp",
             --provider = "copilot",
             --auto_suggestions_provider = "openai",
@@ -162,6 +162,21 @@ plugin.core = {
                     __inherited_from = "openai",
                     endpoint = os.getenv("AVANTE_ENDPOINT") or "http://llmapi.bilibili.co/v1",
                     model = os.getenv("AVANTE_MODEL") or "gemini-3.0-flash",
+                    max_tokens = 102400,
+                    timeout = 30000,
+                    use_ReAct_prompt = false,
+                    api_key_name = os.getenv("AVANTE_API_KEY_NAME") or "BSK_KEY",
+                    disable_tools = false,
+                    extra_request_body = {
+                        max_tokens = 10240,
+                        temperature = 1.0,
+                        --stream = true,
+                    },
+                },
+                ds41f = {
+                    __inherited_from = "openai",
+                    endpoint = os.getenv("AVANTE_ENDPOINT") or "http://llmapi.bilibili.co/v1",
+                    model = os.getenv("AVANTE_MODEL") or "deepseek-v4.1-flash",
                     max_tokens = 102400,
                     timeout = 30000,
                     use_ReAct_prompt = false,
