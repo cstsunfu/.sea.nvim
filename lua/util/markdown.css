@@ -1,150 +1,389 @@
 :root {
-    /* --- 🍭 调色板：Ins风莫兰迪色系 --- */
-    --c-primary: #6c5ce7;       /* 优雅紫 */
-    --c-secondary: #00cec9;     /* 蒂芙尼蓝 */
-    --c-accent: #fd79a8;        /* 蜜桃粉 */
-
-    --c-text: #2d3436;          /* 正文深灰 */
-    --c-text-light: #636e72;    /* 辅助灰 */
-
-    /*--bg-h1: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); [> H1 梦幻渐变 <]*/
-    --bg-h2: #e3f2fd;           /* H2 云朵蓝背景 */
-
-    --table-head: #eef1f5;      /* 表头背景：冷淡灰蓝 */
-    --table-border: #dfe6e9;    /* 表格边框 */
-    --table-accent: #74b9ff;    /* 表格线条强调色 */
+    /* --- 莫兰迪色系 --- */
+    --c-primary: #6c5ce7;
+    --c-primary-text: #5946c7;
+    --c-secondary: #00a8a4;
+    --c-accent: #fd79a8;
+    --c-accent-text: #bd376c;
+    --c-text: #2d3436;
+    --c-text-light: #636e72;
+    --c-bg: #ffffff;
+    --c-surface: #f1f2f6;
+    --c-border: #dfe6e9;
+    --c-table-head: #dfe6e9;
+    --c-table-stripe: #fff0f6;
+    --c-table-accent: #a29bfe;
+    --c-inline-code-bg: #f3e5f5;
+    --c-inline-code-text: #7d3498;
+    --c-mark: #ffeaa7;
+    --c-quote-text: #57606f;
+    --c-hover: #eef1ff;
+    --c-shadow: rgba(0, 0, 0, 0.1);
 
     --font-base: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    --font-serif: "Georgia", "Times New Roman", "Songti SC", serif; /* 斜体用衬线体 */
+    --font-serif: "Georgia", "Times New Roman", "Songti SC", serif;
+    /*
+     * Put a CJK-capable monospace font first. SFMono/Menlo do not contain
+     * Chinese glyphs, so the browser otherwise falls back to a proportional
+     * CJK font and terminal-style diagrams drift on lines containing Chinese.
+     */
+    --font-code: "Sarasa Mono SC", "Noto Sans Mono CJK SC", "Source Han Mono SC", "Cascadia Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+/* markdown-preview 将 data-theme 设置在 .markdown-body 的祖先元素上。 */
+[data-theme="dark"] {
+    --c-primary-text: #b8adff;
+    --c-secondary: #65d6d1;
+    --c-accent: #ff8fb8;
+    --c-accent-text: #ff9fc2;
+    --c-text: #e2e7ee;
+    --c-text-light: #aeb7c4;
+    --c-bg: #151a23;
+    --c-surface: #202733;
+    --c-border: #394354;
+    --c-table-head: #293241;
+    --c-table-stripe: #211f2a;
+    --c-table-accent: #8177cf;
+    --c-inline-code-bg: #302940;
+    --c-inline-code-text: #e3b8ff;
+    --c-mark: rgba(210, 167, 70, 0.38);
+    --c-quote-text: #c1c8d2;
+    --c-hover: #29263d;
+    --c-shadow: rgba(0, 0, 0, 0.32);
+}
+
+/* Keep the page scrollbar quiet and consistent with the TOC scrollbar. */
+html {
+    --page-scrollbar-track: rgba(45, 52, 54, 0.06);
+    --page-scrollbar-thumb: #aeb6c2;
+    --page-scrollbar-hover: #7669c9;
+    scrollbar-width: thin;
+    scrollbar-color: var(--page-scrollbar-thumb) var(--page-scrollbar-track);
+    scrollbar-gutter: stable;
+}
+html:has(main[data-theme="dark"]) {
+    --page-scrollbar-track: #151a23;
+    --page-scrollbar-thumb: #4d586b;
+    --page-scrollbar-hover: #78849a;
+    color-scheme: dark;
+    scrollbar-color: var(--page-scrollbar-thumb) var(--page-scrollbar-track);
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    background: var(--page-scrollbar-track);
+    border-radius: 999px;
+}
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    background: var(--page-scrollbar-thumb);
+    border: 2px solid var(--page-scrollbar-track);
+    border-radius: 999px;
+    background-clip: content-box;
+    min-height: 32px;
+}
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+    background: var(--page-scrollbar-hover);
+    background-clip: content-box;
+}
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner {
+    background: var(--page-scrollbar-track);
 }
 
 .markdown-body {
     font-family: var(--font-base);
-    font-size: 16px;       /* 手机端舒适字号 */
-    line-height: 1.8;      /* 宽松行高，增加透气感 */
+    font-size: 16px;
+    line-height: 1.8;
     color: var(--c-text);
-    padding: 20px 18px;    /* 手机两侧留白 */
-    background: #ffffff;
+    padding: 32px clamp(18px, 5vw, 48px);
+    background: var(--c-bg);
     margin: 0 auto;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.markdown-body *,
+.markdown-body *::before,
+.markdown-body *::after {
+    box-sizing: border-box;
+}
+
+.markdown-body > *:first-child {
+    margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+.markdown-body p {
+    margin: 0 0 1em;
+}
+
+/*
+ * Add [[toc]] (or [toc]) to a Markdown document to render its TOC here.
+ * The plugin supplies the links; this CSS only moves the generated nav aside.
+ */
+.markdown-body .table-of-contents {
+    position: fixed;
+    top: 76px;
+    right: max(8px, calc((100vw - min(var(--preview-page-width, 900px), calc(100vw - 32px))) / 2 - 236px));
+    z-index: 10;
+    width: 32px;
+    max-height: 36px;
+    overflow: hidden;
+    margin: 0;
+    padding: 8px 6px;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+    box-shadow: 0 6px 18px var(--c-shadow);
+    cursor: pointer;
+    transition: width 0.2s ease, max-height 0.2s ease, padding 0.2s ease, box-shadow 0.2s ease;
+}
+.markdown-body .table-of-contents::before {
+    content: "☰";
+    display: block;
+    margin: 0;
+    color: var(--c-text);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+    white-space: nowrap;
+}
+.markdown-body .table-of-contents:hover,
+.markdown-body .table-of-contents:focus-within {
+    width: 220px;
+    max-height: calc(100vh - 96px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--c-border) transparent;
+    scrollbar-color: color-mix(in srgb, var(--c-text-light) 55%, transparent) transparent;
+    scrollbar-gutter: stable;
+    padding: 14px 16px;
+    cursor: default;
+    box-shadow: 0 8px 24px var(--c-shadow);
+}
+.markdown-body .table-of-contents:hover::before,
+.markdown-body .table-of-contents:focus-within::before {
+    content: "目录";
+    margin-bottom: 8px;
+}
+.markdown-body .table-of-contents::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.markdown-body .table-of-contents::-webkit-scrollbar-track {
+    background: transparent;
+}
+.markdown-body .table-of-contents::-webkit-scrollbar-thumb {
+    background: var(--c-border);
+    background: color-mix(in srgb, var(--c-text-light) 55%, transparent);
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+}
+.markdown-body .table-of-contents::-webkit-scrollbar-thumb:hover {
+    background: var(--c-table-accent);
+    background: color-mix(in srgb, var(--c-primary-text) 75%, transparent);
+    border: 1px solid transparent;
+    background-clip: content-box;
+}
+.markdown-body .table-of-contents ul,
+.markdown-body .table-of-contents ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.markdown-body .table-of-contents li {
+    margin: 0;
+    line-height: 1.45;
+}
+.markdown-body .table-of-contents li::before {
+    display: none;
+}
+.markdown-body .table-of-contents a {
+    display: block;
+    padding: 3px 0;
+    color: var(--c-text-light);
+    border-bottom: 0;
+    font-size: 13px;
+}
+.markdown-body .table-of-contents a:hover,
+.markdown-body .table-of-contents a:focus-visible {
+    color: var(--c-primary-text);
+}
+.markdown-body .table-of-contents ol ol,
+.markdown-body .table-of-contents ul ul {
+    padding-left: 12px;
 }
 
 /* --- 1. 标题：调整为简约风格 --- */
 
-/* H1: 左对齐，无背景 */
+/* markdown-preview 会给每个标题插入 permalink，隐藏它但保留标题 id。 */
+.markdown-body h1 > .anchor,
+.markdown-body h2 > .anchor,
+.markdown-body h3 > .anchor,
+.markdown-body h4 > .anchor,
+.markdown-body h5 > .anchor,
+.markdown-body h6 > .anchor {
+    display: none !important;
+}
+
+/* 保留紧凑风格，同时让标题层级可辨认。 */
 .markdown-body h1 {
-    font-size: 17px; /* 减小字号 */
+    font-size: 20px;
     font-weight: 700;
-    text-align: left; /* 改为左对齐 */
-    margin: 25px 0 10px 0;
-    color: var(--c-text); /* 使用正文深灰 */
+    line-height: 1.35;
+    text-align: left;
+    margin: 1.6em 0 0.55em;
+    color: var(--c-text);
     padding: 0;
-    /*letter-spacing: 1px;*/
 }
 
-/* H2: 移除胶囊背景 */
 .markdown-body h2 {
-    font-size: 17px; /* 减小字号 */
+    font-size: 19px;
     font-weight: 700;
-    color: var(--c-primary); /* 使用优雅紫 */
-    margin: 25px 0 10px 0;
-    padding: 0;
-    border: none; /* 去掉所有边框 */
-}
-
-/* H3: 纯色文字，简单利落 */
-.markdown-body h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--c-accent); /* 蜜桃粉 */
-    margin: 25px 0 10px 0;
+    line-height: 1.4;
+    color: var(--c-primary-text);
+    margin: 1.5em 0 0.5em;
     padding: 0;
     border: none;
 }
 
-.markdown-body h4 { font-size: 16px; color: var(--c-primary); margin-top: 20px; }
-.markdown-body h5, .markdown-body h6 { font-size: 15px; color: var(--c-text-light); }
+.markdown-body h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--c-accent-text);
+    margin: 1.4em 0 0.45em;
+    padding: 0;
+    border: none;
+}
+
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    line-height: 1.5;
+    margin: 1.25em 0 0.4em;
+    scroll-margin-top: 16px;
+}
+.markdown-body h4 { font-size: 17px; color: var(--c-primary-text); }
+.markdown-body h5 { font-size: 16px; color: var(--c-text-light); }
+.markdown-body h6 { font-size: 15px; color: var(--c-text-light); }
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+    scroll-margin-top: 16px;
+}
 
 
 /* --- 2. 列表：彩色小圆点 --- */
 .markdown-body ul, .markdown-body ol {
-    padding-left: 20px;
-    margin-bottom: 16px;
+    padding-left: 1.5em;
+    margin: 0.5em 0 1em;
 }
 
 /* 无序列表：粉色/蓝色实心圆 */
 .markdown-body ul li {
-    list-style-type: none; /* 去掉默认黑点 */
+    list-style-type: none;
     position: relative;
-    margin-bottom: 8px;
+    margin-bottom: 0.35em;
 }
 .markdown-body ul li::before {
     content: "";
     width: 6px;
     height: 6px;
-    background-color: var(--c-accent); /* 粉色圆点 */
+    background-color: var(--c-accent);
     border-radius: 50%;
     position: absolute;
-    left: -15px;
-    top: 10px; /* 根据行高微调位置 */
+    left: -1em;
+    top: 0.72em;
 }
-/* 二级列表变个颜色 */
 .markdown-body ul ul li::before {
-    background-color: var(--c-secondary); /* 蓝色圆点 */
+    background-color: var(--c-secondary);
+}
+.markdown-body li > ul,
+.markdown-body li > ol {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+.markdown-body li > p {
+    margin: 0.2em 0;
 }
 
 /* 有序列表数字颜色 */
 .markdown-body ol li::marker {
-    color: var(--c-primary); /* 紫色数字 */
+    color: var(--c-primary-text);
     font-weight: 600;
     font-family: var(--font-serif);
 }
 
+/* 任务列表已经有 checkbox，不再额外绘制圆点。 */
+.markdown-body ul li.task-list-item::before {
+    display: none;
+}
+.markdown-body .task-list-item {
+    margin-left: -0.15em;
+}
+.markdown-body .task-list-item input[type="checkbox"] {
+    margin: 0 0.5em 0 0;
+    accent-color: var(--c-primary);
+    vertical-align: -0.1em;
+}
 
-/* --- 3. 表格：修复渲染问题 --- */
+
+/* --- 3. 表格 --- */
 .markdown-body table {
-    /* 修改：宽度自适应，避免小表格过度拉伸 */
-    width: auto;
-    /*min-width: 50%; [> 保证一个最小宽度，避免在某些情况下过于狭窄 <]*/
-    /*max-width: 17%; [> 最大宽度不超过容器 <]*/
-
-    border-collapse: separate; /* 为了圆角，需要separate */
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: separate;
     border-spacing: 0;
-    /*margin: 20px 0;*/
-    border-radius: 8px; /* 表格整体圆角 */
-    border: 2px solid #a29bfe; /* 外框用比较好看的淡紫色 */
-    overflow: hidden;
-
-    /* 修改：保持块状布局和横向滚动能力 */
-    /*display: block;  */
-    /*overflow-x: auto;*/
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 2px solid var(--c-table-accent);
+    background: var(--c-bg);
+    -webkit-overflow-scrolling: touch;
 }
 
 .markdown-body table th {
-    background-color: #dfe6e9; /* 表头背景 */
-    color: #2d3436;
+    background-color: var(--c-table-head);
+    color: var(--c-text);
     font-weight: 700;
     padding: 10px 15px;
-    border-bottom: 2px solid #a29bfe; /* 表头下划线同外框色 */
+    border-bottom: 2px solid var(--c-table-accent);
+    border-right: 1px solid var(--c-border);
     text-align: left;
+    white-space: nowrap;
 }
 
 .markdown-body table td {
     padding: 10px 15px;
-    border-bottom: 1px solid #dfe6e9; /* 内部线条淡一点 */
-    border-right: 1px dashed #dfe6e9; /* 内部竖线用虚线，减少拥挤感 */
-    color: #636e72;
-    background: #fff;
+    border-bottom: 1px solid var(--c-border);
+    border-right: 1px dashed var(--c-border);
+    color: var(--c-text-light);
+    background: var(--c-bg);
 }
+.markdown-body table th:last-child,
 .markdown-body table td:last-child {
     border-right: none;
 }
 .markdown-body table tr:last-child td {
     border-bottom: none;
 }
-/* 隔行变色，极淡的粉 */
 .markdown-body table tr:nth-child(even) td {
-    background-color: #fff0f6;
+    background-color: var(--c-table-stripe);
 }
 
 
@@ -153,46 +392,43 @@
 /* 粗体：移除荧光笔效果 */
 .markdown-body strong {
     font-weight: 700;
-    color: #2d3436;
+    color: var(--c-text);
 }
 
-/* 斜体：衬线体 + 灰色，文艺范 */
+/* 斜体：保留荧光笔效果，恢复语义上的斜体。 */
 .markdown-body em {
     font-family: var(--font-serif);
-    /*font-style: italic;*/
-    font-style: normal;
-    /*color: #b2bec3; [> 浅灰 <]*/
-    /*padding-right: 2px;*/
-    color: var(--c-text); /* 恢复正常文字颜色以增强对比度 */
-    background: linear-gradient(transparent 60%, #ffeaa7 60%);
+    font-style: italic;
+    color: var(--c-text);
+    background: linear-gradient(transparent 62%, var(--c-mark) 62%);
 }
 
-
 .markdown-body strong em {
-    font-family: var(--font-serif);
-    /*font-style: bold;*/
-    color: var(--c-text); /* 恢复正常文字颜色以增强对比度 */
-    background: linear-gradient(transparent 60%, #ffeaa7 60%);
-    /*padding: 0 2px;*/
+    font-weight: 700;
 }
 
 
 /* 删除线 */
 .markdown-body del {
-    color: #b2bec3;
-    text-decoration-color: var(--c-accent); /* 粉色删除线 */
+    color: var(--c-text-light);
+    text-decoration-color: var(--c-accent);
 }
 
 /* 链接 */
 .markdown-body a {
-    color: var(--c-primary);
+    color: var(--c-primary-text);
     text-decoration: none;
-    border-bottom: 1px dashed var(--c-primary);
-    transition: all 0.2s;
+    border-bottom: 1px dashed currentColor;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
-.markdown-body a:hover {
-    background: #eef1ff;
+.markdown-body a:hover,
+.markdown-body a:focus-visible {
+    background: var(--c-hover);
     border-bottom-style: solid;
+    outline: none;
+}
+.markdown-body a:focus-visible {
+    box-shadow: 0 0 0 2px var(--c-table-accent);
 }
 
 
@@ -200,12 +436,12 @@
 
 /* 引用块：如便利贴 */
 .markdown-body blockquote {
-    background: #f1f2f6;
-    color: #57606f;
-    padding: 15px;
+    background: var(--c-surface);
+    color: var(--c-quote-text);
+    padding: 14px 16px;
     border-radius: 8px;
     margin: 20px 0;
-    border-left: none; /* 去掉左边框 */
+    border: 0;
     position: relative;
 }
 /* 加个装饰性图标 */
@@ -213,43 +449,224 @@
     content: "💡";
     margin-right: 8px;
 }
+.markdown-body blockquote > p:first-child {
+    display: inline;
+}
+.markdown-body blockquote > :last-child {
+    margin-bottom: 0;
+}
 
-/* 代码块：深色圆角，适合阅读 */
+/* 代码块：高对比度深色主题 */
 .markdown-body pre {
-    background: #2f3640;
+    background: #1e2430;
     border-radius: 10px;
-    padding: 15px;
+    padding: 16px 18px;
     margin: 20px 0;
     overflow: auto;
-    color: #f5f6fa;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #d8dee9;
+    border: 1px solid #343d4d;
+    box-shadow: 0 5px 15px var(--c-shadow);
+    line-height: 1.65;
+    tab-size: 4;
 }
 .markdown-body code {
-    font-family: Consolas, monospace;
+    font-family: var(--font-code);
+}
+.markdown-body pre code {
+    display: block;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    font-size: 14px;
+    white-space: pre;
+    letter-spacing: 0;
+    font-kerning: none;
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0, "calt" 0;
+}
+
+/*
+ * markdown-preview 的 highlight.css 在本文件之后加载，因此这里使用
+ * .markdown-body 前缀提高优先级。关键字使用明亮粉色，避免 if/else
+ * 等内容与深色背景混在一起。
+ */
+.markdown-body pre.hljs {
+    color: #d8dee9;
+    background: #1e2430;
+}
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-selector-tag {
+    color: #ff7ab2;
+    font-weight: 700;
+}
+.markdown-body .hljs-subst {
+    color: #d8dee9;
+}
+.markdown-body .hljs-comment,
+.markdown-body .hljs-quote {
+    color: #9aa5b1;
+    font-style: italic;
+}
+.markdown-body .hljs-string,
+.markdown-body .hljs-doctag,
+.markdown-body .hljs-regexp,
+.markdown-body .hljs-link {
+    color: #a8cc8c;
+}
+.markdown-body .hljs-number,
+.markdown-body .hljs-literal,
+.markdown-body .hljs-variable,
+.markdown-body .hljs-template-variable,
+.markdown-body .hljs-tag .hljs-attr {
+    color: #f6c177;
+}
+.markdown-body .hljs-title,
+.markdown-body .hljs-section,
+.markdown-body .hljs-selector-id,
+.markdown-body .hljs-function .hljs-title {
+    color: #82aaff;
+    font-weight: 600;
+}
+.markdown-body .hljs-type,
+.markdown-body .hljs-class .hljs-title,
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-builtin-name {
+    color: #c792ea;
+}
+.markdown-body .hljs-tag,
+.markdown-body .hljs-name,
+.markdown-body .hljs-attribute,
+.markdown-body .hljs-symbol,
+.markdown-body .hljs-bullet {
+    color: #89ddff;
+}
+.markdown-body .hljs-meta {
+    color: #ffcb6b;
+    font-weight: 600;
+}
+.markdown-body .hljs-params,
+.markdown-body .hljs-property {
+    color: #d8dee9;
+}
+.markdown-body .hljs-deletion {
+    color: #ff8b92;
+    background: rgba(255, 85, 85, 0.16);
+}
+.markdown-body .hljs-addition {
+    color: #a8cc8c;
+    background: rgba(80, 200, 120, 0.14);
 }
 /* 行内代码：浅紫背景 */
-.markdown-body p code, .markdown-body li code {
-    background-color: #f3e5f5; /* 淡紫 */
-    color: #8e44ad;
-    padding: 3px 6px;
+.markdown-body :not(pre) > code {
+    background-color: var(--c-inline-code-bg);
+    color: var(--c-inline-code-text);
+    padding: 0.16em 0.38em;
     border-radius: 4px;
-    margin: 0 3px;
     font-size: 0.9em;
+    white-space: break-spaces;
 }
 
 /* 图片 */
 .markdown-body img {
     max-width: 100%;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    height: auto;
+    box-shadow: 0 4px 10px var(--c-shadow);
     margin: 20px auto;
     display: block;
+}
+.markdown-body a:has(> img) {
+    border-bottom: 0;
 }
 
 /* 分割线 */
 .markdown-body hr {
     border: 0;
     height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    background-image: linear-gradient(to right, transparent, var(--c-border), transparent);
     margin: 40px 0;
+}
+
+/* 自定义 markdown.css 会替换插件默认文件，补齐常见元素的基础样式。 */
+.markdown-body kbd {
+    display: inline-block;
+    padding: 0.12em 0.4em;
+    color: var(--c-text);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    box-shadow: inset 0 -1px 0 var(--c-border);
+    font: 0.85em var(--font-code);
+}
+
+.markdown-body details {
+    margin: 1em 0;
+    padding: 0.7em 0.9em;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+}
+.markdown-body summary {
+    color: var(--c-primary-text);
+    cursor: pointer;
+    font-weight: 600;
+}
+.markdown-body details[open] summary {
+    margin-bottom: 0.65em;
+}
+
+@media (max-width: 600px) {
+    .markdown-body {
+        padding: 22px 16px;
+        font-size: 15px;
+    }
+
+    .markdown-body pre {
+        margin-right: -8px;
+        margin-left: -8px;
+        padding: 14px;
+        border-radius: 8px;
+    }
+
+    .markdown-body table th,
+    .markdown-body table td {
+        padding: 8px 11px;
+    }
+}
+
+@media print {
+    .markdown-body {
+        color: #222;
+        background: #fff;
+        padding: 0;
+    }
+
+    .markdown-body a {
+        color: inherit;
+        border-bottom: 0;
+        text-decoration: underline;
+    }
+
+    .markdown-body .table-of-contents {
+        position: static;
+        width: auto;
+        max-height: none;
+        padding: 0;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .markdown-body pre {
+        white-space: pre-wrap;
+        break-inside: avoid;
+        box-shadow: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .markdown-body,
+    .markdown-body a {
+        transition: none;
+    }
 }

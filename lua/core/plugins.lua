@@ -52,6 +52,7 @@ if vim.g.feature_groups["org_my_life"] == true then
         ["nabla"] = { enabled = true }, -- for displya latex formulajbyuki/nabla.nvim
         ["clipboard_images"] = { enabled = true }, -- for displya latex formulajbyuki/nabla.nvim
         ["table_mode"] = { enabled = true },
+        ["markdown_pipetable"] = { enabled = false },
         ["md_bullets"] = { enabled = false },
         ["org_bullets"] = { enabled = false },
         ["headlines"] = { enabled = true },
