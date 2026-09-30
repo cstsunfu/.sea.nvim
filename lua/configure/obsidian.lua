@@ -15,8 +15,14 @@ plugin.core = {
 
     config = function() -- Specifies code to run after this plugin is loaded
         require("obsidian").setup({
-            dir = "~/MyKB",
+            dir = require("util.vault_search").vault,
             new_notes_location = "current_dir",
+            -- Daily notes: ~/MyKB/Daily/YYMMDD.md. Without `folder` they would go
+            -- to notes_subdir (Draft/) because daily_note_path() falls back to it.
+            daily_notes = {
+                folder = "Daily",
+                date_format = "%y%m%d",
+            },
             completion = {
                 -- If using nvim-cmp, otherwise set to false
                 nvim_cmp = true,
@@ -79,8 +85,8 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "o" },
-        action = ":ObsidianSearch<cr>",
-        short_desc = "ObsidianSearch",
+        action = "<cmd>lua require('util.vault_search').pick()<cr>",
+        short_desc = "Search Notes (name + content)",
     })
     mappings.register({
         mode = "n",
