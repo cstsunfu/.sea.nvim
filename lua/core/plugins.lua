@@ -158,7 +158,6 @@ if vim.g.feature_groups["lsp"] then
         ["glance"] = { enabled = true },
         ["navigator"] = { enabled = true, lazy = true }, -- TODO: this plugin will be useful, but too beta
         ["lsp_signature"] = { enabled = vim.g.feature_groups.lsp == "builtin" },
-        ["null_ls"] = { enabled = vim.g.feature_groups.lsp == "builtin" },
         ["nvim_cmp"] = { enabled = vim.g.feature_groups.lsp == "builtin" },
         ["copilot_cmp"] = { enabled = vim.g.feature_groups.lsp == "builtin" },
         ["lsp_status"] = { enabled = vim.g.feature_groups.lsp == "builtin" },
