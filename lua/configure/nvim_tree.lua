@@ -90,6 +90,11 @@ plugin.core = {
                     error = " ",
                 },
             },
+            -- Watchers cost one fs_event handle per expanded dir and caused an EMFILE
+            -- notification storm when rooted at ~. Disabled; press R to refresh manually.
+            filesystem_watchers = {
+                enable = false,
+            },
         })
     end,
 }

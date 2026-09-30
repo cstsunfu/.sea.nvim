@@ -8,6 +8,7 @@ local lualine_tmux_sess_cache = {}
 local lualine_buf_size_cache = {}
 
 local lualine_win_display_condition_cache = {}
+local clock_timer = nil
 
 plugin.core = {
     "nvim-lualine/lualine.nvim",
@@ -28,8 +29,8 @@ plugin.core = {
         })
 
         vim.g._current_time = os.date("%H:%M")
-        local timer = vim.loop.new_timer()
-        timer:start(
+        clock_timer = vim.loop.new_timer()
+        clock_timer:start(
             1000,
             15000,
             vim.schedule_wrap(function()
@@ -978,6 +979,70 @@ plugin.core = {
 
         -- Now don't forget to initialize lualine
         lualine.setup(config)
+
+        -- Pause repeating statusline timers while Neovim is unfocused.
+        -- lualine runs a 16ms refresh checker (~60 wakeups/s) plus a 1s statusline
+        -- refresh, which keeps every idle instance at a few percent CPU.
+        -- lualine has no API to pause them without hiding the statusline, so the
+        -- private `timers` table is reached through upvalues of lualine.setup.
+        local function upvalue(fn, name)
+            for i = 1, 200 do
+                local n, v = debug.getupvalue(fn, i)
+                if n == nil then
+                    return nil
+                end
+                if n == name then
+                    return v
+                end
+            end
+        end
+
+        local function repeating_timers()
+            local handles = { clock_timer }
+            local checker = upvalue(lualine.setup, "set_refresh_checker")
+            local timers = checker and upvalue(checker, "timers") or {}
+            for _, t in pairs(timers) do
+                if type(t) == "userdata" then
+                    table.insert(handles, t)
+                end
+            end
+            return handles
+        end
+
+        local paused = {}
+        local focus_group = vim.api.nvim_create_augroup("lualine_focus_timers", { clear = true })
+        vim.api.nvim_create_autocmd("FocusLost", {
+            group = focus_group,
+            callback = function()
+                for _, t in ipairs(repeating_timers()) do
+                    if t:is_active() and t:get_repeat() > 0 then
+                        t:stop()
+                        table.insert(paused, t)
+                    end
+                end
+            end,
+        })
+        -- Resume on any sign of activity, so a missed FocusGained never leaves
+        -- the statusline frozen (queued refresh events are drained by the checker).
+        vim.api.nvim_create_autocmd(
+            { "FocusGained", "CursorMoved", "CursorMovedI", "InsertEnter", "CmdlineEnter", "BufEnter", "WinEnter" },
+            {
+                group = focus_group,
+                callback = function()
+                    if #paused == 0 then
+                        return
+                    end
+                    for _, t in ipairs(paused) do
+                        if not t:is_closing() then
+                            t:again()
+                        end
+                    end
+                    paused = {}
+                    vim.g._current_time = os.date("%H:%M")
+                    vim.cmd("redrawstatus")
+                end,
+            }
+        )
     end,
 }
 

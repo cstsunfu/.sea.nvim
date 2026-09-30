@@ -216,7 +216,14 @@ plugin.core = {
             },
             throttle = 1000 / 30,              -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
             views = {}, ---@see section on views
-            routes = {},                       --- @see section on routes
+            -- noice replaces vim.notify, so filtering must happen here. These messages can
+            -- self-amplify: each notify allocates a buffer + highlight groups until E849.
+            routes = {
+                { filter = { event = "notify", find = "File system watcher failed" },          opts = { skip = true } },
+                { filter = { event = "notify", find = "Could not start the fs_event watcher" }, opts = { skip = true } },
+                { filter = { event = "notify", find = "Invalid highlight name: 'Notify" },     opts = { skip = true } },
+                { filter = { event = "msg_show", find = "E849" },                              opts = { skip = true } },
+            },
             status = {},                       --- @see section on statusline components
             format = {},                       --- @see section on formatting
         })

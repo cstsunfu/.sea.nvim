@@ -16,7 +16,7 @@ require("core.default")
 
 require("core.user").setup()
 require("core.plugins").setup()
-require("hack").setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. "/org/pomodoro/" } })
+require("hack").setup({ pomodoro = { dir_path = vim.g.HOME_PATH .. "/org/pomodoro/" }, buf_gc = {} })
 
 require("core.plugins").create_mapping()
 require("hack").create_mapping()
