@@ -1,470 +1,327 @@
-### Always Work In Process
----
+# .sea.nvim
 
-![Startify](./pic/startify.png)
+> Always work in progress.
 
-# Neovim Configure
+Personal Neovim configuration built around `lazy.nvim`, native LSP, Treesitter,
+Mason, Telescope, and a feature-group based plugin layout.
 
-```sh
-.
-├── compiler                  -- compiler related setting
-├── coc-settings.json         -- for coc.nvim if you use coc.nvim as default complation framework, you can also select the builtin lsp
-├── ftplugin                  -- some specific setting for some filetype
-├── init.lua
-├── install.sh
-├── lua
-│   ├── configure
-│   │   ├── nvim_cmp.lua      -- builtin lsp complation config
-│   │   ├── lsp_config        -- builtin lsp config
-│   │   ├── ....              -- other plugin configs
-│   │   └── coc.lua           -- coc.nvim based lsp config
-│   ├── core
-│   │   ├── after.lua         -- just eusure this will be setting after all plugin loaded
-│   │   ├── default.lua       -- some default setting
-│   │   ├── init.lua          --
-│   │   ├── mapping.lua       -- mapping register module
-│   │   ├── plugins.lua       -- all plugin name and group center
-│   │   └── themes.lua        -- my favorite themes
-│   ├── hack                  -- something you want to hack
-│   │   ├── init.lua
-│   │   └── pomodoro.lua
-│   ├── local.lua             --
-│   ├── user.lua              -- user related configure like email, name, etc.
-│   └── util                  -- some useful tools and functions
-└── tasks.ini                 -- asynctasks
+![Dashboard](./pic/startify.png)
 
-```
+## Highlights
 
-## Install
+- Neovim 0.11 native LSP configuration with explicit start/stop commands.
+- Lazy-loaded plugins organized by feature groups.
+- Mason-managed language servers, formatters, linters, and debug adapters.
+- Telescope-based file, project, buffer, history, and mapping search.
+- C/C++, Lua, Python, SQL, JSON, Markdown, Vimwiki, and Obsidian workflows.
+- Avante and CodeCompanion integration.
+- Enhanced Vim help pages through `helpview.nvim`.
+- DAP, Git, terminal, session, Pomodoro, and clipboard-image support.
 
-1. Install `Neovim` >=0.9, `git` >= 2.32
+## Requirements
 
-2. Install `pynvim` and `debugpy`(optional)
-```sh
-  # pynvim for python based plugins
-  pip install pynvim
-  # debugpy for python debug, just install it to your environment
-  pip install debugpy
-  # optional yapf for python format
-  pip install yapf
-```
+Required:
 
-3. Install `node.js`, `npm`, and `yarn`
-```sh
-curl -sL install-node.vercel.app/lts | bash
-npm install --global yarn
-```
+- Neovim >= 0.11
+- Git >= 2.19
+- Node.js >= 22
+- `rg` (ripgrep)
+- `make` for native Telescope extensions
+- A Nerd Font is recommended
 
-Optional:
+Node.js is used by TypeScript tooling, ESLint, Markdown preview, and other
+Node-based plugins.
 
-for grammarly-language-server, it requires the [node@16](https://github.com/znck/grammarly/issues/334)
+### macOS
+
 ```bash
-# install node@16
-npm install -g n
-n -d 16
-
-# export the GRAMMARLY_PATH in you .bashrc or .zshrce or what shell you use
-export GRAMMARLY_PATH="$HOME/.local/share/nvim/mason/packages/grammarly-languageserver/node_modules/grammarly-languageserver"
+brew install neovim git ripgrep make node@22
 ```
 
+### Ubuntu/Debian
 
-4. Install `lolcat` for display the NEOVIM logo
-```sh
-Ubuntu:
-    sudo apt install lolcat
-OSX:
-    brew install lolcat
-```
-
-5. Install `ag` or `rg`
-```sh
-OSX:
-    brew install rg
-Ubuntu:
-    sudo apt-get install ripgrep
-```
-
-6. Install Nerd Font
-```sh
-Install Nerd Font Family: `DejaVuSansMono Nerd Font` or  what you want
-Download from https://www.nerdfonts.com/
-Install method depend on your os.
-```
-7. Install xclip (X11), wl-clipboard (Wayland), pngpaste (MacOS), for Clipboard Image
-
-8. Make some link
 ```bash
+sudo apt update
+sudo apt install neovim git ripgrep build-essential
+```
+
+The Neovim version provided by an older distribution may be too old. In that
+case, install a current release from the
+[official Neovim releases](https://github.com/neovim/neovim/releases).
+Install Node.js 22 or newer from your distribution's current packages, the
+[official releases](https://nodejs.org/en/download), or a version manager.
+
+## Installation
+
+This configuration expects the repository to live at `~/.sea.nvim`.
+
+```bash
+git clone --branch main https://github.com/cstsunfu/.sea.nvim.git ~/.sea.nvim
+cd ~/.sea.nvim
 ./install.sh
 ```
 
-9. User related setting in `lua/core/user.lua`.
+The install script links the entry point to `~/.config/nvim/init.lua`. Start
+Neovim and install/update the plugins with:
 
-Both `local.lua` and `user.lua` are bind to user. `user.lua` is more general for each user, and `local.lua` is special to each machine, and setting in `local.lua`  will not be indexed by git but `user.lua` will be.
+```vim
+:Lazy sync
+```
 
-My own setting example in `local.lua` is:
+Useful diagnostics after installation:
+
+```vim
+:checkhealth
+:checkhealth helpview
+```
+
+## Optional dependencies
+
+### Python integration and debugging
+
+```bash
+python3 -m pip install pynvim debugpy
+```
+
+Update `python3_host_prog` in `lua/core/user.lua` if Python is not installed at
+`~/miniconda3/bin/python3`.
+
+### Clipboard images
+
+Install the tool matching the current platform:
+
+- macOS: `brew install pngpaste`
+- X11: `xclip`
+- Wayland: `wl-clipboard`
+
+### Dashboard logo
+
+The dashboard can render its logo through `lolcat`:
+
+```bash
+# macOS
+brew install lolcat
+
+# Ubuntu/Debian
+sudo apt install lolcat
+```
+
+Set `NO_LOLCAT=1` to disable the external command:
+
+```bash
+export NO_LOLCAT=1
+```
+
+### Telescope frecency database
+
+Telescope frecency uses SQLite. On Ubuntu/Debian:
+
+```bash
+sudo apt install sqlite3 libsqlite3-dev
+```
+
+## Configuration layout
+
+```text
+.
+├── compiler/                  Compiler settings
+├── ftplugin/                  Filetype-specific settings
+├── init.lua                  Neovim entry point and lazy.nvim bootstrap
+├── install.sh                Creates links under ~/.config/nvim
+├── lua/
+│   ├── configure/            One module per plugin
+│   │   └── lsp_config/       Native LSP server configuration
+│   ├── core/
+│   │   ├── default.lua       Options, autocmds, and leader keys
+│   │   ├── init.lua          Startup sequence and feature groups
+│   │   ├── mapping.lua       Central keymap registration
+│   │   ├── plugins.lua       Plugin groups and lazy.nvim setup
+│   │   ├── themes.lua        Theme selection
+│   │   ├── user.lua          General user settings
+│   │   └── local.lua         Machine-local settings, ignored by Git
+│   ├── hack/                 Local features such as Pomodoro
+│   └── util/                 Shared utilities
+└── tasks.ini                 AsyncTasks definitions
+```
+
+Every plugin module under `lua/configure/` exposes a Lazy plugin specification
+and an optional mapping function. Plugins are enabled from feature groups in
+`lua/core/plugins.lua`.
+
+## Personal settings
+
+General settings live in `lua/core/user.lua`. Machine-specific settings can be
+placed in the ignored `lua/core/local.lua` file:
+
 ```lua
 local M = {}
 
 M.setup = function()
-    vim.g.global_proxy_port = 'http://127.0.0.1:7893' -- like "http://127.0.0.1:7893", this is for some plugin like google translate that is banned by GFW. if you don't have this issue, set it to `nil`
+    vim.g.global_proxy_port = nil
 end
 
 M.after = function()
-...your code
 end
-return M
 
-```
-
-In the `user.lua` you must provide the `setup` and `after` method in the module
-
-```lua
-local M = {}
-M.setup = function()
--- call the local setup
--- require('core.local').setup()
-...your code
-end
-M.after = function() ... end
--- call the local after
--- require('core.local').after()
-...your code
 return M
 ```
 
-NOTE: The default leader is setting in `lua/core/default.lua`. The setting is
+Both functions are optional at runtime because the local module is loaded with
+`pcall`, but defining both keeps the file consistent with the expected module
+interface.
+
+The theme can be selected through `GLOBAL_THEME`:
+
+```bash
+GLOBAL_THEME=light nvim
+```
+
+Without this variable, Material Palenight is used.
+
+## LSP
+
+The default configuration uses Neovim's built-in LSP. Change
+`vim.g.feature_groups.lsp` in `lua/core/init.lua` to `"coc"` to use coc.nvim,
+or set it to `false` to disable the LSP group.
+
+Language servers are registered through the Neovim 0.11 `vim.lsp.config()` API.
+The main lifecycle commands are:
+
+| Command | Mapping | Description |
+| --- | --- | --- |
+| `:LspStartCurrent` | `;ls` | Start configured LSP clients for the current buffer |
+| `:LspStopAll` | `;lS` | Stop all active LSP clients |
+| `:LspStopInactive` | — | Stop clients that are not attached to loaded buffers |
+| `:Mason` | `;lc` | Open Mason |
+
+## Formatting
+
+Formatting is provided by `conform.nvim`. Mason automatically installs the
+configured formatters:
+
+| Filetype | Formatter |
+| --- | --- |
+| Lua | `stylua` |
+| Python | `isort`, then `black` |
+| SQL | `sql-formatter` |
+| C/C++ | `clang-format` |
+| JavaScript/TypeScript/JSX/TSX | `prettierd` |
+| JSON/JSONC/CSS/SCSS/HTML/YAML/Markdown | `prettierd` |
+
+Use `;=` to format manually. Automatic formatting can be controlled with:
+
 ```vim
-let maplocalleader=','
-let mapleader=';'
-nnoremap \\ ;
-vnoremap \\ ;
+:FormatDisable
+:FormatDisable!
+:FormatEnable
 ```
 
+## TypeScript
 
-10. Select `builtin` or `coc.nvim` for the default LSP in 'core/init.lua'.
+TypeScript and TSX use Treesitter for syntax highlighting, `ts_ls` for LSP
+completion and type diagnostics, `prettierd` for formatting, and ESLint LSP
+when the project contains an ESLint configuration. Install the runtime tools
+in each project so their versions follow the project's `package.json`:
 
-For my experience,  `coc.nvim` is more easy to configure to get all things work. But now more and more neovim users change to use `builtin`?
-
-11. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
-
-
-## Optional
-
-1. Install `pg_format` for sql format
-
-```
-see https://github.com/darold/pgFormatter#:~:text=following%20your%20distribution.-,INSTALLATION,-Following%20your%20Linux
+```bash
+npm install --save-dev --save-exact typescript@5.9.3 tsx@4.23.12
 ```
 
-2. Install `sqlite3` for better frequence files display(<leader>fh)
+Add ESLint to projects that use it. The installed ESLint version should match
+the project's configuration and plugins.
 
-```sh
-sudo apt-get install sqlite3
-sudo apt-get install libsqlite3-dev
+The standard quick-task mappings automatically dispatch TypeScript files to
+TypeScript-specific tasks:
+
+| Mapping | Task | Description |
+| --- | --- | --- |
+| `;qb` | `typescript-check` | Run project type checking with `tsc --noEmit` |
+| `;qr` | `typescript-run` | Run the current TypeScript file with `tsx` |
+
+Both tasks prefer project-local executables. For temporary standalone files,
+they fall back to the fixed TypeScript and `tsx` versions managed under
+Neovim's data directory (`~/.local/share/nvim/typescript-tools` by default).
+Project roots are detected from package-manager lockfiles, `tsconfig.json`,
+`package.json`, or VCS markers.
+Useful LSP commands include `:LspTypescriptSourceAction`,
+`:LspTypescriptGoToSourceDefinition`, and `:LspEslintFixAll` (when ESLint is
+active). General code actions and symbol rename are mapped to `;la` and `;lr`.
+
+## Helpview
+
+`helpview.nvim` automatically renders Neovim help buffers. Open help normally:
+
+```vim
+:help lua
 ```
 
-## More
+Preview control commands include:
 
-For getting the best performance, please use the GPU-based terminal:
+```vim
+:Helpview Toggle
+:Helpview Enable
+:Helpview Disable
+```
 
-* [kitty](https://github.com/kovidgoyal/kitty)
-* [alacritty](https://github.com/jwilm/alacritty)
+## Main features
 
-# Main features
+Screenshots may use older plugin versions or a different colorscheme.
 
-Each figure may display with different colorscheme.
+### Completion, file tree, and code navigation
 
-## ChatGPT
-![chatgpt](./pic/chatgpt.png)
+![Built-in LSP](./pic/builtin.png)
 
-## Complete/Nvim-Tree/Navigator(based `builtin lsp`)
-![code_view_complete](./pic/builtin.png)
+### Fuzzy search
 
-## Complete/Nvim-Tree/Navigator(based `coc.nvim`)
-![code_view_complete](./pic/code_view.png)
-
-## Fuzzy Search
 ![Fuzzy Search](./pic/fuzzy_search.png)
 
-## Agenda
-![Agenda](./pic/orgmode.png)
+### Markdown, Vimwiki, and Obsidian
 
-## Markdown & Vimwiki
-![Markdown & Vimwiki](./pic/markdown.png)
+![Markdown and Vimwiki](./pic/markdown.png)
 
-## Project TODO
+### Project TODO
+
 ![Project TODO](./pic/project_todo.png)
 
-## Debug Adapter Protocol
+### Debug Adapter Protocol
+
 ![Debug Adapter Protocol](./pic/dap.png)
 
-## Pomodoro Clock
+### Pomodoro clock
+
 ![Pomodoro Clock](./pic/pomodoro.png)
 
+## Key mappings
 
-## There are some shortcuts.
+The leader key is `;`, the local leader is `Space`, and `'` is mapped to `;` in
+normal and visual mode.
 
-NOTE: Default set
+Mappings are registered centrally and checked for conflicts during startup.
+Press a leader prefix to browse groups with WhichKey, or use `;fm` to search all
+active mappings with Telescope.
 
-```lua
-    vim.cmd("let maplocalleader=' '")
-    vim.cmd("let mapleader=';'")
-    vim.cmd("nnoremap ' ;")
-    vim.cmd("vnoremap ' ;")
-```
+Frequently used mappings:
 
+| Mapping | Description |
+| --- | --- |
+| `;ff` | Find files |
+| `;fq` | Live grep |
+| `;fb` | Find buffers |
+| `;fr` | Find recent files/history |
+| `;fp` | Find projects |
+| `;fm` | Search all mappings |
+| `;ft` | Toggle file tree |
+| `;f.` | Reveal the current file in the tree |
+| `;ss` | Save current buffer |
+| `;sa` | Save all buffers |
+| `;=` | Format current buffer or selection |
+| `;aa` | Toggle Avante |
+| `;qc` / `;qo` | Close/open QuickFix |
+| `;bn` / `;bp` | Next/previous buffer |
+| `;bd` | Delete current buffer |
+| `gd` / `gr` / `gi` | Definition/references/implementation |
+| `]e` / `[e` | Next/previous diagnostic |
 
-WARNING: We will remap some shortcuts but not update this table, just for reference.
-
-| Mode    | Mapping            | Description                         |
-| ------  | -------------      | ----------------------------        |
-| x       | <                  | Left Indent Selected                |
-| x       | >                  | Right Indent Selected               |
-| i,c     | kj                 | Back to Normal Mode                 |
-| n,i     | ;p                 | Paste From Clipboard                |
-| n       | ;qA                | Directly Quit Without Save          |
-| n       | ;qq                | Directly Quit                       |
-| n       | ;qw                | Directly Quit After Write           |
-| n       | ;qc                | QuickFix Close                      |
-| n       | ;qo                | QuickFix Open                       |
-| n       | ;qp                | QuickFix Previous Item              |
-| n       | ;qn                | QuickFix Next Item                  |
-| n       | ;rd                | Read Date From System               |
-| n       | ;rr                | Reload Current File                 |
-| n       | ;rt                | Read FileTree                       |
-| n       | ;s.                | Source Current File                 |
-| n       | ;s\<SPACE\>        | Remove Tail Space                   |
-| n       | ;ss                | Save Current Buffer                 |
-| n       | ;sa                | Save All Buffers                    |
-| n       | ;ws                | Split Window                        |
-| n       | ;wv                | Vertical Split Window               |
-| n       | ;wd                | Close Current Window                |
-| n       | ;wo                | Only Reserve Current Window         |
-| n       | ;ww                | Goto Next Window                    |
-| n       | ;wj                | Goto The Down Window                |
-| n       | ;wk                | Goto The Above Window               |
-| n       | ;wh                | Goto The Left Window                |
-| n       | ;wl                | Goto The Right Window               |
-| n       | ;wJ                | Goto The Bottom Window              |
-| n       | ;wK                | Goto The Top Window                 |
-| n       | ;wH                | Goto The Leftest Window             |
-| n       | ;wL                | Goto The Rightest Window            |
-| n       | ;x                 | Close Current Window                |
-| v       | ;y                 | Yank to Clipboard                   |
-| n       | ;\<TAB\>           | Smart toggle fold                   |
-| n       | zR                 | Unzip all                           |
-| n       | zr                 | Unzip                               |
-| n       | za                 | Zip toggle                          |
-| n       | zm                 | Zip current                         |
-| n       | zM                 | Zip all                             |
-| n       | zo                 | Unzip current                       |
-| n       | \<A-L\>            | <alt-l>Goto Right Window            |
-| n       | \<A-K\>            | <alt-k>Goto Above Window            |
-| n       | \<A-H\>            | <alt-h>Goto Left Window             |
-| n       | \<A-J\>            | <alt-j>Goto Below Window            |
-| n       | \<A-F\>            | <alt-f>Go to Next Buffer            |
-| n       | \<A-B\>            | <alt-b>Go to Previous Buffer        |
-| n       | \<A-W\>            | <alt-w>Size +5                      |
-| n       | \<A-S\>            | <alt-s>Size -5                      |
-| n       | \<A-A\>            | <alt-a>Vertical Size -5             |
-| n       | \<A-D\>            | <alt-d>Vertical Size +5             |
-| n,v     | \<C-J\>            | 5j                                  |
-| n,v     | \<C-k\>            | 5k                                  |
-| n       | \<SPACE\>\<CR\>    | No Search Highlight                 |
-| i       | \<C-U\>            | Delete Prior Word                   |
-| i       | \<C-H\>            | Delete Prior Char                   |
-| i       | \<C-D\>            | Delete Next Char                    |
-| i       | \<C-K\>            | Delete To The End                   |
-| i       | \<C-J\>            | Delete To The Begin                 |
-| i       | \<C-B\>            | Go Left                             |
-| i       | \<C-F\>            | Go Right                            |
-| i       | \<C-A\>            | Go To The Begin and Insert          |
-| i       | \<C-E\>            | Go To The End and Append            |
-| i       | \<C-O\>            | New Line and Insert                 |
-| i       | \<C-S\>            | Save                                |
-| i       | \<C-Q\>            | Save & Quit                         |
-| n       | \<C-Q\>            | Save & Quit                         |
-| v       | gx                 | Open URL Link                       |
-| n       | gx                 | Open URL Link                       |
-| n       | ;ga                | Git Add                             |
-| n       | ;gb                | Git Blame                           |
-| n       | ;gc                | Git Commits                         |
-| n       | ;gC                | Git Checkout                        |
-| n       | ;ge                | Git Edit Something                  |
-| n       | ;gd                | Git Diff                            |
-| n       | ;gg                | Git Grep                            |
-| n       | ;gl                | Git Log For Current File            |
-| n       | ;gL                | Git Log                             |
-| n       | ;gm                | Git Move                            |
-| n       | ;gr                | Git Read                            |
-| n       | ;gs                | Git Status                          |
-| n       | ;gw                | Git Write                           |
-| n       | ;gu                | Git Pull                            |
-| n       | ;gp                | Git Push                            |
-| n       | ;gi                | Git Indicator Toggle                |
-| n       | \<SPACE\>\<SPACE\> | Blink Cursor                        |
-| n       | \<SPACE\>1         | Goto 1 Window                       |
-| n       | \<SPACE\>2         | Goto 2 Window                       |
-| n       | \<SPACE\>3         | Goto 3 Window                       |
-| n       | \<SPACE\>4         | Goto 4 Window                       |
-| n       | \<SPACE\>5         | Goto 5 Window                       |
-| n       | \<SPACE\>6         | Goto 6 Window                       |
-| n       | \<SPACE\>7         | Goto 7 Window                       |
-| n       | \<SPACE\>8         | Goto 8 Window                       |
-| n       | \<SPACE\>9         | Goto 9 Window                       |
-| n       | ;1                 | Goto 1 Buffer                       |
-| n       | ;2                 | Goto 2 Buffer                       |
-| n       | ;3                 | Goto 3 Buffer                       |
-| n       | ;4                 | Goto 4 Buffer                       |
-| n       | ;5                 | Goto 5 Buffer                       |
-| n       | ;6                 | Goto 6 Buffer                       |
-| n       | ;7                 | Goto 7 Buffer                       |
-| n       | ;8                 | Goto 8 Buffer                       |
-| n       | ;9                 | Goto 9 Buffer                       |
-| n       | ;A                 | Goto A Buffer                       |
-| n       | ;B                 | Goto B Buffer                       |
-| n       | ;C                 | Goto C Buffer                       |
-| n       | ;D                 | Goto D Buffer                       |
-| n       | ;E                 | Goto E Buffer                       |
-| n       | ;F                 | Goto F Buffer                       |
-| n       | ;G                 | Goto G Buffer                       |
-| n       | ;H                 | Goto H Buffer                       |
-| n       | ;I                 | Goto I Buffer                       |
-| n       | ;J                 | Goto J Buffer                       |
-| n       | ;K                 | Goto K Buffer                       |
-| n       | ;L                 | Goto L Buffer                       |
-| n       | ;M                 | Goto M Buffer                       |
-| n       | ;N                 | Goto N Buffer                       |
-| n       | ;bn                | Goto Next Buffer                    |
-| n       | ;bp                | Goto Prev Buffer                    |
-| n       | ;bf                | Goto First Buffer                   |
-| n       | ;bl                | Goto Last Buffer                    |
-| n       | ;bd                | Delete Current Buffer               |
-| n       | ;bD                | Delete All Buffer Except Current    |
-| n       | ;bR                | Delete All Right Buffers            |
-| n       | ;bL                | Delete All Left Buffers             |
-| n       | ;bs                | Buffer Sorted By Whether Modified   |
-| n       | ;tc                | Tab Create                          |
-| n       | ;tx                | Tab Close                           |
-| n       | ;tn                | Tab Next                            |
-| n       | ;tp                | Tab Previous                        |
-| n       | ;f;s               | Open Startify Page                  |
-| n       | ;tl                | Tag List                            |
-| n       | ;sr                | Search By Reg Exp.                  |
-| n       | ;sf                | Search Current Word                 |
-| n       | ;ff                | Find files                          |
-| n       | ;fB                | File Browser                        |
-| n       | ;fR                | Find Recent Context                 |
-| n       | ;fr                | Find Recent/History                 |
-| n       | ;fq                | Find Query                          |
-| n       | ;fl                | Find Lines                          |
-| n       | ;fb                | Find Buffers                        |
-| n       | ;fc                | Find Command History                |
-| n       | ;fd                | Open Dotfiles                       |
-| n       | ;fw                | Find Wiki                           |
-| n       | ;fj                | Find Wiki                           |
-| n       | ;fh                | Find Recent/History                 |
-| n       | ;fp                | Find Project                        |
-| n       | ;sp                | Save Project                        |
-| n       | ;fm                | Find All Mappings                   |
-| n       | ;f;                | Find More                           |
-| n       | ;f;r               | Find Registers                      |
-| n       | ;f;h               | Find Highlights                     |
-| n       | ;f;t               | Find Themes                         |
-| n       | ;f;p               | Find Planets                        |
-| n       | ;f;g               | Find Git Commits                    |
-| n       | ;f;G               | Find Git Commits(buffer)            |
-| n       | ;f;j               | Find Jump List                      |
-| n       | ;f;m               | Find Marks                          |
-| n       | ;dq                | Debug Quit     F2                   |
-| n       | ;dC                | Clear Breaks   F4                   |
-| n       | ;dc                | Run Continue   F5                   |
-| n       | ;dB                | Step Back      F6                   |
-| n       | ;da                | Advanced Debug                      |
-| n       | ;daw               | Advanced Break F7                   |
-| n       | ;dac               | Cond Break     F8                   |
-| n       | ;db                | Toggle Break   F9                   |
-| n       | ;do                | Step Over      F10                  |
-| n       | ;di                | Step Into      F11                  |
-| n       | ;dO                | Step Out       F12                  |
-| n       | ;dr                | Repl Open                           |
-| n       | ;mt                | Quick Build                         |
-| n       | ;ce                | Code Edit(markdown)                 |
-| n       | ;mp                | Markdown Preview                    |
-| n       | \<SPACE\>f         | Display Formula                     |
-| n       | \<SPACE\>p         | Paste Image                         |
-| n       | ;tm                | Toggle Table Mode                   |
-| n       | ;tfe               | Table Fomule Eval                   |
-| n       | ;oa                | Org Agenda                          |
-| n       | ;oc                | Org Capture                         |
-| n       | ;ox                | Org Clock                           |
-| n       | ;oxe               | Org Effort Estimate                 |
-| n       | ;oxi               | Clock In                            |
-| n       | ;oxo               | Clock Out                           |
-| n       | ;oxq               | Clock Cancel                        |
-| n       | ;oxj               | Clock Goto                          |
-| n       | cir                | Org Priority Down                   |
-| n       | ciR                | Org Priority Up                     |
-| x       | ciR                | Org Priority Up                     |
-| n       | cit                | Org Todo Status                     |
-| n       | ciT                | Org Todo Status                     |
-| n       | cid                | Org Change Date                     |
-| n       | ;of                | Org Open File                       |
-| n       | ;ot                | Org Tag                             |
-| n       | ;oi                | Org Insert                          |
-| n       | ;oid               | Org Insert DEADLINE                 |
-| n       | ;oih               | Org Insert Headline                 |
-| n       | ;ois               | Org Insert SCHEDULED                |
-| n       | ;oit               | Org Insert TODO                     |
-| n       | ;oi.               | Org Insert Time Stamp               |
-| n       | ;oiT               | Org Inplace Insert TODO             |
-| n       | ;oi,               | Org Insert Inactive Time Stamp      |
-| n       | ;oK                | Org Move Up                         |
-| n       | ;oJ                | Org Move Down                       |
-| n       | ;o'                | Org Edit Source                     |
-| n       | ;o$                | Org Archive Subtree                 |
-| n       | ;oA                | Org Archive Tag                     |
-| n       | ;or                | Org Refile To                       |
-| n       | ;o*                | Org Toggle Headline                 |
-| n       | ;o,                | Org Priority                        |
-| n       | ;oe                | Org Export(Emacs)                   |
-| n       | ;oC                | Calendar                            |
-| n       | ;O                 | Vimwiki                             |
-| n       | ;o;                | Vimwiki Make Note                   |
-| n       | ;fo                | ObsidianSearch                      |
-| n       | ;on                | New Draft Obsidian                  |
-| n       | ;tt                | Toggle TODO List                    |
-| n       | ;tw                | Translate Current Word.             |
-| v       | ;tw                | Translate Current Vision Word.      |
-| n,v     | \<CR\>             | Auto Select Span                    |
-| n       | ;jr                | Jupyter Run                         |
-| n       | ;j.                | Jupyter Change Dir to Current       |
-| n       | ;jc                | Jupyter Connect                     |
-| n       | \<SPACE\>je        | Jupyter Run Visual                  |
-| v       | \<SPACE\>e         | Jupyter Run Visual                  |
-| n       | ;np                | Jupyter Convert                     |
-| t       | \<ESC\>            | Back to Normal Mode                 |
-| t       | kj                 | Back to Normal Mode                 |
-| v,x     | \<C-S\>            | Send Select Text to First Termianl  |
-| n       | \<C-S\>            | Send Current Line to First Termianl |
-| n       | ;ti                | Terminal IPython                    |
-| n       | ;re                | Remote Edit                         |
-| n       | ;rc                | Remote Configure                    |
-| n       | ;cn                | Color New                           |
-| n       | ;cp                | Color Picker                        |
-| n       | ;cs                | Color Select(CSS)                   |
-| n       | ;cg                | Color Gradient 2 Colors             |
-| n       | ;ft                | File Tree                           |
-| n       | ;f.                | Current File Tree                   |
-| n       | ;to                | Toggle Only Window(ZenMode)         |
-| n       | ;sk                | Session Keep                        |
-| n       | ;sL                | Session List                        |
-| n       | ;sd                | Session Delete                      |
-| n       | ;sl                | Load Session(Dir)                   |
-| n       | ;lc                | Lsp Config                          |
-| n       | gd                 | Goto Definition                     |
-| n       | gr                 | Goto References                     |
-| n       | gi                 | Goto Implementation                 |
-| n       | ;sn                | Prev Diagnostic                     |
-| n       | ]e                 | Next Diagnostic                     |
-| n       | [e                 | Prev Diagnostic                     |
+For best rendering and responsiveness, a GPU-accelerated terminal such as
+[Kitty](https://github.com/kovidgoyal/kitty) or
+[Alacritty](https://github.com/alacritty/alacritty) is recommended.
