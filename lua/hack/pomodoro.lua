@@ -231,6 +231,7 @@ M.setup = function(config)
     for name, val in pairs(config) do
         M[name] = val
     end
+    vim.fn.mkdir(M.dir_path, "p")
     M.max_mru = 1000
     M.mru_path = M.dir_path .. "/" .. "mru.txt"
     M.mru = util.split(util.sync_read_file(M.mru_path) or "", "\n")
@@ -248,21 +249,21 @@ M.create_mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "o", "p", "s" },
-        action = ":lua require'user.pomodoro'.start_pomodoro()<cr>",
+        action = ":lua require'hack.pomodoro'.start_pomodoro()<cr>",
         short_desc = "Start Pomodoro Clock",
     })
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "o", "p", "q" },
-        action = ":lua require'user.pomodoro'.stop_pomodoro()<cr>",
+        action = ":lua require'hack.pomodoro'.stop_pomodoro()<cr>",
         short_desc = "Quit Pomodoro Clock",
     })
 
     mappings.register({
         mode = "n",
         key = { "<leader>", "o", "p", "c" },
-        action = ":lua require'user.pomodoro'.cancel_pomodoro()<cr>",
+        action = ":lua require'hack.pomodoro'.cancel_pomodoro()<cr>",
         short_desc = "Cancel Pomodoro Clock",
     })
 end
