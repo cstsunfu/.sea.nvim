@@ -24,12 +24,12 @@
 │   │   ├── init.lua          --
 │   │   ├── mapping.lua       -- mapping register module
 │   │   ├── plugins.lua       -- all plugin name and group center
-│   │   └── themes.lua        -- my favorite themes
+│   │   ├── themes.lua        -- my favorite themes
+│   │   ├── local.lua         -- optional machine-specific settings (git-ignored)
+│   │   └── user.lua          -- tracked general user settings
 │   ├── hack                  -- something you want to hack
 │   │   ├── init.lua
 │   │   └── pomodoro.lua
-│   ├── local.lua             --
-│   ├── user.lua              -- user related configure like email, name, etc.
 │   └── util                  -- some useful tools and functions
 └── tasks.ini                 -- asynctasks
 
@@ -37,7 +37,7 @@
 
 ## Install
 
-1. Install `Neovim` >=0.9, `git` >= 2.32
+1. Install `Neovim` >=0.11.3, `git` >= 2.32. The builtin LSP configuration uses Neovim 0.11 APIs; current nvim-lspconfig requires 0.11.3 or newer.
 
 2. Install `pynvim` and `debugpy`(optional)
 ```sh
@@ -92,8 +92,9 @@ Install method depend on your os.
 ```
 7. Install xclip (X11), wl-clipboard (Wayland), pngpaste (MacOS), for Clipboard Image
 
-8. Make some link
+8. Keep the checkout at `~/.sea.nvim` (the runtime path used by `init.lua`), then create the configuration links:
 ```bash
+cd ~/.sea.nvim
 ./install.sh
 ```
 
@@ -134,10 +135,10 @@ return M
 
 NOTE: The default leader is setting in `lua/core/default.lua`. The setting is
 ```vim
-let maplocalleader=','
+let maplocalleader=' '
 let mapleader=';'
-nnoremap \\ ;
-vnoremap \\ ;
+nnoremap ' ;
+vnoremap ' ;
 ```
 
 
@@ -145,7 +146,7 @@ vnoremap \\ ;
 
 For my experience,  `coc.nvim` is more easy to configure to get all things work. But now more and more neovim users change to use `builtin`?
 
-11. Open neovim and run `:PackerSync<cr>` command to install Plugins by Packer plugin manager.
+11. Open Neovim. `init.lua` bootstraps lazy.nvim, and enabled plugins are installed on startup. Use `:Lazy sync` to install missing plugins and update the configured plugins.
 
 
 ## Optional
