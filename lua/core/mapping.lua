@@ -261,7 +261,7 @@ global_mapping.register({
 global_mapping.register({
     mode = "n",
     key = { "<leader>", "q", "w" },
-    action = ":qa<cr>",
+    action = ":wqa<cr>",
     short_desc = "Directly Quit After Write",
 })
 
