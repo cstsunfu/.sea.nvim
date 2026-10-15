@@ -23,7 +23,6 @@ plugin.core = {
 
         local mason_lspconfig = require("mason-lspconfig")
         -- local lspconfig = require("lspconfig") -- DEPRECATED in 0.11+
-        local configs = require("lspconfig.configs")
         local util = require("lspconfig.util")
 
         require("mason").setup({
@@ -38,25 +37,17 @@ plugin.core = {
         })
 
         -- Define custom intc_lsp using Neovim 0.11+ async root_dir pattern.
-        if not configs.intc_lsp then
-            configs.intc_lsp = {
-                default_config = {
-                    cmd = { "intc-lsp" },
-                    filetypes = { "json", "jsonc", "hjson" },
-                    root_dir = function(bufnr, on_dir)
-                        local fname = vim.api.nvim_buf_get_name(bufnr)
-                        local root = util.root_pattern(".intc.json", ".intc.jsonc")(fname)
-                        if root then
-                            on_dir(root)
-                        end
-                    end,
-                    single_file_support = false,
-                },
-                docs = {
-                    description = [[ intc language server ]],
-                },
-            }
-        end
+        vim.lsp.config("intc_lsp", {
+            cmd = { "intc-lsp" },
+            filetypes = { "json", "jsonc", "hjson" },
+            root_dir = function(bufnr, on_dir)
+                local fname = vim.api.nvim_buf_get_name(bufnr)
+                local root = util.root_pattern(".intc.json", ".intc.jsonc")(fname)
+                if root then
+                    on_dir(root)
+                end
+            end,
+        })
 
         local mason_servers = {
             bashls = {
@@ -133,21 +124,25 @@ plugin.core = {
             --},
         }
 
-        mason_lspconfig.setup({
-            ensure_installed = vim.tbl_keys(mason_servers),
-            automatic_enable = true,
-        })
-
         local common_config = {
             capabilities = capabilities,
             on_attach = function(_, _) end,
         }
 
-        -- Register all servers using native vim.lsp.config.
+        -- Native LSP enablement replaces the legacy autostart option.
+        local automatic_servers = {}
         for server_name, server_config in pairs(mason_servers) do
+            if server_config.autostart then
+                table.insert(automatic_servers, server_name)
+            end
             server_config = vim.tbl_deep_extend("force", common_config, server_config)
             vim.lsp.config(server_name, server_config)
         end
+
+        mason_lspconfig.setup({
+            ensure_installed = vim.tbl_keys(mason_servers),
+            automatic_enable = automatic_servers,
+        })
 
         vim.lsp.config("intc_lsp", common_config)
         -- Manual start only based on strategy.
@@ -183,16 +178,18 @@ plugin.mapping = function()
     local function stop_all_lsp_clients(silent)
         local clients = vim.lsp.get_clients()
         for _, client in ipairs(clients) do
-            vim.lsp.stop_client(client.id)
+            if vim.lsp.is_enabled(client.name) then
+                vim.lsp.enable(client.name, false)
+            else
+                client:stop()
+            end
         end
 
-        -- Gracefully disable Copilot using its command API.
-        pcall(function()
-            local cmd_ok, copilot_cmd = pcall(require, "copilot.command")
-            if cmd_ok and copilot_cmd.disable then
-                copilot_cmd.disable()
-            end
-        end)
+        -- Copilot is optional and has its own enablement API.
+        local cmd_ok, copilot_cmd = pcall(require, "copilot.command")
+        if cmd_ok then
+            copilot_cmd.disable()
+        end
 
         if not silent then
             vim.notify("Stopped all active LSP clients (including Copilot).", vim.log.levels.INFO)
@@ -242,9 +239,16 @@ plugin.mapping = function()
         return false
     end
 
+    local lsp_suspended_by_idle = false
+    local suspended_servers = {}
+    local suspended_copilot = false
+
     -- Commands for manual LSP lifecycle control.
     vim.api.nvim_create_user_command("LspStopAll", function()
         stop_all_lsp_clients()
+        suspended_servers = {}
+        suspended_copilot = false
+        lsp_suspended_by_idle = false
     end, { desc = "Stop all active LSP clients" })
 
     vim.api.nvim_create_user_command("LspStopInactive", function()
@@ -264,38 +268,31 @@ plugin.mapping = function()
     -- Automatic LSP management based on idle time and focus.
     local idle_ms = 30 * 60 * 1000
     local idle_timer = vim.uv.new_timer()
-    local lsp_suspended_by_idle = false
 
-    local function start_lsp_for_loaded_buffers(silent)
-        local started_any = false
-        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            if vim.api.nvim_buf_is_loaded(buf) then
-                if start_lsp_for_buffer(buf) then
-                    started_any = true
-                end
+    local function suspend_lsp()
+        for _, client in ipairs(vim.lsp.get_clients()) do
+            if vim.lsp.is_enabled(client.name) then
+                suspended_servers[client.name] = true
+            elseif client.name == "copilot" then
+                suspended_copilot = true
             end
         end
-
-        if start_copilot_globally() then
-            started_any = true
-        end
-
-        if not silent then
-            if started_any then
-                vim.notify("Requested LSP start for loaded buffers (including Copilot).", vim.log.levels.INFO)
-            else
-                vim.notify("No configured LSP server for loaded buffers.", vim.log.levels.WARN)
-            end
-        end
-
-        return started_any
+        stop_all_lsp_clients(true)
+        lsp_suspended_by_idle = true
     end
 
     local function maybe_resume_lsp_after_idle()
         if not lsp_suspended_by_idle then
             return
         end
-        start_lsp_for_loaded_buffers(true)
+        if next(suspended_servers) then
+            vim.lsp.enable(vim.tbl_keys(suspended_servers), true)
+        end
+        if suspended_copilot then
+            start_copilot_globally()
+        end
+        suspended_servers = {}
+        suspended_copilot = false
         lsp_suspended_by_idle = false
         vim.notify("Resumed LSP clients after idle suspension.", vim.log.levels.INFO)
     end
@@ -309,8 +306,7 @@ plugin.mapping = function()
             idle_ms,
             0,
             vim.schedule_wrap(function()
-                stop_all_lsp_clients(true)
-                lsp_suspended_by_idle = true
+                suspend_lsp()
                 vim.notify("Stopped all LSP clients due to long idle.", vim.log.levels.INFO)
             end)
         )
@@ -325,8 +321,7 @@ plugin.mapping = function()
 
     vim.api.nvim_create_autocmd("FocusLost", {
         callback = function()
-            stop_all_lsp_clients(true)
-            lsp_suspended_by_idle = true
+            suspend_lsp()
             vim.notify("Stopped all LSP clients on focus lost.", vim.log.levels.INFO)
         end,
     })

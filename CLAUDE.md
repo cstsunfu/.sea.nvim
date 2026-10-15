@@ -75,11 +75,11 @@ Leader: `;` / LocalLeader: `space`. The `'` key is remapped to `;` in normal/vis
 ### LSP setup (`configure/lsp_config/init.lua`)
 
 - Servers are registered via `vim.lsp.config()` (Neovim 0.11+ native API)
-- Mason installs binaries; `mason-lspconfig` with `automatic_enable = true` handles registration
-- `autostart` per-server controls whether LSP auto-attaches on filetype match
+- Mason installs binaries; native configs are registered before `mason-lspconfig` enables installed servers
+- Per-server `autostart` flags build the `automatic_enable` allowlist; the native LSP API does not interpret the legacy option itself
 - `LspStartCurrent` uses `vim.lsp.enable()` to start servers on demand
 - A `filetype_servers` table in the mapping section maps filetypes to server names
-- Auto-stop on 30 min idle and on `FocusLost`; auto-resume on `FocusGained`/`BufEnter`
+- Auto-stop on 30 min idle and on `FocusLost`; `FocusGained`/`BufEnter` resumes only previously running servers
 
 ### Theme system (`core/themes.lua`)
 
