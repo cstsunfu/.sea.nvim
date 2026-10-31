@@ -371,6 +371,15 @@ plugin.core = {
 
         require("avante_lib").load()
 
+        -- The providers below are plain OpenAI-compatible endpoints. Point them
+        -- at whatever you use through the environment; the key itself is read
+        -- from the variable named by AVANTE_API_KEY_NAME:
+        --   AVANTE_ENDPOINT=https://api.deepseek.com/v1
+        --   AVANTE_MODEL=deepseek-chat
+        --   AVANTE_API_KEY_NAME=DEEPSEEK_API_KEY   (that variable holds the key)
+        local AI_ENDPOINT = os.getenv("AVANTE_ENDPOINT") or "https://api.deepseek.com/v1"
+        local AI_KEY_NAME = os.getenv("AVANTE_API_KEY_NAME") or "DEEPSEEK_API_KEY"
+
         -- avante derives message uuids from Lua's math.random, which is never
         -- seeded: every Neovim start replays the same sequence. Reopening an
         -- old chat therefore hands the new messages the same uuids as the old
@@ -781,12 +790,12 @@ You act by calling tools, one step at a time. The user reads your answer in a na
                 },
                 gemini_flash = {
                     __inherited_from = "openai",
-                    endpoint = os.getenv("AVANTE_ENDPOINT") or "http://llmapi.bilibili.co/v1",
+                    endpoint = AI_ENDPOINT,
                     model = os.getenv("AVANTE_MODEL") or "gemini-3.0-flash",
                     max_tokens = 102400,
                     timeout = 30000,
                     use_ReAct_prompt = false,
-                    api_key_name = os.getenv("AVANTE_API_KEY_NAME") or "BSK_KEY",
+                    api_key_name = AI_KEY_NAME,
                     disable_tools = false,
                     extra_request_body = {
                         max_tokens = 10240,
@@ -796,7 +805,7 @@ You act by calling tools, one step at a time. The user reads your answer in a na
                 },
                 ds41f = {
                     __inherited_from = "openai",
-                    endpoint = os.getenv("AVANTE_ENDPOINT") or "http://llmapi.bilibili.co/v1",
+                    endpoint = AI_ENDPOINT,
                     model = os.getenv("AVANTE_MODEL") or "deepseek-v4.1-flash",
                     max_tokens = 102400,
                     timeout = 30000,
@@ -807,7 +816,7 @@ You act by calling tools, one step at a time. The user reads your answer in a na
                     -- jump around.
                     context_window = 1048576,
                     use_ReAct_prompt = false,
-                    api_key_name = os.getenv("AVANTE_API_KEY_NAME") or "BSK_KEY",
+                    api_key_name = AI_KEY_NAME,
                     disable_tools = false,
                     -- plenary curl never passes --no-buffer, so curl buffers the SSE
                     -- body into 16 KB pipe chunks: the answer arrives in a few bursts

@@ -10,19 +10,25 @@ plugin.core = {
     event = "CmdlineEnter",
 
     config = function() -- Specifies code to run after this plugin is loaded
+        -- Same environment knobs as the avante providers (see configure/avante.lua):
+        -- AVANTE_ENDPOINT / AVANTE_MODEL / AVANTE_API_KEY_NAME.
+        local endpoint = os.getenv("AVANTE_ENDPOINT") or "https://api.deepseek.com/v1"
+        local base_url = endpoint:gsub("/v1/?$", "")
+        local key_name = os.getenv("AVANTE_API_KEY_NAME") or "DEEPSEEK_API_KEY"
+
         require("codecompanion").setup({
             adapters = {
                 http = {
-                    openai_bsk = function()
+                    openai_env = function()
                         return require("codecompanion.adapters").extend("openai_compatible", {
                             env = {
-                                api_key = "BSK_KEY",
+                                api_key = key_name,
                                 chat_url = "/v1/chat/completions",
-                                url = "http://llmapi.bilibili.co",
+                                url = base_url,
                             },
                             schema = {
                                 model = {
-                                    default = "gemini-3.0-flash",
+                                    default = os.getenv("AVANTE_MODEL") or "deepseek-chat",
                                 },
                             },
                         })
@@ -35,10 +41,10 @@ plugin.core = {
             },
             interactions = {
                 chat = {
-                    adapter = "openai_bsk",
+                    adapter = "openai_env",
                 },
                 inline = {
-                    adapter = "openai_bsk",
+                    adapter = "openai_env",
                 },
             },
         })

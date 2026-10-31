@@ -114,11 +114,35 @@ export NO_LOLCAT=1
 
 ### Telescope frecency database
 
-Telescope frecency uses SQLite. On Ubuntu/Debian:
+No extra dependency is needed: the frecency database uses the pure-Lua `v2`
+backend stored under `:echo stdpath('state')` (`file_frecency_v2.bin`).
+
+### AI assistant (avante / CodeCompanion)
+
+Both use the same OpenAI-compatible provider, configured through the
+environment. Nothing is hard-coded in the repository:
 
 ```bash
-sudo apt install sqlite3 libsqlite3-dev
+export AVANTE_ENDPOINT="https://api.deepseek.com/v1"  # any OpenAI-compatible endpoint
+export AVANTE_MODEL="deepseek-chat"                   # model name used by default
+export AVANTE_API_KEY_NAME="DEEPSEEK_API_KEY"         # name of the variable holding the key
+export DEEPSEEK_API_KEY="sk-..."
 ```
+
+The key itself is never read from a config file: avante (and CodeCompanion)
+read the environment variable *named* by `AVANTE_API_KEY_NAME`. Put the
+exports in your shell profile, or machine-specific `lua/core/local.lua`, e.g.
+
+```lua
+-- lua/core/local.lua (ignored by Git)
+vim.env.AVANTE_ENDPOINT = "https://api.example.com/v1"
+vim.env.AVANTE_API_KEY_NAME = "MY_LLM_KEY"
+```
+
+Avante settings live in `lua/configure/avante.lua`: provider `ds41f` uses a 1M
+token context window, `;aa` toggles the sidebar, `/effort low|high|max|off`
+sets the reasoning effort, and the assistant prompt is replaced by a compact
+editor-agent prompt there as well.
 
 ## Configuration layout
 
@@ -268,10 +292,6 @@ Preview control commands include:
 
 Screenshots may use older plugin versions or a different colorscheme.
 
-### Completion, file tree, and code navigation
-
-![Built-in LSP](./pic/builtin.png)
-
 ### Cursor-like AI assistant (avante)
 
 ![Avante](./pic/avante.png)
@@ -280,6 +300,13 @@ Screenshots may use older plugin versions or a different colorscheme.
 `lua/configure/avante.lua` being edited while avante explains how that
 configuration is wired up: answers are rendered with `markview.nvim`, tables
 are fitted to the sidebar, and the agent finishes with `attempt_completion`.
+
+### Completion, file tree, and code navigation
+
+![Completion, file tree, and code navigation](./pic/completion.png)
+
+Python completion through pyright with the documentation window, the outline
+of the current file on the left and the project tree on the right.
 
 ### Fuzzy search
 
