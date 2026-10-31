@@ -99,7 +99,7 @@ Heavily customised, all via monkeypatches inside the plugin config:
 
 - **Prompt**: `Path.prompts.render_mode("agentic")` is replaced by a compact editor-agent prompt (plus avante's rendered environment block). Project/global `*.avanterules` still win when present.
 - **Tools**: `disabled_tools` removes the bash duplicates (git/mv/mkdir/python/undo/think/…); `add_file_to_context` and `remove_file_from_context` cannot be disabled (avante appends them after the filter).
-- **Model**: provider `ds41f` (OpenAI-compatible) with `context_window = 1048576`, streaming via `--no-buffer`, `/effort` slash command for the reasoning knob.
+- **Model**: provider `ds41f` (OpenAI-compatible) with `context_window = 1048576`, streaming via `--no-buffer`, `/effort` slash command for the reasoning knob. The endpoint, model and key-variable name come from `AVANTE_ENDPOINT` / `AVANTE_MODEL` / `AVANTE_API_KEY_NAME`; the repository holds no company-specific defaults.
 - **History**: message uuids are regenerated with a seeded RNG (upstream `Utils.uuid` reuses Lua's unseeded `math.random`, which overwrote messages in resumed chats); an empty in-memory history is reloaded from disk on `BufEnter`; `get_latest_filename` picks the newest numbered chat file.
 - **Rendering**: only the changed tail of the answer buffer is written (`Utils.update_buffer_lines` prefix diff), the forced `:redraw` is skipped, viewport updates are throttled to 120 ms, and the status indicator is drawn in the result window's winbar instead of a `virt_lines` extmark.
 
