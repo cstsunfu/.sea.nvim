@@ -94,10 +94,12 @@ plugin.core = {
                 -- custom query from configure/tree_sitter.lua for the rest of
                 -- the session. Put ours back after every rewrite.
                 local original_set_query = actions.set_query
-                actions.set_query = function(buffer)
-                    local result = original_set_query(buffer)
-                    pcall(vim.treesitter.query.set, "markdown", "highlights", require("util.markdown_query"))
-                    return result
+                if original_set_query then
+                    actions.set_query = function(buffer)
+                        local result = original_set_query(buffer)
+                        pcall(vim.treesitter.query.set, "markdown", "highlights", require("util.markdown_query"))
+                        return result
+                    end
                 end
 
                 -- markview is meant for the sidebar only, but it ends up
@@ -227,6 +229,12 @@ plugin.core = {
                             end,
                             on_detach = function()
                                 watched[buf] = nil
+                                local entry = render_timers[buf]
+                                if entry then
+                                    entry.timer:stop()
+                                    if not entry.timer:is_closing() then entry.timer:close() end
+                                    render_timers[buf] = nil
+                                end
                             end,
                         })
                     end
