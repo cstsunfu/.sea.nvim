@@ -50,8 +50,10 @@ plugin.core = {
                 ["_"] = { "trim_whitespace" },
             },
             format_on_save = function(bufnr)
-                -- Disable autoformat on certain filetypes
-                local ignore_filetypes = { "sql", "python.markdown" }
+                -- Disable autoformat on certain filetypes. markdown is left out
+                -- on purpose: prettier rewraps prose, which churns the file on
+                -- every save; format it by hand with <leader>= when wanted.
+                local ignore_filetypes = { "sql", "markdown" }
                 if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
                     return
                 end
