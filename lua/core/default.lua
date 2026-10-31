@@ -194,7 +194,6 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWritePre" }, {
     end,
 })
 
-vim.api.nvim_create_augroup("buf_large", { clear = true })
 vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
     callback = function()
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()))
@@ -203,7 +202,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
             if stats.size > 2000000 then
                 global_func.enable_large_buf()
             else
-                vim.g.large_buf = false
+                vim.b.large_buf = false
                 -- if file size > 10K, check if line length > 1K, if true, enable large buf
                 if stats.size > 10000 then
                     local file = io.open(vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()), "r")
@@ -222,7 +221,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
             vim.b.large_buf = false
         end
     end,
-    group = aug,
+    group = vim.api.nvim_create_augroup("buf_large", { clear = true }),
     pattern = "*",
 })
 
