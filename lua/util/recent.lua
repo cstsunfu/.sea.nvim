@@ -37,6 +37,36 @@ M.files = function(opts)
     return result
 end
 
+--- Picker over the most recently used files (no content search).
+---@param opts? { limit?: integer, root?: string }
+M.pick = function(opts)
+    opts = opts or {}
+    local files = M.files(opts)
+    if #files == 0 then
+        vim.notify("No recent files here yet", vim.log.levels.INFO, { title = "Recent" })
+        return
+    end
+
+    local pickers = require("telescope.pickers")
+    local finders = require("telescope.finders")
+    local make_entry = require("telescope.make_entry")
+    local conf = require("telescope.config").values
+    local highlighter_only = require("telescope.sorters").highlighter_only
+
+    pickers
+        .new({}, {
+            prompt_title = ("Recent files (%d)"):format(#files),
+            finder = finders.new_table({
+                results = files,
+                entry_maker = make_entry.gen_from_file({}),
+            }),
+            previewer = conf.file_previewer({}),
+            -- Keep the frecency order instead of re-sorting by fuzzy score.
+            sorter = highlighter_only({}),
+        })
+        :find()
+end
+
 --- Live grep restricted to the most recently used files.
 --- Falls back to a project-wide grep when there is nothing to search yet,
 --- instead of letting ripgrep walk the whole directory tree by itself.

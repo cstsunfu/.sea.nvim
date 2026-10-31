@@ -16,6 +16,25 @@ M.root_patterns = {
     "__main__.py",
 }
 
+-- Markers used to locate the project root of the current buffer.
+M.root_markers = {
+    ".git",
+    ".hg",
+    "pyproject.toml",
+    "setup.py",
+    "package.json",
+    "go.mod",
+    "Cargo.toml",
+    "Makefile",
+}
+
+--- Root directory of the project the buffer belongs to (cwd as fallback).
+---@param bufnr? integer
+---@return string
+M.root = function(bufnr)
+    return vim.fs.root(bufnr or 0, M.root_markers) or vim.fn.getcwd()
+end
+
 --- Name of the project that contains `dir` (default: the cwd).
 ---
 --- Walks up from the directory until a root marker is found, stopping at

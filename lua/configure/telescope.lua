@@ -138,6 +138,11 @@ plugin.core = {
                     -- mode behind, so telescope's initial "A" key gets typed into the
                     -- prompt on the first <leader>fr of a session. Skip the check.
                     auto_validate = false,
+                    -- "v2" is the newer algorithm (exponential decay, 3 day
+                    -- half-life) and the one upstream keeps; v1 is deprecated
+                    -- since 1.2 and removed in 2.0. Starting from v1 data it
+                    -- migrates automatically on first use.
+                    db_version = "v2",
                     -- The plugin's defaults plus the project-local git dirs; the
                     -- list replaces the defaults rather than extending them.
                     ignore_patterns = { "*.git/*", "*/tmp/*", "term://*" },
@@ -262,6 +267,24 @@ plugin.mapping = function()
         short_desc = "Grep Recent Files",
         silent = true,
         noremap = true,
+    })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "f", "R" },
+        -- Same as ;fr, but only files under the current project root.
+        action = "<Cmd>lua require('util.recent').pick({ root = require('util.project').root() })<CR>",
+        short_desc = "Recent Files (Project)",
+        silent = true,
+    })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "f", "H" },
+        -- Same as ;fh, but only files under the current project root.
+        action = "<Cmd>lua require('util.recent').grep({ root = require('util.project').root() })<CR>",
+        short_desc = "Grep Recent (Project)",
+        silent = true,
     })
     mappings.register({
         mode = "n",
