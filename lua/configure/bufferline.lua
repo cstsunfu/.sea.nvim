@@ -13,7 +13,7 @@ plugin.core = {
         --vim.cmd("hi link TAGBAR Pmenu")
         local hl_fun = require("util.highlight")
         local normal = hl_fun.get_highlight_values("Normal")
-        local darkbg = hl_fun.brighten(normal.background, -15) -- darken by 5%
+        local darkbg = hl_fun.brighten(normal.background, -15) -- darken by 15%
         --hl_fun.highlight("BufferLine", {bg = darkbg, fg=normal.foreground})
         hl_fun.highlight("Tagbar", { bg = darkbg, fg = "#009090" })
         vim.cmd("highlight IndentBlanklineChar guifg=#808080 gui=nocombine")
@@ -294,10 +294,10 @@ plugin.mapping = function()
     }
 
     _G._bufferline_goto_buffer = function(buffer_num)
-        if vim.api.nvim_buf_get_option(0, "buftype") == "nofile" then
+        if vim.bo[0].buftype == "nofile" then
             for _, w in pairs(vim.api.nvim_tabpage_list_wins(0)) do
                 local b = vim.api.nvim_win_get_buf(w)
-                local bt = vim.api.nvim_buf_get_option(b, "buftype")
+                local bt = vim.bo[b].buftype
                 if bt ~= "nofile" then
                     vim.api.nvim_set_current_win(w)
                     vim.bo.bufhidden = ""

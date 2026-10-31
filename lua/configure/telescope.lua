@@ -49,22 +49,6 @@ plugin.core = {
         -- disalbe large file preview, https://github.com/nvim-telescope/telescope.nvim/issues/623#:~:text=Ignore%20files%20bigger%20than%20a%20threshold.%20Make%20sure%20you%20are%20on%20current%20master%2C%20i%20pushed%20a%20fix%20to%20make%20this%20work%3A
         local previewers = require("telescope.previewers")
 
-        local disable_large_file_previewer_maker = function(filepath, bufnr, opts)
-            opts = opts or {}
-
-            filepath = vim.fn.expand(filepath)
-            vim.loop.fs_stat(filepath, function(_, stat)
-                if not stat then
-                    return
-                end
-                if stat.size > 10000 then
-                    return
-                else
-                    previewers.buffer_previewer_maker(filepath, bufnr, opts)
-                end
-            end)
-        end
-
         local previewers_utils = require("telescope.previewers.utils")
         local trunc_large_file_previewer_maker = function(filepath, bufnr, opts)
             opts = opts or {}
@@ -130,7 +114,6 @@ plugin.core = {
                 -- Developer configurations: Not meant for general override
                 -- buffer_previewer_maker = require 'telescope.previewers'.buffer_previewer_maker,
                 -- disable preview for large file
-                -- buffer_previewer_maker = disable_large_file_previewer_maker,
                 -- trunc preview for large file
                 buffer_previewer_maker = trunc_large_file_previewer_maker,
                 mappings = {

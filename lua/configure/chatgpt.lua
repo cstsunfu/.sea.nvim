@@ -285,8 +285,8 @@ plugin.mapping = function()
                 and win_config["row"][true] == 3
             then
                 local buf_id = vim.api.nvim_win_get_buf(win_id)
-                local buftype = vim.api.nvim_buf_get_option(buf_id, "buftype")
-                local filetype = vim.api.nvim_buf_get_option(buf_id, "filetype")
+                local buftype = vim.bo[buf_id].buftype
+                local filetype = vim.bo[buf_id].filetype
                 if filetype == "chatgpt-input" then
                     ai_win_id["input"] = win_id
                 elseif filetype == "markdown" and buftype == "nofile" then
