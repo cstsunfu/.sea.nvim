@@ -11,9 +11,7 @@ plugin.core = {
 
 plugin.mapping = function() end
 
-plugin.light = {}
 
-plugin.dark = {}
 plugin.setup = function(style)
     local colors = require("material.colors")
     colors = require("material.colors.conditionals")
