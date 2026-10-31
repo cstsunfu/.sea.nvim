@@ -222,7 +222,7 @@ plugin.core = {
                 end,
             },
             enabled = function()
-                return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+                return vim.bo[0].buftype ~= "prompt" or require("cmp_dap").is_dap_buffer()
             end,
             preselect = true,
         })
@@ -255,7 +255,6 @@ plugin.core = {
         })
         cmp.setup.filetype("gitcommit", {
             sources = cmp.config.sources({
-                { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
                 { name = "buffer" },
             }),
         })
