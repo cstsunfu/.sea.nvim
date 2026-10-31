@@ -138,7 +138,9 @@ plugin.core = {
                     -- mode behind, so telescope's initial "A" key gets typed into the
                     -- prompt on the first <leader>fr of a session. Skip the check.
                     auto_validate = false,
-                    ignore_patterns = { "*.git/*" },
+                    -- The plugin's defaults plus the project-local git dirs; the
+                    -- list replaces the defaults rather than extending them.
+                    ignore_patterns = { "*.git/*", "*/tmp/*", "term://*" },
                     workspaces = {},
                 },
                 project = {
@@ -189,6 +191,16 @@ plugin.mapping = function()
         key = { "<leader>", "f", "r" },
         action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
         short_desc = "Find Recent/History",
+        silent = true,
+    })
+
+    mappings.register({
+        mode = "n",
+        key = { "<leader>", "f", "R" },
+        -- Grep inside the most recently used files only (shared frecency db),
+        -- instead of the whole project.
+        action = "<Cmd>lua require('util.recent').grep()<CR>",
+        short_desc = "Grep Recent Files",
         silent = true,
     })
 
