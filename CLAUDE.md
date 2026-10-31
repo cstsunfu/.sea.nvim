@@ -9,15 +9,18 @@ Personal Neovim configuration built on lazy.nvim. Core goals: fast startup with 
 ## Useful Commands
 
 ### Neovim runtime checks
-- `:checkhealth` — Neovim health diagnostics
+- `:checkhealth` — Neovim health diagnostics (`:LspInfo` is only an alias for `:checkhealth vim.lsp` now)
 - `:Lazy sync` / `:Lazy profile` — Plugin management and startup profiling
 - `:Mason` — LSP/formatter binary management
-- `:LspInfo` — Active LSP client status
 
 ### LSP lifecycle commands
-- `:LspStartCurrent` — Start configured LSP clients + Copilot for current buffer
+- `:LspStartCurrent` — Start the LSP clients configured for the current filetype
 - `:LspStopAll` — Stop all active LSP clients (including Copilot)
 - `:LspStopInactive` — Stop LSP clients not attached to any loaded buffer
+
+### Formatting
+- `:FormatDisable[!]` / `:FormatEnable` — toggle autoformat-on-save (`!` = buffer-local)
+- `<leader>=` — format the buffer/selection on demand (conform.nvim)
 
 ## Architecture
 
@@ -32,8 +35,8 @@ init.lua                          -- Sets HOME_PATH, CONFIG globals; bootstraps 
   -> core/plugins.create_mapping()-- Calls .mapping() on every loaded plugin config
   -> hack/init.lua.create_mapping()
   -> core/mapping.lua.setup()     -- Registers prefix groups with which-key
-  -> colorscheme setup            -- Loads theme based on vim.g.colorscheme / vim.g.style
-  -> core/gui.lua                 -- Neovide-specific settings (if applicable)
+  -> configure.<colorscheme>.setup(vim.g.style)  -- Loads the theme picked by core/themes.lua
+  -> core/gui.lua                 -- Neovide-specific settings (only when running in Neovide)
   -> core/after.lua               -- Post-load highlight adjustments (delayed via timer)
   -> core/user.lua.after()        -- User after-hook
 ```
@@ -54,7 +57,7 @@ end
 return plugin
 ```
 
-`core/plugins.lua` iterates `vim.g.feature_groups` (defined in `core/init.lua`), requires each config module, merges group-level overrides (like `enabled`, `lazy`), and passes the collected list to `lazy.setup()`. The `loaded_plugins` table tracks which plugins are active at runtime.
+`core/plugins.lua` iterates `vim.g.feature_groups` (defined in `core/init.lua`), requires each config module, merges group-level overrides (like `enabled`, `lazy`), and passes the collected list to `lazy.setup()`. The `loaded_plugins` table tracks which plugins are active at runtime. **A group entry overrides the `enabled` flag inside the plugin file**, and `create_mapping()` calls `.mapping()` on every plugin whose group entry is `enabled = true`, so every config file must define `plugin.mapping` (even as an empty function).
 
 ### Feature group system (`core/init.lua`)
 
@@ -74,23 +77,53 @@ Leader: `;` / LocalLeader: `space`. The `'` key is remapped to `;` in normal/vis
 
 ### LSP setup (`configure/lsp_config/init.lua`)
 
-- Servers are registered via `vim.lsp.config()` (Neovim 0.11+ native API)
-- Mason installs binaries; `mason-lspconfig` with `automatic_enable = true` handles registration
-- `autostart` per-server controls whether LSP auto-attaches on filetype match
-- `LspStartCurrent` uses `vim.lsp.enable()` to start servers on demand
-- A `filetype_servers` table in the mapping section maps filetypes to server names
-- Auto-stop on 30 min idle and on `FocusLost`; auto-resume on `FocusGained`/`BufEnter`
+- Servers are registered via `vim.lsp.config()` (Neovim 0.11+ native API); capabilities are `cmp_nvim_lsp.default_capabilities()` computed in `configure/lsp_config/init.lua`, and hover/signature/diagnostic handlers live in `configure/lsp_config/default_setting.lua`
+- Mason installs the binaries; `mason-lspconfig` runs with `automatic_enable = true`
+- **The per-server `autostart` field is documentation only**: it is stored in the config table, but Neovim 0.11 does not read it, and `automatic_enable = true` enables every installed server for its filetypes. Treat `;ls` / `:LspStartCurrent` as "start if not already running", not as the only way servers start
+- `filetype_servers` in the mapping section maps filetypes to server names for manual start
+- Clients stop after 30 min idle and on `FocusLost`; they resume on `FocusGained`/`BufEnter`
+- Neovim's own deprecation warnings are muted by `vim.deprecate = function() end` in `init.lua`
 
-### Theme system (`core/themes.lua`)
+### Markdown rendering
 
-Theme selected by `GLOBAL_THEME` env var (`"light"` -> material_light, else material_palenight). Highlight overrides in `core/after.lua` run on a delayed timer to ensure colorscheme is fully loaded.
+| Buffer | Renderer | Notes |
+|--------|----------|-------|
+| markdown files | `render-markdown.nvim` (`configure/render_markdown.lua`) | headings/bullets are left literal; code blocks/tables still render; skips `vim.b.large_buf` and `nofile` buffers; `render_modes` includes insert/visual |
+| Avante sidebar (`ft=Avante`) | `markview.nvim` + `markview-smart-tables.nvim` (`configure/avante.lua`) | tables wider than the sidebar are squeezed; render is skipped while the answer streams and re-run once idle |
+
+`headlines.nvim` is disabled (feature-frozen upstream). The custom markdown treesitter query lives in `lua/util/markdown_query.lua` and is installed by `configure/tree_sitter.lua`; markview rewrites the global markdown query when it attaches, so `configure/avante.lua` puts it back afterwards. Never inline that query again in two places.
+
+### Avante (`configure/avante.lua`)
+
+Heavily customised, all via monkeypatches inside the plugin config:
+
+- **Prompt**: `Path.prompts.render_mode("agentic")` is replaced by a compact editor-agent prompt (plus avante's rendered environment block). Project/global `*.avanterules` still win when present.
+- **Tools**: `disabled_tools` removes the bash duplicates (git/mv/mkdir/python/undo/think/…); `add_file_to_context` and `remove_file_from_context` cannot be disabled (avante appends them after the filter).
+- **Model**: provider `ds41f` (OpenAI-compatible) with `context_window = 1048576`, streaming via `--no-buffer`, `/effort` slash command for the reasoning knob.
+- **History**: message uuids are regenerated with a seeded RNG (upstream `Utils.uuid` reuses Lua's unseeded `math.random`, which overwrote messages in resumed chats); an empty in-memory history is reloaded from disk on `BufEnter`; `get_latest_filename` picks the newest numbered chat file.
+- **Rendering**: only the changed tail of the answer buffer is written (`Utils.update_buffer_lines` prefix diff), the forced `:redraw` is skipped, viewport updates are throttled to 120 ms, and the status indicator is drawn in the result window's winbar instead of a `virt_lines` extmark.
+
+### Recent files (`util/recent.lua`, `util/project.lua`)
+
+telescope-frecency keeps its database in `stdpath("state")` (`file_frecency_v2.bin`, v2 backend), so all Neovim instances on the machine share it across tmux sessions and projects; instances watch the file and reload on change.
+
+| Key | Action | Scope |
+|-----|--------|-------|
+| `;fr` | frecency picker | global |
+| `;fh` | grep inside recently used files | global |
+| `;fR` | recent files picker | current project root |
+| `;fH` | grep inside recently used files | current project root |
+
+### Formatter (`configure/formatter.lua`)
+
+conform.nvim runs on `BufWritePre`; **markdown is excluded** (prettier rewraps prose on every save) and is only formatted on demand with `<leader>=`. Python is formatted automatically with isort + black.
 
 ## Multi-instance Memory Strategy
 
-1. All Mason servers use `autostart = false` unless explicitly required (pyright, jsonls, sqlls, clangd, ts_ls are exceptions).
-2. LSP clients stop on idle (30 min) and focus loss.
+1. LSP clients stop on idle (30 min) and on `FocusLost`, and resume when the window regains focus.
+2. Server registration does not stop `mason-lspconfig` from enabling installed servers for their filetypes — check `:checkhealth vim.lsp` / `lua/configure/lsp_config/init.lua` before assuming a server is dormant.
 3. AI plugins (avante, codecompanion, copilot) are lazy-loaded and command/event-triggered.
-4. Prefer manual LSP startup via `;ls` for active work buffers.
+4. Markdown previewing (markview/render-markdown) is skipped for large buffers and only runs when a preview buffer is visible.
 
 ## Configuration Conventions
 
@@ -108,15 +141,16 @@ Theme selected by `GLOBAL_THEME` env var (`"light"` -> material_light, else mate
 | `lua/core/` | Initialization, vim settings, plugin loader, keymap system |
 | `lua/configure/` | One file per plugin (120+ configs) |
 | `lua/configure/lsp_config/` | LSP server definitions and default LSP settings |
-| `lua/util/` | Helpers: global functions, highlight manipulation, path/json utils |
+| `lua/util/` | Helpers: `global` (large buffers, misc), `highlight`, `project`, `recent`, `markdown_query`, path/json utils |
 | `lua/hack/` | Custom features (Pomodoro timer) |
 | `ftplugin/` | Filetype-specific settings (lua, python, vimwiki) |
-| `lazy-lock.json` | Plugin version lockfile |
+| `readme.md` | User-facing documentation (tracked; keep it in sync with keymaps) |
+| `lazy-lock.json` | Plugin version lockfile (git-ignored in this repository) |
 
 ## Notes
 
 - `ensure_installed` in Mason controls binary installation, not runtime process spawning.
-- `autostart = false` controls whether LSP processes auto-start for matching filetypes.
 - macOS Alt key mappings use Unicode characters (`¬`, `˚`, `˙`, `∆`) plus standard `<A-x>` fallbacks for terminals configured to send Meta.
-- Large files (>2MB or lines >2000 chars) auto-disable syntax/treesitter/etc via `enable_large_buf()`.
+- Large files (>2MB or lines >2000 chars) auto-disable syntax/treesitter/etc via `enable_large_buf()`, which sets the buffer-local `vim.b.large_buf` flag that `tree_sitter.lua` and `render_markdown.lua` read.
 - Inactive windows get a `DarkNormal` highlight; side filetypes (NvimTree, Avante, etc.) keep their own background.
+- `cmds` in the repo root is an empty stray file, unrelated to the config.
