@@ -22,7 +22,25 @@ local function notify(msg, level)
     vim.notify("[avante-preview] " .. msg, level or vim.log.levels.INFO)
 end
 
---- Text of one history message (string content or text items).
+--- Result carried by an attempt_completion tool call, if any.
+--- The agent mode stores the final answer there instead of in a text item,
+--- which is why a plain text extraction only sees the first turn.
+---@param input table|string|nil
+---@return string|nil
+local function completion_result(input)
+    local data = input
+    if type(data) == "string" then
+        local ok, decoded = pcall(vim.json.decode, data)
+        data = ok and decoded or nil
+    end
+    if type(data) == "table" and type(data.result) == "string" and data.result ~= "" then
+        return data.result
+    end
+    return nil
+end
+
+--- Text of one history message: plain text items plus the answer the agent
+--- delivered through attempt_completion.
 ---@param message table
 ---@return string|nil
 local function message_text(message)
@@ -37,8 +55,15 @@ local function message_text(message)
     for _, item in ipairs(content) do
         if type(item) == "string" then
             table.insert(parts, item)
-        elseif type(item) == "table" and item.type == "text" and type(item.content) == "string" then
-            table.insert(parts, item.content)
+        elseif type(item) == "table" then
+            if item.type == "text" and type(item.content) == "string" then
+                table.insert(parts, item.content)
+            elseif item.type == "tool_use" and item.name == "attempt_completion" then
+                local result = completion_result(item.input)
+                if result then
+                    table.insert(parts, result)
+                end
+            end
         end
     end
     if #parts == 0 then
