@@ -196,16 +196,6 @@ plugin.mapping = function()
 
     mappings.register({
         mode = "n",
-        key = { "<leader>", "f", "R" },
-        -- Grep inside the most recently used files only (shared frecency db),
-        -- instead of the whole project.
-        action = "<Cmd>lua require('util.recent').grep()<CR>",
-        short_desc = "Grep Recent Files",
-        silent = true,
-    })
-
-    mappings.register({
-        mode = "n",
         key = { "<leader>", "f", "q" },
         action = "<cmd>lua require('telescope.builtin').live_grep()<cr>",
         short_desc = "Find Query",
@@ -266,8 +256,10 @@ plugin.mapping = function()
     mappings.register({
         mode = "n",
         key = { "<leader>", "f", "h" },
-        action = "<Cmd>lua require('telescope').extensions.frecency.frecency{ sorter = require('telescope.config').values.file_sorter()}<CR>",
-        short_desc = "Find Recent/History",
+        -- Grep inside the most recently used files only (shared frecency db),
+        -- instead of the whole project.
+        action = "<Cmd>lua require('util.recent').grep()<CR>",
+        short_desc = "Grep Recent Files",
         silent = true,
         noremap = true,
     })
