@@ -672,6 +672,16 @@ plugin.core = {
                 self.state_timer = vim.defer_fn(function()
                     self:render_state()
                 end, 160)
+            else
+                -- Terminal states (succeeded/failed/cancelled/...) are only
+                -- worth a short flash; leaving the label in the winbar forever
+                -- just adds noise above the answer.
+                vim.defer_fn(function()
+                    if self.current_state ~= state or not vim.api.nvim_win_is_valid(winid) then
+                        return
+                    end
+                    pcall(vim.api.nvim_set_option_value, "winbar", "", { win = winid })
+                end, 2000)
             end
         end
 

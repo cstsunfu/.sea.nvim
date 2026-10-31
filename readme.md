@@ -272,6 +272,15 @@ Screenshots may use older plugin versions or a different colorscheme.
 
 ![Built-in LSP](./pic/builtin.png)
 
+### Cursor-like AI assistant (avante)
+
+![Avante](./pic/avante.png)
+
+`;aa` toggles the sidebar. The screenshot shows this repository's own
+`lua/configure/avante.lua` being edited while avante explains how that
+configuration is wired up: answers are rendered with `markview.nvim`, tables
+are fitted to the sidebar, and the agent finishes with `attempt_completion`.
+
 ### Fuzzy search
 
 ![Fuzzy Search](./pic/fuzzy_search.png)
