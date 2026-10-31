@@ -195,4 +195,89 @@ func.split = function(str, _sep)
     return fields
 end
 
+
+-- math/comment detection for UltiSnips context expressions.
+-- They are not referenced from Lua: $HOME/.local/share/nvim/vim-snippets/UltiSnips/
+-- added_texmath.snippets calls require('util.global').in_mathzone() through
+-- vim.command, so grep over lua/ will not find the callers.
+-- https://github.com/nvim-treesitter/nvim-treesitter/issues/1184
+local has_treesitter, ts = pcall(require, "vim.treesitter")
+local _, query = pcall(require, "vim.treesitter.query")
+
+local MATH_NODES = {
+    displayed_equation = true,
+    inline_formula = true,
+    math_environment = true,
+}
+
+local COMMENT = {
+    ["comment"] = true,
+    ["line_comment"] = true,
+    ["block_comment"] = true,
+    ["comment_environment"] = true,
+}
+
+function func.get_node_at_cursor_tex()
+    local buf = vim.api.nvim_get_current_buf()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    row = row - 1
+    col = col - 1
+    local ok = nil
+    local parser = nil
+    if vim.bo.filetype == "python" then
+        ok, parser = pcall(ts.get_parser, buf, "python")
+    else
+        ok, parser = pcall(ts.get_parser, buf, "latex")
+    end
+    if not ok or not parser then
+        return
+    end
+
+    local root_tree = parser:parse()[1]
+    local root = root_tree and root_tree:root()
+
+    if not root then
+        return
+    end
+
+    return root:named_descendant_for_range(row, col, row, col)
+end
+
+function func.in_comment()
+    if has_treesitter then
+        local node = func.get_node_at_cursor_tex()
+        while node do
+            if COMMENT[node:type()] then
+                return true
+            end
+            node = node:parent()
+        end
+        return false
+    end
+end
+
+function func.in_mathzone()
+    if has_treesitter then
+        local node = func.get_node_at_cursor_tex()
+        local filetype = vim.bo.filetype
+        while node do
+            if filetype == "python" then
+                if node:type() == "string" then
+                    return true
+                else
+                    return false
+                end
+            else
+                if node:type() == "text_mode" then
+                    return false
+                elseif MATH_NODES[node:type()] then
+                    return true
+                end
+            end
+            node = node:parent()
+        end
+        return false
+    end
+end
+
 return func
