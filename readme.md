@@ -11,7 +11,7 @@ Mason, Telescope, and a feature-group based plugin layout.
 
 - Neovim 0.11 native LSP configuration with explicit start/stop commands.
 - Lazy-loaded plugins organized by feature groups.
-- Mason-managed language servers, formatters, linters, and debug adapters.
+- Mason-managed language servers, formatters, and linters (debugpy comes from pip).
 - Telescope-based file, project, buffer, history, and mapping search.
 - C/C++, Lua, Python, SQL, JSON, Markdown, Vimwiki, and Obsidian workflows.
 - Avante and CodeCompanion integration.
@@ -145,8 +145,9 @@ sudo apt install sqlite3 libsqlite3-dev
 ```
 
 Every plugin module under `lua/configure/` exposes a Lazy plugin specification
-and an optional mapping function. Plugins are enabled from feature groups in
-`lua/core/plugins.lua`.
+and an optional mapping function. Feature groups are switched on/off in
+`lua/core/init.lua`; which plugin belongs to which group, and whether it is
+enabled inside that group, is set in `lua/core/plugins.lua`.
 
 ## Personal settings
 
@@ -196,8 +197,8 @@ The main lifecycle commands are:
 
 ## Formatting
 
-Formatting is provided by `conform.nvim`. Mason automatically installs the
-configured formatters:
+Formatting is provided by `conform.nvim`; the formatter binaries are installed
+by `mason-tool-installer` (see `lua/configure/mason_install.lua`):
 
 | Filetype | Formatter |
 | --- | --- |
