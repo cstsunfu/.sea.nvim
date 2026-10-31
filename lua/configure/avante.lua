@@ -45,6 +45,12 @@ plugin.core = {
                         require("markview-smart-tables").render(buffer, item)
                     end,
                 },
+                -- Same as the editor: keep the literal '#' headings and the
+                -- '-' / '*' / '+' list markers in the chat preview.
+                markdown = {
+                    headings = { enable = false },
+                    list_items = { enable = false },
+                },
                 preview = {
                     filetypes = { "Avante" },
                     -- Belt and braces: markview's default condition lets it

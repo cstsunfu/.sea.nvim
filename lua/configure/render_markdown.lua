@@ -40,10 +40,9 @@ plugin.core = {
             right_pad = 1,
         },
 
+        -- Keep the literal '-' / '*' / '+' markers as well.
         bullet = {
-            -- Single-cell glyphs that exist in DroidSansM Nerd Font; the old
-            -- ●○◆◇ are not in that font and were drawn by a fallback font.
-            icons = { "•", "›", "–", "»" },
+            enabled = false,
         },
 
         -- While editing, show the raw markdown on the line the cursor is on so
