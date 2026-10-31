@@ -14,7 +14,6 @@ plugin.mapping = function() end
 
 plugin.setup = function()
     -- nord ships a single palette; both styles load the same one.
-    vim.o.background = vim.g.style == "light" and "light" or "dark"
     require("nord").set()
     require("util.highlight").apply_theme_overrides({ cursor = true })
 end

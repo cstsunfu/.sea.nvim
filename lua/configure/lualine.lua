@@ -43,7 +43,6 @@ plugin.core = {
     config = function() -- Specifies code to run after this plugin is loaded
         local lualine = require("lualine")
         local Path = require("plenary.path")
-        local root = Path:new("/")
         local root_patterns = {
             ".git",
             "setup.py",
@@ -57,7 +56,6 @@ plugin.core = {
             "__main__.py",
         }
 
-        local home_path = Path:new(vim.g.HOME_PATH)
         local custom_theme = require("lualine.themes.auto")
         local global_fun = require("util.global")
         if vim.g.colorscheme_name == "material_light" then

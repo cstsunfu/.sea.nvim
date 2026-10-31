@@ -25,14 +25,12 @@ plugin.core = {
         -- Render in insert/visual mode as well; otherwise entering either mode
         -- clears every decoration in the buffer. anti_conceal below still
         -- reveals the raw source on the cursor line.
-        render_modes = { "n", "c", "t", "i", "v" },
+        render_modes = { "n", "c", "t", "i", "v", "V" },
 
+        -- Keep the literal '#' prefixes: no icons, backgrounds, borders or sign
+        -- column. The heading text keeps its syntax highlighting.
         heading = {
-            -- Block keeps the heading text compact; the background colour is
-            -- left to the colourscheme so it does not fight the syntax.
-            width = "block",
-            backgrounds = {},
-            border = false,
+            enabled = false,
         },
 
         code = {
@@ -43,7 +41,9 @@ plugin.core = {
         },
 
         bullet = {
-            icons = { "●", "○", "◆", "◇" },
+            -- Single-cell glyphs that exist in DroidSansM Nerd Font; the old
+            -- ●○◆◇ are not in that font and were drawn by a fallback font.
+            icons = { "•", "›", "–", "»" },
         },
 
         -- While editing, show the raw markdown on the line the cursor is on so
