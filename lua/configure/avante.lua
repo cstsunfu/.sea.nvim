@@ -371,6 +371,10 @@ plugin.core = {
 
         require("avante_lib").load()
 
+        vim.api.nvim_create_user_command("AvantePreview", function()
+            require("util.avante_preview").toggle()
+        end, { desc = "Preview the avante conversation in the browser" })
+
         -- The providers below are plain OpenAI-compatible endpoints. Point them
         -- at whatever you use through the environment; the key itself is read
         -- from the variable named by AVANTE_API_KEY_NAME:
@@ -1098,6 +1102,15 @@ plugin.mapping = function()
         key = { "<leader>", "a", "a" },
         action = ":AvanteToggle<cr>",
         short_desc = "AvanteToggle",
+    })
+
+    mappings.register({
+        mode = { "n" },
+        key = { "<leader>", "a", "p" },
+        -- Render the conversation in a browser through markdown-preview.nvim.
+        action = "<Cmd>lua require('util.avante_preview').toggle()<CR>",
+        short_desc = "AvantePreview",
+        silent = true,
     })
 
     mappings.register({

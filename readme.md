@@ -301,6 +301,12 @@ Screenshots may use older plugin versions or a different colorscheme.
 configuration is wired up: answers are rendered with `markview.nvim`, tables
 are fitted to the sidebar, and the agent finishes with `attempt_completion`.
 
+The answer does not have to stay in the terminal: `;ap` (`:AvantePreview`)
+exports the conversation to a markdown file and opens it in the browser
+through markdown-preview.nvim. The page follows the answer while it streams,
+and the exported file lives under `:echo stdpath('cache') .. '/avante-preview'`
+if you want to keep or share it.
+
 ### Completion, file tree, and code navigation
 
 ![Completion, file tree, and code navigation](./pic/completion.png)
@@ -353,6 +359,7 @@ Frequently used mappings:
 | `;sa` | Save all buffers |
 | `;=` | Format current buffer or selection |
 | `;aa` | Toggle Avante |
+| `;ap` | Preview the Avante conversation in the browser |
 | `;qc` / `;qo` | Close/open QuickFix |
 | `;bn` / `;bp` | Next/previous buffer |
 | `;bd` | Delete current buffer |
