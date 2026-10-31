@@ -2,6 +2,9 @@ local plugin = {}
 
 plugin.core = {
     "lukas-reineke/headlines.nvim",
+    -- Replaced by render-markdown.nvim (see configure/render_markdown.lua):
+    -- headlines only decorates headings and has not gained features since 2024.
+    enabled = false,
     ft = { "markdown", "vimwiki" },
     after = "nvim-treesitter",
     init = function() -- Specifies code to run before this plugin is loaded.

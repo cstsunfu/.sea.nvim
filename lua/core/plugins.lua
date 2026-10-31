@@ -55,7 +55,8 @@ if vim.g.feature_groups["org_my_life"] == true then
         ["markdown_pipetable"] = { enabled = false },
         ["md_bullets"] = { enabled = false },
         ["org_bullets"] = { enabled = false },
-        ["headlines"] = { enabled = true },
+        ["headlines"] = { enabled = false }, -- replaced by render-markdown.nvim
+        ["render_markdown"] = { enabled = true }, -- render headings/code/tables in markdown files
         ["orgmode"] = { enabled = false }, -- currently use the obsidian
     }
 end
@@ -89,7 +90,6 @@ if vim.g.feature_groups["enhance"] == true then
         ["speed_date"] = { enabled = true },
         ["translate"] = { enabled = true },
         ["notify"] = { enabled = true },
-        ["noice"] = { enabled = false },
         ["formatter"] = { enabled = true },
         ["auto_select"] = { enabled = true },
         ["syntax_tree_surfer"] = { enabled = true },
@@ -161,7 +161,6 @@ if vim.g.feature_groups["lsp"] then
         ["nvim_cmp"] = { enabled = vim.g.feature_groups.lsp == "builtin" },
         ["copilot_cmp"] = { enabled = vim.g.feature_groups.lsp == "builtin" },
         ["lsp_status"] = { enabled = vim.g.feature_groups.lsp == "builtin" },
-        --['lsp_icon'] = { enabled = vim.g.feature_groups.lsp == 'builtin' }, -- directly setting in nvim_cmp
     }
 end
 
