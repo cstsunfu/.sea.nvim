@@ -23,7 +23,6 @@ plugin.core = {
 
         local mason_lspconfig = require("mason-lspconfig")
         -- local lspconfig = require("lspconfig") -- DEPRECATED in 0.11+
-        local configs = require("lspconfig.configs")
         local util = require("lspconfig.util")
 
         require("mason").setup({
@@ -36,27 +35,6 @@ plugin.core = {
                 border = "single",
             },
         })
-
-        -- Define custom intc_lsp using Neovim 0.11+ async root_dir pattern.
-        if not configs.intc_lsp then
-            configs.intc_lsp = {
-                default_config = {
-                    cmd = { "intc-lsp" },
-                    filetypes = { "json", "jsonc", "hjson" },
-                    root_dir = function(bufnr, on_dir)
-                        local fname = vim.api.nvim_buf_get_name(bufnr)
-                        local root = util.root_pattern(".intc.json", ".intc.jsonc")(fname)
-                        if root then
-                            on_dir(root)
-                        end
-                    end,
-                    single_file_support = false,
-                },
-                docs = {
-                    description = [[ intc language server ]],
-                },
-            }
-        end
 
         local mason_servers = {
             bashls = {
@@ -154,7 +132,26 @@ plugin.core = {
             vim.lsp.config(server_name, server_config)
         end
 
+        -- intc_lsp: the intc language server, only for a project which has a
+        -- `.intc.json` marker.
+        vim.lsp.config("intc_lsp", {
+            cmd = { "intc-lsp" },
+            filetypes = { "json", "jsonc", "hjson" },
+            root_markers = { ".intc.json", ".intc.jsonc" },
+            workspace_required = true,
+        })
         vim.lsp.config("intc_lsp", common_config)
+
+        -- hydra_lsp: hover and go to definition between the hydra yaml configs and
+        -- the python classes they build. It only attaches to the yaml files of a
+        -- project which has a `.hydra-lsp.json`, the other yaml files are untouched.
+        vim.lsp.config("hydra_lsp", {
+            cmd = { "hydra-lsp" },
+            filetypes = { "yaml" },
+            root_markers = { ".hydra-lsp.json" },
+            workspace_required = true,
+        })
+        vim.lsp.config("hydra_lsp", common_config)
         -- Manual start only based on strategy.
 
         require("configure.lsp_config.default_setting")
@@ -170,6 +167,7 @@ plugin.mapping = function()
         json = { "jsonls", "intc_lsp" },
         jsonc = { "jsonls", "intc_lsp" },
         hjson = { "intc_lsp" },
+        yaml = { "hydra_lsp" },
         python = { "pyright" },
         sql = { "sqlls" },
         mysql = { "sqlls" },
@@ -372,7 +370,7 @@ plugin.mapping = function()
         mode = { "n" },
         key = { ";", "l", "S" },
         action = ":LspStopAll<cr>",
-        short_desc = "LSP Stop Current Buffer",
+        short_desc = "LSP Stop All",
     })
 
     mappings.register({
