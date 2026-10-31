@@ -613,6 +613,13 @@ plugin.core = {
                 end, { buffer = args.buf, desc = "Avante: send message" })
 
                 vim.keymap.set("i", "<S-CR>", "<CR>", { buffer = args.buf, desc = "Avante: newline" })
+
+                -- The preview is also useful straight from the prompt, where
+                -- the cursor is in insert mode and the global ;ap cannot fire.
+                vim.keymap.set("i", ";ap", function()
+                    vim.cmd("stopinsert")
+                    require("util.avante_preview").toggle()
+                end, { buffer = args.buf, desc = "Avante: preview in browser" })
             end,
         })
 

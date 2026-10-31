@@ -301,11 +301,13 @@ Screenshots may use older plugin versions or a different colorscheme.
 configuration is wired up: answers are rendered with `markview.nvim`, tables
 are fitted to the sidebar, and the agent finishes with `attempt_completion`.
 
-The answer does not have to stay in the terminal: `;ap` (`:AvantePreview`)
-exports the conversation to a markdown file and opens it in the browser
-through markdown-preview.nvim. The page follows the answer while it streams,
-and the exported file lives under `:echo stdpath('cache') .. '/avante-preview'`
-if you want to keep or share it.
+The answer does not have to stay in the terminal: `;ap` (`:AvantePreview`,
+also available from the prompt's insert mode) exports the conversation to a
+markdown file and opens it in the browser through markdown-preview.nvim. The
+page follows the answer while it streams, starts at the newest question, has a
+question-level table of contents, and keeps older answers and the tool calls
+collapsed until you expand them. The exported file lives under
+`:echo stdpath('cache') .. '/avante-preview'` if you want to keep or share it.
 
 ### Completion, file tree, and code navigation
 

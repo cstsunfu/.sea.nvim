@@ -39,61 +39,181 @@ local function completion_result(input)
     return nil
 end
 
---- Text of one history message: plain text items plus the answer the agent
---- delivered through attempt_completion.
+--- Input of a tool call as a table (history stores it decoded, but a JSON
+--- string is possible too).
+---@param input table|string|nil
+---@return table|string|nil
+local function tool_input(input)
+    if type(input) == "string" then
+        local ok, decoded = pcall(vim.json.decode, input)
+        return ok and decoded or input
+    end
+    return input
+end
+
+local function first_line(text, limit)
+    text = tostring(text or ""):gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+    if #text > limit then
+        text = text:sub(1, limit - 3) .. "..."
+    end
+    return text
+end
+
+--- Push the headings of an answer one level down so the question headings
+--- stay the only entries of the table of contents.
+---@param text string
+---@param levels integer
+---@return string
+local function demote_headings(text, levels)
+    return (text:gsub("(\n?)(#+)(%s)", function(prefix, hashes, space)
+        local depth = #hashes + levels
+        if depth > 6 then
+            depth = 6
+        end
+        return prefix .. string.rep("#", depth) .. space
+    end))
+end
+
+--- Split one assistant message into its answer text and its tool calls.
+--- In agentic mode the final answer lives in the attempt_completion input.
 ---@param message table
----@return string|nil
-local function message_text(message)
+---@return string|nil answer
+---@return table[] tools
+local function assistant_parts(message)
     local content = message.message and message.message.content
     if type(content) == "string" then
-        return content
+        return content ~= "" and content or nil, {}
     end
     if type(content) ~= "table" then
-        return nil
+        return nil, {}
     end
-    local parts = {}
+
+    local answers, tools = {}, {}
     for _, item in ipairs(content) do
         if type(item) == "string" then
-            table.insert(parts, item)
+            table.insert(answers, item)
         elseif type(item) == "table" then
             if item.type == "text" and type(item.content) == "string" then
-                table.insert(parts, item.content)
-            elseif item.type == "tool_use" and item.name == "attempt_completion" then
-                local result = completion_result(item.input)
-                if result then
-                    table.insert(parts, result)
+                table.insert(answers, item.content)
+            elseif item.type == "tool_use" then
+                if item.name == "attempt_completion" then
+                    local result = completion_result(item.input)
+                    if result then
+                        table.insert(answers, result)
+                    end
+                else
+                    table.insert(tools, { name = item.name or "tool", input = tool_input(item.input) })
                 end
             end
         end
     end
-    if #parts == 0 then
+    local answer = #answers > 0 and table.concat(answers, "\n") or nil
+    return answer, tools
+end
+
+--- One <details> block; the blank line after the tag is what makes the
+--- markdown-it renderer parse the body as markdown instead of raw text.
+local function details(summary, body)
+    if body == nil or body == "" then
         return nil
     end
-    return table.concat(parts, "\n")
+    return ("<details>\n<summary>%s</summary>\n\n%s\n\n</details>"):format(summary, body)
+end
+
+--- Collapsed list of the tool calls of one turn.
+---@param tools table[]
+---@return string|nil
+local function render_tools(tools)
+    if #tools == 0 then
+        return nil
+    end
+    local blocks = {}
+    for _, tool in ipairs(tools) do
+        local input = tool.input
+        local detail = ""
+        if type(input) == "table" then
+            detail = input.command or input.path or input.pattern or input.query or ""
+            if detail == "" then
+                detail = vim.json.encode(input)
+            end
+        elseif type(input) == "string" then
+            detail = input
+        end
+        local label = first_line(detail, 100)
+        local body
+        if tool.name == "bash" and type(input) == "table" and type(input.command) == "string" then
+            body = ("```bash\n%s\n```"):format(input.command)
+        else
+            local json = type(input) == "table" and vim.json.encode(input) or tostring(input or "")
+            body = ("```json\n%s\n```"):format(json:sub(1, 4000))
+        end
+        table.insert(blocks, ("<details>\n<summary><code>%s</code> %s</summary>\n\n%s\n\n</details>"):format(
+            tool.name,
+            label,
+            body
+        ))
+    end
+    return ("<details>\n<summary>Tool calls (%d)</summary>\n\n%s\n\n</details>"):format(
+        #tools,
+        table.concat(blocks, "\n\n")
+    )
 end
 
 --- The conversation as a markdown document.
+---
+--- Newest turn first so that opening the preview lands on the latest question;
+--- every older answer (and every list of tool calls) is collapsed inside a
+--- <details> block. [[toc]] is expanded by markdown-preview into a table of
+--- contents, which gives question-level navigation.
 ---@param sidebar avante.Sidebar
 ---@return string
 function M.markdown(sidebar)
     local history = sidebar.chat_history or {}
     local title = history.title or "Avante"
-    local parts = { ("# Avante — %s"):format(title) }
 
+    local turns = {}
+    local current
     for _, message in ipairs(history.messages or {}) do
         if message.visible ~= false and not message.just_for_display and message.message then
-            local text = message_text(message)
-            if text and text ~= "" then
-                if message.message.role == "user" then
-                    table.insert(parts, "**You**\n\n> " .. text:gsub("\n", "\n> "))
-                else
-                    table.insert(parts, text)
+            local role = message.message.role
+            if role == "user" then
+                local content = message.message.content
+                local question = type(content) == "string" and content or nil
+                if question and question ~= "" then
+                    current = { question = question, answers = {}, tools = {} }
+                    table.insert(turns, current)
                 end
-                table.insert(parts, "\n---\n")
+            elseif role == "assistant" and current then
+                local answer, tools = assistant_parts(message)
+                if answer then
+                    table.insert(current.answers, answer)
+                end
+                vim.list_extend(current.tools, tools)
             end
         end
     end
-    return table.concat(parts, "\n")
+
+    local parts = { ("# Avante — %s"):format(title), "[[toc]]" }
+
+    for index = #turns, 1, -1 do
+        local turn = turns[index]
+        local latest = index == #turns
+        local answer = #turn.answers > 0 and demote_headings(table.concat(turn.answers, "\n\n"), 2)
+            or "_(no answer)_"
+        local tools = render_tools(turn.tools)
+
+        table.insert(parts, ("## %d. %s"):format(index, first_line(turn.question, 120)))
+        if latest then
+            table.insert(parts, answer)
+        else
+            table.insert(parts, details("Answer (expand)", answer) or answer)
+        end
+        if tools then
+            table.insert(parts, tools)
+        end
+    end
+
+    return table.concat(parts, "\n\n")
 end
 
 local function cache_path()
@@ -180,6 +300,11 @@ function M.start()
     vim.api.nvim_win_set_buf(win, state.buf)
     local saved_auto_close = vim.g.mkdp_auto_close
     vim.g.mkdp_auto_close = 0
+    -- Only question headings belong in the generated table of contents.
+    local saved_options = vim.g.mkdp_preview_options
+    vim.g.mkdp_preview_options = vim.tbl_deep_extend("force", saved_options or {}, {
+        toc = { level = { 2, 2 } },
+    })
     local previewed, err = pcall(vim.cmd, "MarkdownPreview")
     if previewed then
         vim.wait(5000, function()
@@ -188,6 +313,7 @@ function M.start()
         end, 20)
     end
     vim.g.mkdp_auto_close = saved_auto_close
+    vim.g.mkdp_preview_options = saved_options
     if vim.api.nvim_win_is_valid(win) then
         vim.api.nvim_win_set_buf(win, prev_buf)
     end
