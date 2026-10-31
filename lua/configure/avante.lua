@@ -518,8 +518,19 @@ plugin.core = {
             end
 
             if prefix == #flat then
-                -- Nothing new to draw; drop any lines the old render left behind.
+                -- Nothing new to draw; drop any lines the old render left
+                -- behind. Unbind the disappearing rows first: their
+                -- ButtonGroupLine handlers live in a per-buffer registry that
+                -- only unbind_events can clean up.
                 if #existing > #flat then
+                    local flat_seen = 0
+                    for _, line in ipairs(old_lines) do
+                        local start = flat_seen
+                        flat_seen = flat_seen + #vim.split(tostring(line), "\n")
+                        if start >= #flat and type(line.unbind_events) == "function" then
+                            pcall(line.unbind_events, line, bufnr, skip_line_count + start + 1)
+                        end
+                    end
                     vim.api.nvim_buf_set_lines(bufnr, skip_line_count + #flat, -1, false, {})
                 end
                 return
