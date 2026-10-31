@@ -3,233 +3,155 @@ local plugin = {}
 plugin.core = {
     "sindrets/diffview.nvim",
     dependencies = {
-        "nvim-lua/plenary.nvim",
         "telescope.nvim",
     },
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
-    init = function() -- Specifies code to run before this plugin is loaded.
-    end,
 
     config = function() -- Specifies code to run after this plugin is loaded
-        local cb = require("diffview.config").diffview_callback
+        local RevType = require("diffview.vcs.rev").RevType
+        local FileHistoryView = require("diffview.scene.views.file_history.file_history_view").FileHistoryView
 
+        ---Is this the view opened by ;gh?
+        ---@param view diffview.View?
+        ---@return boolean
+        local function is_history_view(view)
+            return view ~= nil and view:instanceof(FileHistoryView)
+        end
+
+        -- Files whose right side D has swapped to the working tree, mapped to
+        -- the revision it showed before (so the next D can put it back).
+        local swapped = setmetatable({}, { __mode = "k" })
+
+        -- Toggle the selected file of the history view between "parent vs
+        -- commit" (what <cr> shows) and "parent vs working tree". The view,
+        -- its windows and its layout stay exactly as they are; only the right
+        -- side's revision changes. diffview's own <C-A-d> only diffs the two
+        -- sides of the commit itself.
+        local function toggle_worktree(view)
+            view = view or require("diffview.lib").get_current_view()
+            if not is_history_view(view) then
+                vim.notify("diffview: D works in the file history view", vim.log.levels.WARN)
+                return
+            end
+
+            -- The file under the panel cursor, or the open one from a diff window.
+            local file = view:infer_cur_file()
+            if not file then
+                vim.notify(
+                    "diffview: no commit here, move to a commit line in the history panel first",
+                    vim.log.levels.WARN
+                )
+                return
+            end
+
+            local side = file.layout.b.file
+            local target = swapped[file]
+            if target then
+                swapped[file] = nil
+            else
+                if side.rev.type == RevType.LOCAL then
+                    return
+                end
+                swapped[file] = side.rev
+                target = view.adapter.Rev(RevType.LOCAL)
+            end
+
+            -- A working tree buffer is the user's own: let go of it without
+            -- deleting it. The commit side is a scratch diffview:// buffer.
+            if side.rev.type == RevType.LOCAL then
+                side:detach_buffer()
+                side.bufnr = nil
+            else
+                side:dispose_buffer()
+            end
+            side.rev = target
+            file.revs.b = target
+            view:set_file(file)
+        end
+
+        local close_map = { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close diffview" } }
+        local toggle_map = { "n", "D", toggle_worktree, { desc = "Toggle: parent vs working tree" } }
+
+        -- Everything else (layout, icons, panel sizes, log options) stays at
+        -- diffview's defaults; only real changes are listed here.
         require("diffview").setup({
-            diff_binaries = false, -- Show diffs for binaries
             enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
-            use_icons = true, -- Requires nvim-web-devicons
-            icons = { -- Only applies when use_icons is true.
-                folder_closed = "",
-                folder_open = "",
-            },
-            signs = {
-                fold_closed = "",
-                fold_open = "",
-            },
-            file_panel = {
-                listing_style = "tree", -- One of 'list' or 'tree'
-                tree_options = { -- Only applies when listing_style is 'tree'
-                    flatten_dirs = true, -- Flatten dirs that only contain one single dir
-                    folder_statuses = "only_folded", -- One of 'never', 'only_folded' or 'always'.
-                },
-                win_config = {
-                    -- See ':h diffview-config-win_config'
-                    position = "left",
-                    width = 35,
-                },
-            },
             file_history_panel = {
                 log_options = {
-                    single_file = {
-                        max_count = 256, -- Limit the number of commits
-                        follow = true, -- Follow renames (only for single file)
-                        all = false, -- Include all refs under 'refs/' including HEAD
-                        merges = false, -- List only merge commits
-                        no_merges = false, -- List no merge commits
-                        reverse = false, -- List commits in reverse order
-                    },
-                    multi_file = {
-                        max_count = 100, -- Limit the number of commits
-                        follow = false, -- Follow renames (only for single file)
-                        all = false, -- Include all refs under 'refs/' including HEAD
-                        merges = false, -- List only merge commits
-                        no_merges = false, -- List no merge commits
-                        reverse = false, -- List commits in reverse order
+                    git = {
+                        -- Single-file history keeps the default 256.
+                        multi_file = {
+                            max_count = 100,
+                        },
                     },
                 },
-                win_config = {
-                    -- See ':h diffview-config-win_config'
-                    position = "bottom",
-                    height = 16,
-                },
             },
-            default_args = { -- Default args prepended to the arg-list for the listed commands
-                DiffviewOpen = {},
-                DiffviewFileHistory = {},
-            },
-            hooks = {}, -- See ':h diffview-config-hooks'
-            key_bindings = {
-                disable_defaults = false, -- Disable the default key bindings
-                -- The `view` bindings are active in the diff buffers, only when the current
-                -- tabpage is a Diffview.
-                view = {
-                    ["<tab>"] = cb("select_next_entry"), -- Open the diff for the next file
-                    ["<s-tab>"] = cb("select_prev_entry"), -- Open the diff for the previous file
-                    ["gf"] = cb("goto_file"), -- Open the file in a new split in previous tabpage
-                    ["<C-w><C-f>"] = cb("goto_file_split"), -- Open the file in a new split
-                    ["<C-w>gf"] = cb("goto_file_tab"), -- Open the file in a new tabpage
-                    ["<leader>e"] = cb("focus_files"), -- Bring focus to the files panel
-                    ["<leader>b"] = cb("toggle_files"), -- Toggle the files panel.
-                },
-                file_panel = {
-                    ["j"] = cb("next_entry"), -- Bring the cursor to the next file entry
-                    ["<down>"] = cb("next_entry"),
-                    ["k"] = cb("prev_entry"), -- Bring the cursor to the previous file entry.
-                    ["<up>"] = cb("prev_entry"),
-                    ["<cr>"] = cb("select_entry"), -- Open the diff for the selected entry.
-                    ["o"] = cb("select_entry"),
-                    ["<2-LeftMouse>"] = cb("select_entry"),
-                    ["-"] = cb("toggle_stage_entry"), -- Stage / unstage the selected entry.
-                    ["S"] = cb("stage_all"), -- Stage all entries.
-                    ["U"] = cb("unstage_all"), -- Unstage all entries.
-                    ["X"] = cb("restore_entry"), -- Restore entry to the state on the left side.
-                    ["R"] = cb("refresh_files"), -- Update stats and entries in the file list.
-                    ["<tab>"] = cb("select_next_entry"),
-                    ["<s-tab>"] = cb("select_prev_entry"),
-                    ["gf"] = cb("goto_file"),
-                    ["<C-w><C-f>"] = cb("goto_file_split"),
-                    ["<C-w>gf"] = cb("goto_file_tab"),
-                    ["i"] = cb("listing_style"), -- Toggle between 'list' and 'tree' views
-                    ["f"] = cb("toggle_flatten_dirs"), -- Flatten empty subdirectories in tree listing style.
-                    ["<leader>e"] = cb("focus_files"),
-                    ["<leader>b"] = cb("toggle_files"),
-                },
-                file_history_panel = {
-                    ["g!"] = cb("options"), -- Open the option panel
-                    ["<C-A-d>"] = cb("open_in_diffview"), -- Open the entry under the cursor in a diffview
-                    ["y"] = cb("copy_hash"), -- Copy the commit hash of the entry under the cursor
-                    ["zR"] = cb("open_all_folds"),
-                    ["zM"] = cb("close_all_folds"),
-                    ["j"] = cb("next_entry"),
-                    ["<down>"] = cb("next_entry"),
-                    ["k"] = cb("prev_entry"),
-                    ["<up>"] = cb("prev_entry"),
-                    ["<cr>"] = cb("select_entry"),
-                    ["o"] = cb("select_entry"),
-                    ["<2-LeftMouse>"] = cb("select_entry"),
-                    ["<tab>"] = cb("select_next_entry"),
-                    ["<s-tab>"] = cb("select_prev_entry"),
-                    ["gf"] = cb("goto_file"),
-                    ["<C-w><C-f>"] = cb("goto_file_split"),
-                    ["<C-w>gf"] = cb("goto_file_tab"),
-                    ["<leader>e"] = cb("focus_files"),
-                    ["<leader>b"] = cb("toggle_files"),
-                },
-                option_panel = {
-                    ["<tab>"] = cb("select"),
-                    ["q"] = cb("close"),
-                },
+            keymaps = {
+                view = { close_map, toggle_map },
+                file_panel = { close_map },
+                file_history_panel = { close_map, toggle_map },
             },
         })
-        require("diffview").setup({})
     end,
 }
 
 plugin.mapping = function()
     local mappings = require("core.mapping")
-    _G.plugin_diffview__toggle_diffview_branch = function()
-        local lib = require("diffview.lib")
-        local view = lib.get_current_view()
-        if view then
-            vim.cmd.DiffviewClose()
-        else
-            local pickers = require("telescope.pickers")
-            local finders = require("telescope.finders")
-            local conf = require("telescope.config").values
-            local actions = require("telescope.actions")
-            local action_state = require("telescope.actions.state")
-            -- our picker function: colors
-            local diff_branch = function(opts)
-                opts = opts or {}
 
-                local result = io.popen("git branch -a"):read("*a")
-                local branch = {}
-                for _, value in ipairs(vim.split(result, "\n")) do
-                    for k, _ in string.gmatch(value, "%*?%s*([%w][_%-/%w]*[%w_])%s*") do
-                        table.insert(branch, k)
-                    end
-                end
-                if #branch == 0 then
-                    table.insert(branch, " ")
-                end
-                pickers
-                    .new(opts, {
-                        prompt_title = "Branches",
-                        finder = finders.new_table({
-                            results = branch,
-                        }),
-                        attach_mappings = function(prompt_bufnr, map)
-                            actions.select_default:replace(function()
-                                actions.close(prompt_bufnr)
-                                local selection = action_state.get_selected_entry()
-                                vim.cmd("DiffviewOpen " .. selection[1])
-                            end)
-                            return true
-                        end,
-                        sorter = conf.generic_sorter(opts),
-                    })
-                    :find()
-            end
-
-            -- to execute the function
-            diff_branch(require("telescope.themes").get_dropdown({}))
+    -- ;gh, ;gv and ;gd all close the diffview that is already open instead of
+    -- stacking something on top of it.
+    ---@return boolean closed
+    local function close_if_open()
+        if not require("diffview.lib").get_current_view() then
+            return false
         end
+        vim.cmd("DiffviewClose")
+        return true
     end
-    _G.plugin_diffview__file_history = function()
-        local pickers = require("telescope.pickers")
-        local finders = require("telescope.finders")
-        local conf = require("telescope.config").values
+
+    ---Override telescope's default selection with a diffview command.
+    ---@param picker fun(opts: table)
+    ---@param command string command name, the selected entry is appended
+    ---@param field string entry field holding the argument
+    ---@param opts table
+    local function pick_and_run(picker, command, field, opts)
         local actions = require("telescope.actions")
         local action_state = require("telescope.actions.state")
-        local global = require("util.global")
-        local dirs = global.scandir(".")
-        local file_git_history = function(opts)
-            opts = opts or {}
-            pickers
-                .new(opts, {
-                    prompt_title = "Git History Files",
-                    finder = finders.new_table({
-                        results = dirs,
-                        entry_maker = function(entry)
-                            return {
-                                value = entry[1],
-                                display = entry[1],
-                                ordinal = entry[1],
-                            }
-                        end,
-                    }),
-                    attach_mappings = function(prompt_bufnr, map)
-                        actions.select_default:replace(function()
-                            actions.close(prompt_bufnr)
-                            local selection = action_state.get_selected_entry()
-                            vim.cmd("DiffviewFileHistory " .. selection.value)
-                        end)
-                        return true
-                    end,
-                    previewer = conf.file_previewer(opts),
-                    sorter = conf.generic_sorter(opts),
-                })
-                :find()
+        opts.attach_mappings = function(prompt_bufnr)
+            actions.select_default:replace(function()
+                local entry = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                vim.cmd(command .. " " .. vim.fn.fnameescape(entry[field]))
+            end)
+            return true
         end
-        file_git_history()
+        picker(opts)
+    end
+
+    _G.plugin_diffview__toggle_diffview_branch = function()
+        if close_if_open() then
+            return
+        end
+        pick_and_run(require("telescope.builtin").git_branches, "DiffviewOpen", "name", {
+            prompt_title = "Diff against branch",
+        })
+    end
+
+    _G.plugin_diffview__file_history = function()
+        if close_if_open() then
+            return
+        end
+        -- Absolute paths: autochdir keeps nvim's cwd at the current file's
+        -- directory, which is not necessarily where the history is opened.
+        pick_and_run(require("telescope.builtin").find_files, "DiffviewFileHistory", "path", {
+            prompt_title = "File history",
+            cwd = require("util.project").root(),
+        })
     end
 
     _G.plugin_diffview__toggle_diffview = function()
-        local lib = require("diffview.lib")
-        local view = lib.get_current_view()
-        if view then
-            vim.cmd.DiffviewClose()
-        else
-            vim.cmd.DiffviewOpen()
+        if not close_if_open() then
+            vim.cmd("DiffviewOpen")
         end
     end
 
