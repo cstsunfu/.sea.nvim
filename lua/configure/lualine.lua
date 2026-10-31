@@ -445,7 +445,6 @@ plugin.core = {
             inactive_sections = {
                 -- these are to remove the defaults
                 lualine_a = {},
-                lualine_v = {},
                 lualine_y = {},
                 lualine_z = {},
                 lualine_c = {},
@@ -468,6 +467,57 @@ plugin.core = {
 
         local function insert_target(target, component)
             table.insert(target, component)
+        end
+
+        -- Components shared by the active and inactive statuslines; they only
+        -- differ in colour (and in the width conditions used by the caller).
+        local win_display_list = { " ❶ ", " ❷ ", " ❸ ", " ❹ ", " ❺ ", " ❻ ", " ❼ ", " ❽ ", " ❾ " }
+
+        local function win_number()
+            local cur_winnr = vim.fn.winnr()
+            if cur_winnr > #win_display_list then
+                return " "
+            end
+            return win_display_list[cur_winnr]
+        end
+
+        local function filesize_component(color)
+            return {
+                -- filesize component
+                function()
+                    local cur_buf = vim.api.nvim_get_current_buf()
+                    if lualine_buf_size_cache[cur_buf] == nil then
+                        local file = vim.fn.expand("%:p")
+                        if string.len(file) == 0 then
+                            return ""
+                        end
+                        lualine_buf_size_cache[cur_buf] = format_file_size(file)
+                    end
+                    return lualine_buf_size_cache[cur_buf]
+                end,
+                cond = conditions.buffer_not_empty_hide_size_in_width,
+                color = color,
+            }
+        end
+
+        local function dapui_component(color)
+            return {
+                function()
+                    return string.format("%-10s", dap_ui_map[vim.bo.filetype])
+                end,
+                cond = conditions.dapui_condition,
+                color = color,
+            }
+        end
+
+        local function terminal_component(color)
+            return {
+                function()
+                    return string.format("%-10s", "Terminal")
+                end,
+                cond = conditions.terminal_condition,
+                color = color,
+            }
         end
 
         -- Inserts a component in lualine_c at left section
@@ -525,41 +575,10 @@ plugin.core = {
             cond = conditions.hide_status_active_in_width,
         })
 
-        ins_left_active({
-            -- filesize component
-            function()
-                local cur_buf = vim.api.nvim_get_current_buf()
-                if cur_buf == nil then
-                    return ""
-                end
+        ins_left_active(filesize_component(nil))
 
-                if lualine_buf_size_cache[cur_buf] == nil then
-                    local file = vim.fn.expand("%:p")
-                    if string.len(file) == 0 then
-                        return ""
-                    end
-                    lualine_buf_size_cache[cur_buf] = format_file_size(file)
-                end
-                return lualine_buf_size_cache[cur_buf]
-            end,
-            cond = conditions.buffer_not_empty_hide_size_in_width,
-        })
-
-        ins_left_active({
-            function()
-                return string.format("%-10s", dap_ui_map[vim.bo.filetype])
-            end,
-            cond = conditions.dapui_condition,
-            color = { fg = colors.blue, gui = "bold" },
-        })
-
-        ins_left_active({
-            function()
-                return string.format("%-10s", "Terminal")
-            end,
-            cond = conditions.terminal_condition,
-            color = { fg = colors.blue, gui = "bold" },
-        })
+        ins_left_active(dapui_component({ fg = colors.blue, gui = "bold" }))
+        ins_left_active(terminal_component({ fg = colors.blue, gui = "bold" }))
 
         ins_left_active({
             function()
@@ -649,44 +668,7 @@ plugin.core = {
                 end
                 local project_result = ""
                 if lualine_proj_name_cache[cur_buf] == nil then
-                    local fname = vim.fn.getcwd()
-                    local path = Path:new(fname)
-                    local project_name = nil
-                    -- for python lib/python3.x/site-packages/
-                    local split_path = {}
-                    local lib_flag = false
-                    for _, value in pairs(path:_split()) do
-                        if value == "lib" then
-                            lib_flag = true
-                        end
-                        if lib_flag and value ~= nil and value ~= "" then
-                            table.insert(split_path, value)
-                        end
-                    end
-                    if
-                        #split_path >= 4
-                        and string.find(split_path[2], "python") ~= nil
-                        and split_path[3] == "site-packages"
-                    then
-                        project_name = split_path[4]
-                    -- for general case
-                    else
-                        while
-                            (path.filename ~= home_path.filename)
-                            and (path.filename ~= root.filename)
-                            and (project_name == nil)
-                        do
-                            for _, pattern in ipairs(root_patterns) do
-                                if path:joinpath(pattern):exists() then
-                                    split_path = path:_split()
-                                    project_name = split_path[#split_path]
-                                    break
-                                end
-                            end
-                            path = path:parent()
-                        end
-                    end
-
+                    local project_name = require("util.project").name(vim.fn.getcwd(), root_patterns)
                     local prefix = ""
                     if conditions.nest_project_prefix_in_width() then
                         prefix = "🍀 Project: " -- 
@@ -713,25 +695,8 @@ plugin.core = {
             cond = conditions.hide_project_in_width,
         })
         ins_left_active({
-            function()
-                local cur_winnr = vim.fn.winnr()
-                local win_display_list = {
-                    " ❶ ",
-                    " ❷ ",
-                    " ❸ ",
-                    " ❹ ",
-                    " ❺ ",
-                    " ❻ ",
-                    " ❼ ",
-                    " ❽ ",
-                    " ❾ ",
-                }
-                if cur_winnr > #win_display_list then
-                    return " "
-                end
-                return win_display_list[cur_winnr]
-            end,
-            color = { fg = colors.blue, gui = "bold" }, -- Sets highlighting of component
+            win_number,
+            color = { fg = colors.blue, gui = "bold" },
             padding = { left = 0 },
             cond = conditions.active_add_wind_in_width,
         })
@@ -848,26 +813,7 @@ plugin.core = {
             padding = { left = 0 },
             cond = conditions.hide_bound_in_width,
         })
-        ins_left_inactive({
-            -- filesize component
-            function()
-                local cur_buf = vim.api.nvim_get_current_buf()
-                if cur_buf == nil then
-                    return ""
-                end
-
-                if lualine_buf_size_cache[cur_buf] == nil then
-                    local file = vim.fn.expand("%:p")
-                    if string.len(file) == 0 then
-                        return ""
-                    end
-                    lualine_buf_size_cache[cur_buf] = format_file_size(file)
-                end
-                return lualine_buf_size_cache[cur_buf]
-            end,
-            cond = conditions.buffer_not_empty_hide_size_in_width,
-            color = { fg = colors.inactive }, -- Sets highlighting of component
-        })
+        ins_left_inactive(filesize_component({ fg = colors.inactive }))
 
         ins_left_inactive({
             function()
@@ -875,6 +821,8 @@ plugin.core = {
                 if cur_buf == nil then
                     return ""
                 end
+                -- Deliberately a separate cache/threshold set from the active
+                -- section above: the inactive slots are much narrower.
                 if lualine_inactive_file_name_cache[cur_buf] == nil then
                     local fname = vim.fn.getcwd()
                     local path = Path:new(fname)
@@ -908,21 +856,8 @@ plugin.core = {
             file_status = true, -- displays file status (readonly status, modified status)
         })
 
-        ins_left_inactive({ -- dapui
-            function()
-                return string.format("%-10s", dap_ui_map[vim.bo.filetype])
-            end,
-            cond = conditions.dapui_condition,
-            color = { fg = colors.inactive, gui = "bold" },
-        })
-
-        ins_left_inactive({ -- dapui
-            function()
-                return string.format("%-10s", "Terminal")
-            end,
-            cond = conditions.terminal_condition,
-            color = { fg = colors.inactive, gui = "bold" },
-        })
+        ins_left_inactive(dapui_component({ fg = colors.inactive, gui = "bold" }))
+        ins_left_inactive(terminal_component({ fg = colors.inactive, gui = "bold" }))
 
         ins_left_inactive({
             function()
@@ -931,25 +866,8 @@ plugin.core = {
         })
 
         ins_left_inactive({
-            function()
-                local cur_winnr = vim.fn.winnr()
-                local win_display_list = {
-                    " ❶ ",
-                    " ❷ ",
-                    " ❸ ",
-                    " ❹ ",
-                    " ❺ ",
-                    " ❻ ",
-                    " ❼ ",
-                    " ❽ ",
-                    " ❾ ",
-                }
-                if cur_winnr > #win_display_list then
-                    return " "
-                end
-                return win_display_list[cur_winnr]
-            end,
-            color = { fg = colors.blue, gui = "bold" }, -- Sets highlighting of component
+            win_number,
+            color = { fg = colors.blue, gui = "bold" },
             padding = { left = 0 },
             cond = conditions.inactive_hide_wind_in_width,
         })

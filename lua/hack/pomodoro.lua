@@ -17,22 +17,7 @@ _G.pomodoro.proj_complete = function(arg_lead)
 end
 
 local get_proj = function()
-    local Path = require("plenary.path")
-    local root = Path:new("/")
-    local root_patterns = { ".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt" }
-    local home_path = Path:new(vim.g.HOME_PATH)
-    local fname = vim.fn.getcwd()
-    local path = Path:new(fname)
-    while (path.filename ~= home_path.filename) and (path.filename ~= root.filename) do
-        for _, pattern in ipairs(root_patterns) do
-            if path:joinpath(pattern):exists() then
-                local split_path = path:_split()
-                return split_path[#split_path]
-            end
-        end
-        path = path:parent()
-    end
-    return "Others"
+    return require("util.project").name() or "Others"
 end
 
 local menu = function(tab)
