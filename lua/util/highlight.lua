@@ -3,8 +3,11 @@ local func = {}
 local fmt = string.format
 local function get_color_from_hl(name)
     local result = {}
-    for k, v in pairs(vim.api.nvim_get_hl_by_name(name, true)) do
-        result[k] = fmt("#%06x", v)
+    for k, v in pairs(vim.api.nvim_get_hl(0, { name = name, link = false })) do
+        -- Only the colour fields are numbers; bold/italic/... are booleans.
+        if type(v) == "number" then
+            result[k] = fmt("#%06x", v)
+        end
     end
     return result
 end
@@ -18,13 +21,15 @@ local function clamp_color(color)
 end
 
 func.get_highlight_values = function(name)
-    local ok, hl = pcall(vim.api.nvim_get_hl_by_name, name, true)
+    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
     if not ok then
         return {}
     end
-    for _, key in pairs({ "foreground", "background", "special" }) do
-        if hl[key] then
-            hl[key] = string.format("#%06x", hl[key])
+    -- Keep the long option names the callers use (foreground/background/...);
+    -- nvim_get_hl reports them as fg/bg/sp.
+    for short, long in pairs({ fg = "foreground", bg = "background", sp = "special" }) do
+        if type(hl[short]) == "number" then
+            hl[long] = string.format("#%06x", hl[short])
         end
     end
     return hl
@@ -205,4 +210,31 @@ func.colors = {
     Yellow = "#FFFF00",
     Yellowgreen = "#9ACD32",
 }
+
+--- Highlights that several colourschemes have to re-apply once the
+--- colourscheme has finished loading (its own autocommands run after ours).
+---@param opts? { cursor?: boolean } cursor: also repaint the Cursor block
+---@return uv_timer_t
+func.apply_theme_overrides = function(opts)
+    opts = opts or {}
+    local timer = vim.uv.new_timer()
+    timer:start(
+        vim.g.after_schedule_time_start + 100,
+        0,
+        vim.schedule_wrap(function()
+            vim.cmd("hi! default link NormalFloat Pmenu")
+            vim.cmd("hi! default link WhichKeyFloat Pmenu")
+            if opts.cursor then
+                -- The Cursor highlight doubles as the split separator colour.
+                vim.cmd("hi! clear Cursor")
+                vim.cmd("hi! Cursor guibg=#00aaaa")
+            end
+            vim.cmd("hi FgCocWarningFloatBgCocFloating ctermfg=130 guibg=#434c5e ctermbg=13 guifg=#ff922b")
+            vim.cmd("hi FgCocErrorFloatBgCocFloating ctermfg=9 ctermbg=13 guibg=#434c5e guifg=#ff0000")
+            vim.cmd("hi FgCocHintFloatBgCocFloating guibg=#434c5e ctermbg=13 ctermfg=11 guifg=#fab005")
+        end)
+    )
+    return timer
+end
+
 return func
